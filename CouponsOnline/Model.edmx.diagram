@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a0148108700a4390b9eda6aa0e3a6280" Name="Diagram1" ZoomLevel="90">
+        <EntityTypeShape EntityType="basicModel.Business" Width="1.5" PointX="5.25" PointY="4.125" />
+        <EntityTypeShape EntityType="basicModel.CouponInterest" Width="1.5" PointX="6.5" PointY="2" />
+        <EntityTypeShape EntityType="basicModel.Coupon" Width="1.5" PointX="7.5" PointY="4.125" />
+        <EntityTypeShape EntityType="basicModel.CustomerIntrest" Width="1.5" PointX="7.75" PointY="9.875" />
+        <EntityTypeShape EntityType="basicModel.Location" Width="1.5" PointX="3.75" PointY="1.5" />
+        <EntityTypeShape EntityType="basicModel.OrderedCoupon" Width="1.5" PointX="9.75" PointY="5.875" />
+        <EntityTypeShape EntityType="basicModel.Recommendation" Width="1.5" PointX="5.25" PointY="8.5" />
+        <EntityTypeShape EntityType="basicModel.User" Width="1.5" PointX="0.75" PointY="5.875" />
+        <EntityTypeShape EntityType="basicModel.Users_Admin" Width="1.5" PointX="2.5" PointY="3.75" />
+        <EntityTypeShape EntityType="basicModel.Users_Customer" Width="1.5" PointX="2.75" PointY="8" />
+        <EntityTypeShape EntityType="basicModel.Users_Owner" Width="1.5" PointX="3" PointY="6" />
+        <EntityTypeShape EntityType="basicModel.Visit" Width="1.5" PointX="4" PointY="11.75" />
+        <AssociationConnector Association="basicModel.FK_BusinessCoupon" />
+        <AssociationConnector Association="basicModel.FK_BusinessLocation" />
+        <AssociationConnector Association="basicModel.FK_CouponOrderedCoupon" />
+        <AssociationConnector Association="basicModel.FK_LocationVisit" ManuallyRouted="true" >
+          <ConnectorPoint PointX="4.65625" PointY="3.2879850260416661" />
+          <ConnectorPoint PointX="4.65625" PointY="6.0804499674479171" />
+          <ConnectorPoint PointX="4.8449072849174062" PointY="6.0804499674479171" />
+          <ConnectorPoint PointX="4.8449072849174062" PointY="8.9575350585937485" />
+          <ConnectorPoint PointX="4.65625" PointY="8.9575350585937485" />
+          <ConnectorPoint PointX="4.65625" PointY="11.75" />
+        </AssociationConnector>
+        <AssociationConnector Association="basicModel.FK_CustomerOrderedCoupon" />
+        <AssociationConnector Association="basicModel.FK_CustomerRecommendation" />
+        <AssociationConnector Association="basicModel.FK_Admin_inherits_User" />
+        <AssociationConnector Association="basicModel.FK_Customer_inherits_User" />
+        <AssociationConnector Association="basicModel.FK_Owner_inherits_User" />
+        <AssociationConnector Association="basicModel.FK_CustomerVisit" />
+        <EntityTypeShape EntityType="basicModel.BusinessCategories" Width="1.5" PointX="9.625" PointY="2.75" />
+        <AssociationConnector Association="basicModel.BusinessBusinessCategories" />
+        <AssociationConnector Association="basicModel.Users_AdminBusiness" />
+        <AssociationConnector Association="basicModel.BusinessUsers_Owner" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="basicModelStoreContainer" CdmEntityContainer="basicEntities">
+    <EntitySetMapping Name="Businesses">
+      <EntityTypeMapping TypeName="IsTypeOf(basicModel.Business)">
+        <MappingFragment StoreEntitySet="Businesses">
+          <ScalarProperty Name="BusinessID" ColumnName="BusinessID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Location_Id" ColumnName="Location_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CouponInterests">
+      <EntityTypeMapping TypeName="IsTypeOf(basicModel.CouponInterest)">
+        <MappingFragment StoreEntitySet="CouponInterests">
+          <ScalarProperty Name="CouponId" ColumnName="CouponId" />
+          <ScalarProperty Name="InterestID" ColumnName="InterestID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Coupons">
+      <EntityTypeMapping TypeName="IsTypeOf(basicModel.Coupon)">
+        <MappingFragment StoreEntitySet="Coupons">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="OriginalPrice" ColumnName="OriginalPrice" />
+          <ScalarProperty Name="DiscountPrice" ColumnName="DiscountPrice" />
+          <ScalarProperty Name="ExperationDate" ColumnName="ExperationDate" />
+          <ScalarProperty Name="AvarageRanking" ColumnName="AvarageRanking" />
+          <ScalarProperty Name="MaxNum" ColumnName="MaxNum" />
+          <ScalarProperty Name="Business_BusinessID" ColumnName="Business_BusinessID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerIntrests">
+      <EntityTypeMapping TypeName="IsTypeOf(basicModel.CustomerIntrest)">
+        <MappingFragment StoreEntitySet="CustomerIntrests">
+          <ScalarProperty Name="CustomerUserName" ColumnName="CustomerUserName" />
+          <ScalarProperty Name="InterestID" ColumnName="InterestID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Locations">
+      <EntityTypeMapping TypeName="IsTypeOf(basicModel.Location)">
+        <MappingFragment StoreEntitySet="Locations">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Coordinates" ColumnName="Coordinates" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderedCoupons">
+      <EntityTypeMapping TypeName="IsTypeOf(basicModel.OrderedCoupon)">
+        <MappingFragment StoreEntitySet="OrderedCoupons">
+          <ScalarProperty Name="SerialNum" ColumnName="SerialNum" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
+          <ScalarProperty Name="UseDate" ColumnName="UseDate" />
+          <ScalarProperty Name="Opinion" ColumnName="Opinion" />
+          <ScalarProperty Name="Rank" ColumnName="Rank" />
+          <ScalarProperty Name="Coupon_Id" ColumnName="Coupon_Id" />
+          <ScalarProperty Name="Customer_UserName" ColumnName="Customer_UserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Recommendations">
+      <EntityTypeMapping TypeName="IsTypeOf(basicModel.Recommendation)">
+        <MappingFragment StoreEntitySet="Recommendations">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Source" ColumnName="Source" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Link" ColumnName="Link" />
+          <ScalarProperty Name="Customer_UserName" ColumnName="Customer_UserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(basicModel.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="PhoneKidomet" ColumnName="PhoneKidomet" />
+          <ScalarProperty Name="PhoneNum" ColumnName="PhoneNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users_Admin">
+      <EntityTypeMapping TypeName="IsTypeOf(basicModel.Users_Admin)">
+        <MappingFragment StoreEntitySet="Users_Admin">
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users_Customer">
+      <EntityTypeMapping TypeName="IsTypeOf(basicModel.Users_Customer)">
+        <MappingFragment StoreEntitySet="Users_Customer">
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users_Owner">
+      <EntityTypeMapping TypeName="IsTypeOf(basicModel.Users_Owner)">
+        <MappingFragment StoreEntitySet="Users_Owner">
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Visits">
+      <EntityTypeMapping TypeName="IsTypeOf(basicModel.Visit)">
+        <MappingFragment StoreEntitySet="Visits">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Location_Id" ColumnName="Location_Id" />
+          <ScalarProperty Name="CustomerVisit_Visit_UserName" ColumnName="CustomerVisit_Visit_UserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BusinessCategories">
+      <EntityTypeMapping TypeName="IsTypeOf(basicModel.BusinessCategories)">
+        <MappingFragment StoreEntitySet="BusinessCategories">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="BusinessBusinessCategories" TypeName="basicModel.BusinessBusinessCategories" StoreEntitySet="Businesses">
+      <EndProperty Name="BusinessCategories">
+        <ScalarProperty Name="Id" ColumnName="BusinessCategory_Id" />
+      </EndProperty>
+      <EndProperty Name="Business">
+        <ScalarProperty Name="BusinessID" ColumnName="BusinessID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Users_AdminBusiness" TypeName="basicModel.Users_AdminBusiness" StoreEntitySet="Businesses">
+      <EndProperty Name="Users_Admin">
+        <ScalarProperty Name="UserName" ColumnName="Users_Admin_UserName" />
+      </EndProperty>
+      <EndProperty Name="Business">
+        <ScalarProperty Name="BusinessID" ColumnName="BusinessID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="BusinessUsers_Owner" TypeName="basicModel.BusinessUsers_Owner" StoreEntitySet="Businesses">
+      <EndProperty Name="Users_Owner">
+        <ScalarProperty Name="UserName" ColumnName="Users_Owner_UserName" />
+      </EndProperty>
+      <EndProperty Name="Business">
+        <ScalarProperty Name="BusinessID" ColumnName="BusinessID" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,10 @@
+C:\Users\Sagi\Documents\GitHub\CouponsNext\CouponsOnline\CouponsOnline\bin\CouponsOnline.dll.config
+C:\Users\Sagi\Documents\GitHub\CouponsNext\CouponsOnline\CouponsOnline\bin\CouponsOnline.dll
+C:\Users\Sagi\Documents\GitHub\CouponsNext\CouponsOnline\CouponsOnline\bin\CouponsOnline.pdb
+C:\Users\Sagi\Documents\GitHub\CouponsNext\CouponsOnline\CouponsOnline\bin\EntityFramework.dll
+C:\Users\Sagi\Documents\GitHub\CouponsNext\CouponsOnline\CouponsOnline\bin\EntityFramework.SqlServer.dll
+C:\Users\Sagi\Documents\GitHub\CouponsNext\CouponsOnline\CouponsOnline\bin\EntityFramework.xml
+C:\Users\Sagi\Documents\GitHub\CouponsNext\CouponsOnline\CouponsOnline\bin\EntityFramework.SqlServer.xml
+C:\Users\Sagi\Documents\GitHub\CouponsNext\CouponsOnline\CouponsOnline\obj\Debug\CouponsOnline.csprojResolveAssemblyReference.cache
+C:\Users\Sagi\Documents\GitHub\CouponsNext\CouponsOnline\CouponsOnline\obj\Debug\CouponsOnline.dll
+C:\Users\Sagi\Documents\GitHub\CouponsNext\CouponsOnline\CouponsOnline\obj\Debug\CouponsOnline.pdb
