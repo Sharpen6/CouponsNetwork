@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CouponsOnline", "CouponsOnline\CouponsOnline.csproj", "{ED519917-AE83-4AD0-B494-F83D5FDCDD9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "..\..\Coupon\UnitTestProject\UnitTestProject.csproj", "{53AA591A-83B5-4C7A-AFD1-161C53CD3D96}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTestProject\UnitTestProject.csproj", "{53AA591A-83B5-4C7A-AFD1-161C53CD3D96}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

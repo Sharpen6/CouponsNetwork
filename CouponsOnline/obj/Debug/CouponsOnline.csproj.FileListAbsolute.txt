@@ -8,3 +8,13 @@ C:\Users\Sagi\Documents\GitHub\CouponsNext\CouponsOnline\CouponsOnline\bin\Entit
 C:\Users\Sagi\Documents\GitHub\CouponsNext\CouponsOnline\CouponsOnline\obj\Debug\CouponsOnline.csprojResolveAssemblyReference.cache
 C:\Users\Sagi\Documents\GitHub\CouponsNext\CouponsOnline\CouponsOnline\obj\Debug\CouponsOnline.dll
 C:\Users\Sagi\Documents\GitHub\CouponsNext\CouponsOnline\CouponsOnline\obj\Debug\CouponsOnline.pdb
+C:\Users\Sagi\Documents\GitHub\CouponsNetwork\CouponsOnline\bin\CouponsOnline.dll.config
+C:\Users\Sagi\Documents\GitHub\CouponsNetwork\CouponsOnline\bin\CouponsOnline.dll
+C:\Users\Sagi\Documents\GitHub\CouponsNetwork\CouponsOnline\bin\CouponsOnline.pdb
+C:\Users\Sagi\Documents\GitHub\CouponsNetwork\CouponsOnline\bin\EntityFramework.dll
+C:\Users\Sagi\Documents\GitHub\CouponsNetwork\CouponsOnline\bin\EntityFramework.SqlServer.dll
+C:\Users\Sagi\Documents\GitHub\CouponsNetwork\CouponsOnline\bin\EntityFramework.xml
+C:\Users\Sagi\Documents\GitHub\CouponsNetwork\CouponsOnline\bin\EntityFramework.SqlServer.xml
+C:\Users\Sagi\Documents\GitHub\CouponsNetwork\CouponsOnline\obj\Debug\CouponsOnline.csprojResolveAssemblyReference.cache
+C:\Users\Sagi\Documents\GitHub\CouponsNetwork\CouponsOnline\obj\Debug\CouponsOnline.dll
+C:\Users\Sagi\Documents\GitHub\CouponsNetwork\CouponsOnline\obj\Debug\CouponsOnline.pdb

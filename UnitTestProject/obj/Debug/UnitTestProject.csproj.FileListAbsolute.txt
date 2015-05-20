@@ -1,0 +1,36 @@
+C:\Users\Sagi\Documents\Visual Studio 2013\Projects\Coupon\UnitTestProject\obj\Debug\UnitTestProject.csprojResolveAssemblyReference.cache
+C:\Users\Sagi\Documents\Visual Studio 2013\Projects\Coupon\UnitTestProject\bin\Debug\UnitTestProject.dll.config
+C:\Users\Sagi\Documents\Visual Studio 2013\Projects\Coupon\UnitTestProject\bin\Debug\UnitTestProject.dll
+C:\Users\Sagi\Documents\Visual Studio 2013\Projects\Coupon\UnitTestProject\bin\Debug\UnitTestProject.pdb
+C:\Users\Sagi\Documents\Visual Studio 2013\Projects\Coupon\UnitTestProject\bin\Debug\Coupon.exe
+C:\Users\Sagi\Documents\Visual Studio 2013\Projects\Coupon\UnitTestProject\bin\Debug\EntityFramework.dll
+C:\Users\Sagi\Documents\Visual Studio 2013\Projects\Coupon\UnitTestProject\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Sagi\Documents\Visual Studio 2013\Projects\Coupon\UnitTestProject\bin\Debug\Coupon.pdb
+C:\Users\Sagi\Documents\Visual Studio 2013\Projects\Coupon\UnitTestProject\bin\Debug\EntityFramework.xml
+C:\Users\Sagi\Documents\Visual Studio 2013\Projects\Coupon\UnitTestProject\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Sagi\Documents\Visual Studio 2013\Projects\Coupon\UnitTestProject\obj\Debug\UnitTestProject.dll
+C:\Users\Sagi\Documents\Visual Studio 2013\Projects\Coupon\UnitTestProject\obj\Debug\UnitTestProject.pdb
+C:\Users\Sagi\Documents\GitHub\Coupon\UnitTestProject\bin\Debug\UnitTestProject.dll.config
+C:\Users\Sagi\Documents\GitHub\Coupon\UnitTestProject\bin\Debug\UnitTestProject.dll
+C:\Users\Sagi\Documents\GitHub\Coupon\UnitTestProject\bin\Debug\UnitTestProject.pdb
+C:\Users\Sagi\Documents\GitHub\Coupon\UnitTestProject\bin\Debug\Coupon.exe
+C:\Users\Sagi\Documents\GitHub\Coupon\UnitTestProject\bin\Debug\EntityFramework.dll
+C:\Users\Sagi\Documents\GitHub\Coupon\UnitTestProject\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Sagi\Documents\GitHub\Coupon\UnitTestProject\bin\Debug\Coupon.pdb
+C:\Users\Sagi\Documents\GitHub\Coupon\UnitTestProject\bin\Debug\EntityFramework.xml
+C:\Users\Sagi\Documents\GitHub\Coupon\UnitTestProject\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Sagi\Documents\GitHub\Coupon\UnitTestProject\obj\Debug\UnitTestProject.csprojResolveAssemblyReference.cache
+C:\Users\Sagi\Documents\GitHub\Coupon\UnitTestProject\obj\Debug\UnitTestProject.dll
+C:\Users\Sagi\Documents\GitHub\Coupon\UnitTestProject\obj\Debug\UnitTestProject.pdb
+C:\Users\DorinS\Documents\GitHub\Coupon\UnitTestProject\bin\Debug\UnitTestProject.dll.config
+C:\Users\DorinS\Documents\GitHub\Coupon\UnitTestProject\bin\Debug\UnitTestProject.dll
+C:\Users\DorinS\Documents\GitHub\Coupon\UnitTestProject\bin\Debug\UnitTestProject.pdb
+C:\Users\DorinS\Documents\GitHub\Coupon\UnitTestProject\bin\Debug\Coupon.exe
+C:\Users\DorinS\Documents\GitHub\Coupon\UnitTestProject\bin\Debug\EntityFramework.dll
+C:\Users\DorinS\Documents\GitHub\Coupon\UnitTestProject\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\DorinS\Documents\GitHub\Coupon\UnitTestProject\bin\Debug\Coupon.pdb
+C:\Users\DorinS\Documents\GitHub\Coupon\UnitTestProject\bin\Debug\EntityFramework.xml
+C:\Users\DorinS\Documents\GitHub\Coupon\UnitTestProject\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\DorinS\Documents\GitHub\Coupon\UnitTestProject\obj\Debug\UnitTestProject.csprojResolveAssemblyReference.cache
+C:\Users\DorinS\Documents\GitHub\Coupon\UnitTestProject\obj\Debug\UnitTestProject.dll
+C:\Users\DorinS\Documents\GitHub\Coupon\UnitTestProject\obj\Debug\UnitTestProject.pdb
