@@ -34,3 +34,6 @@ C:\Users\DorinS\Documents\GitHub\Coupon\UnitTestProject\bin\Debug\EntityFramewor
 C:\Users\DorinS\Documents\GitHub\Coupon\UnitTestProject\obj\Debug\UnitTestProject.csprojResolveAssemblyReference.cache
 C:\Users\DorinS\Documents\GitHub\Coupon\UnitTestProject\obj\Debug\UnitTestProject.dll
 C:\Users\DorinS\Documents\GitHub\Coupon\UnitTestProject\obj\Debug\UnitTestProject.pdb
+C:\Users\DorinS\Documents\GitHub\CouponsNetwork\UnitTestProject\obj\Debug\UnitTestProject.csprojResolveAssemblyReference.cache
+C:\Users\DorinS\Documents\GitHub\CouponsNetwork\UnitTestProject\obj\Debug\UnitTestProject.dll
+C:\Users\DorinS\Documents\GitHub\CouponsNetwork\UnitTestProject\obj\Debug\UnitTestProject.pdb

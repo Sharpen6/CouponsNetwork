@@ -1,4 +1,4 @@
-﻿var menuBar = ["home", "ManageCoupons", "ActiveCoupons", "Purchased", "CreateCoupon", "AddBusiness", "AddCategory"];
+﻿var menuBar = ["home", "ManageCoupons", "ActiveCoupons", "Purchased", "CreateCoupon", "AddBusiness", "AddCategory", "AddInterest"];
 function SwitchTo(divName) {
     for (var i = 0; i < menuBar.length; i++) {
         var e = document.getElementById(menuBar[i]);

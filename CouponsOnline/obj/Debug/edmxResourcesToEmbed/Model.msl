@@ -8,6 +8,7 @@
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="Location_Id" ColumnName="Location_Id" />
+          <ScalarProperty Name="BusinessCategoriesId" ColumnName="BusinessCategoriesId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -31,6 +32,7 @@
           <ScalarProperty Name="AvarageRanking" ColumnName="AvarageRanking" />
           <ScalarProperty Name="MaxNum" ColumnName="MaxNum" />
           <ScalarProperty Name="Business_BusinessID" ColumnName="Business_BusinessID" />
+          <ScalarProperty Name="InterestId" ColumnName="InterestId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -126,14 +128,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="BusinessBusinessCategories" TypeName="basicModel.BusinessBusinessCategories" StoreEntitySet="Businesses">
-      <EndProperty Name="BusinessCategories">
-        <ScalarProperty Name="Id" ColumnName="BusinessCategory_Id" />
-      </EndProperty>
-      <EndProperty Name="Business">
-        <ScalarProperty Name="BusinessID" ColumnName="BusinessID" />
-      </EndProperty>
-    </AssociationSetMapping>
+    <EntitySetMapping Name="Interests">
+      <EntityTypeMapping TypeName="IsTypeOf(basicModel.Interest)">
+        <MappingFragment StoreEntitySet="Interests">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="BusinessCategoriesId" ColumnName="BusinessCategoriesId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="Users_AdminBusiness" TypeName="basicModel.Users_AdminBusiness" StoreEntitySet="Businesses">
       <EndProperty Name="Users_Admin">
         <ScalarProperty Name="UserName" ColumnName="Users_Admin_UserName" />

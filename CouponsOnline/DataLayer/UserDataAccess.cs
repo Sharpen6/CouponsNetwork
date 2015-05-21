@@ -81,9 +81,9 @@ namespace CouponsOnline.DataLayer
             {
                 if (be.Users_Admin.Find(username)!=null)
                     return UserType.Admin;
-                if (be.Users_Admin.Find(username) != null)
+                if (be.Users_Owner.Find(username) != null)
                     return UserType.Owner;
-                if (be.Users_Admin.Find(username) != null)
+                if (be.Users_Customer.Find(username) != null)
                     return UserType.Customer;
             }
             return UserType.Customer;

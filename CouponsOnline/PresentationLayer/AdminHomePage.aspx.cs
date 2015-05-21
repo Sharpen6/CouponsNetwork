@@ -39,6 +39,7 @@ namespace CouponsOnline.PresentationLayer
         protected void BtnAddCategory_Click(object sender, EventArgs e)
         {
             BusinessController.CreateCategory(TextBoxCat.Text);
+          
             LoadCategories();
         }
         

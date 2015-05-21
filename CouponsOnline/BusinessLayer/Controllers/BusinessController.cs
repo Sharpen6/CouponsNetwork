@@ -8,14 +8,22 @@ using System.Web.UI.WebControls;
 namespace CouponsOnline.BusinessLayer.Controllers
 {
     public class BusinessController
-    {      
-        public static int CreateCoupon(string name, string desc, string orgprice, string discount,
-            string business, string datee, int maxNum)
+    { 
+        public static int CreateCoupon(string name,  string orgprice, string discount,
+            string business,string desc, string datee, int maxNum,string interestt)
         {
             Business b = GetUserBusiness(business);
                 if (b==null) return 0;
-            return BusinessDataAccess.CreateCoupon(name,desc,orgprice,discount,b,datee,maxNum);
+            Interest inter= getinterest(b,interestt);
+            return BusinessDataAccess.CreateCoupon(name, desc, orgprice, discount, b, datee, maxNum, inter);
         }
+
+        private static Interest getinterest(Business catrgory, string interestt)
+        {
+            return BusinessDataAccess.FindInterestt(catrgory, interestt);
+        }
+
+
         public static bool CreateBusiness(string ad, string owner, string address, 
             string name, string c)
         {
@@ -26,6 +34,16 @@ namespace CouponsOnline.BusinessLayer.Controllers
         {
             return BusinessDataAccess.FindBusiness(ownerName);
         }
+        public static ListItem[] GetAllBusnisesId(string ownerName)
+        {
+            return BusinessDataAccess.GetAllBusnisesId(ownerName);
+        }
+
+        public static ListItem[] GetAllBusnisesCategory(string ownerName)
+        {
+            return BusinessDataAccess.GetAllBusnisesCategory(ownerName);
+        }
+
         public static bool UserHasBusiness(string userName)
         {
             Business b = GetUserBusiness(userName);
@@ -43,6 +61,22 @@ namespace CouponsOnline.BusinessLayer.Controllers
         {
             if (p=="") return false;
             return BusinessDataAccess.CreateCategory(p);
+        }
+
+        internal static int FindBusinessCategory(string Busniessid)
+        {
+            return BusinessDataAccess.GetBusinessCategory(Busniessid);
+        }
+
+        internal static ListItem[] GetAllCategoryIntrest(int Categoryid)
+        {
+            return BusinessDataAccess.GetCategoryIntrest(Categoryid);
+        }
+
+        internal static bool createInterest(string p1, string p2)
+        {
+            if (p2 == "") return false;
+            return BusinessDataAccess.CreateInterest(p1,p2);
         }
     }
 

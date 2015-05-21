@@ -38,5 +38,6 @@ namespace CouponsOnline
         public virtual DbSet<Users_Owner> Users_Owner { get; set; }
         public virtual DbSet<Visit> Visits { get; set; }
         public virtual DbSet<BusinessCategories> BusinessCategories { get; set; }
+        public virtual DbSet<Interest> Interests { get; set; }
     }
 }

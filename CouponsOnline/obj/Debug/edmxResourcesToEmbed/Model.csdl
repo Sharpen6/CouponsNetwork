@@ -54,10 +54,6 @@
       <End Role="Visit" EntitySet="Visits" />
     </AssociationSet>
     <EntitySet Name="BusinessCategories" EntityType="basicModel.BusinessCategories" />
-    <AssociationSet Name="BusinessBusinessCategories" Association="basicModel.BusinessBusinessCategories">
-      <End Role="Business" EntitySet="Businesses" />
-      <End Role="BusinessCategories" EntitySet="BusinessCategories" />
-    </AssociationSet>
     <AssociationSet Name="Users_AdminBusiness" Association="basicModel.Users_AdminBusiness">
       <End Role="Users_Admin" EntitySet="Users_Admin" />
       <End Role="Business" EntitySet="Businesses" />
@@ -65,6 +61,19 @@
     <AssociationSet Name="BusinessUsers_Owner" Association="basicModel.BusinessUsers_Owner">
       <End Role="Business" EntitySet="Businesses" />
       <End Role="Users_Owner" EntitySet="Users_Owner" />
+    </AssociationSet>
+    <EntitySet Name="Interests" EntityType="basicModel.Interest" />
+    <AssociationSet Name="InterestCoupon" Association="basicModel.InterestCoupon">
+      <End Role="Interest" EntitySet="Interests" />
+      <End Role="Coupon" EntitySet="Coupons" />
+    </AssociationSet>
+    <AssociationSet Name="BusinessCategoriesInterest" Association="basicModel.BusinessCategoriesInterest">
+      <End Role="BusinessCategories" EntitySet="BusinessCategories" />
+      <End Role="Interest" EntitySet="Interests" />
+    </AssociationSet>
+    <AssociationSet Name="BusinessBusinessCategories" Association="basicModel.BusinessBusinessCategories">
+      <End Role="Business" EntitySet="Businesses" />
+      <End Role="BusinessCategories" EntitySet="BusinessCategories" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Business">
@@ -77,9 +86,10 @@
     <Property Name="Location_Id" Type="Int32" />
     <NavigationProperty Name="Coupons" Relationship="basicModel.FK_BusinessCoupon" FromRole="Business" ToRole="Coupon" />
     <NavigationProperty Name="Location" Relationship="basicModel.FK_BusinessLocation" FromRole="Business" ToRole="Location" />
-    <NavigationProperty Name="BusinessCategory" Relationship="basicModel.BusinessBusinessCategories" FromRole="Business" ToRole="BusinessCategories" />
     <NavigationProperty Name="Users_Admin" Relationship="basicModel.Users_AdminBusiness" FromRole="Business" ToRole="Users_Admin" />
     <NavigationProperty Name="Users_Owner" Relationship="basicModel.BusinessUsers_Owner" FromRole="Business" ToRole="Users_Owner" />
+    <NavigationProperty Name="BusinessCategory" Relationship="basicModel.BusinessBusinessCategories" FromRole="Business" ToRole="BusinessCategories" />
+    <Property Name="BusinessCategoriesId" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityType Name="CouponInterest">
     <Key>
@@ -104,6 +114,8 @@
     <Property Name="Business_BusinessID" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Business" Relationship="basicModel.FK_BusinessCoupon" FromRole="Coupon" ToRole="Business" />
     <NavigationProperty Name="OrderedCoupons" Relationship="basicModel.FK_CouponOrderedCoupon" FromRole="Coupon" ToRole="OrderedCoupon" />
+    <NavigationProperty Name="Interest" Relationship="basicModel.InterestCoupon" FromRole="Coupon" ToRole="Interest" />
+    <Property Name="InterestId" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityType Name="CustomerIntrest">
     <Key>
@@ -329,11 +341,9 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Description" Type="String" Nullable="false" />
+    <NavigationProperty Name="Interests" Relationship="basicModel.BusinessCategoriesInterest" FromRole="BusinessCategories" ToRole="Interest" />
+    <NavigationProperty Name="Businesses" Relationship="basicModel.BusinessBusinessCategories" FromRole="BusinessCategories" ToRole="Business" />
   </EntityType>
-  <Association Name="BusinessBusinessCategories">
-    <End Type="basicModel.Business" Role="Business" Multiplicity="*" />
-    <End Type="basicModel.BusinessCategories" Role="BusinessCategories" Multiplicity="1" />
-  </Association>
   <Association Name="Users_AdminBusiness">
     <End Type="basicModel.Users_Admin" Role="Users_Admin" Multiplicity="1" />
     <End Type="basicModel.Business" Role="Business" Multiplicity="*" />
@@ -341,5 +351,51 @@
   <Association Name="BusinessUsers_Owner">
     <End Type="basicModel.Business" Role="Business" Multiplicity="*" />
     <End Type="basicModel.Users_Owner" Role="Users_Owner" Multiplicity="1" />
+  </Association>
+  <EntityType Name="Interest">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Coupons" Relationship="basicModel.InterestCoupon" FromRole="Interest" ToRole="Coupon" />
+    <Property Name="Description" Type="String" Nullable="false" />
+    <NavigationProperty Name="BusinessCategory" Relationship="basicModel.BusinessCategoriesInterest" FromRole="Interest" ToRole="BusinessCategories" />
+    <Property Name="BusinessCategoriesId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="InterestCoupon">
+    <End Type="basicModel.Interest" Role="Interest" Multiplicity="1" />
+    <End Type="basicModel.Coupon" Role="Coupon" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Interest">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Coupon">
+        <PropertyRef Name="InterestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BusinessCategoriesInterest">
+    <End Type="basicModel.BusinessCategories" Role="BusinessCategories" Multiplicity="1" />
+    <End Type="basicModel.Interest" Role="Interest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BusinessCategories">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Interest">
+        <PropertyRef Name="BusinessCategoriesId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BusinessBusinessCategories">
+    <End Type="basicModel.Business" Role="Business" Multiplicity="*" />
+    <End Type="basicModel.BusinessCategories" Role="BusinessCategories" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="BusinessCategories">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Business">
+        <PropertyRef Name="BusinessCategoriesId" />
+      </Dependent>
+    </ReferentialConstraint>
   </Association>
 </Schema>
