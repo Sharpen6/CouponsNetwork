@@ -16,13 +16,13 @@ namespace CouponsOnline.PresentationLayer
 
             ScriptManager.RegisterStartupScript(this, GetType(), "SwitchTo", "SwitchTo('prevDiv')", true);
 
-   
+            LoadInterest();
             if (!this.IsPostBack)
             {
                 LoadBusiness();
                 DropDownListBusniess.SelectedIndex = 0;
                 LoadCategory();
-                LoadInterest();
+                
                 HttpCookie usernameCookie = Request.Cookies["ActiveUserName"];
                 string userName = usernameCookie.Value;
                 //if (Request.Cookies["ActiveUserName"] != null)
@@ -68,10 +68,12 @@ namespace CouponsOnline.PresentationLayer
         {
             DropDownListInterests.Items.Clear();
             string Busniessid = DropDownListBusniess.SelectedValue;
-            int Categoryid = BusinessController.FindBusinessCategory(Busniessid);
+            if (Busniessid != "") {
+                int Categoryid = BusinessController.FindBusinessCategory(Busniessid);
             //DropDownListInterests.Items.AddRange(BusinessController.GetAllCategoryIntrest(Categoryid));
-            DropDownListInterests.DataSource = BusinessController.GetAllCategoryIntrest(Categoryid);
-            DropDownListInterests.DataBind();
+                DropDownListInterests.DataSource = BusinessController.GetAllCategoryIntrest(Categoryid);
+                DropDownListInterests.DataBind();
+                }
 
 
         }

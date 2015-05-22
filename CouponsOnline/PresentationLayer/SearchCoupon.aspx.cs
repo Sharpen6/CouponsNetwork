@@ -13,5 +13,10 @@ namespace CouponsOnline
         {
             ScriptManager.RegisterStartupScript(this, GetType(), "SwitchTo", "SwitchTo('prevDiv')", true);
         }
+
+        protected void BtnSearch_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

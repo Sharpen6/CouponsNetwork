@@ -30,6 +30,9 @@
                 <li class="dropdown">
                     <a href="SearchCoupon.aspx">Search</a>                   
                 </li>
+                <li class="lastTab">
+                    <a href="Login.aspx">Logout</a>
+                </li>
             </ul>
         </nav>
     </header>

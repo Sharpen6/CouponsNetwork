@@ -272,3 +272,6 @@ nav {
   -moz-box-sizing: border-box;
   z-index:1;
 }
+.lastTab {
+    margin-left:30px;
+}

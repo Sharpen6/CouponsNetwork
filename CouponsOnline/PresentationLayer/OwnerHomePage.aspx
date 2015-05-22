@@ -16,22 +16,14 @@
                 <li>
                     <a href="#!/home" onclick="SwitchTo('home');">Home</a>
                 </li>
-                <li class="dropdown">
-                    <a href="Manage.aspx">Manage</a>
-                    <ul>
-                        <li>
-                            <a href="Display.aspx">Display All</a>
-                        </li>
-                        <li>
-                            <a onclick="SwitchTo('CreateCoupon');">Add Coupon</a>
-                        </li>
-                        <li>
-                            <a onclick="SwitchTo('AddInterest');">Add Interest</a>
-                        </li>
-                    </ul>
+                <li>
+                    <a onclick="SwitchTo('CreateCoupon');">Add Coupon</a>
                 </li>
-                <li class="dropdown">
-
+                <li>
+                    <a onclick="SwitchTo('AddInterest');">Add Interest</a>
+                </li>
+                <li class="lastTab">
+                    <a href="Login.aspx">Logout</a>
                 </li>
             </ul>
         </nav>
