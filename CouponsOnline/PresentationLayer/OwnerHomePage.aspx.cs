@@ -14,7 +14,8 @@ namespace CouponsOnline.PresentationLayer
         {
            // 
 
-         
+            ScriptManager.RegisterStartupScript(this, GetType(), "SwitchTo", "SwitchTo('prevDiv')", true);
+
             HttpCookie usernameCookie = Request.Cookies["ActiveUserName"];
             string userName = usernameCookie.Value;
             if (!this.IsPostBack)
@@ -22,8 +23,7 @@ namespace CouponsOnline.PresentationLayer
                 LoadBusiness();
                 //if (Request.Cookies["ActiveUserName"] != null)
                 //    Response.Redirect("Login.aspx");
-            }
-
+            }            
           //  if (BusinessController.UserHasBusiness(userName))
              //   Response.Redirect("CreateBusiness.aspx");
         }
@@ -58,8 +58,8 @@ namespace CouponsOnline.PresentationLayer
             DropDownListCategory.Items.AddRange(BusinessController.GetAllBusnisesCategory(ownerName).Distinct().ToArray());
         }
         private void LoadInterest()
-        { 
-           DropDownListInterests.Items.Clear();
+        {
+            DropDownListInterests.Items.Clear();
             string Busniessid = DropDownListBusniess.SelectedValue;
             int Categoryid = BusinessController.FindBusinessCategory(Busniessid);
             //DropDownListInterests.Items.AddRange(BusinessController.GetAllCategoryIntrest(Categoryid));
@@ -79,6 +79,7 @@ namespace CouponsOnline.PresentationLayer
         protected void BtnAddInterest_Click1(object sender, EventArgs e)
         {
             BusinessController.createInterest(DropDownListCategory.SelectedValue, TextBoxInterest.Text);
+
         }
     }
 }

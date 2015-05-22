@@ -36,3 +36,11 @@ C:\Users\DorinS\Documents\GitHub\CouponsNetwork\CouponsOnline\bin\System.Web.Htt
 C:\Users\DorinS\Documents\GitHub\CouponsNetwork\CouponsOnline\obj\Debug\CouponsOnline.csprojResolveAssemblyReference.cache
 C:\Users\DorinS\Documents\GitHub\CouponsNetwork\CouponsOnline\obj\Debug\CouponsOnline.dll
 C:\Users\DorinS\Documents\GitHub\CouponsNetwork\CouponsOnline\obj\Debug\CouponsOnline.pdb
+C:\Users\Sagi\Documents\GitHub\CouponsNetwork\CouponsOnline\bin\Newtonsoft.Json.dll
+C:\Users\Sagi\Documents\GitHub\CouponsNetwork\CouponsOnline\bin\System.Net.Http.Formatting.dll
+C:\Users\Sagi\Documents\GitHub\CouponsNetwork\CouponsOnline\bin\System.Web.Http.dll
+C:\Users\Sagi\Documents\GitHub\CouponsNetwork\CouponsOnline\bin\System.Web.Http.WebHost.dll
+C:\Users\Sagi\Documents\GitHub\CouponsNetwork\CouponsOnline\bin\Newtonsoft.Json.xml
+C:\Users\Sagi\Documents\GitHub\CouponsNetwork\CouponsOnline\bin\System.Net.Http.Formatting.xml
+C:\Users\Sagi\Documents\GitHub\CouponsNetwork\CouponsOnline\bin\System.Web.Http.xml
+C:\Users\Sagi\Documents\GitHub\CouponsNetwork\CouponsOnline\bin\System.Web.Http.WebHost.xml

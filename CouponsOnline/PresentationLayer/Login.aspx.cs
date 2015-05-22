@@ -21,9 +21,12 @@ namespace CouponsOnline.PresentationLayer
             if (UserController.AuthenticateUser(TextBox1.Text, TextBox2.Text))
             {
                 UserType type = UserController.GetUserType(TextBox1.Text);
-                HttpCookie favoriteColor = new HttpCookie("ActiveUserName", TextBox1.Text);
-                favoriteColor.Expires = DateTime.Now.AddDays(1);
-                Response.Cookies.Add(favoriteColor);
+                HttpCookie activeUser = new HttpCookie("ActiveUserName", TextBox1.Text);
+                activeUser.Expires = DateTime.Now.AddDays(1);
+                Response.Cookies.Add(activeUser);
+                HttpCookie activeDiv = new HttpCookie("ActiveDiv", "home");
+                activeDiv.Expires = DateTime.Now.AddDays(1);
+                Response.Cookies.Add(activeDiv);
 
                 switch (type)
                 {

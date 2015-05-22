@@ -5,9 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
         <link href="css/styleMain.css" rel="stylesheet" />
-    <script src="../js/script.js"></script>
     <title></title>
- 
+    <script src="../js/script.js"></script>
 </head>
 <body>
      <header>
@@ -41,10 +40,10 @@
 
     <div id="CreateCoupon" class="mainBox">
         <h1>Choose one of Your Busniess</h1>
-         <asp:DropDownList ID="DropDownListBusniess" runat="server" placeholder="Pick Your Busniess" AutoPostBack="true" OnSelectedIndexChanged="DropDownListBusniess_SelectedIndexChanged"></asp:DropDownList>
+         <asp:DropDownList id="DropDownListBusniess" runat="server" placeholder="Pick Your Busniess" AutoPostBack="true" OnSelectedIndexChanged="DropDownListBusniess_SelectedIndexChanged"></asp:DropDownList>
         <br />
          <h1>Choose Your Coupon interests</h1>
-             <asp:ListBox ID="DropDownListInterests" runat="server" SelectionMode="Multiple" Width="250"  AutoPostBack="True">
+             <asp:ListBox id="DropDownListInterests" runat="server" SelectionMode="Multiple" Width="250"  AutoPostBack="True">
           
         </asp:ListBox>
       
