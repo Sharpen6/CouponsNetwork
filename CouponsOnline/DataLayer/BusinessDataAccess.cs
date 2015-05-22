@@ -19,12 +19,14 @@ namespace CouponsOnline.DataLayer
                 cop.OriginalPrice = orgprice;
                 cop.DiscountPrice = discount;
                 cop.Business = b;
-                cop.Interest = interestt;
+              //  cop.Interest = interestt;
+                cop.Interests.Add(interestt);
                 cop.ExperationDate = datee;
                 cop.MaxNum = maxNum;
                 cop.AvarageRanking = "0";
                 cop.Business_BusinessID = b.BusinessCategoriesId;
-                cop.InterestId = interestt.Id;
+                cop.Business = be.Businesses.Find(b.BusinessCategoriesId);
+              //  cop.InterestId = interestt.Id;
                 be.Coupons.Add(cop);
                 be.SaveChanges();
             

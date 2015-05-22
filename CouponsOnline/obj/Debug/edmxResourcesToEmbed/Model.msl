@@ -12,14 +12,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="CouponInterests">
-      <EntityTypeMapping TypeName="IsTypeOf(basicModel.CouponInterest)">
-        <MappingFragment StoreEntitySet="CouponInterests">
-          <ScalarProperty Name="CouponId" ColumnName="CouponId" />
-          <ScalarProperty Name="InterestID" ColumnName="InterestID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Coupons">
       <EntityTypeMapping TypeName="IsTypeOf(basicModel.Coupon)">
         <MappingFragment StoreEntitySet="Coupons">
@@ -32,15 +24,6 @@
           <ScalarProperty Name="AvarageRanking" ColumnName="AvarageRanking" />
           <ScalarProperty Name="MaxNum" ColumnName="MaxNum" />
           <ScalarProperty Name="Business_BusinessID" ColumnName="Business_BusinessID" />
-          <ScalarProperty Name="InterestId" ColumnName="InterestId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="CustomerIntrests">
-      <EntityTypeMapping TypeName="IsTypeOf(basicModel.CustomerIntrest)">
-        <MappingFragment StoreEntitySet="CustomerIntrests">
-          <ScalarProperty Name="CustomerUserName" ColumnName="CustomerUserName" />
-          <ScalarProperty Name="InterestID" ColumnName="InterestID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -151,6 +134,14 @@
       </EndProperty>
       <EndProperty Name="Business">
         <ScalarProperty Name="BusinessID" ColumnName="BusinessID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="InterestCoupon" TypeName="basicModel.InterestCoupon" StoreEntitySet="InterestCoupon">
+      <EndProperty Name="Interest">
+        <ScalarProperty Name="Id" ColumnName="Interests_Id" />
+      </EndProperty>
+      <EndProperty Name="Coupon">
+        <ScalarProperty Name="Id" ColumnName="Coupons_Id" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

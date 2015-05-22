@@ -108,12 +108,6 @@
     <Compile Include="Coupon.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="CouponInterest.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CustomerIntrest.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataLayer\BusinessDataAccess.cs" />
     <Compile Include="DataLayer\CouponDataAccess.cs" />
     <Compile Include="DataLayer\UserDataAccess.cs" />

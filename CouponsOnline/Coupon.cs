@@ -17,6 +17,7 @@ namespace CouponsOnline
         public Coupon()
         {
             this.OrderedCoupons = new HashSet<OrderedCoupon>();
+            this.Interests = new HashSet<Interest>();
         }
     
         public int Id { get; set; }
@@ -28,10 +29,9 @@ namespace CouponsOnline
         public string AvarageRanking { get; set; }
         public int MaxNum { get; set; }
         public int Business_BusinessID { get; set; }
-        public int InterestId { get; set; }
     
         public virtual Business Business { get; set; }
         public virtual ICollection<OrderedCoupon> OrderedCoupons { get; set; }
-        public virtual Interest Interest { get; set; }
+        public virtual ICollection<Interest> Interests { get; set; }
     }
 }

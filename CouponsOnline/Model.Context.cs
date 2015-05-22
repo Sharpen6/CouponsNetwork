@@ -26,9 +26,7 @@ namespace CouponsOnline
         }
     
         public virtual DbSet<Business> Businesses { get; set; }
-        public virtual DbSet<CouponInterest> CouponInterests { get; set; }
         public virtual DbSet<Coupon> Coupons { get; set; }
-        public virtual DbSet<CustomerIntrest> CustomerIntrests { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<OrderedCoupon> OrderedCoupons { get; set; }
         public virtual DbSet<Recommendation> Recommendations { get; set; }

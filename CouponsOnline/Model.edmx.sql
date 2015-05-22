@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/22/2015 01:20:23
+-- Date Created: 05/22/2015 13:39:05
 -- Generated from EDMX file: C:\Users\DorinS\Documents\GitHub\CouponsNetwork\CouponsOnline\Model.edmx
 -- --------------------------------------------------
 
@@ -47,20 +47,23 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_CustomerVisit]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Visits] DROP CONSTRAINT [FK_CustomerVisit];
 GO
-IF OBJECT_ID(N'[dbo].[FK_BusinessBusinessCategories]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Businesses] DROP CONSTRAINT [FK_BusinessBusinessCategories];
-GO
 IF OBJECT_ID(N'[dbo].[FK_Users_AdminBusiness]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Businesses] DROP CONSTRAINT [FK_Users_AdminBusiness];
 GO
 IF OBJECT_ID(N'[dbo].[FK_BusinessUsers_Owner]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Businesses] DROP CONSTRAINT [FK_BusinessUsers_Owner];
 GO
-IF OBJECT_ID(N'[dbo].[FK_InterestCoupon]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Coupons] DROP CONSTRAINT [FK_InterestCoupon];
-GO
 IF OBJECT_ID(N'[dbo].[FK_BusinessCategoriesInterest]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Interests] DROP CONSTRAINT [FK_BusinessCategoriesInterest];
+GO
+IF OBJECT_ID(N'[dbo].[FK_BusinessBusinessCategories]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Businesses] DROP CONSTRAINT [FK_BusinessBusinessCategories];
+GO
+IF OBJECT_ID(N'[dbo].[FK_InterestCoupon_Interest]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[InterestCoupon] DROP CONSTRAINT [FK_InterestCoupon_Interest];
+GO
+IF OBJECT_ID(N'[dbo].[FK_InterestCoupon_Coupon]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[InterestCoupon] DROP CONSTRAINT [FK_InterestCoupon_Coupon];
 GO
 
 -- --------------------------------------------------
@@ -70,14 +73,8 @@ GO
 IF OBJECT_ID(N'[dbo].[Businesses]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Businesses];
 GO
-IF OBJECT_ID(N'[dbo].[CouponInterests]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[CouponInterests];
-GO
 IF OBJECT_ID(N'[dbo].[Coupons]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Coupons];
-GO
-IF OBJECT_ID(N'[dbo].[CustomerIntrests]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[CustomerIntrests];
 GO
 IF OBJECT_ID(N'[dbo].[Locations]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Locations];
@@ -109,6 +106,9 @@ GO
 IF OBJECT_ID(N'[dbo].[Interests]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Interests];
 GO
+IF OBJECT_ID(N'[dbo].[InterestCoupon]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[InterestCoupon];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -126,13 +126,6 @@ CREATE TABLE [dbo].[Businesses] (
 );
 GO
 
--- Creating table 'CouponInterests'
-CREATE TABLE [dbo].[CouponInterests] (
-    [CouponId] int  NOT NULL,
-    [InterestID] int  NOT NULL
-);
-GO
-
 -- Creating table 'Coupons'
 CREATE TABLE [dbo].[Coupons] (
     [Id] int IDENTITY(1,1) NOT NULL,
@@ -143,15 +136,7 @@ CREATE TABLE [dbo].[Coupons] (
     [ExperationDate] nvarchar(max)  NOT NULL,
     [AvarageRanking] nvarchar(max)  NULL,
     [MaxNum] int  NOT NULL,
-    [Business_BusinessID] int  NOT NULL,
-    [InterestId] int  NOT NULL
-);
-GO
-
--- Creating table 'CustomerIntrests'
-CREATE TABLE [dbo].[CustomerIntrests] (
-    [CustomerUserName] varchar(500)  NOT NULL,
-    [InterestID] int  NOT NULL
+    [Business_BusinessID] int  NOT NULL
 );
 GO
 
@@ -238,6 +223,13 @@ CREATE TABLE [dbo].[Interests] (
 );
 GO
 
+-- Creating table 'InterestCoupon'
+CREATE TABLE [dbo].[InterestCoupon] (
+    [Interests_Id] int  NOT NULL,
+    [Coupons_Id] int  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -248,22 +240,10 @@ ADD CONSTRAINT [PK_Businesses]
     PRIMARY KEY CLUSTERED ([BusinessID] ASC);
 GO
 
--- Creating primary key on [CouponId], [InterestID] in table 'CouponInterests'
-ALTER TABLE [dbo].[CouponInterests]
-ADD CONSTRAINT [PK_CouponInterests]
-    PRIMARY KEY CLUSTERED ([CouponId], [InterestID] ASC);
-GO
-
 -- Creating primary key on [Id] in table 'Coupons'
 ALTER TABLE [dbo].[Coupons]
 ADD CONSTRAINT [PK_Coupons]
     PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
--- Creating primary key on [CustomerUserName], [InterestID] in table 'CustomerIntrests'
-ALTER TABLE [dbo].[CustomerIntrests]
-ADD CONSTRAINT [PK_CustomerIntrests]
-    PRIMARY KEY CLUSTERED ([CustomerUserName], [InterestID] ASC);
 GO
 
 -- Creating primary key on [Id] in table 'Locations'
@@ -324,6 +304,12 @@ GO
 ALTER TABLE [dbo].[Interests]
 ADD CONSTRAINT [PK_Interests]
     PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Interests_Id], [Coupons_Id] in table 'InterestCoupon'
+ALTER TABLE [dbo].[InterestCoupon]
+ADD CONSTRAINT [PK_InterestCoupon]
+    PRIMARY KEY CLUSTERED ([Interests_Id], [Coupons_Id] ASC);
 GO
 
 -- --------------------------------------------------
@@ -483,20 +469,6 @@ ON [dbo].[Businesses]
     ([Users_Owner_UserName]);
 GO
 
--- Creating foreign key on [InterestId] in table 'Coupons'
-ALTER TABLE [dbo].[Coupons]
-ADD CONSTRAINT [FK_InterestCoupon]
-    FOREIGN KEY ([InterestId])
-    REFERENCES [dbo].[Interests]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- Creating non-clustered index for FOREIGN KEY 'FK_InterestCoupon'
-CREATE INDEX [IX_FK_InterestCoupon]
-ON [dbo].[Coupons]
-    ([InterestId]);
-GO
-
 -- Creating foreign key on [BusinessCategoriesId] in table 'Interests'
 ALTER TABLE [dbo].[Interests]
 ADD CONSTRAINT [FK_BusinessCategoriesInterest]
@@ -523,6 +495,29 @@ ADD CONSTRAINT [FK_BusinessBusinessCategories]
 CREATE INDEX [IX_FK_BusinessBusinessCategories]
 ON [dbo].[Businesses]
     ([BusinessCategoriesId]);
+GO
+
+-- Creating foreign key on [Interests_Id] in table 'InterestCoupon'
+ALTER TABLE [dbo].[InterestCoupon]
+ADD CONSTRAINT [FK_InterestCoupon_Interest]
+    FOREIGN KEY ([Interests_Id])
+    REFERENCES [dbo].[Interests]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Coupons_Id] in table 'InterestCoupon'
+ALTER TABLE [dbo].[InterestCoupon]
+ADD CONSTRAINT [FK_InterestCoupon_Coupon]
+    FOREIGN KEY ([Coupons_Id])
+    REFERENCES [dbo].[Coupons]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_InterestCoupon_Coupon'
+CREATE INDEX [IX_FK_InterestCoupon_Coupon]
+ON [dbo].[InterestCoupon]
+    ([Coupons_Id]);
 GO
 
 -- --------------------------------------------------

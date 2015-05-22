@@ -23,7 +23,7 @@ namespace CouponsOnline
         public string Description { get; set; }
         public int BusinessCategoriesId { get; set; }
     
-        public virtual ICollection<Coupon> Coupons { get; set; }
         public virtual BusinessCategories BusinessCategory { get; set; }
+        public virtual ICollection<Coupon> Coupons { get; set; }
     }
 }
