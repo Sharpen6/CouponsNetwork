@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CouponsOnline.PresentationLayer {
-    
-    
-    public partial class AdminHomePage {
-        
+namespace CouponsOnline
+{
+
+
+    public partial class SearchCoupon
+    {
+
         /// <summary>
         /// form1 control.
         /// </summary>
@@ -20,95 +22,77 @@ namespace CouponsOnline.PresentationLayer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-        
+
         /// <summary>
-        /// TextBoxBusinessName control.
+        /// Label2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxBusinessName;
-        
+        protected global::System.Web.UI.WebControls.Label Label2;
+
         /// <summary>
-        /// TextBoxAddress control.
+        /// Label1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxAddress;
-        
+        protected global::System.Web.UI.WebControls.Label Label1;
+
         /// <summary>
-        /// DropDownListCities control.
+        /// TextBox1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownListCities;
-        
+        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+
         /// <summary>
-        /// DropDownListOwners control.
+        /// TextBox2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownListOwners;
-        
+        protected global::System.Web.UI.WebControls.TextBox TextBox2;
+
         /// <summary>
-        /// DropDownListCategories control.
+        /// Label4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownListCategories;
-        
+        protected global::System.Web.UI.WebControls.Label Label4;
+
         /// <summary>
-        /// BtnAddBusiness control.
+        /// TextBox3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnAddBusiness;
-        
+        protected global::System.Web.UI.WebControls.TextBox TextBox3;
+
         /// <summary>
-        /// TextBoxCat control.
+        /// Label3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxCat;
-        
+        protected global::System.Web.UI.WebControls.Label Label3;
+
         /// <summary>
-        /// BtnAddCategory control.
+        /// DropDownList1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnAddCategory;
-        
-        /// <summary>
-        /// TextBoxCity control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxCity;
-        
-        /// <summary>
-        /// Button1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
     }
 }

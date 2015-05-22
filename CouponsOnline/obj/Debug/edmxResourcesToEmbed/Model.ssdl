@@ -13,6 +13,7 @@
     <EntitySet Name="Visits" EntityType="basicModel.Store.Visits" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="BusinessCategories" EntityType="basicModel.Store.BusinessCategories" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Interests" EntityType="basicModel.Store.Interests" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Cities" EntityType="basicModel.Store.Cities" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="InterestCoupon" EntityType="basicModel.Store.InterestCoupon" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FK_BusinessCoupon" Association="basicModel.Store.FK_BusinessCoupon">
       <End Role="Business" EntitySet="Businesses" />
@@ -78,6 +79,10 @@
       <End Role="Coupon" EntitySet="Coupons" />
       <End Role="InterestCoupon" EntitySet="InterestCoupon" />
     </AssociationSet>
+    <AssociationSet Name="BusinessCity" Association="basicModel.Store.BusinessCity">
+      <End Role="Business" EntitySet="Businesses" />
+      <End Role="City" EntitySet="Cities" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Businesses">
     <Key>
@@ -90,6 +95,7 @@
     <Property Name="BusinessCategoriesId" Type="int" Nullable="false" />
     <Property Name="Users_Admin_UserName" Type="varchar" MaxLength="500" Nullable="false" />
     <Property Name="Users_Owner_UserName" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="City_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Coupons">
     <Key>
@@ -187,6 +193,13 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
     <Property Name="BusinessCategoriesId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cities">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="InterestCoupon">
     <Key>
@@ -367,6 +380,18 @@
       </Principal>
       <Dependent Role="Business">
         <PropertyRef Name="BusinessCategoriesId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BusinessCity">
+    <End Role="Business" Type="basicModel.Store.Businesses" Multiplicity="*" />
+    <End Role="City" Type="basicModel.Store.Cities" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Business">
+        <PropertyRef Name="City_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

@@ -30,5 +30,6 @@ namespace CouponsOnline
         public virtual Users_Admin Users_Admin { get; set; }
         public virtual Users_Owner Users_Owner { get; set; }
         public virtual BusinessCategories BusinessCategory { get; set; }
+        public virtual City City { get; set; }
     }
 }

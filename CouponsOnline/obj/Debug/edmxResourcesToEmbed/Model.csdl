@@ -73,6 +73,11 @@
       <End Role="Interest" EntitySet="Interests" />
       <End Role="Coupon" EntitySet="Coupons" />
     </AssociationSet>
+    <EntitySet Name="Cities" EntityType="basicModel.City" />
+    <AssociationSet Name="BusinessCity" Association="basicModel.BusinessCity">
+      <End Role="Business" EntitySet="Businesses" />
+      <End Role="City" EntitySet="Cities" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Business">
     <Key>
@@ -88,6 +93,7 @@
     <NavigationProperty Name="Users_Owner" Relationship="basicModel.BusinessUsers_Owner" FromRole="Business" ToRole="Users_Owner" />
     <NavigationProperty Name="BusinessCategory" Relationship="basicModel.BusinessBusinessCategories" FromRole="Business" ToRole="BusinessCategories" />
     <Property Name="BusinessCategoriesId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="City" Relationship="basicModel.BusinessCity" FromRole="Business" ToRole="City" />
   </EntityType>
   <EntityType Name="Coupon">
     <Key>
@@ -370,5 +376,16 @@
   <Association Name="InterestCoupon">
     <End Type="basicModel.Interest" Role="Interest" Multiplicity="*" />
     <End Type="basicModel.Coupon" Role="Coupon" Multiplicity="*" />
+  </Association>
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" />
+  </EntityType>
+  <Association Name="BusinessCity">
+    <End Type="basicModel.Business" Role="Business" Multiplicity="*" />
+    <End Type="basicModel.City" Role="City" Multiplicity="1" />
   </Association>
 </Schema>

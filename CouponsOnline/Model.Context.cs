@@ -37,5 +37,6 @@ namespace CouponsOnline
         public virtual DbSet<Visit> Visits { get; set; }
         public virtual DbSet<BusinessCategories> BusinessCategories { get; set; }
         public virtual DbSet<Interest> Interests { get; set; }
+        public virtual DbSet<City> Cities { get; set; }
     }
 }

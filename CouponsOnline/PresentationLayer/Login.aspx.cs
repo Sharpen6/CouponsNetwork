@@ -43,6 +43,11 @@ namespace CouponsOnline.PresentationLayer
                         break;
                 }
             }
+            else
+            {
+                ClientScript.RegisterStartupScript(
+                this.GetType(), "myalert", "alert('User name/Password is wrong');", true);
+            }
         }
 
         protected void LinkButton1_Click(object sender, EventArgs e)

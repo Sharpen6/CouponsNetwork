@@ -15,7 +15,14 @@ namespace CouponsOnline.PresentationLayer
             if (!IsPostBack) {
                 LoadCategories();
                 LoadUsers();
+                LoadCities();
             }
+        }
+
+        private void LoadCities()
+        {
+            DropDownListCities.Items.Clear();
+            DropDownListCities.Items.AddRange(BusinessController.GetAllCites());
         }
 
         private void LoadUsers()
@@ -34,12 +41,18 @@ namespace CouponsOnline.PresentationLayer
         {
             string adminUser=Request.Cookies["ActiveUserName"].Value;
             BusinessController.CreateBusiness(adminUser, DropDownListOwners.SelectedValue, TextBoxAddress.Text,
-                TextBoxBusinessName.Text, DropDownListCategories.SelectedValue);
+                TextBoxBusinessName.Text, DropDownListCategories.SelectedValue, DropDownListCities.SelectedValue);
         }
         protected void BtnAddCategory_Click(object sender, EventArgs e)
         {
             BusinessController.CreateCategory(TextBoxCat.Text);          
             LoadCategories();
+            
+        }
+        protected void BtnAddCity_Click(object sender, EventArgs e)
+        {
+            BusinessController.AddCity(TextBoxCity.Text);          
+            LoadCities();
             
         }
         

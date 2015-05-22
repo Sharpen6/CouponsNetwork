@@ -94,6 +94,7 @@
     <Content Include="PresentationLayer\Login.aspx" />
     <Content Include="PresentationLayer\OwnerHomePage.aspx" />
     <Content Include="PresentationLayer\Register.aspx" />
+    <Content Include="PresentationLayer\SearchCoupon.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -106,6 +107,9 @@
     <Compile Include="BusinessLayer\Controllers\BusinessController.cs" />
     <Compile Include="BusinessLayer\Controllers\CouponController.cs" />
     <Compile Include="BusinessLayer\Controllers\UserController.cs" />
+    <Compile Include="City.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Coupon.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -179,6 +183,13 @@
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
     <Compile Include="BusinessLayer\UserType.cs" />
+    <Compile Include="PresentationLayer\SearchCoupon.aspx.cs">
+      <DependentUpon>SearchCoupon.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PresentationLayer\SearchCoupon.aspx.designer.cs">
+      <DependentUpon>SearchCoupon.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Recommendation.cs">
       <DependentUpon>Model.tt</DependentUpon>

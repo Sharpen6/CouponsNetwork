@@ -34,6 +34,9 @@
                 </ul>
             </li>
             <li class="dropdown">
+                <a onclick="SwitchTo('AddCity');">Add City</a>
+            </li>
+            <li class="dropdown">
 
             </li>
         </ul>
@@ -44,7 +47,8 @@
     </div>
     <div id="AddBusiness" class="mainBox">
         <asp:TextBox ID="TextBoxBusinessName" runat="server" placeholder="Business Name"></asp:TextBox>
-        <asp:TextBox ID="TextBoxAddress" runat="server" placeholder="Address"></asp:TextBox>
+        <asp:TextBox ID="TextBoxAddress" Width="45%" runat="server" placeholder="Address"></asp:TextBox>
+        <asp:DropDownList ID="DropDownListCities" runat="server" placeholder="City"></asp:DropDownList>        
         <asp:DropDownList ID="DropDownListOwners" runat="server" placeholder="Pick Owner"></asp:DropDownList>
         <asp:DropDownList ID="DropDownListCategories" runat="server" placeholder="Pick Category"></asp:DropDownList>
         <asp:Button ID="BtnAddBusiness" runat="server" Text="Add Business" onclick="BtnAddBusiness_Click"/>
@@ -52,6 +56,10 @@
      <div id="AddCategory" class="mainBox">
         <asp:TextBox ID="TextBoxCat" runat="server" placeholder="Category Name"></asp:TextBox>
         <asp:Button ID="BtnAddCategory" runat="server" Text="Add Category" onclick="BtnAddCategory_Click"/>
+    </div>
+    <div id="AddCity" class="mainBox">
+        <asp:TextBox ID="TextBoxCity" runat="server" placeholder="City Name"></asp:TextBox>
+        <asp:Button ID="Button1" runat="server" Text="Add City" onclick="BtnAddCity_Click"/>
     </div>
     </form>
 </body>

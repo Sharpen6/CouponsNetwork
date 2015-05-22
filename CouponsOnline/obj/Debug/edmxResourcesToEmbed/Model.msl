@@ -120,6 +120,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Cities">
+      <EntityTypeMapping TypeName="IsTypeOf(basicModel.City)">
+        <MappingFragment StoreEntitySet="Cities">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="Users_AdminBusiness" TypeName="basicModel.Users_AdminBusiness" StoreEntitySet="Businesses">
       <EndProperty Name="Users_Admin">
         <ScalarProperty Name="UserName" ColumnName="Users_Admin_UserName" />
@@ -142,6 +150,14 @@
       </EndProperty>
       <EndProperty Name="Coupon">
         <ScalarProperty Name="Id" ColumnName="Coupons_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="BusinessCity" TypeName="basicModel.BusinessCity" StoreEntitySet="Businesses">
+      <EndProperty Name="City">
+        <ScalarProperty Name="Id" ColumnName="City_Id" />
+      </EndProperty>
+      <EndProperty Name="Business">
+        <ScalarProperty Name="BusinessID" ColumnName="BusinessID" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

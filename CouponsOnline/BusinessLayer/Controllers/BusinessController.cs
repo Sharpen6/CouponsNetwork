@@ -25,10 +25,11 @@ namespace CouponsOnline.BusinessLayer.Controllers
 
 
         public static bool CreateBusiness(string ad, string owner, string address, 
-            string name, string c)
+            string name, string c,string cityName)
         {
+            int cityID = BusinessDataAccess.FindCity(cityName);
             int categoryID = BusinessDataAccess.FindCategory(c);            
-            return BusinessDataAccess.CreateBusiness(ad, owner, address, name, categoryID);
+            return BusinessDataAccess.CreateBusiness(ad, owner, address, name, categoryID,cityID);
         }
         private static Business GetUserBusiness(string ownerName)
         {
@@ -77,6 +78,17 @@ namespace CouponsOnline.BusinessLayer.Controllers
         {
             if (p2 == "") return false;
             return BusinessDataAccess.CreateInterest(p1,p2);
+        }
+
+        internal static ListItem[] GetAllCites()
+        {
+            return BusinessDataAccess.GetCites();
+        }
+
+        internal static bool AddCity(string p)
+        {
+            if (p == "") return false;
+            return BusinessDataAccess.CreateCity(p);
         }
     }
 

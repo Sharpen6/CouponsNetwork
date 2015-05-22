@@ -18,6 +18,7 @@
     <EntitySet Name="Visits" EntityType="basicModel.Store.Visits" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="BusinessCategories" EntityType="basicModel.Store.BusinessCategories" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Interests" EntityType="basicModel.Store.Interests" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Cities" EntityType="basicModel.Store.Cities" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="InterestCoupon" EntityType="basicModel.Store.InterestCoupon" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FK_BusinessCoupon" Association="basicModel.Store.FK_BusinessCoupon">
       <End Role="Business" EntitySet="Businesses" />
@@ -83,6 +84,10 @@
       <End Role="Coupon" EntitySet="Coupons" />
       <End Role="InterestCoupon" EntitySet="InterestCoupon" />
     </AssociationSet>
+    <AssociationSet Name="BusinessCity" Association="basicModel.Store.BusinessCity">
+      <End Role="Business" EntitySet="Businesses" />
+      <End Role="City" EntitySet="Cities" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Businesses">
     <Key>
@@ -95,6 +100,7 @@
     <Property Name="BusinessCategoriesId" Type="int" Nullable="false" />
     <Property Name="Users_Admin_UserName" Type="varchar" MaxLength="500" Nullable="false" />
     <Property Name="Users_Owner_UserName" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="City_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Coupons">
     <Key>
@@ -192,6 +198,13 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
     <Property Name="BusinessCategoriesId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cities">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="InterestCoupon">
     <Key>
@@ -375,6 +388,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="BusinessCity">
+    <End Role="Business" Type="basicModel.Store.Businesses" Multiplicity="*" />
+    <End Role="City" Type="basicModel.Store.Cities" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Business">
+        <PropertyRef Name="City_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_InterestCoupon_Interest">
     <End Role="Interest" Type="basicModel.Store.Interests" Multiplicity="1" />
     <End Role="InterestCoupon" Type="basicModel.Store.InterestCoupon" Multiplicity="*" />
@@ -476,6 +501,11 @@
             <End Role="Interest" EntitySet="Interests" />
             <End Role="Coupon" EntitySet="Coupons" />
           </AssociationSet>
+          <EntitySet Name="Cities" EntityType="basicModel.City" />
+          <AssociationSet Name="BusinessCity" Association="basicModel.BusinessCity">
+            <End Role="Business" EntitySet="Businesses" />
+            <End Role="City" EntitySet="Cities" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Business">
           <Key>
@@ -491,6 +521,7 @@
           <NavigationProperty Name="Users_Owner" Relationship="basicModel.BusinessUsers_Owner" FromRole="Business" ToRole="Users_Owner" />
           <NavigationProperty Name="BusinessCategory" Relationship="basicModel.BusinessBusinessCategories" FromRole="Business" ToRole="BusinessCategories" />
           <Property Name="BusinessCategoriesId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="City" Relationship="basicModel.BusinessCity" FromRole="Business" ToRole="City" />
         </EntityType>
         <EntityType Name="Coupon">
           <Key>
@@ -774,6 +805,17 @@
           <End Type="basicModel.Interest" Role="Interest" Multiplicity="*" />
           <End Type="basicModel.Coupon" Role="Coupon" Multiplicity="*" />
         </Association>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="BusinessCity">
+          <End Type="basicModel.Business" Role="Business" Multiplicity="*" />
+          <End Type="basicModel.City" Role="City" Multiplicity="1" />
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -899,6 +941,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Cities">
+      <EntityTypeMapping TypeName="IsTypeOf(basicModel.City)">
+        <MappingFragment StoreEntitySet="Cities">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="Users_AdminBusiness" TypeName="basicModel.Users_AdminBusiness" StoreEntitySet="Businesses">
       <EndProperty Name="Users_Admin">
         <ScalarProperty Name="UserName" ColumnName="Users_Admin_UserName" />
@@ -921,6 +971,14 @@
       </EndProperty>
       <EndProperty Name="Coupon">
         <ScalarProperty Name="Id" ColumnName="Coupons_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="BusinessCity" TypeName="basicModel.BusinessCity" StoreEntitySet="Businesses">
+      <EndProperty Name="City">
+        <ScalarProperty Name="Id" ColumnName="City_Id" />
+      </EndProperty>
+      <EndProperty Name="Business">
+        <ScalarProperty Name="BusinessID" ColumnName="BusinessID" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>
