@@ -45,6 +45,7 @@ namespace CouponsOnline.PresentationLayer
         {
             DropDownListBusniess.Items.Clear();
             string ownerName = Request.Cookies["ActiveUserName"].Value;
+            
             DropDownListBusniess.Items.AddRange(BusinessController.GetAllBusnisesId(ownerName));
             LoadCategory();
         }
@@ -61,7 +62,9 @@ namespace CouponsOnline.PresentationLayer
            DropDownListInterests.Items.Clear();
             string Busniessid = DropDownListBusniess.SelectedValue;
             int Categoryid = BusinessController.FindBusinessCategory(Busniessid);
-            DropDownListInterests.Items.AddRange(BusinessController.GetAllCategoryIntrest(Categoryid));
+            //DropDownListInterests.Items.AddRange(BusinessController.GetAllCategoryIntrest(Categoryid));
+            DropDownListInterests.DataSource = BusinessController.GetAllCategoryIntrest(Categoryid);
+            DropDownListInterests.DataBind();
 
 
         }

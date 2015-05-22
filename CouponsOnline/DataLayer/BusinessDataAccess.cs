@@ -174,7 +174,9 @@ namespace CouponsOnline.DataLayer
             ans = new ListItem[bItems.Count];
             foreach (var item in bItems)
             {
-                ans[i++] = new ListItem(item.BusinessID.ToString());
+                ans[i++] = new ListItem(item.Name);
+                ans[i-1].Value = item.BusinessID.ToString();
+
             }
             return ans;
         }

@@ -43,8 +43,10 @@
         <h1>Choose one of Your Busniess</h1>
          <asp:DropDownList ID="DropDownListBusniess" runat="server" placeholder="Pick Your Busniess" AutoPostBack="true" OnSelectedIndexChanged="DropDownListBusniess_SelectedIndexChanged"></asp:DropDownList>
         <br />
-           <asp:DropDownList ID="DropDownListInterests" runat="server" placeholder="Pick Interests For Coupon" AutoPostBack="true" ></asp:DropDownList>
-
+         <h1>Choose Your Coupon interests</h1>
+             <asp:ListBox ID="DropDownListInterests" runat="server" SelectionMode="Multiple" Width="250"  AutoPostBack="True">
+          
+        </asp:ListBox>
       
 
         
