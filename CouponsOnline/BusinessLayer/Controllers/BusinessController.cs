@@ -10,12 +10,12 @@ namespace CouponsOnline.BusinessLayer.Controllers
     public class BusinessController
     { 
         public static int CreateCoupon(string name,  string orgprice, string discount,
-            string business,string desc, string datee, int maxNum,string interestt)
+            string business,string desc, string datee, int maxNum,  List<ListItem> interestt)
         {
             Business b = GetUserBusiness(business);
                 if (b==null) return 0;
-            Interest inter= getinterest(b,interestt);
-            return BusinessDataAccess.CreateCoupon(name, desc, orgprice, discount, b, datee, maxNum, inter);
+            //Interest inter= getinterest(b,interestt);
+                return BusinessDataAccess.CreateCoupon(name, desc, orgprice, discount, b, datee, maxNum, interestt);
         }
 
         private static Interest getinterest(Business catrgory, string interestt)

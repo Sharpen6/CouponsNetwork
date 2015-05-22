@@ -16,11 +16,15 @@ namespace CouponsOnline.PresentationLayer
 
             ScriptManager.RegisterStartupScript(this, GetType(), "SwitchTo", "SwitchTo('prevDiv')", true);
 
-            HttpCookie usernameCookie = Request.Cookies["ActiveUserName"];
-            string userName = usernameCookie.Value;
+   
             if (!this.IsPostBack)
             {
                 LoadBusiness();
+                DropDownListBusniess.SelectedIndex = 0;
+                LoadCategory();
+                LoadInterest();
+                HttpCookie usernameCookie = Request.Cookies["ActiveUserName"];
+                string userName = usernameCookie.Value;
                 //if (Request.Cookies["ActiveUserName"] != null)
                 //    Response.Redirect("Login.aspx");
             }            
@@ -36,8 +40,11 @@ namespace CouponsOnline.PresentationLayer
             int mdp;
             if (!int.TryParse(TextBoxMPU.Text, out mdp))
                 return;
+            List<ListItem> selected = new List<ListItem>();
+            foreach (ListItem item in DropDownListInterests.Items)
+                if (item.Selected) selected.Add(item);
             BusinessController.CreateCoupon(TextBoxName.Text, TextBoxOrg.Text, TextBoxDisc.Text,
-                activeUser, TextBoxDesc.Text, TextBoxExp.Text, mdp,DropDownListInterests.SelectedValue);
+                activeUser, TextBoxDesc.Text, TextBoxExp.Text, mdp, selected);
         }
         
     

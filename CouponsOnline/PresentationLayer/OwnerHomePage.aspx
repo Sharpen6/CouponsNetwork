@@ -43,9 +43,9 @@
          <asp:DropDownList id="DropDownListBusniess" runat="server" placeholder="Pick Your Busniess" AutoPostBack="true" OnSelectedIndexChanged="DropDownListBusniess_SelectedIndexChanged"></asp:DropDownList>
         <br />
          <h1>Choose Your Coupon interests</h1>
-             <asp:ListBox id="DropDownListInterests" runat="server" SelectionMode="Multiple" Width="250"  AutoPostBack="True">
+             <asp:checkboxlist id="DropDownListInterests" SelectMethod="" runat="server" SelectionMode="Multiple" Width="500" >
           
-        </asp:ListBox>
+        </asp:checkboxlist>
       
 
         

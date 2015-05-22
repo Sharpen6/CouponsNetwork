@@ -37,7 +37,7 @@ namespace CouponsOnline.PresentationLayer {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox DropDownListInterests;
+        protected global::System.Web.UI.WebControls.CheckBoxList DropDownListInterests;
         
         /// <summary>
         /// TextBoxName control.
