@@ -1,11 +1,11 @@
 ﻿var menuBar = ["home", "ManageCoupons", "ActiveCoupons", "Purchased", "CreateCoupon", "AddBusiness", "AddCategory", "AddInterest"];
-var lastDiv;
 
 function SwitchTo(divName) {
     if (divName == 'prevDiv')
-        divName = lastDiv;
+        divName = localStorage["lastDiv"];
     else
-        lastDiv = divName;
+        localStorage["lastDiv"] = divName;
+
     for (var i = 0; i < menuBar.length; i++) {
         var e = document.getElementById(menuBar[i]);
         if (e!=null)
