@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Windows.Forms;
 
 namespace CouponsOnline.PresentationLayer
 {
@@ -41,12 +42,16 @@ namespace CouponsOnline.PresentationLayer
      
             int mdp;
             if (!int.TryParse(TextBoxMPU.Text, out mdp))
+            {
+                MessageBox.Show("Missing Values! ");
                 return;
+            }
             List<ListItem> selected = new List<ListItem>();
             foreach (ListItem item in DropDownListInterests.Items)
                 if (item.Selected) selected.Add(item);
             BusinessController.CreateCoupon(TextBoxName.Text, TextBoxOrg.Text, TextBoxDisc.Text,
                 activeUser, TextBoxDesc.Text, TextBoxExp.Text, mdp, selected);
+            MessageBox.Show("Coupon " + TextBoxName.Text + " added successfully! ");
         }
         
     
