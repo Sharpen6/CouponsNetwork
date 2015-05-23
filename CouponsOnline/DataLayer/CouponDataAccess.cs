@@ -30,9 +30,9 @@ namespace CouponsOnline.DataLayer
                 cop.ExperationDate = datee;
                 cop.MaxNum = maxNum;
                 cop.AvarageRanking = "0";
-                cop.Business_BusinessID = b.BusinessCategoriesId;
+                cop.Business_BusinessID = b.BusinessID;
 
-                cop.Business = be.Businesses.Find(b.BusinessCategoriesId);
+                cop.Business = be.Businesses.Find(b.BusinessID);
                 //  cop.InterestId = interestt.Id;
                 be.Coupons.Add(cop);
                 be.SaveChanges();
@@ -70,7 +70,11 @@ namespace CouponsOnline.DataLayer
 
             using (basicEntities be = new basicEntities())
             {
-                foreach (var item in be.Coupons)
+                 var bus = from b in be.Coupons
+                          where b.Business.City.Name == city
+                          select b;
+                foreach (var item in bus)
+                          
                 {
                     DataRow dr = table.NewRow();
                     dr[0] = item.Name;

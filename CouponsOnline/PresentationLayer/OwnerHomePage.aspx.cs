@@ -36,7 +36,7 @@ namespace CouponsOnline.PresentationLayer
         protected void BtnCreateCoupon_Click(object sender, EventArgs e)
         {
             HttpCookie usernameCookie = Request.Cookies["ActiveUserName"];
-            string activeUser = usernameCookie.Value;
+            string activeUser = DropDownListBusniess.SelectedItem.Text;
      
             int mdp;
             if (!int.TryParse(TextBoxMPU.Text, out mdp))

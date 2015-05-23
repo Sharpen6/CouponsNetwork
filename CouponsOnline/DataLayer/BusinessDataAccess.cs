@@ -20,7 +20,7 @@ namespace CouponsOnline.DataLayer
                           where b.Owner_UserName == businessOwner
                           select b;*/
                 var bus = from b in be.Businesses
-                          where b.Users_Owner.UserName == businessOwner
+                          where b.Name == businessOwner
                           select b;
                 Business business = bus.First();
                 return business;
