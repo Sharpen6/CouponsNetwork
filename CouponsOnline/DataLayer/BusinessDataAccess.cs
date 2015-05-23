@@ -64,16 +64,6 @@ namespace CouponsOnline.DataLayer
             }
         }
 
-        private static Users_Admin FindAdmin(string ad)
-        {
-            throw new NotImplementedException();
-        }
-
-        private static Users_Owner FindOwner(string owner)
-        {
-            throw new NotImplementedException();
-        }
-
         public static int FindCategory(string c)
         {
             using (basicEntities be = new basicEntities())
@@ -88,8 +78,7 @@ namespace CouponsOnline.DataLayer
                 return businessCat.Id;
             }
         }
-
-        
+   
         public static int FindInterest(int Category, string desription)
         {
             using (basicEntities be = new basicEntities())
@@ -275,6 +264,18 @@ namespace CouponsOnline.DataLayer
                 return true;
             }
 
+        }
+
+        internal static List<string> GetAllBusinessesID()
+        {
+            List<string> bItems;
+            using (basicEntities be = new basicEntities())
+            {
+                var items = from b in be.Businesses
+                            select b.Name;
+                bItems = new List<string>(items);
+            }
+            return bItems;
         }
     }
 }

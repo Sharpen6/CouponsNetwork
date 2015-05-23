@@ -52,5 +52,13 @@ namespace CouponsOnline.DataLayer
 
             }
         }
+
+        internal static  GetCouponsByCity(string city)
+        {
+            using (basicEntities be = new basicEntities())
+            {
+                return be.Coupons;
+            }
+        }
     }
 }

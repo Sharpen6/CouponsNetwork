@@ -1,39 +1,31 @@
-﻿using System;
+﻿using CouponsOnline.DataLayer;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+
 
 namespace CouponsOnline.BusinessLayer.Controllers
 {
-    public class CouponController : ApiController
+    public class CouponController
     {
-        // GET api/<controller>
-        public IEnumerable<string> Get()
+        internal static DataTable GetCouponsByCity(string city)
         {
-            return new string[] { "value1", "value2" };
+            DataTable table = ToDataTable<Coupon>(CouponDataAccess.GetCouponsByCity(city));
+            return table;
         }
-
-        // GET api/<controller>/5
-        public string Get(int id)
+        private static DataTable ToDataTable<T>(T entity) where T : class
         {
-            return "value";
-        }
+            var properties = typeof(T).GetProperties();
+            var table = new DataTable();
 
-        // POST api/<controller>
-        public void Post([FromBody]string value)
-        {
-        }
+            foreach (var property in properties)
+            {
+                table.Columns.Add(property.Name, property.PropertyType);
+            }
 
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
+            table.Rows.Add(properties.Select(p => p.GetValue(entity, null)).ToArray());
+            return table;
         }
     }
 }

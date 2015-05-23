@@ -17,10 +17,10 @@
                     <a href="#!/home" onclick="SwitchTo('home');">Home</a>
                 </li>
                 <li>
-                    <a onclick="SwitchTo('CreateCoupon');">Add Coupon</a>
+                    <a href="#!/AddCoupon" onclick="SwitchTo('CreateCoupon');">Add Coupon</a>
                 </li>
                 <li>
-                    <a onclick="SwitchTo('AddInterest');">Add Interest</a>
+                    <a href="#!/AddInterest" onclick="SwitchTo('AddInterest');">Add Interest</a>
                 </li>
                 <li class="lastTab">
                     <a href="Login.aspx">Logout</a>
@@ -53,9 +53,8 @@
     </div>
 
         <div id="AddInterest" class="mainBox">
-       <h1>Choose one of Your Busniess</h1>
+        Choose one of Your Businesses: 
          <asp:DropDownList ID="DropDownListCategory" runat="server" placeholder="Pick Your Category" AutoPostBack="false" ></asp:DropDownList>
-
         <asp:TextBox ID="TextBoxInterest" runat="server" placeholder="Interest Name"></asp:TextBox>
         <asp:Button ID="BtnAddInterest" runat="server" Text="Add Interest" onclick="BtnAddInterest_Click1"/>
 

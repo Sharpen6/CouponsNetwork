@@ -17,6 +17,7 @@ namespace CouponsOnline.PresentationLayer
             ScriptManager.RegisterStartupScript(this, GetType(), "SwitchTo", "SwitchTo('prevDiv')", true);
 
             LoadInterest();
+
             if (!this.IsPostBack)
             {
                 LoadBusiness();
@@ -74,8 +75,6 @@ namespace CouponsOnline.PresentationLayer
                 DropDownListInterests.DataSource = BusinessController.GetAllCategoryIntrest(Categoryid);
                 DropDownListInterests.DataBind();
                 }
-
-
         }
 
      
@@ -88,7 +87,6 @@ namespace CouponsOnline.PresentationLayer
         protected void BtnAddInterest_Click1(object sender, EventArgs e)
         {
             BusinessController.createInterest(DropDownListCategory.SelectedValue, TextBoxInterest.Text);
-
         }
     }
 }
