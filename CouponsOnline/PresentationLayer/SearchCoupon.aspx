@@ -31,13 +31,17 @@
         </div>
         <div>
             <asp:Label ID="Label4" runat="server" Width="45%" Text="OR, Enter City"></asp:Label>
-            <asp:DropDownList ID="DropDownListCities" runat="server"></asp:DropDownList>
+            <asp:DropDownList ID="DropDownListCities" runat="server">
+                <asp:ListItem Selected = "True" Text = "" Value = ""></asp:ListItem>
+            </asp:DropDownList>
         </div>
         <div>
             <asp:Label ID="Label3" Width="45%" runat="server" Text="OR, Select coupon by interests"></asp:Label>
+             <asp:DropDownList ID="DropDownListCategory" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownListCategory_SelectedIndexChanged">
+            </asp:DropDownList>
              <asp:checkboxlist id="DropDownListInterests" SelectMethod="" Width="45%" runat="server" SelectionMode="Multiple" />
         </div>
-        <asp:Button ID="BtnSearch" runat="server" Width="90%" Text="Scan" OnClick="BtnSearch_Click" />
+        <asp:Button ID="BtnSearch" runat="server" Width="90%" Text="Filter Results" OnClick="BtnSearch_Click" />
         <asp:GridView ID="GridVresults" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None">
             <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
             <Columns>

@@ -90,6 +90,11 @@ namespace CouponsOnline.BusinessLayer.Controllers
             if (p == "") return false;
             return BusinessDataAccess.CreateCity(p);
         }
+        internal static ListItem[] GetAllInterests(string categoryName)
+        {
+            int Categoryid = BusinessDataAccess.FindCategory(categoryName);
+            return BusinessDataAccess.GetCategoryIntrest(Categoryid);
+        }
     }
 
 }

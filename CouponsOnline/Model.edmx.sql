@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/22/2015 17:38:20
+-- Date Created: 05/23/2015 18:50:17
 -- Generated from EDMX file: C:\Users\Sagi\Documents\GitHub\CouponsNetwork\CouponsOnline\Model.edmx
 -- --------------------------------------------------
 
@@ -65,6 +65,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_InterestCoupon_Coupon]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[InterestCoupon] DROP CONSTRAINT [FK_InterestCoupon_Coupon];
 GO
+IF OBJECT_ID(N'[dbo].[FK_BusinessCity]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Businesses] DROP CONSTRAINT [FK_BusinessCity];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -106,6 +109,9 @@ GO
 IF OBJECT_ID(N'[dbo].[Interests]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Interests];
 GO
+IF OBJECT_ID(N'[dbo].[Cities]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Cities];
+GO
 IF OBJECT_ID(N'[dbo].[InterestCoupon]', 'U') IS NOT NULL
     DROP TABLE [dbo].[InterestCoupon];
 GO
@@ -119,7 +125,7 @@ CREATE TABLE [dbo].[Businesses] (
     [BusinessID] int IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
     [Address] nvarchar(max)  NOT NULL,
-    [Location_Id] int  NULL,
+    [Sensor_Id] int  NULL,
     [BusinessCategoriesId] int  NOT NULL,
     [Users_Admin_UserName] varchar(500)  NOT NULL,
     [Users_Owner_UserName] varchar(500)  NOT NULL,
@@ -141,8 +147,8 @@ CREATE TABLE [dbo].[Coupons] (
 );
 GO
 
--- Creating table 'Locations'
-CREATE TABLE [dbo].[Locations] (
+-- Creating table 'Sensors'
+CREATE TABLE [dbo].[Sensors] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Coordinates] nvarchar(max)  NOT NULL
 );
@@ -204,7 +210,7 @@ GO
 CREATE TABLE [dbo].[Visits] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Date] nvarchar(max)  NOT NULL,
-    [Location_Id] int  NOT NULL,
+    [SensorId] int  NOT NULL,
     [CustomerVisit_Visit_UserName] varchar(500)  NOT NULL
 );
 GO
@@ -231,6 +237,15 @@ CREATE TABLE [dbo].[Cities] (
 );
 GO
 
+-- Creating table 'Locations'
+CREATE TABLE [dbo].[Locations] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Altitude] nvarchar(max)  NOT NULL,
+    [Longitude] nvarchar(max)  NOT NULL,
+    [SensorLocation_Location_Id] int  NOT NULL
+);
+GO
+
 -- Creating table 'InterestCoupon'
 CREATE TABLE [dbo].[InterestCoupon] (
     [Interests_Id] int  NOT NULL,
@@ -254,9 +269,9 @@ ADD CONSTRAINT [PK_Coupons]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'Locations'
-ALTER TABLE [dbo].[Locations]
-ADD CONSTRAINT [PK_Locations]
+-- Creating primary key on [Id] in table 'Sensors'
+ALTER TABLE [dbo].[Sensors]
+ADD CONSTRAINT [PK_Sensors]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -320,6 +335,12 @@ ADD CONSTRAINT [PK_Cities]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
+-- Creating primary key on [Id] in table 'Locations'
+ALTER TABLE [dbo].[Locations]
+ADD CONSTRAINT [PK_Locations]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
 -- Creating primary key on [Interests_Id], [Coupons_Id] in table 'InterestCoupon'
 ALTER TABLE [dbo].[InterestCoupon]
 ADD CONSTRAINT [PK_InterestCoupon]
@@ -345,11 +366,11 @@ ON [dbo].[Coupons]
     ([Business_BusinessID]);
 GO
 
--- Creating foreign key on [Location_Id] in table 'Businesses'
+-- Creating foreign key on [Sensor_Id] in table 'Businesses'
 ALTER TABLE [dbo].[Businesses]
 ADD CONSTRAINT [FK_BusinessLocation]
-    FOREIGN KEY ([Location_Id])
-    REFERENCES [dbo].[Locations]
+    FOREIGN KEY ([Sensor_Id])
+    REFERENCES [dbo].[Sensors]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
@@ -357,7 +378,7 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_BusinessLocation'
 CREATE INDEX [IX_FK_BusinessLocation]
 ON [dbo].[Businesses]
-    ([Location_Id]);
+    ([Sensor_Id]);
 GO
 
 -- Creating foreign key on [Coupon_Id] in table 'OrderedCoupons'
@@ -375,11 +396,11 @@ ON [dbo].[OrderedCoupons]
     ([Coupon_Id]);
 GO
 
--- Creating foreign key on [Location_Id] in table 'Visits'
+-- Creating foreign key on [SensorId] in table 'Visits'
 ALTER TABLE [dbo].[Visits]
 ADD CONSTRAINT [FK_LocationVisit]
-    FOREIGN KEY ([Location_Id])
-    REFERENCES [dbo].[Locations]
+    FOREIGN KEY ([SensorId])
+    REFERENCES [dbo].[Sensors]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
@@ -387,7 +408,7 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_LocationVisit'
 CREATE INDEX [IX_FK_LocationVisit]
 ON [dbo].[Visits]
-    ([Location_Id]);
+    ([SensorId]);
 GO
 
 -- Creating foreign key on [Customer_UserName] in table 'OrderedCoupons'
@@ -559,6 +580,21 @@ GO
 CREATE INDEX [IX_FK_BusinessCity]
 ON [dbo].[Businesses]
     ([City_Id]);
+GO
+
+-- Creating foreign key on [SensorLocation_Location_Id] in table 'Locations'
+ALTER TABLE [dbo].[Locations]
+ADD CONSTRAINT [FK_SensorLocation]
+    FOREIGN KEY ([SensorLocation_Location_Id])
+    REFERENCES [dbo].[Sensors]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SensorLocation'
+CREATE INDEX [IX_FK_SensorLocation]
+ON [dbo].[Locations]
+    ([SensorLocation_Location_Id]);
 GO
 
 -- --------------------------------------------------

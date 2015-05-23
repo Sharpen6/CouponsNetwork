@@ -7,7 +7,7 @@
       <Diagram DiagramId="a0148108700a4390b9eda6aa0e3a6280" Name="Diagram1" ZoomLevel="90">
         <EntityTypeShape EntityType="basicModel.Business" Width="1.5" PointX="5.25" PointY="4.125" />
         <EntityTypeShape EntityType="basicModel.Coupon" Width="1.5" PointX="7.5" PointY="4.125" />
-        <EntityTypeShape EntityType="basicModel.Location" Width="1.5" PointX="3.875" PointY="0.75" />
+        <EntityTypeShape EntityType="basicModel.Sensor" Width="1.5" PointX="3.875" PointY="0.75" />
         <EntityTypeShape EntityType="basicModel.OrderedCoupon" Width="1.5" PointX="9.75" PointY="5.875" />
         <EntityTypeShape EntityType="basicModel.Recommendation" Width="1.5" PointX="5.25" PointY="8.5" />
         <EntityTypeShape EntityType="basicModel.User" Width="1.5" PointX="0.75" PointY="5.875" />
@@ -33,8 +33,10 @@
         <AssociationConnector Association="basicModel.BusinessCategoriesInterest" />
         <AssociationConnector Association="basicModel.BusinessBusinessCategories" />
         <AssociationConnector Association="basicModel.InterestCoupon" />
-        <EntityTypeShape EntityType="basicModel.City" Width="1.5" PointX="0.5" PointY="2" />
+        <EntityTypeShape EntityType="basicModel.City" Width="1.5" PointX="0.5" PointY="2.625" />
         <AssociationConnector Association="basicModel.BusinessCity" />
+        <EntityTypeShape EntityType="basicModel.Location" Width="1.5" PointX="1.25" PointY="0.5" />
+        <AssociationConnector Association="basicModel.SensorLocation" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
