@@ -82,7 +82,8 @@ namespace CouponsOnline.DataLayer
                     dr[2] = item.OriginalPrice;
                     dr[3] = item.DiscountPrice;
                     dr[4] = item.Business.Name;
-                    dr[5] = item.Business.Address+", "+item.Business.City;
+         
+                    dr[5] = item.Business.City.Name; ;
                     dr[6] = item.AvarageRanking; 
                     dr[7] = item.MaxNum;
                     table.Rows.Add(dr);

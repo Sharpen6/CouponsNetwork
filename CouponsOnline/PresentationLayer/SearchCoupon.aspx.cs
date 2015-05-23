@@ -13,9 +13,12 @@ namespace CouponsOnline
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            ScriptManager.RegisterStartupScript(this, GetType(), "SwitchTo", "SwitchTo('home')", true);
-            LoadInterest();
-            LoadCities();
+            if (!this.IsPostBack)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "SwitchTo", "SwitchTo('home')", true);
+                LoadInterest();
+                LoadCities();
+            }
         }
 
         public void BtnSearch_Click(object sender, EventArgs e)
