@@ -18,5 +18,12 @@ namespace CouponsOnline.BusinessLayer.Controllers
         {
             return CouponDataAccess.GetCouponsByBusniess(Busniess);
         }
+
+
+
+        internal static bool removeCoupon(string CoponId)
+        {
+            return CouponDataAccess.RemoveCoupon(CoponId);
+        }
     }
 }

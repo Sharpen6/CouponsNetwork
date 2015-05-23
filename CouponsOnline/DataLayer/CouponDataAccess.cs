@@ -67,7 +67,8 @@ namespace CouponsOnline.DataLayer
             table.Columns.Add("Location",typeof(string));
             table.Columns.Add("Rating",typeof(double));
             table.Columns.Add("MaxNum",typeof(int));
-
+            table.Columns.Add("CoupinId", typeof(string));
+  
             using (basicEntities be = new basicEntities())
             {
                  var bus = from b in be.Coupons
@@ -86,6 +87,7 @@ namespace CouponsOnline.DataLayer
                     dr[5] = item.Business.City.Name; ;
                     dr[6] = item.AvarageRanking; 
                     dr[7] = item.MaxNum;
+                    dr[8] = item.Id;
                     table.Rows.Add(dr);
                 }
             }
@@ -104,6 +106,7 @@ namespace CouponsOnline.DataLayer
             table.Columns.Add("Location", typeof(string));
             table.Columns.Add("Rating", typeof(double));
             table.Columns.Add("MaxNum", typeof(int));
+            table.Columns.Add("CoupinId", typeof(string));
 
             using (basicEntities be = new basicEntities())
             {
@@ -123,10 +126,55 @@ namespace CouponsOnline.DataLayer
                     dr[5] = item.Business.City.Name; ;
                     dr[6] = item.AvarageRanking;
                     dr[7] = item.MaxNum;
+                    dr[8] = item.Id;
                     table.Rows.Add(dr);
                 }
             }
             return table;
+        }
+
+        internal static bool RemoveCoupon(string CoponId)
+        {
+            try
+            {
+                using (basicEntities be = new basicEntities())
+                {
+                   int coupinid = Int32.Parse(CoponId);
+
+                   if (be.Coupons.Find(coupinid) != null)
+                    {
+                        Coupon cop = be.Coupons.Find(coupinid);
+                       //removing course from busniess
+                       // var deletedCourses = dbStudent.Courses.Except(student.Courses, cs => cs.CourseId).ToList<Course>();
+                    
+                       // deletedCourses.ForEach(cs => dbStudent.Courses.Remove(cs));
+                        Business x = cop.Business;
+                        var bus = (from b in be.Interests
+                                   where b.Coupons.Contains(cop)
+                                   select b);
+                    ICollection<Interest> i = cop.Interests;
+                       
+                        foreach (Interest item in i)
+                      {
+                           item.Coupons.Remove(cop);
+                     }
+                       
+                 
+                        x.Coupons.Remove(cop);
+                        be.Coupons.Remove(cop);
+                        
+                        be.SaveChanges();
+                         return true;
+                    }
+                   
+                    else
+                    return false;
+                }
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
         }
     }
 }

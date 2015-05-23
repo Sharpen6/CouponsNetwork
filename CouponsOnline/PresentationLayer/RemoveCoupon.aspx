@@ -29,11 +29,13 @@
             <br />
             <asp:DropDownList id="DropDownListBusniess" runat="server" placeholder="Pick Your Busniess" AutoPostBack="true"></asp:DropDownList>
               <br />
+       
         <asp:Button ID="BtnSearch" runat="server" Width="90%" Text="Scan" OnClick="BtnSearch_Click" />
-        <asp:GridView ID="GridVresults" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None">
-            <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+        <asp:GridView ID="GridVresults" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" OnRowCommand="GridVresults_RowCommand">
+            <AlternatingRowStyle BackColor="White" ForeColor="#284775"  />
             <Columns>
-                <asp:ButtonField ButtonType="Button" CommandName="Remove" HeaderText="Purchase" ShowHeader="True" Text="Remove" />
+                <asp:ButtonField ButtonType="Button" CommandName="RemoveCoupon" ShowHeader="True" Text="Remove"/>
+             
             </Columns>
             <EditRowStyle BackColor="#999999" />
             <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
@@ -47,6 +49,7 @@
             <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
         </asp:GridView>
     </div>
+     </div>
     </form>
 </body>
 </html>
