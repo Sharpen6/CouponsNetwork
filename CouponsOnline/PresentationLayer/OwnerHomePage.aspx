@@ -16,9 +16,18 @@
                 <li>
                     <a href="#!/home" onclick="SwitchTo('home');">Home</a>
                 </li>
+                  <li class="dropdown">
+                <a>Manage Coupons</a>
+                <ul>
                 <li>
+
                     <a href="#!/AddCoupon" onclick="SwitchTo('CreateCoupon');">Add Coupon</a>
                 </li>
+                    <li >
+                    <a href="RemoveCoupon.aspx">Remove Coupon</a>
+            </li>
+                    </ul>
+                      </li>
                 <li>
                     <a href="#!/AddInterest" onclick="SwitchTo('AddInterest');">Add Interest</a>
                 </li>

@@ -13,5 +13,10 @@ namespace CouponsOnline.BusinessLayer.Controllers
         {
             return CouponDataAccess.GetCouponsByCity(city);
         }
+
+        internal static object GetCouponsByBusniess(string Busniess)
+        {
+            return CouponDataAccess.GetCouponsByBusniess(Busniess);
+        }
     }
 }

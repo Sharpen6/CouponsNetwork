@@ -91,5 +91,42 @@ namespace CouponsOnline.DataLayer
             }
             return table;
         }
+
+        internal static DataTable GetCouponsByBusniess(string Busniesss)
+        {
+            DataTable table = new DataTable();
+
+            table.Columns.Add("Name", typeof(string));
+            table.Columns.Add("Description", typeof(string));
+            table.Columns.Add("Original Price", typeof(double));
+            table.Columns.Add("New Price", typeof(double));
+            table.Columns.Add("Business", typeof(string));
+            table.Columns.Add("Location", typeof(string));
+            table.Columns.Add("Rating", typeof(double));
+            table.Columns.Add("MaxNum", typeof(int));
+
+            using (basicEntities be = new basicEntities())
+            {
+                int i = Int32.Parse(Busniesss);
+                var bus = from b in be.Coupons
+                          where b.Business.BusinessID == i
+                          select b;
+                foreach (var item in bus)
+                {
+                    DataRow dr = table.NewRow();
+                    dr[0] = item.Name;
+                    dr[1] = item.Description;
+                    dr[2] = item.OriginalPrice;
+                    dr[3] = item.DiscountPrice;
+                    dr[4] = item.Business.Name;
+
+                    dr[5] = item.Business.City.Name; ;
+                    dr[6] = item.AvarageRanking;
+                    dr[7] = item.MaxNum;
+                    table.Rows.Add(dr);
+                }
+            }
+            return table;
+        }
     }
 }
