@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
@@ -53,12 +55,36 @@ namespace CouponsOnline.DataLayer
             }
         }
 
-        internal static  GetCouponsByCity(string city)
+        internal static DataTable GetCouponsByCity(string city)
         {
+            DataTable table = new DataTable();
+            
+            table.Columns.Add("Name",typeof(string));
+            table.Columns.Add("Description",typeof(string));
+            table.Columns.Add("Original Price",typeof(double));
+            table.Columns.Add("New Price",typeof(double));
+            table.Columns.Add("Business",typeof(string));
+            table.Columns.Add("Location",typeof(string));
+            table.Columns.Add("Rating",typeof(double));
+            table.Columns.Add("MaxNum",typeof(int));
+
             using (basicEntities be = new basicEntities())
             {
-                return be.Coupons;
+                foreach (var item in be.Coupons)
+                {
+                    DataRow dr = table.NewRow();
+                    dr[0] = item.Name;
+                    dr[1] = item.Description;
+                    dr[2] = item.OriginalPrice;
+                    dr[3] = item.DiscountPrice;
+                    dr[4] = item.Business.Name;
+                    dr[5] = item.Business.Address+", "+item.Business.City;
+                    dr[6] = item.AvarageRanking; 
+                    dr[7] = item.MaxNum;
+                    table.Rows.Add(dr);
+                }
             }
+            return table;
         }
     }
 }

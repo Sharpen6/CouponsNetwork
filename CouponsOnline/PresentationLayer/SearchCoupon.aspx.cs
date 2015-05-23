@@ -18,7 +18,7 @@ namespace CouponsOnline
             LoadCities();
         }
 
-        protected void BtnSearch_Click(object sender, EventArgs e)
+        public void BtnSearch_Click(object sender, EventArgs e)
         {
             SearchByCity();
         }

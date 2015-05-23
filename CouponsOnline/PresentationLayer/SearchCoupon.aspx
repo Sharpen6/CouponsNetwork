@@ -22,7 +22,7 @@
         </nav>
     </header>
     <form id="form1" runat="server">
-    <div id="home" class="mainBox" style="display:block">
+    <div id="home" class="mainBox large" style="display:block">
         <div>
             <asp:Label ID="Label2" Width="90%"  runat="server" Text="Sorry, Our GPS tracking server is down :("></asp:Label>
             <asp:Label ID="Label1" Width="90%" runat="server" Text="Please enter your location"></asp:Label>
