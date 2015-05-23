@@ -16,13 +16,14 @@ namespace CouponsOnline.PresentationLayer
 
             ScriptManager.RegisterStartupScript(this, GetType(), "SwitchTo", "SwitchTo('prevDiv')", true);
 
-            LoadInterest();
+            
 
             if (!this.IsPostBack)
             {
                 LoadBusiness();
                 DropDownListBusniess.SelectedIndex = 0;
                 LoadCategory();
+                LoadInterest();
                 
                 HttpCookie usernameCookie = Request.Cookies["ActiveUserName"];
                 string userName = usernameCookie.Value;
