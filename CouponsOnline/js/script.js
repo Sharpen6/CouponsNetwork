@@ -1,5 +1,5 @@
 ﻿var menuBar = ["home", "ManageCoupons", "ActiveCoupons", "Purchased",
-    "FindCoupon", "ShowBusinesses", "CreateCoupon","AddCity",
+    "FindCoupon", "ShowBusinesses", "CreateCoupon","AddCity","RemoveCoupon",
     "AddBusiness", "AddCategory", "AddInterest"];
 
 function SwitchTo(divName) {

@@ -17,7 +17,7 @@
                     <a href="#!/home" onclick="SwitchTo('home');">Home</a>
                 </li>
                 <li class="dropdown">
-                    <a href="Manage.aspx">Manage</a>
+                    <a href="Manage.aspx">Manage Coupons</a>
                     <ul>
                         <li>
                             <a href="Display.aspx">Display All</a>
@@ -25,6 +25,15 @@
                         <li>
                             <a onclick="SwitchTo('CreateCoupon');">Add Coupon</a>
                         </li>
+                        <li>
+                            <a onclick="SwitchTo('RemoveCoupon');">Remove Coupon</a>
+                        </li>
+                    </ul>
+                </li>
+                 <li class="dropdown">
+                    <a href="Manage.aspx">Manage Interest</a>
+                    <ul>
+                   
                         <li>
                             <a onclick="SwitchTo('AddInterest');">Add Interest</a>
                         </li>
@@ -68,6 +77,27 @@
         <asp:Button ID="BtnAddInterest" runat="server" Text="Add Interest" onclick="BtnAddInterest_Click1"/>
 
     
+    </div>
+         <div id="RemoveCoupon" class="mainBox">
+        <h1>Choose one of Your Busniess</h1>
+         <asp:DropDownList id="DropDownList1" runat="server" placeholder="Pick Your Busniess" AutoPostBack="true" OnSelectedIndexChanged="DropDownListBusniess_SelectedIndexChanged"></asp:DropDownList>
+        <br />
+         <h1>Choose Your Coupon interests</h1>
+             <asp:checkboxlist id="Checkboxlist1" SelectMethod="" runat="server" SelectionMode="Multiple" Width="500" >
+          
+        </asp:checkboxlist>
+      
+
+        
+        <h1>Create New Coupon</h1>
+        <asp:TextBox ID="TextBox1" runat="server" placeholder="Name"></asp:TextBox>
+        <asp:TextBox ID="TextBox2" runat="server" placeholder="Description"></asp:TextBox>
+        <asp:TextBox ID="TextBox3" runat="server" TextMode="Number" placeholder="Original Price"></asp:TextBox>
+        <asp:TextBox ID="TextBox4" runat="server" TextMode="Number" placeholder="New Price"></asp:TextBox>
+        <asp:TextBox ID="TextBox5" runat="server" TextMode="Number" placeholder="Maximum Per User"></asp:TextBox>       
+        <asp:TextBox ID="TextBox6" runat="server" TextMode="Date" placeholder="Last Parchase Date"></asp:TextBox>
+        
+        <asp:Button ID="Button1" runat="server" Text="Add Coupon" OnClick="BtnCreateCoupon_Click" />
     </div>
     </form>
 </body>
