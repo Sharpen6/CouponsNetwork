@@ -41,6 +41,9 @@
                 <li class="lastTab">
                     <a href="Login.aspx">Logout</a>
                 </li>
+                        <li class="lastTab">
+                    <a href="Profile.aspx">Your Profile</a>
+                </li>
             </ul>
         </nav>
     </header>

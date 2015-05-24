@@ -58,7 +58,7 @@ namespace CouponsOnline.PresentationLayer
                 MessageBox.Show("Price has to be Number ");
                 return;
             }
-            if(DateTime.Parse(TextBoxExp.Text)<DateTime.Now)
+            if (TextBoxExp.Text=="" ||DateTime.Parse(TextBoxExp.Text) < DateTime.Now)
             {
                 MessageBox.Show("Experation Date is Wrong ");
                 return;

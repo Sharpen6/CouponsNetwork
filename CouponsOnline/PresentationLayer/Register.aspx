@@ -15,6 +15,7 @@
 <body>
     <form id="form1" runat="server">
         
+       
         <div class ="login-card">
                     <h1>Register</h1><br />
                     <asp:TextBox ID="TextBoxUserName" runat="server" placeholder="User Name" ></asp:TextBox>

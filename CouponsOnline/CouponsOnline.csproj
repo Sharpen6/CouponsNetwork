@@ -85,6 +85,7 @@
   <ItemGroup>
     <Content Include="js\script.js" />
     <Content Include="Model.edmx.sql" />
+    <Content Include="PresentationLayer\Profile.aspx" />
     <Content Include="PresentationLayer\RemoveCoupon.aspx" />
     <Content Include="PresentationLayer\AdminHomePage.aspx" />
     <Content Include="PresentationLayer\css\style.css" />
@@ -143,6 +144,13 @@
     </Compile>
     <Compile Include="OrderedCoupon.cs">
       <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayer\Profile.aspx.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PresentationLayer\Profile.aspx.designer.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
     </Compile>
     <Compile Include="PresentationLayer\RemoveCoupon.aspx.cs">
       <DependentUpon>RemoveCoupon.aspx</DependentUpon>

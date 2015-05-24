@@ -42,6 +42,9 @@
             <li class="lastTab">
                     <a href="Login.aspx">Logout</a>
             </li>
+                    <li class="lastTab">
+                    <a href="Profile.aspx">Your Profile</a>
+                </li>
         </ul>
     </nav>
     <form id="form1" runat="server">

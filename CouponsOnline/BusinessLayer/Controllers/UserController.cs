@@ -95,5 +95,27 @@ namespace CouponsOnline.BusinessLayer.Controllers
             }
             return ans;
         }
+
+        internal static User GetUser(string ownerName)
+        {
+          return  UserDataAccess.getUser(ownerName);
+        }
+
+        internal static bool EditProfile(string UserName, string Name, string Phone, string Email)
+        {
+            int PhoneKidumet;
+            if (!int.TryParse(Phone.Substring(0, 3), out PhoneKidumet))
+                return false;
+            int PhoneNum = int.Parse(Phone.Substring(4, Phone.Length - 4));
+            bool ans = UserDataAccess.changeUser(UserName, Name, PhoneKidumet, PhoneNum, Email);
+            return ans;
+           
+        }
+
+        internal static bool EditProfile(string password,string user)
+        {
+            bool ans = UserDataAccess.changeUser(password,user);
+            return ans;
+        }
     }
 }

@@ -119,5 +119,42 @@ namespace CouponsOnline.DataLayer
         {
             throw new NotImplementedException();
         }
+
+        internal static User getUser(string ownerName)
+        {
+            using (basicEntities be = new basicEntities())
+            {
+                User u = be.Users.Find(ownerName);
+                return u;
+            }
+        }
+
+        internal static bool changeUser(string UserName, string Name, int PhoneKidumet, int PhoneNum, string Email)
+        {
+            using (basicEntities be = new basicEntities())
+            {
+                User u = be.Users.Find(UserName);
+                u.Name = Name;
+                u.PhoneKidomet = PhoneKidumet;
+                u.PhoneNum = PhoneNum;
+                u.Email = Email;
+                be.SaveChanges();
+                return true;
+            }
+
+        }
+
+        internal static bool changeUser(string password,string UserName)
+        {
+            using (basicEntities be = new basicEntities())
+            {
+                User u = be.Users.Find(UserName);
+                u.Password = password;
+                be.SaveChanges();
+                return true;
+            }
+
+        }
+
     }
 }
