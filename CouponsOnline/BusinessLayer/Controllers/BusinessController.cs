@@ -76,6 +76,12 @@ namespace CouponsOnline.BusinessLayer.Controllers
             int Categoryid = BusinessDataAccess.FindCategory(categoryName);
             return BusinessDataAccess.GetCategoryIntrest(Categoryid);
         }
+
+        internal static bool deleteBusiness(int p)
+        {
+           return BusinessDataAccess.DeleteBusiness(p);
+             
+        }
     }
 
 }

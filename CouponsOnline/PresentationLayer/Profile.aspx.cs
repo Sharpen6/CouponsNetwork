@@ -84,5 +84,26 @@ namespace CouponsOnline.PresentationLayer
             ResetPassword.Visible = false;
             profileData.Visible = true;
         }
+
+        protected void delete_Click(object sender, EventArgs e)
+        {
+          DialogResult result=     MessageBox.Show("Are you sure ypu want to delete your account?",
+		"Critical Warning",
+		MessageBoxButtons.YesNo,
+		MessageBoxIcon.Warning,
+		MessageBoxDefaultButton.Button1,
+		MessageBoxOptions.RightAlign,
+		true);
+	  
+	        if (result == DialogResult.Yes)
+            {
+                bool ans = UserController.deleteProfile( TextBoxUserName.Text);
+                if (ans)
+                    MessageBox.Show("your account has been deleted");
+                else
+                    MessageBox.Show("something went wrong :(");
+                Response.Redirect("Login.aspx");
+            }
+        }
         }
     }

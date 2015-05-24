@@ -47,6 +47,7 @@
                     <asp:Button ID="Button1" runat="server" class="login login-submit" Text="Change Profile!" width="60%" OnClick="Button1_Click"/>
                 <asp:Button ID="Button2" runat="server" class="login login-submit" Text="Change Password!" width="60%" OnClick="Button2_Click"/>
                     <asp:Label ID="LabelError" runat="server"></asp:Label>
+         <asp:Button ID="delete" runat="server" class="login login-submit" Text="Delete Account" width="60%" OnClick="delete_Click"/>
                     
     </div>
         <div class ="login-card" id="ResetPassword" runat="server" visible="false">
@@ -56,6 +57,7 @@
         Repeat Password:
                     <asp:TextBox ID="TextBoxPasswordVal" runat="server" TextMode="Password" placeholder="Repeat Password"></asp:TextBox>    
               <asp:Button ID="reset" runat="server" class="login login-submit" Text="Reset Password!" width="60%" OnClick="reset_Click"/>
+              
     </div>
 
     </form>

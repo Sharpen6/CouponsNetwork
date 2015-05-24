@@ -9,6 +9,7 @@
           <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="Sensor_Id" ColumnName="Sensor_Id" />
           <ScalarProperty Name="BusinessCategoriesId" ColumnName="BusinessCategoriesId" />
+          <ScalarProperty Name="Block" ColumnName="Block" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -69,6 +70,7 @@
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="PhoneKidomet" ColumnName="PhoneKidomet" />
           <ScalarProperty Name="PhoneNum" ColumnName="PhoneNum" />
+          <ScalarProperty Name="Block" ColumnName="Block" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

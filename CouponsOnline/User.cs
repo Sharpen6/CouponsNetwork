@@ -20,6 +20,7 @@ namespace CouponsOnline
         public string Name { get; set; }
         public Nullable<int> PhoneKidomet { get; set; }
         public Nullable<int> PhoneNum { get; set; }
+        public bool Block { get; set; }
     
         public virtual Users_Admin Users_Admin { get; set; }
         public virtual Users_Customer Users_Customer { get; set; }

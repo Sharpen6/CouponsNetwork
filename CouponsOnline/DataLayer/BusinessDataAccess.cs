@@ -122,7 +122,7 @@ namespace CouponsOnline.DataLayer
             using (basicEntities be = new basicEntities())
             {
                 var items = from b in be.Businesses
-                            where b.Users_Owner.UserName == businessOwner
+                            where b.Users_Owner.UserName == businessOwner & b.Block==false
                             select b;
                 bItems = new List<Business>(items);
             }
@@ -144,7 +144,7 @@ namespace CouponsOnline.DataLayer
             using (basicEntities be = new basicEntities())
             {
                 var items = from b in be.Businesses
-                            where b.Users_Owner.UserName == businessOwner
+                            where b.Users_Owner.UserName == businessOwner & b.Block == false
                             select b;
                 bItems = new List<Business>(items);
             
@@ -156,6 +156,39 @@ namespace CouponsOnline.DataLayer
                 }
             return ans;
         }
+
+        public static List<Business> GetAllBusnisesbyId(string businessOwner)
+        {
+            
+         
+            using (basicEntities be = new basicEntities())
+            {
+                var items = from b in be.Businesses
+                            where b.Users_Owner.UserName == businessOwner & b.Block == false
+                            select b;
+                foreach (Business b in items)
+                    b.Block = true;
+                be.SaveChanges();
+                return new List<Business>(items);
+            }
+           
+            
+            }
+
+        public static bool DeleteBusiness(int businesid)
+        {
+            using (basicEntities be = new basicEntities())
+            {
+                 Business b= be.Businesses.Find(businesid);
+                    b.Block = true;
+                be.SaveChanges();
+                return true;
+
+            }
+
+
+        }
+           
 
         internal static bool CreateCategory(string p)
         {
@@ -272,7 +305,7 @@ namespace CouponsOnline.DataLayer
             List<string> bItems;
             using (basicEntities be = new basicEntities())
             {
-                var items = from b in be.Businesses
+                var items = from b in be.Businesses where b.Block==false
                             select b.Name;
                 bItems = new List<string>(items);
             }

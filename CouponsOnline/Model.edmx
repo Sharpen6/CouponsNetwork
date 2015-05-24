@@ -103,6 +103,7 @@
     <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Sensor_Id" Type="int" Nullable="true" />
     <Property Name="BusinessCategoriesId" Type="int" Nullable="false" />
+    <Property Name="Block" Type="bit" Nullable="false" />
     <Property Name="Users_Admin_UserName" Type="varchar" MaxLength="500" Nullable="false" />
     <Property Name="Users_Owner_UserName" Type="varchar" MaxLength="500" Nullable="false" />
     <Property Name="City_Id" Type="int" Nullable="false" />
@@ -161,6 +162,7 @@
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="PhoneKidomet" Type="int" Nullable="true" />
     <Property Name="PhoneNum" Type="int" Nullable="true" />
+    <Property Name="Block" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Users_Admin">
     <Key>
@@ -553,6 +555,7 @@
           <NavigationProperty Name="BusinessCategory" Relationship="basicModel.BusinessBusinessCategories" FromRole="Business" ToRole="BusinessCategories" />
           <Property Name="BusinessCategoriesId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="City" Relationship="basicModel.BusinessCity" FromRole="Business" ToRole="City" />
+          <Property Name="Block" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Coupon">
           <Key>
@@ -619,6 +622,7 @@
           <NavigationProperty Name="Users_Admin" Relationship="basicModel.FK_Admin_inherits_User" FromRole="User" ToRole="Users_Admin" />
           <NavigationProperty Name="Users_Customer" Relationship="basicModel.FK_Customer_inherits_User" FromRole="User" ToRole="Users_Customer" />
           <NavigationProperty Name="Users_Owner" Relationship="basicModel.FK_Owner_inherits_User" FromRole="User" ToRole="Users_Owner" />
+          <Property Name="Block" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Users_Admin">
           <Key>
@@ -873,6 +877,7 @@
           <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="Sensor_Id" ColumnName="Sensor_Id" />
           <ScalarProperty Name="BusinessCategoriesId" ColumnName="BusinessCategoriesId" />
+          <ScalarProperty Name="Block" ColumnName="Block" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -933,6 +938,7 @@
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="PhoneKidomet" ColumnName="PhoneKidomet" />
           <ScalarProperty Name="PhoneNum" ColumnName="PhoneNum" />
+          <ScalarProperty Name="Block" ColumnName="Block" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

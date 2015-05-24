@@ -65,7 +65,7 @@ namespace CouponsOnline.BusinessLayer.Controllers
             List<Users_Customer> bItems;
             using (basicEntities be = new basicEntities())
             {
-                var items = from b in be.Users_Customer
+                var items = from b in be.Users_Customer where b.User.Block==false
                             select b;
                 bItems = new List<Users_Customer>(items);
             }
@@ -84,7 +84,7 @@ namespace CouponsOnline.BusinessLayer.Controllers
             List<Users_Owner> bItems;
             using (basicEntities be = new basicEntities())
             {
-                var items = from b in be.Users_Owner
+                var items = from b in be.Users_Owner where b.User.Block==false
                             select b;
                 bItems = new List<Users_Owner>(items);
             }
@@ -115,6 +115,12 @@ namespace CouponsOnline.BusinessLayer.Controllers
         internal static bool EditProfile(string password,string user)
         {
             bool ans = UserDataAccess.changeUser(password,user);
+            return ans;
+        }
+
+        internal static bool deleteProfile(string p)
+        {
+            bool ans = UserDataAccess.deletPassword(p);
             return ans;
         }
     }

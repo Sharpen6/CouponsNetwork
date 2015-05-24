@@ -23,6 +23,9 @@
                     <li>
                         <a onclick="SwitchTo('AddBusiness');">Add Business</a>
                     </li>
+                    <li>
+                        <a onclick="SwitchTo('DeleteBusiness');">Delete Business</a>
+                    </li>
                 </ul>
             </li>
             <li class="dropdown">
@@ -66,6 +69,11 @@
     <div id="AddCity" class="mainBox">
         <asp:TextBox ID="TextBoxCity" runat="server" placeholder="City Name"></asp:TextBox>
         <asp:Button ID="Button1" runat="server" Text="Add City" onclick="BtnAddCity_Click"/>
+    </div>
+           <div id="DeleteBusiness" class="mainBox">
+               <asp:DropDownList ID="DropDownListOwner" runat="server" placeholder="Pick Owner" AutoPostBack="true" OnSelectedIndexChanged="DropDownListOwner_SelectedIndexChanged"></asp:DropDownList>
+               <asp:DropDownList id="DropDownListBusniess" runat="server" placeholder="Pick Busniess" autoPostBack="true" ></asp:DropDownList>
+                  <asp:Button ID="BtnBusiness" runat="server" Text="Delete Business" onclick="BtnBusiness_Click"/>
     </div>
     </form>
 </body>

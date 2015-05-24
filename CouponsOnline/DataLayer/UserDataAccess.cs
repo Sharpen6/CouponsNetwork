@@ -15,7 +15,7 @@ namespace CouponsOnline.DataLayer
             {
                 User a = be.Users.Find(username);
                 if (a!=null) 
-                    if (a.Password==password)
+                    if (a.Password==password & a.Block==false)
                         return true;
             }
             return false;
@@ -35,6 +35,7 @@ namespace CouponsOnline.DataLayer
                 u.PhoneKidomet = PhoneKidumet;
                 u.PhoneNum = PhoneNum;
                 u.Email = Email;
+                u.Block = false;
                 be.Users.Add(u);
                 be.SaveChanges();
                 return true;
@@ -115,10 +116,7 @@ namespace CouponsOnline.DataLayer
             }
         }
 
-        internal static Users_Owner FindOwnerBusiness(string selectedBusiness)
-        {
-            throw new NotImplementedException();
-        }
+       
 
         internal static User getUser(string ownerName)
         {
@@ -156,5 +154,27 @@ namespace CouponsOnline.DataLayer
 
         }
 
+
+        internal static bool deletPassword(string p)
+        {
+            using (basicEntities be = new basicEntities())
+            {
+                User u = be.Users.Find(p);
+            
+                
+                 UserType t= GetAuthentication(u.UserName);
+                if (t==UserType.Owner)
+                {
+                    List<Business> Y = BusinessDataAccess.GetAllBusnisesbyId(u.UserName);
+                  foreach(Business b in Y  )
+                  {
+                      b.Block = true;
+                  }
+                }
+                u.Block = true;
+                be.SaveChanges();
+                return true;
+            }
+        }
     }
 }
