@@ -12,7 +12,6 @@
      <header>
 
         <nav>
-            <ul class="nav">
                 <ul class="nav">
                 <li>
                     <a href="#!/home" onclick="SwitchTo('home');">Home</a>
