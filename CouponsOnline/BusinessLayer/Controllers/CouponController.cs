@@ -14,6 +14,13 @@ namespace CouponsOnline.BusinessLayer.Controllers
         {
             return CouponDataAccess.GetCouponsByCity(city);
         }
+        public static bool CreateCoupon(string name, string orgprice, string discount,string user,
+            string selectedBusiness, string desc, string datee, int maxNum, List<ListItem> interestt)
+        {
+            Users_Owner owner = UserDataAccess.FindOwner(user);
+            return owner.CreateCoupon(name, orgprice, discount, selectedBusiness,
+                desc, datee,maxNum, interestt);
+        }
 
         internal static object GetCouponsByBusniess(string Busniess)
         {

@@ -88,5 +88,36 @@ namespace CouponsOnline.DataLayer
             }
             return UserType.Customer;
         }
+
+        // Find Users in the system
+        internal static Users_Admin FindAdmin(string ad)
+        {
+            using (basicEntities be = new basicEntities())
+            {
+                Users_Admin admin = be.Users_Admin.Find(ad);
+                return admin;
+            }            
+        }
+        internal static Users_Owner FindOwner(string ad)
+        {
+            using (basicEntities be = new basicEntities())
+            {
+                Users_Owner owner = be.Users_Owner.Find(ad);
+                return owner;
+            }
+        }
+        internal static Users_Customer FindCustomer(string ad)
+        {
+            using (basicEntities be = new basicEntities())
+            {
+                Users_Customer customer = be.Users_Customer.Find(ad);
+                return customer;
+            }
+        }
+
+        internal static Users_Owner FindOwnerBusiness(string selectedBusiness)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

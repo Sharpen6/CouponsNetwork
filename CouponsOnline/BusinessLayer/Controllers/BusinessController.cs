@@ -9,14 +9,7 @@ namespace CouponsOnline.BusinessLayer.Controllers
 {
     public class BusinessController
     { 
-        public static int CreateCoupon(string name,  string orgprice, string discount,
-            string business,string desc, string datee, int maxNum,  List<ListItem> interestt)
-        {
-            Business b = GetUserBusiness(business);
-                if (b==null) return 0;
-            //Interest inter= getinterest(b,interestt);
-                return CouponDataAccess.CreateCoupon(name, desc, orgprice, discount, b, datee, maxNum, interestt);
-        }
+        
 
         private static Interest getinterest(Business catrgory, string interestt)
         {
@@ -27,13 +20,9 @@ namespace CouponsOnline.BusinessLayer.Controllers
         public static bool CreateBusiness(string ad, string owner, string address, 
             string name, string c,string cityName)
         {
-            int cityID = BusinessDataAccess.FindCity(cityName);
-            int categoryID = BusinessDataAccess.FindCategory(c);            
-            return BusinessDataAccess.CreateBusiness(ad, owner, address, name, categoryID,cityID);
-        }
-        private static Business GetUserBusiness(string ownerName)
-        {
-            return BusinessDataAccess.FindBusiness(ownerName);
+            Users_Admin admin = UserDataAccess.FindAdmin(ad);
+            //Users_Admin admin = UserDataAccess.FindAdmin(ad);
+            return admin.CreateBusiness(owner, address, name, c, cityName);
         }
         public static ListItem[] GetAllBusnisesId(string ownerName)
         {
@@ -45,14 +34,6 @@ namespace CouponsOnline.BusinessLayer.Controllers
             return BusinessDataAccess.GetAllBusnisesCategory(ownerName);
         }
 
-        public static bool UserHasBusiness(string userName)
-        {
-            Business b = GetUserBusiness(userName);
-            if (b == null) 
-                return false;
-            return true;
-        }
-    
         public static ListItem[] GetAllCategories()
         {
             return BusinessDataAccess.GetCategories();

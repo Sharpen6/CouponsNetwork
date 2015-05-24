@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CouponsOnline.BusinessLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,7 +13,7 @@ namespace CouponsOnline.DataLayer
         
 
         
-        public static Business FindBusiness(string businessOwner)
+        public static Business FindBusiness(string businessName)
         {
             using (basicEntities be = new basicEntities())
             {
@@ -20,7 +21,7 @@ namespace CouponsOnline.DataLayer
                           where b.Owner_UserName == businessOwner
                           select b;*/
                 var bus = from b in be.Businesses
-                          where b.Name == businessOwner
+                          where b.Name == businessName
                           select b;
                 Business business = bus.First();
                 return business;

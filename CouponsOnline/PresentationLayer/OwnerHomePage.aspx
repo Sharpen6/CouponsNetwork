@@ -58,9 +58,7 @@
         <asp:TextBox ID="TextBoxDisc" runat="server" placeholder="New Price"></asp:TextBox>
         <asp:TextBox ID="TextBoxMPU" runat="server" TextMode="Number" placeholder="Maximum Per User"></asp:TextBox>       
         <asp:TextBox ID="TextBoxExp" runat="server" TextMode="Date" placeholder="Last Parchase Date"></asp:TextBox>
-        <%--<asp:RangeValidator ID="rgvStartDate" runat="server" ErrorMessage="Expiration date must be greater than today"
-                text="*" ValidationGroup="AddEvent" ControlToValidate="TextBoxExp" Type="Date"></asp:RangeValidator>
-        --%><asp:Button ID="BtnCreateCoupon" runat="server" Text="Add Coupon" OnClick="BtnCreateCoupon_Click" />
+        <asp:Button ID="BtnCreateCoupon" runat="server" Text="Add Coupon" OnClick="BtnCreateCoupon_Click" />
     </div>
 
         <div id="AddInterest" class="mainBox">

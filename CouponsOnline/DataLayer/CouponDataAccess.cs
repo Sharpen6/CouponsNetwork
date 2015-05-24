@@ -10,7 +10,7 @@ namespace CouponsOnline.DataLayer
 {
     public class CouponDataAccess
     {
-        public static int CreateCoupon(string name, string desc, string orgprice, string discount, Business b, string datee, int maxNum, List<ListItem> interestt)
+        public static bool CreateCoupon(string name, string desc, string orgprice, string discount, Business b, string datee, int maxNum, List<ListItem> interestt)
         {
             using (basicEntities be = new basicEntities())
             {
@@ -37,7 +37,7 @@ namespace CouponsOnline.DataLayer
                 be.Coupons.Add(cop);
                 be.SaveChanges();
 
-                return cop.Id;
+                return true;
             }
         }
         public static Interest FindInterest(Business Category, string desription)

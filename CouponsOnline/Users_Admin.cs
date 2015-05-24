@@ -17,5 +17,6 @@ namespace CouponsOnline
         public string UserName { get; set; }
     
         public virtual User User { get; set; }
+        
     }
 }

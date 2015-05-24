@@ -106,9 +106,11 @@
     <Compile Include="BusinessCategories.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="BusinessLayer\Users_Admin.cs" />
     <Compile Include="BusinessLayer\Controllers\BusinessController.cs" />
     <Compile Include="BusinessLayer\Controllers\CouponController.cs" />
     <Compile Include="BusinessLayer\Controllers\UserController.cs" />
+    <Compile Include="BusinessLayer\Users_Owner.cs" />
     <Compile Include="City.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

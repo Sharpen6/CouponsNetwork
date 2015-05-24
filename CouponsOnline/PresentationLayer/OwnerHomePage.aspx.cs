@@ -39,7 +39,7 @@ namespace CouponsOnline.PresentationLayer
         protected void BtnCreateCoupon_Click(object sender, EventArgs e)
         {
             HttpCookie usernameCookie = Request.Cookies["ActiveUserName"];
-            string activeUser = DropDownListBusniess.SelectedItem.Text;
+            string selectedBusiness = DropDownListBusniess.SelectedItem.Text;
      
             int mdp;
             double temp;
@@ -66,9 +66,9 @@ namespace CouponsOnline.PresentationLayer
             List<ListItem> selected = new List<ListItem>();
             foreach (ListItem item in DropDownListInterests.Items)
                 if (item.Selected) selected.Add(item);
-            BusinessController.CreateCoupon(TextBoxName.Text, TextBoxOrg.Text, TextBoxDisc.Text,
-                activeUser, TextBoxDesc.Text, TextBoxExp.Text, mdp, selected);
-            MessageBox.Show("Coupon " + TextBoxName.Text + " added successfully! ");
+            CouponController.CreateCoupon(TextBoxName.Text, TextBoxOrg.Text, TextBoxDisc.Text,usernameCookie.Value,
+                selectedBusiness, TextBoxDesc.Text, TextBoxExp.Text, mdp, selected);
+            MessageBox.Show("Coupon " + TextBoxName.Text + " added successfully!");
             TextBoxName.Text="";
             TextBoxOrg.Text="";
             TextBoxDisc.Text="";
