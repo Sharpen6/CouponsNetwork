@@ -63,5 +63,22 @@ namespace CouponsOnline.BusinessLayer.Controllers
         {
             return CouponDataAccess.RemoveCoupon(CoponId);
         }
+
+  
+
+        internal static bool EditCoupon(int copId, string p1, string p2, string p3, string p4, string p5, int mdp, List<ListItem> selected)
+        {
+            return CouponDataAccess.EditCoupon( copId,  p1,  p2,  p3,  p4,  p5,  mdp, selected);
+        }
+
+        internal static string FindCouponExpDate(string p)
+        {
+            return CouponDataAccess.FindCoupon(p);
+        }
+
+        internal static ICollection<Interest> FindCopInterest(string p)
+        {
+            return CouponDataAccess.findCopInterest(p);
+        }
     }
 }

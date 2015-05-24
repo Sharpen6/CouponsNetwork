@@ -12,12 +12,14 @@ namespace CouponsOnline.PresentationLayer
 {
     public partial class AddCoupon : System.Web.UI.Page
     {
+       
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!this.IsPostBack)
             {
                 ScriptManager.RegisterStartupScript(this, GetType(), "SwitchTo", "SwitchTo('home')", true);
                 LoadBusiness();
+                EditCoupon.Visible = false;
 
             }
         }
@@ -44,17 +46,57 @@ namespace CouponsOnline.PresentationLayer
         {
             int index = Convert.ToInt32(e.CommandArgument);
             GridViewRow selectedRow = GridVresults.Rows[index];
-            string id = selectedRow.Cells[9].Text;
-            bool result = CouponController.removeCoupon(id);
-            string Busniess = DropDownListBusniess.SelectedValue;
-        
-            if (result)
-            MessageBox.Show("Coupon removed");
+            if (e.CommandName == "RemoveCoupon")
+            {
+                string id = selectedRow.Cells[10].Text;
+                bool result = CouponController.removeCoupon(id);
+                string Busniess = DropDownListBusniess.SelectedValue;
+
+                if (result)
+                    MessageBox.Show("Coupon removed");
+                else
+                    MessageBox.Show("can't remove coupon- already been Purchase");
+                GridVresults.DataSource = null;
+                GridVresults.DataBind();
+                SearchByBusnies();
+            }
             else
-                MessageBox.Show("can't remove coupon- already been Purchase");
-            GridVresults.DataSource = null;
-            GridVresults.DataBind();
-            SearchByBusnies();
+            {
+                TextBoxExp.Text = CouponController.FindCouponExpDate(selectedRow.Cells[10].Text);
+                EditCoupon.Visible = true;
+                home.Visible = false;
+                TextBoxName.Text = selectedRow.Cells[2].Text;
+                TextBoxOrg.Text = selectedRow.Cells[4].Text;
+                TextBoxDisc.Text = selectedRow.Cells[5].Text;
+                TextBoxDesc.Text = selectedRow.Cells[3].Text;
+               // TextBoxExp.Text = selectedRow.Cells[6].Text;
+                TextBoxMPU.Text = selectedRow.Cells[9].Text;
+                copId.Text = selectedRow.Cells[10].Text;
+                DropDownListInterests.Items.Clear();
+                LoadInterest();
+                ICollection<Interest> t = CouponController.FindCopInterest(copId.Text);
+                foreach (Interest item in t)
+                {
+                    DropDownListInterests.Items.FindByText(item.Description).Selected = true;
+
+
+                }
+
+
+            }
+        }
+        
+        private void LoadInterest()
+        {
+            DropDownListInterests.Items.Clear();
+            string Busniessid = DropDownListBusniess.SelectedValue;
+            if (Busniessid != "")
+            {
+                int Categoryid = BusinessController.FindBusinessCategory(Busniessid);
+                //DropDownListInterests.Items.AddRange(BusinessController.GetAllCategoryIntrest(Categoryid));
+                DropDownListInterests.DataSource = BusinessController.GetAllCategoryIntrest(Categoryid);
+                DropDownListInterests.DataBind();
+            }
         }
 
         protected void DropDownListBusniess_SelectedIndexChanged(object sender, EventArgs e)
@@ -62,7 +104,53 @@ namespace CouponsOnline.PresentationLayer
             GridVresults.DataSource = null;
             GridVresults.DataBind();
         }
-      
-  
+
+        protected void BtnEditCoupon_Click(object sender, EventArgs e)
+        {
+            HttpCookie usernameCookie = Request.Cookies["ActiveUserName"];
+            string selectedBusiness = DropDownListBusniess.SelectedItem.Text;
+
+            int mdp;
+            double temp;
+            if (!int.TryParse(TextBoxMPU.Text, out mdp))
+            {
+                MessageBox.Show("Missing Values! ");
+                return;
+            }
+            if (!double.TryParse(TextBoxDisc.Text, out temp))
+            {
+                MessageBox.Show("Discount has to be Number ");
+                return;
+            }
+            if (!double.TryParse(TextBoxOrg.Text, out temp))
+            {
+                MessageBox.Show("Price has to be Number ");
+                return;
+            }
+            if (TextBoxExp.Text=="" || DateTime.Parse(TextBoxExp.Text) < DateTime.Now)
+            {
+                MessageBox.Show("Experation Date is Wrong ");
+                return;
+            }
+            List<ListItem> selected = new List<ListItem>();
+            foreach (ListItem item in DropDownListInterests.Items)
+                if (item.Selected) selected.Add(item);
+            CouponController.EditCoupon( Int32.Parse(copId.Text), TextBoxName.Text, TextBoxOrg.Text, TextBoxDisc.Text,TextBoxDesc.Text, TextBoxExp.Text, mdp, selected);
+            MessageBox.Show("Coupon " + TextBoxName.Text + " Edit successfully!");
+            TextBoxName.Text = "";
+            TextBoxOrg.Text = "";
+            TextBoxDisc.Text = "";
+            TextBoxDesc.Text = "";
+            TextBoxExp.Text = "";
+            TextBoxMPU.Text = "";
+            home.Visible = true;
+           
+            EditCoupon.Visible = false;
+            SearchByBusnies();
+
+        }
+
+
+
     }
 }
