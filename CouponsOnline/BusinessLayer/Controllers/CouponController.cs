@@ -20,15 +20,36 @@ namespace CouponsOnline.BusinessLayer.Controllers
             return CouponDataAccess.GetCouponsByBusniess(Busniess);
         }
 
-        internal static DataTable FindCoupons(string city, List<ListItem> selectedInterests, double coordinateX, double coordinateY)
+        internal static DataTable FindCoupons(string city, List<ListItem> selectedInterests, double coordinateX, double coordinateY,int category)
         {
             DataTable table = new DataTable();
+            DataTable t1 = new DataTable();
+            DataTable t2 = new DataTable();
+            DataTable t3 = new DataTable();
+            //without Gps 
+            if (city != "" & category!=0)
+            {
+                table = CouponDataAccess.GetCouponsByCityAndInterest(city, selectedInterests);
+            }
+            else
             if (city != "")
                 table = CouponDataAccess.GetCouponsByCity(city);
-            else if (selectedInterests.Count != 0)
+            else  if (selectedInterests.Count != 0)
                 table = CouponDataAccess.GetCouponsByInterest(selectedInterests);
-            else if (coordinateX != 0 && coordinateY != 0)
+            else  if (coordinateX != 0 && coordinateY != 0)
                 table = CouponDataAccess.GetCouponsByGps(coordinateX, coordinateY);
+
+          /*  table = t1.Clone();
+
+            foreach (var DataRow in t2.Rows)
+            {
+                table.Rows.Add(DataRow);
+            }
+            foreach (var DataRow in t3.Rows)
+            {
+                table.Rows.Add(DataRow);
+            }*/
+
             return table;
         }
         internal static bool removeCoupon(string CoponId)

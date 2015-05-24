@@ -25,7 +25,8 @@ namespace CouponsOnline.PresentationLayer
                 DropDownListBusniess.SelectedIndex = 0;
                 LoadCategory();
                 LoadInterest();
-                
+                //rgvStartDate.MinimumValue = DateTime.Now.ToString("d");
+                //rgvStartDate.MaximumValue = DateTime.Now.Date.AddDays(300.0).ToString("d");
                 HttpCookie usernameCookie = Request.Cookies["ActiveUserName"];
                 string userName = usernameCookie.Value;
                 //if (Request.Cookies["ActiveUserName"] != null)
@@ -41,9 +42,25 @@ namespace CouponsOnline.PresentationLayer
             string activeUser = DropDownListBusniess.SelectedItem.Text;
      
             int mdp;
+            double temp;
             if (!int.TryParse(TextBoxMPU.Text, out mdp))
             {
                 MessageBox.Show("Missing Values! ");
+                return;
+            }
+            if (!double.TryParse(TextBoxDisc.Text,out temp))
+            {
+                MessageBox.Show("Discount has to be Number ");
+                return;
+            }
+            if (!double.TryParse(TextBoxOrg.Text, out temp))
+            {
+                MessageBox.Show("Price has to be Number ");
+                return;
+            }
+            if(DateTime.Parse(TextBoxExp.Text)<DateTime.Now)
+            {
+                MessageBox.Show("Experation Date is Wrong ");
                 return;
             }
             List<ListItem> selected = new List<ListItem>();
@@ -52,6 +69,15 @@ namespace CouponsOnline.PresentationLayer
             BusinessController.CreateCoupon(TextBoxName.Text, TextBoxOrg.Text, TextBoxDisc.Text,
                 activeUser, TextBoxDesc.Text, TextBoxExp.Text, mdp, selected);
             MessageBox.Show("Coupon " + TextBoxName.Text + " added successfully! ");
+            TextBoxName.Text="";
+            TextBoxOrg.Text="";
+            TextBoxDisc.Text="";
+            TextBoxDesc.Text="";
+            TextBoxExp.Text="";
+            TextBoxMPU.Text = "";
+            DropDownListInterests.ClearSelection();
+
+
         }
         
     
@@ -92,7 +118,14 @@ namespace CouponsOnline.PresentationLayer
 
         protected void BtnAddInterest_Click1(object sender, EventArgs e)
         {
-            BusinessController.createInterest(DropDownListCategory.SelectedValue, TextBoxInterest.Text);
+            if (TextBoxInterest.Text != "")
+            {
+                BusinessController.createInterest(DropDownListCategory.SelectedValue, TextBoxInterest.Text);
+                MessageBox.Show("Interest added succesfully!");
+                TextBoxInterest.Text = "";
+            }
+            else
+                MessageBox.Show("Fill Interest");
         }
     }
 }

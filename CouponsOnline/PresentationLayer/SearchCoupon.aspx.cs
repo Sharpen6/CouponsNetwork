@@ -37,6 +37,8 @@ namespace CouponsOnline
         }
         private void Search()
         {
+            GridVresults.DataSource = null;
+            GridVresults.DataBind();
             string city = DropDownListCities.SelectedValue;
             double coordinateX = 0;
             double coordinateY = 0;
@@ -47,7 +49,8 @@ namespace CouponsOnline
             List<ListItem> selectedInterests = new List<ListItem>();
             foreach (ListItem item in DropDownListInterests.Items)
                 if (item.Selected) selectedInterests.Add(item);
-            GridVresults.DataSource = CouponController.FindCoupons(city, selectedInterests, coordinateX, coordinateY);
+            // this function applies all the fields togather
+            GridVresults.DataSource = CouponController.FindCoupons(city, selectedInterests, coordinateX, coordinateY, DropDownListCategory.SelectedIndex);
             GridVresults.DataBind();
         }
         private void SearchByCords()
@@ -66,7 +69,10 @@ namespace CouponsOnline
 
             DropDownListInterests.DataSource = BusinessController.GetAllInterests(DropDownListCategory.SelectedValue);
             DropDownListInterests.DataBind();
-
+            foreach (ListItem item in DropDownListInterests.Items)
+            {
+                item.Selected = true;
+            }
         }
 
         private void LoadCities()
@@ -85,6 +91,21 @@ namespace CouponsOnline
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
             Search();
+        }
+
+        protected void DropDownListInterests_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Search();
+        }
+
+        protected void DropDownListCities_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GridVresults.DataSource = null;
+            GridVresults.DataBind();
+            
+            Search();
+         // DropDownListCategory.ClearSelection();
+          //  DropDownListInterests.Items.Clear();
         }
         
     }

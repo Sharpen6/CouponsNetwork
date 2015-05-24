@@ -56,6 +56,12 @@ namespace CouponsOnline.PresentationLayer
             GridVresults.DataBind();
             SearchByBusnies();
         }
+
+        protected void DropDownListBusniess_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GridVresults.DataSource = null;
+            GridVresults.DataBind();
+        }
       
   
     }

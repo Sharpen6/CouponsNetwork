@@ -101,11 +101,12 @@ namespace CouponsOnline.DataLayer
             {
                 int i = Int32.Parse(Busniesss);
                 bus = from b in be.Coupons
-                          where b.Business.BusinessID == i
-                          select b.Id;
-            }
+                      where b.Business.BusinessID == i
+                      select b.Id;
 
-            return GetDataTable(bus.ToList());
+
+                return GetDataTable(bus.ToList());
+            }
         }
 
         internal static DataTable GetCouponsByInterest(List<ListItem> selectedInterests)
@@ -219,6 +220,32 @@ namespace CouponsOnline.DataLayer
         internal static DataTable GetCouponsByGps(double coordinateX, double coordinateY)
         {
             throw new NotImplementedException();
+        }
+
+        internal static DataTable GetCouponsByCityAndInterest(string city, List<ListItem> selectedInterests)
+        {
+            List<string> interests = new List<string>();
+            foreach (var item in selectedInterests)
+            {
+                interests.Add(item.Text);
+            }
+            List<int> bus = new List<int>();
+            using (basicEntities be = new basicEntities())
+            {
+                foreach (var item in be.Coupons)
+                {
+                   
+                    foreach (var interest in item.Interests)
+                    {
+                        if (interests.Contains(interest.Description) & item.Business.City.Name == city)
+                        {
+                            bus.Add(item.Id);
+                            break;
+                        }
+                    }
+                }
+            }
+            return GetDataTable(bus);
         }
     }
 }

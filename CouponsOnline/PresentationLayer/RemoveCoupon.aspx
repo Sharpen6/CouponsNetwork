@@ -27,7 +27,7 @@
         <div>
               <asp:Label ID="Label2" Width="90%"  runat="server" Text="Choose one of Your Busniess"></asp:Label>
             <br />
-            <asp:DropDownList id="DropDownListBusniess" runat="server" placeholder="Pick Your Busniess" AutoPostBack="true"></asp:DropDownList>
+            <asp:DropDownList id="DropDownListBusniess" runat="server" placeholder="Pick Your Busniess" AutoPostBack="true" OnSelectedIndexChanged="DropDownListBusniess_SelectedIndexChanged"></asp:DropDownList>
               <br />
        
         <asp:Button ID="BtnSearch" runat="server" Width="90%" Text="Scan" OnClick="BtnSearch_Click" />
