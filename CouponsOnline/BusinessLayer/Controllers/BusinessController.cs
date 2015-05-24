@@ -82,6 +82,28 @@ namespace CouponsOnline.BusinessLayer.Controllers
            return BusinessDataAccess.DeleteBusiness(p);
              
         }
+
+        internal static Business findBusinessById(string p)
+        {
+            return BusinessDataAccess.FindBusiness( Int32.Parse(p));
+        }
+
+        internal static string Getcity(int p)
+        {
+            return BusinessDataAccess.FindBusinessCity(p);
+        }
+
+        internal static string GetCategoty(int p)
+        {
+            return BusinessDataAccess.FindBusinessCategory(p);
+        }
+
+        internal static void EditBusniess(string ad, int businessId, string address, string name, string category, string city)
+        {
+            Users_Admin admin = UserDataAccess.FindAdmin(ad);
+            //Users_Admin admin = UserDataAccess.FindAdmin(ad);
+             admin.EditBusiness(businessId, address, name, category, city);
+        }
     }
 
 }

@@ -11,13 +11,16 @@ namespace CouponsOnline.PresentationLayer
 {
     public partial class AdminHomePage : System.Web.UI.Page
     {
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             ScriptManager.RegisterStartupScript(this, GetType(), "SwitchTo", "SwitchTo('prevDiv')", true);
+     
             if (!IsPostBack) {
                 LoadCategories();
                 LoadUsers();
                 LoadCities();
+                LoadBusiness();
             }
         }
 
@@ -25,6 +28,7 @@ namespace CouponsOnline.PresentationLayer
         {
             DropDownListCities.Items.Clear();
             DropDownListCities.Items.AddRange(BusinessController.GetAllCites());
+            DropDownListCities1.Items.AddRange(BusinessController.GetAllCites());
         }
 
         private void LoadUsers()
@@ -32,8 +36,7 @@ namespace CouponsOnline.PresentationLayer
 
             DropDownListOwners.Items.Clear(); 
             DropDownListOwner.Items.Clear();
-            DropDownListOwner.Items.Add("");
-            DropDownListOwners.Items.Add("");
+
             DropDownListOwners.Items.AddRange(UserController.GetAllOwners());
            
             DropDownListOwner.Items.AddRange(UserController.GetAllOwners());
@@ -43,6 +46,7 @@ namespace CouponsOnline.PresentationLayer
         {
             DropDownListCategories.Items.Clear();
             DropDownListCategories.Items.AddRange(BusinessController.GetAllCategories());
+            DropDownListCategories1.Items.AddRange(BusinessController.GetAllCategories());
         }
 
         protected void BtnAddBusiness_Click(object sender, EventArgs e)
@@ -50,6 +54,7 @@ namespace CouponsOnline.PresentationLayer
             string adminUser=Request.Cookies["ActiveUserName"].Value;
             BusinessController.CreateBusiness(adminUser, DropDownListOwners.SelectedValue, TextBoxAddress.Text,
                 TextBoxBusinessName.Text, DropDownListCategories.SelectedValue, DropDownListCities.SelectedValue);
+            LoadBusiness();
         }
         protected void BtnAddCategory_Click(object sender, EventArgs e)
         {
@@ -67,6 +72,7 @@ namespace CouponsOnline.PresentationLayer
         protected void DropDownListOwner_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadBusiness();
+            DropDownListBusniess_SelectedIndexChanged(null, null);
 
         }
         private void LoadBusiness()
@@ -74,6 +80,7 @@ namespace CouponsOnline.PresentationLayer
             DropDownListBusniess.Items.Clear();
             string ownerName = DropDownListOwner.SelectedValue;
             DropDownListBusniess.Items.AddRange(BusinessController.GetAllBusnisesId(ownerName));
+            DropDownListBusniess_SelectedIndexChanged(null, null);
         }
 
         protected void BtnBusiness_Click(object sender, EventArgs e)
@@ -95,6 +102,31 @@ namespace CouponsOnline.PresentationLayer
                     MessageBox.Show("something went wrong :(");
 
             }
+            LoadBusiness();
+        }
+
+        protected void BtnEditBusiness_Click(object sender, EventArgs e)
+        {
+            string adminUser = Request.Cookies["ActiveUserName"].Value;
+            BusinessController.EditBusniess(adminUser,Int32.Parse(DropDownListBusniess.SelectedItem.Value), TextBoxAddress1.Text,
+                TextBoxBusinessName1.Text, DropDownListCategories.SelectedValue, DropDownListCities.SelectedValue);
+
+    
+        }
+
+        protected void DropDownListBusniess_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (DropDownListBusniess.Items.Count != 0)
+            {
+
+                Business b = BusinessController.findBusinessById(DropDownListBusniess.SelectedValue);
+                TextBoxAddress1.Text = b.Address;
+                TextBoxBusinessName1.Text = b.Name;
+                DropDownListCities1.SelectedValue = BusinessController.Getcity(b.BusinessID);
+                DropDownListCategories1.SelectedValue = BusinessController.GetCategoty(b.BusinessID);
+            }
+       
+     
         }
 
     }

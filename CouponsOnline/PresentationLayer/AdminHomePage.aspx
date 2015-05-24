@@ -57,10 +57,10 @@
     <div id="AddBusiness" class="mainBox">
         <asp:TextBox ID="TextBoxBusinessName" runat="server" placeholder="Business Name"></asp:TextBox>
         <asp:TextBox ID="TextBoxAddress" Width="45%" runat="server" placeholder="Address"></asp:TextBox>
-        <asp:DropDownList ID="DropDownListCities" runat="server" placeholder="City"></asp:DropDownList>        
-        <asp:DropDownList ID="DropDownListOwners" runat="server" placeholder="Pick Owner"></asp:DropDownList>
-        <asp:DropDownList ID="DropDownListCategories" runat="server" placeholder="Pick Category"></asp:DropDownList>
-        <asp:Button ID="BtnAddBusiness" runat="server" Text="Add Business" onclick="BtnAddBusiness_Click"/>
+            <br />Choose City:<asp:DropDownList ID="DropDownListCities" runat="server" placeholder="City"></asp:DropDownList>        
+           <br /> Choose Owner: <asp:DropDownList ID="DropDownListOwners" runat="server" placeholder="Pick Owner"></asp:DropDownList>
+          <br />  Choose Category:<asp:DropDownList ID="DropDownListCategories" runat="server" placeholder="Pick Category"></asp:DropDownList>
+          <br />  <asp:Button ID="BtnAddBusiness" runat="server" Text="Add Business" onclick="BtnAddBusiness_Click"/>
     </div>
      <div id="AddCategory" class="mainBox">
         <asp:TextBox ID="TextBoxCat" runat="server" placeholder="Category Name"></asp:TextBox>
@@ -71,9 +71,18 @@
         <asp:Button ID="Button1" runat="server" Text="Add City" onclick="BtnAddCity_Click"/>
     </div>
            <div id="DeleteBusiness" class="mainBox">
-               <asp:DropDownList ID="DropDownListOwner" runat="server" placeholder="Pick Owner" AutoPostBack="true" OnSelectedIndexChanged="DropDownListOwner_SelectedIndexChanged"></asp:DropDownList>
-               <asp:DropDownList id="DropDownListBusniess" runat="server" placeholder="Pick Busniess" autoPostBack="true" ></asp:DropDownList>
-                  <asp:Button ID="BtnBusiness" runat="server" Text="Delete Business" onclick="BtnBusiness_Click"/>
+           <asp:DropDownList ID="DropDownListOwner" runat="server" placeholder="Pick Owner" AutoPostBack="true" OnSelectedIndexChanged="DropDownListOwner_SelectedIndexChanged"></asp:DropDownList>
+           <asp:DropDownList id="DropDownListBusniess" runat="server" placeholder="Pick Busniess" autoPostBack="true" OnSelectedIndexChanged="DropDownListBusniess_SelectedIndexChanged"></asp:DropDownList>
+               <div id="editBus">
+                     <asp:TextBox ID="TextBoxBusinessName1" runat="server" placeholder="Business Name"></asp:TextBox>
+        <asp:TextBox ID="TextBoxAddress1" Width="45%" runat="server" placeholder="Address"></asp:TextBox>
+        <br />Change City:<asp:DropDownList ID="DropDownListCities1" runat="server" placeholder="City"></asp:DropDownList>        
+           
+            <br />Change Category:<asp:DropDownList ID="DropDownListCategories1" runat="server" placeholder="Pick Category"></asp:DropDownList>
+     
+               </div>
+             <br />  <asp:Button ID="BtnBusiness" runat="server" Text="Delete Business" onclick="BtnBusiness_Click"/>
+                  <asp:Button ID="BtnEditBusiness" runat="server" Text="Edit Business" onclick="BtnEditBusiness_Click"/>
     </div>
     </form>
 </body>

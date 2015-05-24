@@ -28,6 +28,21 @@ namespace CouponsOnline.DataLayer
             }
         }
 
+        public static Business FindBusiness(int businessID)
+        {
+            using (basicEntities be = new basicEntities())
+            {
+                /*var bus = from b in be.Businesses
+                          where b.Owner_UserName == businessOwner
+                          select b;*/
+                var bus = from b in be.Businesses
+                          where b.BusinessID == businessID
+                          select b;
+                Business business = bus.First();
+                return business;
+            }
+        }
+
         public static BusinessCategories FindCategorybyId(int businessId)
         {
             using (basicEntities be = new basicEntities())
@@ -311,5 +326,41 @@ namespace CouponsOnline.DataLayer
             }
             return bItems;
         }
-    }
+
+        internal static string FindBusinessCity(int p)
+        {
+      
+            using (basicEntities be = new basicEntities())
+            {
+              return be.Businesses.Find(p).City.Name;
+            }
+         
+        }
+
+        internal static string FindBusinessCategory(int p)
+        {
+            using (basicEntities be = new basicEntities())
+            {
+                return be.Businesses.Find(p).BusinessCategory.Description;
+            }
+        }
+
+        internal static bool EditBusiness(int businessId, string address, string name, int categoryID, int cityID)
+        {
+         
+                using (basicEntities be = new basicEntities())
+                {
+                    Business b= be.Businesses.Find(businessId);
+                    b.Name = name;
+                    b.Address=address;
+                    b.City = be.Cities.Find(cityID);
+                    b.BusinessCategory = be.BusinessCategories.Find(categoryID);
+                    be.SaveChanges();
+                    return true;
+                }
+       
+            }
+
+        }
+    
 }

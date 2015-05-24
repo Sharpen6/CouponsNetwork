@@ -130,6 +130,42 @@ namespace CouponsOnline.PresentationLayer {
         protected global::System.Web.UI.WebControls.DropDownList DropDownListBusniess;
         
         /// <summary>
+        /// TextBoxBusinessName1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxBusinessName1;
+        
+        /// <summary>
+        /// TextBoxAddress1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxAddress1;
+        
+        /// <summary>
+        /// DropDownListCities1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListCities1;
+        
+        /// <summary>
+        /// DropDownListCategories1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListCategories1;
+        
+        /// <summary>
         /// BtnBusiness control.
         /// </summary>
         /// <remarks>
@@ -137,5 +173,14 @@ namespace CouponsOnline.PresentationLayer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnBusiness;
+        
+        /// <summary>
+        /// BtnEditBusiness control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnEditBusiness;
     }
 }
