@@ -9,36 +9,7 @@ namespace CouponsOnline.DataLayer
 {
     public class BusinessDataAccess
     {
-        public static int CreateCoupon(string name, string desc, string orgprice, string discount, Business b, string datee, int maxNum, List<ListItem> interestt)
-        {
-            using (basicEntities be = new basicEntities())
-            {
-                Coupon cop = new Coupon();
-                cop.Name = name;
-                cop.Description = desc;
-                cop.OriginalPrice = orgprice;
-                cop.DiscountPrice = discount;
-                cop.Business = b;
-              //  cop.Interest = interestt;
-                foreach (ListItem i in interestt)
-                {
-                    Interest t = FindInterestt(b, i.Value);
-                    be.Entry(t).State = System.Data.Entity.EntityState.Unchanged;
-                    cop.Interests.Add(t);
-                }
-                cop.ExperationDate = datee;
-                cop.MaxNum = maxNum;
-                cop.AvarageRanking = "0";
-                cop.Business_BusinessID = b.BusinessCategoriesId;
-          
-                cop.Business = be.Businesses.Find(b.BusinessCategoriesId);
-              //  cop.InterestId = interestt.Id;
-                be.Coupons.Add(cop);
-                be.SaveChanges();
-            
-                return cop.Id;
-            }
-        }
+        
 
         
         public static Business FindBusiness(string businessOwner)
@@ -93,16 +64,6 @@ namespace CouponsOnline.DataLayer
             }
         }
 
-        private static Users_Admin FindAdmin(string ad)
-        {
-            throw new NotImplementedException();
-        }
-
-        private static Users_Owner FindOwner(string owner)
-        {
-            throw new NotImplementedException();
-        }
-
         public static int FindCategory(string c)
         {
             using (basicEntities be = new basicEntities())
@@ -117,21 +78,7 @@ namespace CouponsOnline.DataLayer
                 return businessCat.Id;
             }
         }
-
-        public static Interest FindInterestt(Business Category, string desription)
-        {
-            using (basicEntities be = new basicEntities())
-            {
-                var bus = from b in be.Interests
-                          where b.Description == desription & b.BusinessCategoriesId==Category.BusinessCategoriesId
-                          select b;
-                Interest Interests = bus.First();
-
-
-                return Interests;
-            
-            }
-        }
+   
         public static int FindInterest(int Category, string desription)
         {
             using (basicEntities be = new basicEntities())
@@ -317,6 +264,18 @@ namespace CouponsOnline.DataLayer
                 return true;
             }
 
+        }
+
+        internal static List<string> GetAllBusinessesID()
+        {
+            List<string> bItems;
+            using (basicEntities be = new basicEntities())
+            {
+                var items = from b in be.Businesses
+                            select b.Name;
+                bItems = new List<string>(items);
+            }
+            return bItems;
         }
     }
 }

@@ -22,11 +22,11 @@ namespace CouponsOnline
         public int BusinessID { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
-        public Nullable<int> Location_Id { get; set; }
+        public Nullable<int> Sensor_Id { get; set; }
         public int BusinessCategoriesId { get; set; }
     
         public virtual ICollection<Coupon> Coupons { get; set; }
-        public virtual Location Location { get; set; }
+        public virtual Sensor Sensor { get; set; }
         public virtual Users_Admin Users_Admin { get; set; }
         public virtual Users_Owner Users_Owner { get; set; }
         public virtual BusinessCategories BusinessCategory { get; set; }

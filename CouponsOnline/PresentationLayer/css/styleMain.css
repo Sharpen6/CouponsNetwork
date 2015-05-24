@@ -272,3 +272,25 @@ nav {
   -moz-box-sizing: border-box;
   z-index:1;
 }
+.mainBox input[type=submit] {
+  width: 50%;
+  margin: 10px;
+  position: relative;
+  border: 0px;
+  color: #fff;
+  text-shadow: 0 1px rgba(0,0,0,0.1); 
+  background-color: #4d90fe;
+  text-align: center;
+  font-size: 14px;
+  font-family: 'Arial', sans-serif;
+  font-weight: 700;
+  height: 36px;
+  padding: 0 8px;
+}
+.large
+{   
+    max-width:800px;
+}
+.lastTab {
+    margin-left:30px;
+}

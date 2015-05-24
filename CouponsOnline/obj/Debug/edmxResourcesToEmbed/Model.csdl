@@ -3,7 +3,7 @@
   <EntityContainer Name="basicEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Businesses" EntityType="basicModel.Business" />
     <EntitySet Name="Coupons" EntityType="basicModel.Coupon" />
-    <EntitySet Name="Locations" EntityType="basicModel.Location" />
+    <EntitySet Name="Sensors" EntityType="basicModel.Sensor" />
     <EntitySet Name="OrderedCoupons" EntityType="basicModel.OrderedCoupon" />
     <EntitySet Name="Recommendations" EntityType="basicModel.Recommendation" />
     <EntitySet Name="Users" EntityType="basicModel.User" />
@@ -16,7 +16,7 @@
       <End Role="Coupon" EntitySet="Coupons" />
     </AssociationSet>
     <AssociationSet Name="FK_BusinessLocation" Association="basicModel.FK_BusinessLocation">
-      <End Role="Location" EntitySet="Locations" />
+      <End Role="Location" EntitySet="Sensors" />
       <End Role="Business" EntitySet="Businesses" />
     </AssociationSet>
     <AssociationSet Name="FK_CouponOrderedCoupon" Association="basicModel.FK_CouponOrderedCoupon">
@@ -24,7 +24,7 @@
       <End Role="OrderedCoupon" EntitySet="OrderedCoupons" />
     </AssociationSet>
     <AssociationSet Name="FK_LocationVisit" Association="basicModel.FK_LocationVisit">
-      <End Role="Location" EntitySet="Locations" />
+      <End Role="Location" EntitySet="Sensors" />
       <End Role="Visit" EntitySet="Visits" />
     </AssociationSet>
     <AssociationSet Name="FK_CustomerOrderedCoupon" Association="basicModel.FK_CustomerOrderedCoupon">
@@ -78,6 +78,11 @@
       <End Role="Business" EntitySet="Businesses" />
       <End Role="City" EntitySet="Cities" />
     </AssociationSet>
+    <EntitySet Name="Locations" EntityType="basicModel.Location" />
+    <AssociationSet Name="SensorLocation" Association="basicModel.SensorLocation">
+      <End Role="Sensor" EntitySet="Sensors" />
+      <End Role="Location" EntitySet="Locations" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Business">
     <Key>
@@ -86,9 +91,9 @@
     <Property Name="BusinessID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Address" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Location_Id" Type="Int32" />
+    <Property Name="Sensor_Id" Type="Int32" />
     <NavigationProperty Name="Coupons" Relationship="basicModel.FK_BusinessCoupon" FromRole="Business" ToRole="Coupon" />
-    <NavigationProperty Name="Location" Relationship="basicModel.FK_BusinessLocation" FromRole="Business" ToRole="Location" />
+    <NavigationProperty Name="Sensor" Relationship="basicModel.FK_BusinessLocation" FromRole="Business" ToRole="Location" />
     <NavigationProperty Name="Users_Admin" Relationship="basicModel.Users_AdminBusiness" FromRole="Business" ToRole="Users_Admin" />
     <NavigationProperty Name="Users_Owner" Relationship="basicModel.BusinessUsers_Owner" FromRole="Business" ToRole="Users_Owner" />
     <NavigationProperty Name="BusinessCategory" Relationship="basicModel.BusinessBusinessCategories" FromRole="Business" ToRole="BusinessCategories" />
@@ -112,7 +117,7 @@
     <NavigationProperty Name="OrderedCoupons" Relationship="basicModel.FK_CouponOrderedCoupon" FromRole="Coupon" ToRole="OrderedCoupon" />
     <NavigationProperty Name="Interests" Relationship="basicModel.InterestCoupon" FromRole="Coupon" ToRole="Interest" />
   </EntityType>
-  <EntityType Name="Location">
+  <EntityType Name="Sensor">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
@@ -191,9 +196,9 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Date" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Location_Id" Type="Int32" Nullable="false" />
+    <Property Name="SensorId" Type="Int32" Nullable="false" />
     <Property Name="CustomerVisit_Visit_UserName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Location" Relationship="basicModel.FK_LocationVisit" FromRole="Visit" ToRole="Location" />
+    <NavigationProperty Name="Sensor" Relationship="basicModel.FK_LocationVisit" FromRole="Visit" ToRole="Location" />
     <NavigationProperty Name="Users_Customer" Relationship="basicModel.FK_CustomerVisit" FromRole="Visit" ToRole="Users_Customer" />
   </EntityType>
   <Association Name="FK_BusinessCoupon">
@@ -209,14 +214,14 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_BusinessLocation">
-    <End Type="basicModel.Location" Role="Location" Multiplicity="0..1" />
+    <End Type="basicModel.Sensor" Role="Location" Multiplicity="0..1" />
     <End Type="basicModel.Business" Role="Business" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Location">
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Business">
-        <PropertyRef Name="Location_Id" />
+        <PropertyRef Name="Sensor_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -233,14 +238,14 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_LocationVisit">
-    <End Type="basicModel.Location" Role="Location" Multiplicity="1" />
+    <End Type="basicModel.Sensor" Role="Location" Multiplicity="1" />
     <End Type="basicModel.Visit" Role="Visit" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Location">
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Visit">
-        <PropertyRef Name="Location_Id" />
+        <PropertyRef Name="SensorId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -387,5 +392,17 @@
   <Association Name="BusinessCity">
     <End Type="basicModel.Business" Role="Business" Multiplicity="*" />
     <End Type="basicModel.City" Role="City" Multiplicity="1" />
+  </Association>
+  <EntityType Name="Location">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Altitude" Type="String" Nullable="false" />
+    <Property Name="Longitude" Type="String" Nullable="false" />
+  </EntityType>
+  <Association Name="SensorLocation">
+    <End Type="basicModel.Sensor" Role="Sensor" Multiplicity="1" />
+    <End Type="basicModel.Location" Role="Location" Multiplicity="0..1" />
   </Association>
 </Schema>

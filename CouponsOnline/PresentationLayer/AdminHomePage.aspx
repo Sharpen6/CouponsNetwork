@@ -39,6 +39,9 @@
             <li class="dropdown">
 
             </li>
+            <li class="lastTab">
+                    <a href="Login.aspx">Logout</a>
+            </li>
         </ul>
     </nav>
     <form id="form1" runat="server">

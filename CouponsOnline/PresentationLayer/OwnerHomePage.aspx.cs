@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Windows.Forms;
 
 namespace CouponsOnline.PresentationLayer
 {
@@ -16,13 +17,15 @@ namespace CouponsOnline.PresentationLayer
 
             ScriptManager.RegisterStartupScript(this, GetType(), "SwitchTo", "SwitchTo('prevDiv')", true);
 
-   
+            
+
             if (!this.IsPostBack)
             {
                 LoadBusiness();
                 DropDownListBusniess.SelectedIndex = 0;
                 LoadCategory();
                 LoadInterest();
+                
                 HttpCookie usernameCookie = Request.Cookies["ActiveUserName"];
                 string userName = usernameCookie.Value;
                 //if (Request.Cookies["ActiveUserName"] != null)
@@ -35,16 +38,20 @@ namespace CouponsOnline.PresentationLayer
         protected void BtnCreateCoupon_Click(object sender, EventArgs e)
         {
             HttpCookie usernameCookie = Request.Cookies["ActiveUserName"];
-            string activeUser = usernameCookie.Value;
+            string activeUser = DropDownListBusniess.SelectedItem.Text;
      
             int mdp;
             if (!int.TryParse(TextBoxMPU.Text, out mdp))
+            {
+                MessageBox.Show("Missing Values! ");
                 return;
+            }
             List<ListItem> selected = new List<ListItem>();
             foreach (ListItem item in DropDownListInterests.Items)
                 if (item.Selected) selected.Add(item);
             BusinessController.CreateCoupon(TextBoxName.Text, TextBoxOrg.Text, TextBoxDisc.Text,
                 activeUser, TextBoxDesc.Text, TextBoxExp.Text, mdp, selected);
+            MessageBox.Show("Coupon " + TextBoxName.Text + " added successfully! ");
         }
         
     
@@ -68,12 +75,12 @@ namespace CouponsOnline.PresentationLayer
         {
             DropDownListInterests.Items.Clear();
             string Busniessid = DropDownListBusniess.SelectedValue;
-            int Categoryid = BusinessController.FindBusinessCategory(Busniessid);
+            if (Busniessid != "") {
+                int Categoryid = BusinessController.FindBusinessCategory(Busniessid);
             //DropDownListInterests.Items.AddRange(BusinessController.GetAllCategoryIntrest(Categoryid));
-            DropDownListInterests.DataSource = BusinessController.GetAllCategoryIntrest(Categoryid);
-            DropDownListInterests.DataBind();
-
-
+                DropDownListInterests.DataSource = BusinessController.GetAllCategoryIntrest(Categoryid);
+                DropDownListInterests.DataBind();
+                }
         }
 
      
@@ -86,7 +93,6 @@ namespace CouponsOnline.PresentationLayer
         protected void BtnAddInterest_Click1(object sender, EventArgs e)
         {
             BusinessController.createInterest(DropDownListCategory.SelectedValue, TextBoxInterest.Text);
-
         }
     }
 }

@@ -16,10 +16,10 @@ namespace CouponsOnline
     {
         public int Id { get; set; }
         public string Date { get; set; }
-        public int Location_Id { get; set; }
+        public int SensorId { get; set; }
         public string CustomerVisit_Visit_UserName { get; set; }
     
-        public virtual Location Location { get; set; }
+        public virtual Sensor Sensor { get; set; }
         public virtual Users_Customer Users_Customer { get; set; }
     }
 }

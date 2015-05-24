@@ -11,7 +11,14 @@ namespace CouponsOnline.PresentationLayer
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+                ScriptManager.RegisterStartupScript(this, GetType(), 
+                    "SwitchTo", "SwitchTo('home')", true);
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), 
+                    "SwitchTo", "SwitchTo('prevDiv')", true);
+            }
         }
     }
 }

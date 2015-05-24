@@ -1,39 +1,39 @@
-﻿using System;
+﻿using CouponsOnline.DataLayer;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+using System.Web.UI.WebControls;
+
 
 namespace CouponsOnline.BusinessLayer.Controllers
 {
-    public class CouponController : ApiController
+    public class CouponController
     {
-        // GET api/<controller>
-        public IEnumerable<string> Get()
+        internal static DataTable GetCouponsByCity(string city)
         {
-            return new string[] { "value1", "value2" };
+            return CouponDataAccess.GetCouponsByCity(city);
         }
 
-        // GET api/<controller>/5
-        public string Get(int id)
+        internal static object GetCouponsByBusniess(string Busniess)
         {
-            return "value";
+            return CouponDataAccess.GetCouponsByBusniess(Busniess);
         }
 
-        // POST api/<controller>
-        public void Post([FromBody]string value)
+        internal static DataTable FindCoupons(string city, List<ListItem> selectedInterests, double coordinateX, double coordinateY)
         {
+            DataTable table = new DataTable();
+            if (city != "")
+                table = CouponDataAccess.GetCouponsByCity(city);
+            else if (selectedInterests.Count != 0)
+                table = CouponDataAccess.GetCouponsByInterest(selectedInterests);
+            else if (coordinateX != 0 && coordinateY != 0)
+                table = CouponDataAccess.GetCouponsByGps(coordinateX, coordinateY);
+            return table;
         }
-
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        internal static bool removeCoupon(string CoponId)
         {
-        }
-
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
+            return CouponDataAccess.RemoveCoupon(CoponId);
         }
     }
 }

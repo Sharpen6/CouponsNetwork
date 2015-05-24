@@ -12,10 +12,18 @@ namespace CouponsOnline
     using System;
     using System.Collections.Generic;
     
-    public partial class Location
+    public partial class Sensor
     {
+        public Sensor()
+        {
+            this.Businesses = new HashSet<Business>();
+            this.Visits = new HashSet<Visit>();
+        }
+    
         public int Id { get; set; }
-        public string Altitude { get; set; }
-        public string Longitude { get; set; }
+        public string Coordinates { get; set; }
+    
+        public virtual ICollection<Business> Businesses { get; set; }
+        public virtual ICollection<Visit> Visits { get; set; }
     }
 }
