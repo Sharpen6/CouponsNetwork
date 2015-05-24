@@ -24,7 +24,7 @@
                     <a href="#!/AddCoupon" onclick="SwitchTo('CreateCoupon');">Add Coupon</a>
                 </li>
                     <li >
-                    <a href="RemoveCoupon.aspx">Remove Coupon</a>
+                    <a href="RemoveCoupon.aspx">Remove and Edit Coupon</a>
             </li>
                     </ul>
                       </li>
@@ -33,6 +33,9 @@
                 </li>
                 <li class="lastTab">
                     <a href="Login.aspx">Logout</a>
+                </li>
+                      <li class="lastTab">
+                    <a href="Profile.aspx">Your Profile</a>
                 </li>
             </ul>
         </nav>
