@@ -402,6 +402,7 @@
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Altitude" Type="String" Nullable="false" />
     <Property Name="Longitude" Type="String" Nullable="false" />
+    <NavigationProperty Name="Sensor" Relationship="basicModel.SensorLocation" FromRole="Location" ToRole="Sensor" />
   </EntityType>
   <Association Name="SensorLocation">
     <End Type="basicModel.Sensor" Role="Sensor" Multiplicity="1" />

@@ -4,17 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Coupon;
+using CouponsOnline;
 namespace UnitTestProject
 {
     [TestClass]
     public class TestOrderedCoupon
     {
-        Owner owner;
-        Admin admin;
+        Users_Owner owner;
+        Users_Admin admin;
         Business b ;
-        Coupon.Coupon cop;
-        Customer customer;
+        Coupon cop;
+        Users_Customer customer;
         OrderedCoupon oc;
 
         [TestInitialize]
@@ -31,7 +31,7 @@ namespace UnitTestProject
             {
                 owner = TestOwner.AddOwner("owner123", "adam", "admin123123", 054, 3134195, "adamin@gmail.com");
                 admin = TestAdmin.AddAdmin("admin123", "adam", "admin123123", 054, 3134195, "adamin@gmail.com");
-                b = TestBusiness.AddBusinesses("123", admin, owner, "beer-Sheva", "bla", Category.CarsAccessories);
+                b = TestBusiness.AddBusinesses("123", admin, owner, "beer-Sheva", "bla");
                 cop = TestCoupon.CreateCoupon(2, "Fly PIZZA", "100", "40", b, "10/10/2014",8);
                 customer = TestCustomer.AddCustomer("Customer123", "adam", "admin123123", 054, 3134195, "adamin@gmail.com");
                 

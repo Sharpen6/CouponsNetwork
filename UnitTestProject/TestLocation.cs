@@ -2,7 +2,7 @@
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Coupon;
+using CouponsOnline;
 
 namespace UnitTestProject
 {
@@ -26,12 +26,15 @@ namespace UnitTestProject
             using (basicEntities be = new basicEntities())
             {
                 loc = new Location();
-
+                Sensor s = new Sensor();
+                loc.Sensor = s;
                 loc.Id = 4;
-                loc.Coordinates = "34N 40' 50.12";          
+                loc.Longitude = "30.4";
+                loc.Altitude = "50.9";
                 be.Locations.Add(loc);             
                 be.SaveChanges();
-                Assert.AreEqual(be.Locations.Find(loc.Id).Coordinates, loc.Coordinates);
+                Assert.AreEqual(be.Locations.Find(loc.Id).Altitude, loc.Altitude);
+                Assert.AreEqual(be.Locations.Find(loc.Id).Longitude, loc.Longitude);
             }
         }
         [TestMethod]
@@ -42,7 +45,8 @@ namespace UnitTestProject
                 loc = new Location();
 
                 loc.Id = 4;
-                loc.Coordinates = "34N 40' 50.12";
+                loc.Longitude = "30.4";
+                loc.Altitude = "50.9";
                 be.Locations.Add(loc);
                 be.SaveChanges();
 
@@ -59,13 +63,16 @@ namespace UnitTestProject
                 loc = new Location();
 
                 loc.Id = 4;
-                loc.Coordinates = "34N 40' 50.12";
+                loc.Longitude = "30.4";
+                loc.Altitude = "50.9";
                 be.Locations.Add(loc);
                 be.SaveChanges();
 
-                loc.Coordinates = "36S 24' 51.35";
+                loc.Longitude = "31.4";
+                loc.Altitude = "56.9";
                 be.SaveChanges();
-                Assert.AreEqual(be.Locations.Find(loc.Id).Coordinates, loc.Coordinates);
+                Assert.AreEqual(be.Locations.Find(loc.Id).Altitude, loc.Altitude);
+                                Assert.AreEqual(be.Locations.Find(loc.Id).Longitude, loc.Longitude);
             }
         }
         [TestCleanup]

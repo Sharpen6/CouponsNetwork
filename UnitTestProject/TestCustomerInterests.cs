@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Coupon;
+using CouponsOnline;
 namespace UnitTestProject
 {
     [TestClass]
     public class TestCustomerInterests
     {
-        Customer customer;
-        CustomerIntrests ci;
+        /*Users_Customer customer;
+        //CustomerIntrests ci;
         [TestInitialize]
         public void TestInit()
         {
@@ -90,6 +90,6 @@ namespace UnitTestProject
                     be.SaveChanges();
                 }
             }
-        }
+        }*/
     }
 }

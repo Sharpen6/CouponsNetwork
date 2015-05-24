@@ -2,7 +2,7 @@
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Coupon;
+using CouponsOnline;
 
 namespace UnitTestProject
 {
@@ -11,29 +11,8 @@ namespace UnitTestProject
     public class TestRecommendation
     {
         Recommendation rec;
-        Customer customer;
-        /*[TestInitialize]
-        public void TestInit()
-        {
-
-            using (basicEntities be = new basicEntities())
-            {
-                customer = be.Users.Find("customer");
-                if (customer == null)
-                {
-                    customer = new Customer();
-                    customer.Name = "adam";
-                    customer.UserName = "customer";
-                    customer.Password = "admin123123";
-                    customer.PhoneKidomet = 054;
-                    customer.PhoneNum = 3134195;
-                    customer.Email = "adamin@gmail.com";
-                    be.Users.Add(customer);
-                    be.SaveChanges();
-                }
-            }
-        }
-        */
+        Users_Customer customer;
+        
         [TestMethod]
         public void TestAddRecommendation()
         {
@@ -45,10 +24,8 @@ namespace UnitTestProject
                 rec.Description = "blabla";
                 rec.Id = 4;
                 rec.Link = "www.google.com";
-                rec.Source = SourceType.GooglePlus;
-
-                rec.Customer = customer;
-                be.Users.Add(customer);
+                rec.Source = 1;
+                rec.Users_Customer = customer;
                 be.Recommendations.Add(rec);
                 be.SaveChanges();
 

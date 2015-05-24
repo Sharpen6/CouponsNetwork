@@ -220,7 +220,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Altitude" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Longitude" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="SensorLocation_Location_Id" Type="int" Nullable="false" />
+    <Property Name="Sensor_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="InterestCoupon">
     <Key>
@@ -424,7 +424,7 @@
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Location">
-        <PropertyRef Name="SensorLocation_Location_Id" />
+        <PropertyRef Name="Sensor_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -858,6 +858,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Altitude" Type="String" Nullable="false" />
           <Property Name="Longitude" Type="String" Nullable="false" />
+          <NavigationProperty Name="Sensor" Relationship="basicModel.SensorLocation" FromRole="Location" ToRole="Sensor" />
         </EntityType>
         <Association Name="SensorLocation">
           <End Type="basicModel.Sensor" Role="Sensor" Multiplicity="1" />
@@ -1041,7 +1042,7 @@
     </AssociationSetMapping>
     <AssociationSetMapping Name="SensorLocation" TypeName="basicModel.SensorLocation" StoreEntitySet="Locations">
       <EndProperty Name="Sensor">
-        <ScalarProperty Name="Id" ColumnName="SensorLocation_Location_Id" />
+        <ScalarProperty Name="Id" ColumnName="Sensor_Id" />
       </EndProperty>
       <EndProperty Name="Location">
         <ScalarProperty Name="Id" ColumnName="Id" />

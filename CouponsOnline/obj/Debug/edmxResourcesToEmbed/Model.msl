@@ -173,7 +173,7 @@
     </AssociationSetMapping>
     <AssociationSetMapping Name="SensorLocation" TypeName="basicModel.SensorLocation" StoreEntitySet="Locations">
       <EndProperty Name="Sensor">
-        <ScalarProperty Name="Id" ColumnName="SensorLocation_Location_Id" />
+        <ScalarProperty Name="Id" ColumnName="Sensor_Id" />
       </EndProperty>
       <EndProperty Name="Location">
         <ScalarProperty Name="Id" ColumnName="Id" />

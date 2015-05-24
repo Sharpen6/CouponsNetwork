@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Coupons;
+using CouponsOnline;
 
 namespace UnitTestProject
 {
@@ -12,78 +12,29 @@ namespace UnitTestProject
         {
             using (basicEntities be = new basicEntities())
             {
-                string username=TestAdminAdd();
-                Assert.AreEqual(be.Users.Find(username).UserName, username);
-                RemoveAdmin(username);
-
+                string admin = AddAdmin();
+                Users_Admin ad = be.Users_Admin.Find(admin);
+                Assert.AreEqual(ad.UserName, admin);
+                Assert.AreEqual(be.Users.Find(admin).UserName, admin);
+                RemoveAdmin(admin);
             }
         }
-
         [TestMethod]
         public void TestUpdateAdmin()
         {
             using (basicEntities be = new basicEntities())
             {
-                string username = TestAdminAdd();
-
+                string username = AddAdmin();
                 be.Users.Find(username).Name = "xerxses";
                 be.SaveChanges();
-
                 Assert.AreEqual(be.Users.Find(username).Name, "xerxses");
-
                 RemoveAdmin(username);
-
             }
         }
-        public static string TestAdminAdd()
-        {
-            using (basicEntities be = new basicEntities())
-            {
-                Admin A = AddAdmin("Admin123", "adam", "admin123123", 054, 3134195, "adamin@gmail.com");
-                be.Users.Add(A);
-                be.SaveChanges();
-
-                return A.UserName;
- 
-
-            }
-        }
-
-        [TestMethod]
-        public void TestUpdatePhoneAdmin()
-        {
-            string username = TestAdminAdd();
-            using (basicEntities be = new basicEntities())
-            {
-
-                User user = be.Users.Find(username);
-                user.PhoneNum = 2222222;
-                be.SaveChanges();
-
-                Assert.AreEqual(be.Users.Find(username).PhoneNum, 2222222);
-            }
-            RemoveAdmin(username);
-        }
-
-        /*[TestMethod]
-        public void TestUpdateAdminPhoneKidumet()
-        {
-            string username = TestAdminAdd();
-            using (basicEntities be = new basicEntities())
-            {
-                User user = be.Users.Find(username);
-                user.PhoneKidomet = 052;
-                be.SaveChanges();
-
-                Assert.AreEqual(be.Users.Find(username).PhoneKidomet, 052);
-            }
-            RemoveAdmin(username);
-        }*/
-
         [TestMethod]
         public void TestRemoveAdmin()
         {
-            string username=TestAdminAdd();
+            string username = AddAdmin();
             using (basicEntities be = new basicEntities())
             {
                 RemoveAdmin(username);
@@ -91,26 +42,21 @@ namespace UnitTestProject
             }
         }
 
-        public static Admin AddAdmin(string UserName, String Name, String Password, int PhoneKidumet, int PhoneNum, string Email)
+
+       
+
+        public static string AddAdmin(string UserName = "adminUserName", string Name = "adminName", string Password = "1234", int PhoneKidumet = 1234567, int PhoneNum = 123, string Email = "temp@temp.temp")
         {
+            User a = TestUser.AddUser(UserName, Name, Password, PhoneKidumet, PhoneNum, Email);
             using (basicEntities be = new basicEntities())
             {
-                Admin u = new Admin();
-                u.Name = Name;
-                u.UserName = UserName;
-                User sameKey = be.Users.Find(u.UserName);
-                while (sameKey != null && sameKey.UserName.ToLower() == u.UserName.ToLower())
-                {
-                    u.UserName += "1";
-                    sameKey = be.Users.Find(u.UserName);
-                }
-                u.Password = Password;
-                u.PhoneKidomet = PhoneKidumet;
-                u.PhoneNum = PhoneNum;
-                u.Email = Email;
-
-                string originalName = u.UserName;
-                return u;
+                Users_Admin ua = new Users_Admin();
+                ua.UserName = a.UserName;
+                ua.User = a;
+                be.Entry(a).State = System.Data.Entity.EntityState.Unchanged;
+                be.Users_Admin.Add(ua);
+                be.SaveChanges();
+                return ua.UserName;
             }
         }
 
@@ -118,12 +64,11 @@ namespace UnitTestProject
         {
             using (basicEntities be = new basicEntities())
             {
-               
-                User AdminToRemove = be.Users.Find(admin);
-
-                be.Users.Remove(AdminToRemove);
+                Users_Admin AdminToRemove = be.Users_Admin.Find(admin);
+                be.Users_Admin.Remove(AdminToRemove);
                 be.SaveChanges();
             }
+            TestUser.RemoveUser(admin);
         }
     }
 }

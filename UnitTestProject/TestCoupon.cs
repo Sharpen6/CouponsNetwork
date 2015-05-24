@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Coupon;
+using CouponsOnline;
 namespace UnitTestProject
 {
     [TestClass]
     public class TestCoupon
     {
-        string Businessid;
+        int Businessid;
         int coupon;
   
         [TestMethod]
@@ -24,14 +24,26 @@ namespace UnitTestProject
 
         }
 
+        [TestMethod]
+        public void TestUpdateCoupon()
+        {
+            coupon = TestCouponAdd();
+            using (basicEntities be = new basicEntities())
+            {
+                be.Coupons.Find(coupon).Description = "blablabla";
+                be.SaveChanges();
+                Assert.AreEqual(be.Coupons.Find(coupon).Description, "blablabla");
+            }
+
+        }
         public int TestCouponAdd()
         {
             TestBusiness bn = new TestBusiness();
-            Businessid = bn.TestBusinessAdd();
+            Businessid = bn.AddBusiness();
             using (basicEntities be = new basicEntities())
             {
                 Business b = be.Businesses.Find(Businessid);
-                Coupon.Coupon cop = CreateCoupon(2, "Fly PIZZA", "100", "40", b, "10/10/2014",8);
+                Coupon cop = CreateCoupon(2, "Fly PIZZA", "100", "40", b, "10/10/2014",8);
                 be.Coupons.Add(cop);
                 be.SaveChanges();
                 return cop.Id;
@@ -40,9 +52,9 @@ namespace UnitTestProject
             }
         }
 
-        public static Coupon.Coupon CreateCoupon(int id, string name, string orgprice, string discount, Business b, string datee,int maxNum)
+        public static Coupon CreateCoupon(int id, string name, string orgprice, string discount, Business b, string datee,int maxNum)
         {
-            Coupon.Coupon cop = new Coupon.Coupon();
+            Coupon cop = new Coupon();
             cop.Id = id;
             cop.Name = name;
             cop.OriginalPrice = orgprice;
@@ -57,8 +69,8 @@ namespace UnitTestProject
         {
             using (basicEntities be = new basicEntities())
             {
-                Coupon.Coupon CouponToRemove = be.Coupons.Find(CouponID);
-                string Businessid = CouponToRemove.Business.BusinessID;
+                Coupon CouponToRemove = be.Coupons.Find(CouponID);
+                int Businessid = CouponToRemove.Business.BusinessID;
                 be.Coupons.Remove(CouponToRemove);
                 be.SaveChanges();
                 TestBusiness.RemoveBusinesses(Businessid);

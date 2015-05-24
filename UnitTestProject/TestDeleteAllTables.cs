@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Coupon;
+using CouponsOnline;
 using System.Linq;
 
 namespace UnitTestProject

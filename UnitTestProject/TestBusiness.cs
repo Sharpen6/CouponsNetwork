@@ -1,107 +1,101 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Coupon;
+using CouponsOnline;
 
 namespace UnitTestProject
 {
-
+    
     [TestClass]
     public class TestBusiness
     {
         string admins;
         string owners;
-        string Businessid;
-
+        int Businessid;
 
 
         [TestMethod]
         public void TestAddBusiness()
         {
+
             using (basicEntities be = new basicEntities())
             {
-                 Businessid = TestBusinessAdd();
+                Businessid = AddBusiness();
                 Assert.AreEqual(be.Businesses.Find(Businessid).BusinessID, Businessid);
             }
         }
 
-        public string TestBusinessAdd()
-        {
-            admins = TestAdmin.TestAdminAdd();
-            owners = TestOwner.TestOwnerAdd();
-            using (basicEntities be = new basicEntities())
-            {
-                Owner owner = (Owner)be.Users.Find(owners);
-                Admin admin = (Admin)be.Users.Find(admins);
-                Business b = AddBusinesses("123", admin, owner, "beer-Sheva", "bla", Category.CarsAccessories);
-                be.Businesses.Add(b);
-                be.SaveChanges();
-                return b.BusinessID;
-            }
-        }
+        
         [TestMethod]
         public void TestUpdateBusiness()
         {
             using (basicEntities be = new basicEntities())
             {
-                Businessid = TestBusinessAdd();
+                Businessid = AddBusiness();
 
                 be.Businesses.Find(Businessid).Address = "tel ron";
                 be.SaveChanges();
 
                 Assert.AreEqual(be.Businesses.Find(Businessid).Address, "tel ron");
             }
+            RemoveBusinesses(Businessid);
         }
 
         [TestMethod]
         public void TestRemoveBusiness()
         {
-            Businessid = TestBusinessAdd();
+            Businessid = AddBusiness();
+            RemoveBusinesses(Businessid);
+            using (basicEntities be = new basicEntities())
+            {               
+                Assert.IsNull(be.Businesses.Find(Businessid));
+            }
+        }
+        public int AddBusiness()
+        {
+            admins = TestAdmin.AddAdmin();
+            owners = TestOwner.AddOwner();
+
             using (basicEntities be = new basicEntities())
             {
-                RemoveBusinesses(Businessid);
-                Assert.AreEqual(be.Businesses.Find(Businessid), null);
+                Users_Owner owner = be.Users_Owner.Find(owners);
+                Users_Admin admin = be.Users_Admin.Find(admins);
+                Business b = AddBusinesses(admin, owner, "beer-Sheva", "bla");
+                be.Businesses.Add(b);
+                be.SaveChanges();
+                return b.BusinessID;
             }
         }
 
-        public static Business AddBusinesses(string BusinessID, Admin ad, Owner owner, String address, string name, Category c)
+        public static Business AddBusinesses(Users_Admin ad, Users_Owner owner, String address, string name)
         {
+            City city = TestCity.AddCity();
+            BusinessCategories bc = TestCategory.AddCategory();
             using (basicEntities be = new basicEntities())
             {
                 Business b = new Business();
-                b.BusinessID = BusinessID;
-
-                Business sameKey = be.Businesses.Find(b.BusinessID);
-                while (sameKey != null && sameKey.BusinessID.ToLower() == b.BusinessID.ToLower())
-                {
-                    b.BusinessID += "1";
-                    sameKey = be.Businesses.Find(b.BusinessID);
-                }
-                b.Admin = ad;
-                b.Owner = owner;
+                b.Users_Admin = ad;
+                b.Users_Owner = owner;
                 b.Address = address;
                 b.Name = name;
-                b.Category = c;
+                b.BusinessCategoriesId = bc.Id;
+                b.BusinessCategory = bc;
+                be.Entry(bc).State = System.Data.Entity.EntityState.Unchanged;
+                be.Entry(city).State = System.Data.Entity.EntityState.Unchanged;
+                b.City = city;
                 return b;
-
             }
 
         }
 
-        public static void RemoveBusinesses(string BusinessID)
+        public static void RemoveBusinesses(int BusinessID)
         {
             using (basicEntities be = new basicEntities())
             {
-
                 Business BusinessesToRemove = be.Businesses.Find(BusinessID);
-                string owner =BusinessesToRemove.Admin.UserName;
-                string admin = BusinessesToRemove.Owner.UserName;
+                string owner = BusinessesToRemove.Users_Admin.UserName;
+                string admin = BusinessesToRemove.Users_Owner.UserName;
                 be.Businesses.Remove(BusinessesToRemove);
-
                 be.SaveChanges();
-                TestOwner.RemoveOwner(owner);
-                TestAdmin.RemoveAdmin(admin);
-                be.SaveChanges();
-
             }
         }
 

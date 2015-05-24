@@ -17,5 +17,7 @@ namespace CouponsOnline
         public int Id { get; set; }
         public string Altitude { get; set; }
         public string Longitude { get; set; }
+    
+        public virtual Sensor Sensor { get; set; }
     }
 }

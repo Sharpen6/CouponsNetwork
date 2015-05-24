@@ -2,7 +2,7 @@
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Coupon;
+using CouponsOnline;
 
 namespace UnitTestProject
 {
@@ -15,9 +15,11 @@ namespace UnitTestProject
         User customer;
         Visit visit;
         Location l;
+
         [TestInitialize]
         public void TestInit()
         {
+            TestCustomer.AddCustomer();
             using (basicEntities be = new basicEntities())
             {
                 customer = be.Users.Find("customer");

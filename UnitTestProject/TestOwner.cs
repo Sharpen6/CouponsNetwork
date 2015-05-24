@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Coupon;
+using CouponsOnline;
 
 namespace UnitTestProject
 {
@@ -13,62 +13,29 @@ namespace UnitTestProject
         {
             using (basicEntities be = new basicEntities())
             {
-                string username = TestOwnerAdd();
-                Assert.AreEqual(be.Users.Find(username).UserName, username);
-                RemoveOwner(username);
-
+                string owner = AddOwner();
+                Users_Owner ad = be.Users_Owner.Find(owner);
+                Assert.AreEqual(ad.UserName, owner);
+                Assert.AreEqual(be.Users.Find(owner).UserName, owner);
+                RemoveOwner(owner);
             }
         }
-
-        public static string TestOwnerAdd()
-        {
-            using (basicEntities be = new basicEntities())
-            {
-                Owner o = AddOwner("owner123", "adam", "admin123123", 054, 3134195, "adamin@gmail.com");
-                be.Users.Add(o);
-                be.SaveChanges();
-                return o.UserName;
-
-
-            }
-        }
-
         [TestMethod]
-        public void TestUpdatePhoneOwner()
+        public void TestUpdateOwner()
         {
-            string username = TestOwnerAdd();
             using (basicEntities be = new basicEntities())
             {
-
-                User user = be.Users.Find(username);
-                user.PhoneNum = 2222222;
+                string username = AddOwner();
+                be.Users.Find(username).Name = "xerxses";
                 be.SaveChanges();
-
-                Assert.AreEqual(be.Users.Find(username).PhoneNum, 2222222);
+                Assert.AreEqual(be.Users.Find(username).Name, "xerxses");
+                RemoveOwner(username);
             }
-            RemoveOwner(username);
         }
-
-        /*[TestMethod]
-        public void TestUpdateOwnerPhoneKidumet()
-        {
-            string username = TestOwnerAdd();
-            using (basicEntities be = new basicEntities())
-            {
-                User user = be.Users.Find(username);
-                user.PhoneKidomet = 052;
-                be.SaveChanges();
-
-                Assert.AreEqual(be.Users.Find(username).PhoneKidomet, 052);
-            }
-            RemoveOwner(username);
-        }*/
-
-
         [TestMethod]
         public void TestRemoveOwner()
         {
-            string username = TestOwnerAdd();
+            string username = AddOwner();
             using (basicEntities be = new basicEntities())
             {
                 RemoveOwner(username);
@@ -76,38 +43,30 @@ namespace UnitTestProject
             }
         }
 
-        public static Owner AddOwner(string UserName, String Name, String Password, int PhoneKidumet, int PhoneNum, string Email)
+        public static string AddOwner(string UserName = "ownerUserName", string Name = "ownerName", string Password = "1234", int PhoneKidumet = 1234567, int PhoneNum = 123, string Email = "temp@temp.temp")
         {
+            User a = TestUser.AddUser(UserName, Name, Password, PhoneKidumet, PhoneNum, Email);
             using (basicEntities be = new basicEntities())
             {
-                Owner u = new Owner();
-                u.Name = Name;
-                u.UserName = UserName;
-                User sameKey = be.Users.Find(u.UserName);
-                while (sameKey != null && sameKey.UserName.ToLower() == u.UserName.ToLower())
-                {
-                    u.UserName += "1";
-                    sameKey = be.Users.Find(u.UserName);
-                }
-                u.Password = Password;
-                u.PhoneKidomet = PhoneKidumet;
-                u.PhoneNum = PhoneNum;
-                u.Email = Email;
-
-                string originalName = u.UserName;
-                return u;
+                Users_Owner ua = new Users_Owner();
+                ua.UserName = a.UserName;
+                ua.User = a;
+                be.Entry(a).State = System.Data.Entity.EntityState.Unchanged;
+                be.Users_Owner.Add(ua);
+                be.SaveChanges();
+                return ua.UserName;
             }
         }
 
         public static void RemoveOwner(string owner)
-        {
+        {          
             using (basicEntities be = new basicEntities())
             {
-                User userToRemove = be.Users.Find(owner);
-
-                be.Users.Remove(userToRemove);
+                Users_Owner userToRemove = be.Users_Owner.Find(owner);
+                be.Users_Owner.Remove(userToRemove);
                 be.SaveChanges();
             }
+            TestUser.RemoveUser(owner);
         }
     }
 }

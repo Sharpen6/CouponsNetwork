@@ -37,3 +37,15 @@ C:\Users\DorinS\Documents\GitHub\Coupon\UnitTestProject\obj\Debug\UnitTestProjec
 C:\Users\DorinS\Documents\GitHub\CouponsNetwork\UnitTestProject\obj\Debug\UnitTestProject.csprojResolveAssemblyReference.cache
 C:\Users\DorinS\Documents\GitHub\CouponsNetwork\UnitTestProject\obj\Debug\UnitTestProject.dll
 C:\Users\DorinS\Documents\GitHub\CouponsNetwork\UnitTestProject\obj\Debug\UnitTestProject.pdb
+C:\Users\Sagi\Documents\GitHub\CouponsNetwork\UnitTestProject\obj\Debug\UnitTestProject.csprojResolveAssemblyReference.cache
+C:\Users\Sagi\Documents\GitHub\CouponsNetwork\UnitTestProject\obj\Debug\UnitTestProject.dll
+C:\Users\Sagi\Documents\GitHub\CouponsNetwork\UnitTestProject\obj\Debug\UnitTestProject.pdb
+C:\Users\Sagi\Documents\GitHub\CouponsNetwork\UnitTestProject\bin\Debug\UnitTestProject.dll.config
+C:\Users\Sagi\Documents\GitHub\CouponsNetwork\UnitTestProject\bin\Debug\UnitTestProject.dll
+C:\Users\Sagi\Documents\GitHub\CouponsNetwork\UnitTestProject\bin\Debug\UnitTestProject.pdb
+C:\Users\Sagi\Documents\GitHub\CouponsNetwork\UnitTestProject\bin\Debug\CouponsOnline.dll
+C:\Users\Sagi\Documents\GitHub\CouponsNetwork\UnitTestProject\bin\Debug\EntityFramework.dll
+C:\Users\Sagi\Documents\GitHub\CouponsNetwork\UnitTestProject\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Sagi\Documents\GitHub\CouponsNetwork\UnitTestProject\bin\Debug\CouponsOnline.pdb
+C:\Users\Sagi\Documents\GitHub\CouponsNetwork\UnitTestProject\bin\Debug\EntityFramework.xml
+C:\Users\Sagi\Documents\GitHub\CouponsNetwork\UnitTestProject\bin\Debug\EntityFramework.SqlServer.xml

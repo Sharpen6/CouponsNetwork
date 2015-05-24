@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Coupon;
+using CouponsOnline;
 
 namespace UnitTestProject
 {
@@ -12,99 +12,61 @@ namespace UnitTestProject
         {
             using (basicEntities be = new basicEntities())
             {
-                string username = TestCustomerAdd();
-                Assert.AreEqual(be.Users.Find(username).UserName, username);
+                string customer = AddCustomer();
+                Users_Customer ad = be.Users_Customer.Find(customer);
+                Assert.AreEqual(ad.UserName, customer);
+                Assert.AreEqual(be.Users.Find(customer).UserName, customer);
+                RemoveCustomer(customer);
+            }
+        }
+        [TestMethod]
+        public void TestUpdateCustomer()
+        {
+            using (basicEntities be = new basicEntities())
+            {
+                string username = AddCustomer();
+                be.Users.Find(username).Name = "xerxses";
+                be.SaveChanges();
+                Assert.AreEqual(be.Users.Find(username).Name, "xerxses");
                 RemoveCustomer(username);
-
             }
         }
-
-        public string TestCustomerAdd()
-        {
-            using (basicEntities be = new basicEntities())
-            {
-                Customer c = AddCustomer("Customer123", "adam", "admin123123", 054, 3134195, "adamin@gmail.com");
-                be.Users.Add(c);
-                be.SaveChanges();
-              
-                return  c.UserName;
-            }
-        }
-
-        [TestMethod]
-        public void TestUpdatePhoneCustomer()
-        {
-            string username = TestCustomerAdd();
-            using (basicEntities be = new basicEntities())
-            {
-
-                User user = be.Users.Find(username);
-                user.PhoneNum = 2222222;
-                be.SaveChanges();
-
-                Assert.AreEqual(be.Users.Find(username).PhoneNum, 2222222);
-            }
-            RemoveCustomer(username);
-        }
-
-        [TestMethod]
-        public void TestUpdateCustomerPhoneKidumet()
-        {
-            string username = TestCustomerAdd();
-            using (basicEntities be = new basicEntities())
-            {
-                User user = be.Users.Find(username);
-                user.PhoneKidomet = 052;
-                be.SaveChanges();
-
-                Assert.AreEqual(be.Users.Find(username).PhoneKidomet, 052);
-            }
-            RemoveCustomer(username);
-        }
-
-
         [TestMethod]
         public void TestRemoveCustomer()
         {
-            string username = TestCustomerAdd();
+            string customer = AddCustomer();
             using (basicEntities be = new basicEntities())
             {
-                RemoveCustomer(username);
-                Assert.AreEqual(be.Users.Find(username), null);
+                RemoveCustomer(customer);
+                Assert.AreEqual(be.Users.Find(customer), null);
+                Assert.AreEqual(be.Users_Customer.Find(customer), null);
             }
         }
 
-        public static Customer AddCustomer(string UserName, String Name, String Password, int PhoneKidumet, int PhoneNum, string Email)
+        public static string AddCustomer(string UserName = "customerUserName", string Name = "customerName", string Password = "1234", int PhoneKidumet = 1234567, int PhoneNum = 123, string Email = "temp@temp.temp")
         {
+            User a =TestUser.AddUser(UserName, Name, Password, PhoneKidumet, PhoneNum, Email);
             using (basicEntities be = new basicEntities())
             {
-                Customer u = new Customer();
-                u.Name = Name;
-                u.UserName = UserName;
-                User sameKey = be.Users.Find(u.UserName);
-                while (sameKey != null && sameKey.UserName.ToLower() == u.UserName.ToLower())
-                {
-                    u.UserName += "1";
-                    sameKey = be.Users.Find(u.UserName);
-                }
-                u.Password = Password;
-                u.PhoneKidomet = PhoneKidumet;
-                u.PhoneNum = PhoneNum;
-                u.Email = Email;
-
-                return u;
+                Users_Customer ua = new Users_Customer();
+                ua.UserName = a.UserName;
+                ua.User = a;
+                be.Entry(a).State = System.Data.Entity.EntityState.Unchanged; 
+                be.Users_Customer.Add(ua);
+                be.SaveChanges();
+                return ua.UserName;
             }
         }
 
         public static void RemoveCustomer(string Customer)
-        {
+        {           
             using (basicEntities be = new basicEntities())
             {
-                User userToRemove = be.Users.Find(Customer);
-
-                be.Users.Remove(userToRemove);
+                Users_Customer customerToRemove = be.Users_Customer.Find(Customer);
+                be.Users_Customer.Remove(customerToRemove);
                 be.SaveChanges();
             }
+            TestUser.RemoveUser(Customer);
         }
 
 

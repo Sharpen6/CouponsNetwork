@@ -215,7 +215,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Altitude" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Longitude" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="SensorLocation_Location_Id" Type="int" Nullable="false" />
+    <Property Name="Sensor_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="InterestCoupon">
     <Key>
@@ -419,7 +419,7 @@
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Location">
-        <PropertyRef Name="SensorLocation_Location_Id" />
+        <PropertyRef Name="Sensor_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

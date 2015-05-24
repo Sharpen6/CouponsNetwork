@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Coupon;
+using CouponsOnline;
 namespace UnitTestProject
 {
     [TestClass]
     public class TestCouponInterests
     {
-        Owner owner;
-        Admin admin;
+        Users_Owner owner;
+        Users_Admin admin;
         Business b;
         Coupon.Coupon cop;
 
