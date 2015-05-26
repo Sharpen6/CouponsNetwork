@@ -10,58 +10,59 @@ namespace UnitTestProject
     [TestClass]
     public class TestCoupon
     {
-        int Businessid;
-        int coupon;
-  
         [TestMethod]
         public void TestAddCoupon()
         {
-            coupon=TestCouponAdd();
+            Coupon coupon = AddCoupon();
             using (basicEntities be = new basicEntities())
             {
                 Assert.AreEqual(be.Coupons.Find(coupon).Id, coupon);
             }
-
+            RemoveCoupon(coupon.Id);
         }
 
         [TestMethod]
         public void TestUpdateCoupon()
         {
-            coupon = TestCouponAdd();
+            Coupon coupon = AddCoupon();
             using (basicEntities be = new basicEntities())
             {
                 be.Coupons.Find(coupon).Description = "blablabla";
                 be.SaveChanges();
                 Assert.AreEqual(be.Coupons.Find(coupon).Description, "blablabla");
             }
-
+            RemoveCoupon(coupon.Id);
         }
-        public int TestCouponAdd()
+        [TestMethod]
+        public void TestRemoveCoupon()
         {
-            TestBusiness bn = new TestBusiness();
-            Businessid = bn.AddBusiness();
+
+            Coupon coupon = AddCoupon();
             using (basicEntities be = new basicEntities())
             {
-                Business b = be.Businesses.Find(Businessid);
-                Coupon cop = CreateCoupon(2, "Fly PIZZA", "100", "40", b, "10/10/2014",8);
-                be.Coupons.Add(cop);
-                be.SaveChanges();
-                return cop.Id;
-
-
+                RemoveCoupon(coupon.Id);
+                Assert.AreEqual(be.Coupons.Find(coupon), null);
             }
         }
 
-        public static Coupon CreateCoupon(int id, string name, string orgprice, string discount, Business b, string datee,int maxNum)
+        public static Coupon AddCoupon(int id=2, string name="Flying pizza", string orgprice="100", string discount="50", string datee="10/10/2009",int maxNum=5)
         {
             Coupon cop = new Coupon();
+            Business b = TestBusiness.AddBusiness();            
             cop.Id = id;
             cop.Name = name;
             cop.OriginalPrice = orgprice;
             cop.DiscountPrice = discount;
+            
             cop.Business = b;
             cop.ExperationDate = datee;
             cop.MaxNum = maxNum;
+            using (basicEntities be = new basicEntities())
+            {
+                be.Entry(b).State = System.Data.Entity.EntityState.Unchanged;
+                be.Coupons.Add(cop);
+                be.SaveChanges();
+            }
             return cop;
         }
 
@@ -75,36 +76,6 @@ namespace UnitTestProject
                 be.SaveChanges();
                 TestBusiness.RemoveBusinesses(Businessid);
                 be.SaveChanges();
-
-            }
-        }
-
-        [TestMethod]
-        public void TestRemoveCoupon()
-        {
-
-             coupon = TestCouponAdd();
-            using (basicEntities be = new basicEntities())
-            {
-                RemoveCoupon(coupon);
-                Assert.AreEqual(be.Coupons.Find(coupon), null);
-            }
-        }
-
-        [TestCleanup]
-        public void Cleanup()
-        {
-            using (basicEntities be = new basicEntities())
-            {
-                if (be.Coupons.Find(coupon) != null)
-                {
-
-                    be.Coupons.Remove(be.Coupons.Find(coupon));
-                    be.SaveChanges();
-                    TestBusiness.RemoveBusinesses(Businessid);
-                    be.SaveChanges();
-               
-                }
             }
         }
     }

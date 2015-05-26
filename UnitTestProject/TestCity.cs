@@ -58,7 +58,7 @@ namespace UnitTestProject
                 return c;
             }
         }
-        public void RemoveCity(int id)
+        public static void RemoveCity(int id)
         {
             using (basicEntities be = new basicEntities())
             {

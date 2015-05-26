@@ -12,7 +12,7 @@ namespace UnitTestProject
         {
             using (basicEntities be = new basicEntities())
             {
-                string admin = AddAdmin();
+                string admin = AddAdmin().UserName;
                 Users_Admin ad = be.Users_Admin.Find(admin);
                 Assert.AreEqual(ad.UserName, admin);
                 Assert.AreEqual(be.Users.Find(admin).UserName, admin);
@@ -24,7 +24,7 @@ namespace UnitTestProject
         {
             using (basicEntities be = new basicEntities())
             {
-                string username = AddAdmin();
+                string username = AddAdmin().UserName;
                 be.Users.Find(username).Name = "xerxses";
                 be.SaveChanges();
                 Assert.AreEqual(be.Users.Find(username).Name, "xerxses");
@@ -34,7 +34,7 @@ namespace UnitTestProject
         [TestMethod]
         public void TestRemoveAdmin()
         {
-            string username = AddAdmin();
+            string username = AddAdmin().UserName;
             using (basicEntities be = new basicEntities())
             {
                 RemoveAdmin(username);
@@ -45,7 +45,7 @@ namespace UnitTestProject
 
        
 
-        public static string AddAdmin(string UserName = "adminUserName", string Name = "adminName", string Password = "1234", int PhoneKidumet = 1234567, int PhoneNum = 123, string Email = "temp@temp.temp")
+        public static Users_Admin AddAdmin(string UserName = "adminUserName", string Name = "adminName", string Password = "1234", int PhoneKidumet = 1234567, int PhoneNum = 123, string Email = "temp@temp.temp")
         {
             User a = TestUser.AddUser(UserName, Name, Password, PhoneKidumet, PhoneNum, Email);
             using (basicEntities be = new basicEntities())
@@ -56,7 +56,7 @@ namespace UnitTestProject
                 be.Entry(a).State = System.Data.Entity.EntityState.Unchanged;
                 be.Users_Admin.Add(ua);
                 be.SaveChanges();
-                return ua.UserName;
+                return ua;
             }
         }
 

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="basicEntities-Web.config Connection String" description="basicEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Model.csdl|res://*/Model.ssdl|res://*/Model.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=(localdb)\v11.0;initial catalog=basic;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Sagi\\Documents\\GitHub\\CouponsNetwork\\CouponsOnline\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='basicEntities']/@connectionString" />
+  </parameter>
+</parameters>

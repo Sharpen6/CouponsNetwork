@@ -13,7 +13,7 @@ namespace UnitTestProject
         {
             using (basicEntities be = new basicEntities())
             {
-                string owner = AddOwner();
+                string owner = AddOwner().UserName;
                 Users_Owner ad = be.Users_Owner.Find(owner);
                 Assert.AreEqual(ad.UserName, owner);
                 Assert.AreEqual(be.Users.Find(owner).UserName, owner);
@@ -25,7 +25,7 @@ namespace UnitTestProject
         {
             using (basicEntities be = new basicEntities())
             {
-                string username = AddOwner();
+                string username = AddOwner().UserName;
                 be.Users.Find(username).Name = "xerxses";
                 be.SaveChanges();
                 Assert.AreEqual(be.Users.Find(username).Name, "xerxses");
@@ -35,7 +35,7 @@ namespace UnitTestProject
         [TestMethod]
         public void TestRemoveOwner()
         {
-            string username = AddOwner();
+            string username = AddOwner().UserName;
             using (basicEntities be = new basicEntities())
             {
                 RemoveOwner(username);
@@ -43,7 +43,7 @@ namespace UnitTestProject
             }
         }
 
-        public static string AddOwner(string UserName = "ownerUserName", string Name = "ownerName", string Password = "1234", int PhoneKidumet = 1234567, int PhoneNum = 123, string Email = "temp@temp.temp")
+        public static Users_Owner AddOwner(string UserName = "ownerUserName", string Name = "ownerName", string Password = "1234", int PhoneKidumet = 1234567, int PhoneNum = 123, string Email = "temp@temp.temp")
         {
             User a = TestUser.AddUser(UserName, Name, Password, PhoneKidumet, PhoneNum, Email);
             using (basicEntities be = new basicEntities())
@@ -54,7 +54,7 @@ namespace UnitTestProject
                 be.Entry(a).State = System.Data.Entity.EntityState.Unchanged;
                 be.Users_Owner.Add(ua);
                 be.SaveChanges();
-                return ua.UserName;
+                return ua;
             }
         }
 

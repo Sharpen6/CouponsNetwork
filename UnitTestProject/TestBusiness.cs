@@ -8,10 +8,6 @@ namespace UnitTestProject
     [TestClass]
     public class TestBusiness
     {
-        string admins;
-        string owners;
-        int Businessid;
-
 
         [TestMethod]
         public void TestAddBusiness()
@@ -19,7 +15,7 @@ namespace UnitTestProject
 
             using (basicEntities be = new basicEntities())
             {
-                Businessid = AddBusiness();
+                int Businessid = AddBusiness().BusinessID;
                 Assert.AreEqual(be.Businesses.Find(Businessid).BusinessID, Businessid);
             }
         }
@@ -28,9 +24,10 @@ namespace UnitTestProject
         [TestMethod]
         public void TestUpdateBusiness()
         {
+            int Businessid = AddBusiness().BusinessID;
             using (basicEntities be = new basicEntities())
             {
-                Businessid = AddBusiness();
+                
 
                 be.Businesses.Find(Businessid).Address = "tel ron";
                 be.SaveChanges();
@@ -43,37 +40,24 @@ namespace UnitTestProject
         [TestMethod]
         public void TestRemoveBusiness()
         {
-            Businessid = AddBusiness();
+            int Businessid = AddBusiness().BusinessID;
             RemoveBusinesses(Businessid);
             using (basicEntities be = new basicEntities())
             {               
                 Assert.IsNull(be.Businesses.Find(Businessid));
             }
         }
-        public int AddBusiness()
-        {
-            admins = TestAdmin.AddAdmin();
-            owners = TestOwner.AddOwner();
 
-            using (basicEntities be = new basicEntities())
-            {
-                Users_Owner owner = be.Users_Owner.Find(owners);
-                Users_Admin admin = be.Users_Admin.Find(admins);
-                Business b = AddBusinesses(admin, owner, "beer-Sheva", "bla");
-                be.Businesses.Add(b);
-                be.SaveChanges();
-                return b.BusinessID;
-            }
-        }
-
-        public static Business AddBusinesses(Users_Admin ad, Users_Owner owner, String address, string name)
+        public static Business AddBusiness(String address = "kalisher 5", string name = "addbusinesstest")
         {
             City city = TestCity.AddCity();
+            Users_Owner owner = TestOwner.AddOwner();
+            Users_Admin admin = TestAdmin.AddAdmin();
             BusinessCategories bc = TestCategory.AddCategory();
+            Business b = new Business();
             using (basicEntities be = new basicEntities())
             {
-                Business b = new Business();
-                b.Users_Admin = ad;
+                b.Users_Admin = admin;
                 b.Users_Owner = owner;
                 b.Address = address;
                 b.Name = name;
@@ -82,9 +66,10 @@ namespace UnitTestProject
                 be.Entry(bc).State = System.Data.Entity.EntityState.Unchanged;
                 be.Entry(city).State = System.Data.Entity.EntityState.Unchanged;
                 b.City = city;
+                be.Businesses.Add(b);
+                be.SaveChanges();
                 return b;
-            }
-
+            }                      
         }
 
         public static void RemoveBusinesses(int BusinessID)
@@ -96,21 +81,6 @@ namespace UnitTestProject
                 string admin = BusinessesToRemove.Users_Owner.UserName;
                 be.Businesses.Remove(BusinessesToRemove);
                 be.SaveChanges();
-            }
-        }
-
-        [TestCleanup]
-        public void Cleanup()
-        {
-            using (basicEntities be = new basicEntities())
-            {
-                if(be.Businesses.Find(Businessid)!=null)
-                {
-                be.Businesses.Remove(be.Businesses.Find(Businessid));
-                be.SaveChanges();
-                TestOwner.RemoveOwner(owners);
-                TestAdmin.RemoveAdmin(admins);
-                }
             }
         }
     }
