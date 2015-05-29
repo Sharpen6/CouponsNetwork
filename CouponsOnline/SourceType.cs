@@ -10,18 +10,11 @@
 namespace CouponsOnline
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class UserInfo
+    public enum SourceType : int
     {
-        public UserInfo()
-        {
-            this.Sensor = new HashSet<Sensor>();
-        }
-    
-        public int Id { get; set; }
-    
-        public virtual ICollection<Sensor> Sensor { get; set; }
-        public virtual Users_Customer Users_Customer { get; set; }
+        Twitter = 0,
+        Facebook = 1,
+        GooglePlus = 2
     }
 }

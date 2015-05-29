@@ -10,7 +10,7 @@ namespace CouponsOnline.DataLayer
 {
     public class CouponDataAccess
     {
-        public static bool CreateCoupon(string name, string desc, string orgprice, string discount, Business b, string datee, int maxNum, List<ListItem> interestt)
+        public static bool CreateCoupon(string name, string desc, double orgprice, double discount, Business b, string datee, int maxNum, List<ListItem> interestt)
         {
             using (basicEntities be = new basicEntities())
             {
@@ -29,7 +29,7 @@ namespace CouponsOnline.DataLayer
                 }
                 cop.ExperationDate = datee;
                 cop.MaxNum = maxNum;
-                cop.AvarageRanking = "0";
+                cop.AvarageRanking = 0;
                 cop.Business_BusinessID = b.BusinessID;
 
                 cop.Business = be.Businesses.Find(b.BusinessID);
@@ -45,7 +45,7 @@ namespace CouponsOnline.DataLayer
             using (basicEntities be = new basicEntities())
             {
                 var bus = from b in be.Interests
-                          where b.Description == desription & b.BusinessCategoriesId == Category.BusinessCategoriesId
+                          where b.Description == desription & b.BusinessCategory.Id == Category.BusinessCategoriesId
                           select b;
                 Interest Interests = bus.First();
 
@@ -247,7 +247,7 @@ namespace CouponsOnline.DataLayer
             return GetDataTable(bus);
         }
 
-        internal static bool EditCoupon(int copId, string p1, string p2, string p3, string p4, string p5, int mdp, List<ListItem> selected)
+        internal static bool EditCoupon(int copId, string p1, double p2, double p3, string p4, string p5, int mdp, List<ListItem> selected)
         {
             try
             {
@@ -263,17 +263,12 @@ namespace CouponsOnline.DataLayer
                         cop.ExperationDate = p5;
                         cop.MaxNum = mdp;
 
-
-
                         ICollection<Interest> i = cop.Interests;
                         foreach (Interest item in i)
-                        {
-                          
+                        {                        
                             item.Coupons.Remove(cop); 
                         }
                         be.SaveChanges();
-                      
-
                     }
 
                 using (basicEntities be = new basicEntities())

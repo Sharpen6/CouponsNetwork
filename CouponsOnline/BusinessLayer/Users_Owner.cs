@@ -9,7 +9,7 @@ namespace CouponsOnline
 {
     public partial class Users_Owner
     {
-        public bool CreateCoupon(string name, string orgprice, string discount,
+        public bool CreateCoupon(string name, double orgprice, double discount,
             string selectedBusiness, string desc, string datee, int maxNum, List<ListItem> interestt)
         {
             Business b = BusinessDataAccess.FindBusiness(selectedBusiness);

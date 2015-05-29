@@ -14,7 +14,7 @@ namespace CouponsOnline.BusinessLayer.Controllers
         {
             return CouponDataAccess.GetCouponsByCity(city);
         }
-        public static bool CreateCoupon(string name, string orgprice, string discount,string user,
+        public static bool CreateCoupon(string name, double orgprice, double discount, string user,
             string selectedBusiness, string desc, string datee, int maxNum, List<ListItem> interestt)
         {
             Users_Owner owner = UserDataAccess.FindOwner(user);
@@ -64,9 +64,9 @@ namespace CouponsOnline.BusinessLayer.Controllers
             return CouponDataAccess.RemoveCoupon(CoponId);
         }
 
-  
 
-        internal static bool EditCoupon(int copId, string p1, string p2, string p3, string p4, string p5, int mdp, List<ListItem> selected)
+
+        internal static bool EditCoupon(int copId, string p1, double p2, double p3, string p4, string p5, int mdp, List<ListItem> selected)
         {
             return CouponDataAccess.EditCoupon( copId,  p1,  p2,  p3,  p4,  p5,  mdp, selected);
         }

@@ -111,18 +111,19 @@ namespace CouponsOnline.PresentationLayer
             string selectedBusiness = DropDownListBusniess.SelectedItem.Text;
 
             int mdp;
-            double temp;
+            double orgPrice;
+            double newPrice;
             if (!int.TryParse(TextBoxMPU.Text, out mdp))
             {
                 MessageBox.Show("Missing Values! ");
                 return;
             }
-            if (!double.TryParse(TextBoxDisc.Text, out temp))
+            if (!double.TryParse(TextBoxDisc.Text, out newPrice))
             {
                 MessageBox.Show("Discount has to be Number ");
                 return;
             }
-            if (!double.TryParse(TextBoxOrg.Text, out temp))
+            if (!double.TryParse(TextBoxOrg.Text, out orgPrice))
             {
                 MessageBox.Show("Price has to be Number ");
                 return;
@@ -135,7 +136,7 @@ namespace CouponsOnline.PresentationLayer
             List<ListItem> selected = new List<ListItem>();
             foreach (ListItem item in DropDownListInterests.Items)
                 if (item.Selected) selected.Add(item);
-            CouponController.EditCoupon( Int32.Parse(copId.Text), TextBoxName.Text, TextBoxOrg.Text, TextBoxDisc.Text,TextBoxDesc.Text, TextBoxExp.Text, mdp, selected);
+            CouponController.EditCoupon(Int32.Parse(copId.Text), TextBoxName.Text, orgPrice, newPrice, TextBoxDesc.Text, TextBoxExp.Text, mdp, selected);
             MessageBox.Show("Coupon " + TextBoxName.Text + " Edit successfully!");
             TextBoxName.Text = "";
             TextBoxOrg.Text = "";

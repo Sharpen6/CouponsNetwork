@@ -9,55 +9,16 @@ namespace UnitTestProject
 {
     [TestClass]
     public class TestOrderedCoupon
-    {
-        Users_Owner owner;
-        Users_Admin admin;
-        Business b ;
-        Coupon cop;
-        Users_Customer customer;
-        OrderedCoupon oc;
-
-        [TestInitialize]
-        public void TestInit()
-        {
-            
-            
-        }
-        
+    {       
         [TestMethod]
         public void TestAddOrderedCoupon()
         {
+            OrderedCoupon oc = AddOrderedCoupon();
             using (basicEntities be = new basicEntities())
             {
-                owner = TestOwner.AddOwner("owner123", "adam", "admin123123", 054, 3134195, "adamin@gmail.com");
-                admin = TestAdmin.AddAdmin("admin123", "adam", "admin123123", 054, 3134195, "adamin@gmail.com");
-                b = TestBusiness.AddBusinesses("123", admin, owner, "beer-Sheva", "bla");
-                cop = TestCoupon.CreateCoupon(2, "Fly PIZZA", "100", "40", b, "10/10/2014",8);
-                customer = TestCustomer.AddCustomer("Customer123", "adam", "admin123123", 054, 3134195, "adamin@gmail.com");
-                
-                be.Users.Add(owner);
-                be.Users.Add(admin);
-                be.Businesses.Add(b);
-                be.Coupons.Add(cop);
-                be.SaveChanges();
-
-                oc = new OrderedCoupon();
-                oc.SerialNum = 4;
-                oc.Status = StatusType.NotUsed;
-                oc.PurchaseDate = "27/04/1990";
-                oc.Coupon = cop;
-                oc.UseDate = "";
-                oc.Rank = "0";
-                oc.Opinion = "";
-                oc.Customer = customer;
-
-                be.OrderedCoupons.Add(oc);
-                be.SaveChanges();
-                
-
-                Assert.AreEqual(be.OrderedCoupons.Find(oc.SerialNum).PurchaseDate, oc.PurchaseDate);
-               
+                Assert.IsNotNull(be.OrderedCoupons.Find(oc.SerialNum));              
             }
+            RemoveOrderedCoupon(oc.SerialNum);
         }
 
         [TestMethod]
@@ -65,41 +26,7 @@ namespace UnitTestProject
         {
             using (basicEntities be = new basicEntities())
             {
-                owner = TestOwner.AddOwner("owner123", "adam", "admin123123", 054, 3134195, "adamin@gmail.com");
-                admin = TestAdmin.AddAdmin("admin123", "adam", "admin123123", 054, 3134195, "adamin@gmail.com");
-                b = TestBusiness.AddBusinesses("123", admin, owner, "beer-Sheva", "bla", Category.CarsAccessories);
-                cop = TestCoupon.CreateCoupon(2, "Fly PIZZA", "100", "40", b, "10/10/2014",8);
-                customer = TestCustomer.AddCustomer("Customer123", "adam", "admin123123", 054, 3134195, "adamin@gmail.com");
-
-                be.Users.Add(owner);
-                be.Users.Add(admin);
-                be.Businesses.Add(b);
-                be.Coupons.Add(cop);
-                be.SaveChanges();
-
-                oc = new OrderedCoupon();
-                oc.SerialNum = 4;
-                oc.Status = StatusType.NotUsed;
-                oc.PurchaseDate = "27/04/1990";
-                oc.Coupon = cop;
-                oc.UseDate = "";
-                oc.Rank = "0";
-                oc.Opinion = "";
-                oc.Customer = customer;
-
-                be.OrderedCoupons.Add(oc);
-                be.SaveChanges();
-
-                be.OrderedCoupons.Remove(be.OrderedCoupons.Find(oc.SerialNum));
-                be.Coupons.Remove(be.Coupons.Find(cop.Id));
-                be.Businesses.Remove(be.Businesses.Find(b.BusinessID));
-                be.Users.Remove(be.Users.Find(admin.UserName));
-                be.Users.Remove(be.Users.Find(owner.UserName));
-                be.Users.Remove(be.Users.Find(customer.UserName));
-                be.SaveChanges();
-
-                Assert.IsNull(be.OrderedCoupons.Find(oc.SerialNum));
-
+                
             }
         }
 
@@ -108,36 +35,7 @@ namespace UnitTestProject
         {
             using (basicEntities be = new basicEntities())
             {
-                owner = TestOwner.AddOwner("owner123", "adam", "admin123123", 054, 3134195, "adamin@gmail.com");
-                admin = TestAdmin.AddAdmin("admin123", "adam", "admin123123", 054, 3134195, "adamin@gmail.com");
-                b = TestBusiness.AddBusinesses("123", admin, owner, "beer-Sheva", "bla", Category.CarsAccessories);
-                cop = TestCoupon.CreateCoupon(2, "Fly PIZZA", "100", "40", b, "10/10/2014",8);
-                customer = TestCustomer.AddCustomer("Customer123", "adam", "admin123123", 054, 3134195, "adamin@gmail.com");
-
-                be.Users.Add(owner);
-                be.Users.Add(admin);
-                be.Businesses.Add(b);
-                be.Coupons.Add(cop);
-                be.SaveChanges();
-
-                oc = new OrderedCoupon();
-                oc.SerialNum = 4;
-                oc.Status = StatusType.NotUsed;
-                oc.PurchaseDate = "27/04/1990";
-                oc.Coupon = cop;
-                oc.UseDate = "";
-                oc.Rank = "0";
-                oc.Opinion = "";
-                oc.Customer = customer;
-
-                be.OrderedCoupons.Add(oc);
-                be.SaveChanges();
-
-                oc.Rank = "5";
-                be.SaveChanges();
-
-                Assert.AreEqual(be.OrderedCoupons.Find(oc.SerialNum).Rank, oc.Rank);
-
+               
             }
         }
         public OrderedCoupon AddOrderedCoupon()
@@ -147,36 +45,37 @@ namespace UnitTestProject
             oc.Users_Customer = TestCustomer.AddCustomer();
             using (basicEntities be = new basicEntities())
             {
-                oc.Opinion = "not used it yet";
+                oc.Opinion = "";
                 oc.PurchaseDate = DateTime.Now.ToShortDateString();
                 oc.Rank = 0;
                 oc.SerialNum = 1;
                 oc.UseDate = "";
-                oc.
+                oc.Status = StatusType.NotUsed;
+                be.Entry(oc.Coupon).State = System.Data.Entity.EntityState.Unchanged;
+                be.Entry(oc.Users_Customer).State = System.Data.Entity.EntityState.Unchanged;
+                be.OrderedCoupons.Add(oc);
+                be.SaveChanges();
             }
             return oc;
         }
 
         public void RemoveOrderedCoupon(int id)
         {
-
-        }
-        [TestCleanup]
-        public void CleanUp()
-        {
+            string user="";
+            int couponID = 0;
             using (basicEntities be = new basicEntities())
             {
-                if (be.OrderedCoupons.Find(oc.SerialNum) != null)
+                OrderedCoupon oc = be.OrderedCoupons.Find(id);
+                if (oc != null)
                 {
-                    be.OrderedCoupons.Remove(be.OrderedCoupons.Find(oc.SerialNum));
-                    be.Coupons.Remove(be.Coupons.Find(cop.Id));
-                    be.Businesses.Remove(be.Businesses.Find(b.BusinessID));
-                    be.Users.Remove(be.Users.Find(admin.UserName));
-                    be.Users.Remove(be.Users.Find(owner.UserName));
-                    be.Users.Remove(be.Users.Find(customer.UserName));
+                    user = oc.Users_Customer.UserName;
+                    couponID = oc.Coupon.Id;
+                    be.OrderedCoupons.Remove(oc);
                     be.SaveChanges();
                 }
             }
+            TestCoupon.RemoveCoupon(couponID);
+            TestCustomer.RemoveCustomer(user);
         }
     }
 }

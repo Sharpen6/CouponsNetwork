@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a0148108700a4390b9eda6aa0e3a6280" Name="Diagram1" ZoomLevel="90">
+      <Diagram DiagramId="a0148108700a4390b9eda6aa0e3a6280" Name="Diagram1" ZoomLevel="74">
         <EntityTypeShape EntityType="basicModel.Business" Width="1.5" PointX="5.25" PointY="4.125" />
         <EntityTypeShape EntityType="basicModel.Coupon" Width="1.5" PointX="7.5" PointY="4.125" />
         <EntityTypeShape EntityType="basicModel.Sensor" Width="1.5" PointX="3.875" PointY="0.75" />
@@ -14,12 +14,8 @@
         <EntityTypeShape EntityType="basicModel.Users_Admin" Width="1.5" PointX="2.5" PointY="3.75" />
         <EntityTypeShape EntityType="basicModel.Users_Customer" Width="1.5" PointX="2.75" PointY="8" />
         <EntityTypeShape EntityType="basicModel.Users_Owner" Width="1.5" PointX="3" PointY="6" />
-        <EntityTypeShape EntityType="basicModel.UserInfo" Width="1.5" PointX="3.125" PointY="10.625" />
         <AssociationConnector Association="basicModel.FK_BusinessCoupon" />
         <AssociationConnector Association="basicModel.FK_BusinessLocation" />
-        <AssociationConnector Association="basicModel.FK_SensorUserInfo" ManuallyRouted="false" >
-        </AssociationConnector>
-        <AssociationConnector Association="basicModel.FK_CustomerRecommendation" />
         <AssociationConnector Association="basicModel.FK_Admin_inherits_User" />
         <AssociationConnector Association="basicModel.FK_Customer_inherits_User" />
         <AssociationConnector Association="basicModel.FK_Owner_inherits_User" />
@@ -27,7 +23,6 @@
         <AssociationConnector Association="basicModel.Users_AdminBusiness" />
         <AssociationConnector Association="basicModel.BusinessUsers_Owner" />
         <EntityTypeShape EntityType="basicModel.Interest" Width="1.5" PointX="6.625" PointY="0.5" />
-        <AssociationConnector Association="basicModel.BusinessCategoriesInterest" />
         <AssociationConnector Association="basicModel.BusinessBusinessCategories" />
         <AssociationConnector Association="basicModel.InterestCoupon" />
         <EntityTypeShape EntityType="basicModel.City" Width="1.5" PointX="0.5" PointY="2.625" />
@@ -35,9 +30,16 @@
         <EntityTypeShape EntityType="basicModel.Location" Width="1.5" PointX="1.25" PointY="0.5" />
         <AssociationConnector Association="basicModel.LocationSensor" />
         <AssociationConnector Association="basicModel.RecommendedCouponCoupon" />
-        <AssociationConnector Association="basicModel.Users_CustomerUserInfo" />
         <AssociationConnector Association="basicModel.CouponOrderedCoupon" />
         <AssociationConnector Association="basicModel.Users_CustomerOrderedCoupon" />
+        <AssociationConnector Association="basicModel.Users_CustomerRecommendedCoupon" />
+        <AssociationConnector Association="basicModel.SensorUsers_Customer" ManuallyRouted="true" >
+          <ConnectorPoint PointX="5.06250125" PointY="2.7302864583333331" />
+          <ConnectorPoint PointX="5.06250125" PointY="8.3580501888020837" />
+          <ConnectorPoint PointX="4.25" PointY="8.3580501888020837" />
+        </AssociationConnector>
+        <AssociationConnector Association="basicModel.SensorCoupon" />
+        <AssociationConnector Association="basicModel.BusinessCategoriesInterest" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

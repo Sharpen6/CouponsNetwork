@@ -15,12 +15,11 @@ namespace CouponsOnline
     public partial class RecommendedCoupon
     {
         public int Id { get; set; }
-        public int Source { get; set; }
+        public SourceType Source { get; set; }
         public string Link { get; set; }
-        public string Customer_UserName { get; set; }
         public bool Approved { get; set; }
     
-        public virtual Users_Customer Users_Customer { get; set; }
         public virtual Coupon Coupon { get; set; }
+        public virtual Users_Customer Users_Customer { get; set; }
     }
 }

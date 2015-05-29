@@ -17,13 +17,13 @@ namespace CouponsOnline
         public Sensor()
         {
             this.Businesses = new HashSet<Business>();
-            this.Visits = new HashSet<UserInfo>();
         }
     
         public int Id { get; set; }
     
         public virtual ICollection<Business> Businesses { get; set; }
-        public virtual ICollection<UserInfo> Visits { get; set; }
         public virtual Location Location { get; set; }
+        public virtual Users_Customer Users_Customer { get; set; }
+        public virtual Coupon Coupon { get; set; }
     }
 }

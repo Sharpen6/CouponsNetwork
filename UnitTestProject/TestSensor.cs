@@ -43,8 +43,7 @@ namespace UnitTestProject
             RemoveSensor(s.Id);
             using (basicEntities be = new basicEntities())
             {
-                City a = be.Cities.Find(s.Id);
-                Assert.IsNull(a);
+                Assert.IsNull(be.Sensors.Find(s.Id));
             }
         }
         public static Sensor AddSensor()

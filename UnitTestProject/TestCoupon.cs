@@ -51,8 +51,8 @@ namespace UnitTestProject
             Business b = TestBusiness.AddBusiness();            
             cop.Id = id;
             cop.Name = name;
-            cop.OriginalPrice = orgprice;
-            cop.DiscountPrice = discount;
+            cop.OriginalPrice = 1; //
+            cop.DiscountPrice = 2; //
             
             cop.Business = b;
             cop.ExperationDate = datee;
