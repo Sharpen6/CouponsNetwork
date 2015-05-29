@@ -12,81 +12,74 @@ namespace UnitTestProject
     [TestClass]
     public class TestLocation
     {
-        Location loc;
-
-        [TestInitialize]
-        public void TestInit()
-        {
-
-        }
-
         [TestMethod]
         public void TestAddLocation()
         {
+            Location loc = AddLocation();
             using (basicEntities be = new basicEntities())
             {
-                loc = new Location();
-                Sensor s = new Sensor();
-                loc.Sensor = s;
-                loc.Id = 4;
-                loc.Longitude = "30.4";
-                loc.Altitude = "50.9";
-                be.Locations.Add(loc);             
-                be.SaveChanges();
-                Assert.AreEqual(be.Locations.Find(loc.Id).Altitude, loc.Altitude);
-                Assert.AreEqual(be.Locations.Find(loc.Id).Longitude, loc.Longitude);
+                Assert.AreEqual(be.Locations.Find(loc.Id).Id, loc.Id);                
             }
+            RemoveLocation(loc.Id);
         }
         [TestMethod]
         public void TestRemoveLocation()
         {
+            Location loc = AddLocation();
             using (basicEntities be = new basicEntities())
-            {
-                loc = new Location();
-
-                loc.Id = 4;
-                loc.Longitude = "30.4";
-                loc.Altitude = "50.9";
-                be.Locations.Add(loc);
-                be.SaveChanges();
-
-                be.Locations.Remove(be.Locations.Find(loc.Id));
+            {            
+                RemoveLocation(loc.Id);
                 be.SaveChanges();
                 Assert.IsNull(be.Locations.Find(loc.Id));
             }
+
         }
         [TestMethod]
         public void TestUpdateLocation()
         {
+            Location loc = AddLocation();
+            using (basicEntities be = new basicEntities())
+            {              
+                be.Locations.Find(loc.Id).Longitude = "31.4";
+                be.Locations.Find(loc.Id).Altitude = "56.9";
+                be.SaveChanges();
+                Assert.AreEqual(be.Locations.Find(loc.Id).Altitude, "56.9");
+                Assert.AreEqual(be.Locations.Find(loc.Id).Longitude, "31.4");
+            }
+            RemoveLocation(loc.Id);
+        }
+        public static Location AddLocation()
+        {
+            Location loc;
+            Sensor s = TestSensor.AddSensor();
             using (basicEntities be = new basicEntities())
             {
                 loc = new Location();
-
+                loc.Sensor = s;
+                be.Entry(s).State = System.Data.Entity.EntityState.Unchanged;
                 loc.Id = 4;
                 loc.Longitude = "30.4";
                 loc.Altitude = "50.9";
                 be.Locations.Add(loc);
                 be.SaveChanges();
-
-                loc.Longitude = "31.4";
-                loc.Altitude = "56.9";
-                be.SaveChanges();
-                Assert.AreEqual(be.Locations.Find(loc.Id).Altitude, loc.Altitude);
-                                Assert.AreEqual(be.Locations.Find(loc.Id).Longitude, loc.Longitude);
             }
+            return loc;
         }
-        [TestCleanup]
-        public void Cleanup()
+        public static void RemoveLocation(int id)
         {
+            int sensorID=0;
             using (basicEntities be = new basicEntities())
             {
-                if (be.Locations.Find(loc.Id) != null)
+                Location s = be.Locations.Find(id);               
+                if (s != null)
                 {
-                    be.Locations.Remove(be.Locations.Find(loc.Id));
+                    sensorID = s.Sensor.Id;
+                    be.Locations.Remove(s);
                     be.SaveChanges();
+                    
                 }
-
             }
+            TestSensor.RemoveSensor(sensorID);
         }
     }
 }

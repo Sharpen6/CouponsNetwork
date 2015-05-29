@@ -12,12 +12,13 @@ namespace UnitTestProject
         [TestMethod]
         public void TestAddBusiness()
         {
-
+            int Businessid=0;
             using (basicEntities be = new basicEntities())
             {
-                int Businessid = AddBusiness().BusinessID;
+                Businessid = AddBusiness().BusinessID;
                 Assert.AreEqual(be.Businesses.Find(Businessid).BusinessID, Businessid);
             }
+            RemoveBusinesses(Businessid);
         }
 
         
@@ -27,7 +28,6 @@ namespace UnitTestProject
             int Businessid = AddBusiness().BusinessID;
             using (basicEntities be = new basicEntities())
             {
-                
 
                 be.Businesses.Find(Businessid).Address = "tel ron";
                 be.SaveChanges();
@@ -63,6 +63,8 @@ namespace UnitTestProject
                 b.Name = name;
                 b.BusinessCategoriesId = bc.Id;
                 b.BusinessCategory = bc;
+                be.Entry(admin).State = System.Data.Entity.EntityState.Unchanged;
+                be.Entry(owner).State = System.Data.Entity.EntityState.Unchanged;
                 be.Entry(bc).State = System.Data.Entity.EntityState.Unchanged;
                 be.Entry(city).State = System.Data.Entity.EntityState.Unchanged;
                 b.City = city;
@@ -74,14 +76,25 @@ namespace UnitTestProject
 
         public static void RemoveBusinesses(int BusinessID)
         {
+            int catID = 0;
+            int cityID = 0;
+            string admin;
+            string owner;
             using (basicEntities be = new basicEntities())
             {
+                
                 Business BusinessesToRemove = be.Businesses.Find(BusinessID);
-                string owner = BusinessesToRemove.Users_Admin.UserName;
-                string admin = BusinessesToRemove.Users_Owner.UserName;
+                catID = BusinessesToRemove.BusinessCategoriesId;
+                cityID = BusinessesToRemove.City.Id;
+                owner = BusinessesToRemove.Users_Admin.UserName;
+                admin = BusinessesToRemove.Users_Owner.UserName;
                 be.Businesses.Remove(BusinessesToRemove);
                 be.SaveChanges();
             }
+            TestCategory.RemoveCategory(catID);
+            TestCity.RemoveCity(cityID);
+            TestAdmin.RemoveAdmin(admin);
+            TestOwner.RemoveOwner(owner);
         }
     }
 }

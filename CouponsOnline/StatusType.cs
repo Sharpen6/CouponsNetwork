@@ -10,18 +10,11 @@
 namespace CouponsOnline
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class OrderedCoupon
+    public enum StatusType : int
     {
-        public int SerialNum { get; set; }
-        public StatusType Status { get; set; }
-        public string PurchaseDate { get; set; }
-        public string UseDate { get; set; }
-        public string Opinion { get; set; }
-        public Nullable<int> Rank { get; set; }
-    
-        public virtual Coupon Coupon { get; set; }
-        public virtual Users_Customer Users_Customer { get; set; }
+        NotUsed = 0,
+        Used = 1,
+        Canceled = 2
     }
 }

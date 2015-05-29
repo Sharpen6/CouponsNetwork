@@ -10,12 +10,14 @@ namespace UnitTestProject
         [TestMethod]
         public void TestAddUser()
         {
+            User user;
             using (basicEntities be = new basicEntities())
             {
-                User user = AddUser();
+                user = AddUser();
                 Assert.AreEqual(be.Users.Find(user.UserName).UserName, user.UserName);
-                RemoveUser(user.UserName);
+                
             }
+            RemoveUser(user.UserName);
         }
 
         [TestMethod]
@@ -92,8 +94,11 @@ namespace UnitTestProject
             using (basicEntities be = new basicEntities())
             {
                 User userToRemove = be.Users.Find(user);
-                be.Users.Remove(userToRemove);
-                be.SaveChanges();
+                if (userToRemove != null)
+                {
+                    be.Users.Remove(userToRemove);
+                    be.SaveChanges();
+                }
             }
         }
         public static User AddUser(string UserName="UserName", string Name="userName", string Password="1234", int PhoneKidumet=123, int PhoneNum=1234567, string Email="temp@temp.temp")

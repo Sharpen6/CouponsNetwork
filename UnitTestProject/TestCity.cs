@@ -11,13 +11,15 @@ namespace UnitTestProject
         [TestMethod]
         public void TestAddCity()
         {
+            int id = 0;
             using (basicEntities be = new basicEntities())
             {
                 City c = AddCity();
+                id = c.Id;
                 Assert.AreEqual(be.Cities.Find(c.Id).Name, c.Name);
-                RemoveCity(c.Id);
+               
             }
-
+            RemoveCity(id);
         }
         [TestMethod]
         public void TestUpdateCity()

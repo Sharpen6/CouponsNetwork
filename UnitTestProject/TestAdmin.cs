@@ -10,36 +10,39 @@ namespace UnitTestProject
         [TestMethod]
         public void TestAddAdmin()
         {
+            string admin;
             using (basicEntities be = new basicEntities())
             {
-                string admin = AddAdmin().UserName;
+                admin = AddAdmin().UserName;
                 Users_Admin ad = be.Users_Admin.Find(admin);
                 Assert.AreEqual(ad.UserName, admin);
-                Assert.AreEqual(be.Users.Find(admin).UserName, admin);
-                RemoveAdmin(admin);
+                Assert.AreEqual(be.Users.Find(admin).UserName, admin);              
             }
+            RemoveAdmin(admin);
         }
         [TestMethod]
         public void TestUpdateAdmin()
         {
+            string username;
             using (basicEntities be = new basicEntities())
             {
-                string username = AddAdmin().UserName;
+                username = AddAdmin().UserName;
                 be.Users.Find(username).Name = "xerxses";
                 be.SaveChanges();
                 Assert.AreEqual(be.Users.Find(username).Name, "xerxses");
-                RemoveAdmin(username);
             }
+            RemoveAdmin(username);
         }
         [TestMethod]
         public void TestRemoveAdmin()
         {
             string username = AddAdmin().UserName;
+            RemoveAdmin(username);
             using (basicEntities be = new basicEntities())
             {
-                RemoveAdmin(username);
                 Assert.AreEqual(be.Users.Find(username), null);
             }
+            
         }
 
 
@@ -65,8 +68,11 @@ namespace UnitTestProject
             using (basicEntities be = new basicEntities())
             {
                 Users_Admin AdminToRemove = be.Users_Admin.Find(admin);
-                be.Users_Admin.Remove(AdminToRemove);
-                be.SaveChanges();
+                if (AdminToRemove != null)
+                {
+                    be.Users_Admin.Remove(AdminToRemove);
+                    be.SaveChanges();
+                }
             }
             TestUser.RemoveUser(admin);
         }

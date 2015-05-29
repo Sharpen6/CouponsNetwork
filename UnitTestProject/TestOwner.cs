@@ -11,34 +11,37 @@ namespace UnitTestProject
         [TestMethod]
         public void TestAddOwner()
         {
+            string owner;
             using (basicEntities be = new basicEntities())
             {
-                string owner = AddOwner().UserName;
+                owner = AddOwner().UserName;
                 Users_Owner ad = be.Users_Owner.Find(owner);
                 Assert.AreEqual(ad.UserName, owner);
                 Assert.AreEqual(be.Users.Find(owner).UserName, owner);
-                RemoveOwner(owner);
+                
             }
+            RemoveOwner(owner);
         }
         [TestMethod]
         public void TestUpdateOwner()
         {
+            string username ;
             using (basicEntities be = new basicEntities())
             {
-                string username = AddOwner().UserName;
+                username  = AddOwner().UserName;
                 be.Users.Find(username).Name = "xerxses";
                 be.SaveChanges();
                 Assert.AreEqual(be.Users.Find(username).Name, "xerxses");
-                RemoveOwner(username);
             }
+            RemoveOwner(username);
         }
         [TestMethod]
         public void TestRemoveOwner()
         {
             string username = AddOwner().UserName;
+            RemoveOwner(username);
             using (basicEntities be = new basicEntities())
-            {
-                RemoveOwner(username);
+            {                
                 Assert.AreEqual(be.Users.Find(username), null);
             }
         }
@@ -63,9 +66,13 @@ namespace UnitTestProject
             using (basicEntities be = new basicEntities())
             {
                 Users_Owner userToRemove = be.Users_Owner.Find(owner);
-                be.Users_Owner.Remove(userToRemove);
-                be.SaveChanges();
+                if (userToRemove != null)
+                {
+                    be.Users_Owner.Remove(userToRemove);
+                    be.SaveChanges();
+                }
             }
+
             TestUser.RemoveUser(owner);
         }
     }

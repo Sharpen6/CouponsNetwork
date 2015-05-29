@@ -14,9 +14,9 @@ namespace UnitTestProject
             using (basicEntities be = new basicEntities())
             {
                 BusinessCategories bc = be.BusinessCategories.Find(catID.Id);
-                Assert.IsNotNull(bc);
-                RemoveCategory(bc.Id);
+                Assert.IsNotNull(bc);               
             }
+            RemoveCategory(catID.Id);
         }
         [TestMethod]
         public void TestRemoveCategory()

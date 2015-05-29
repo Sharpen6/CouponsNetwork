@@ -5,16 +5,17 @@
     <EntitySet Name="Coupons" EntityType="basicModel.Store.Coupons" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Sensors" EntityType="basicModel.Store.Sensors" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="OrderedCoupons" EntityType="basicModel.Store.OrderedCoupons" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Recommendations" EntityType="basicModel.Store.Recommendations" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RecommendedCoupons" EntityType="basicModel.Store.RecommendedCoupons" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users" EntityType="basicModel.Store.Users" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users_Admin" EntityType="basicModel.Store.Users_Admin" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users_Customer" EntityType="basicModel.Store.Users_Customer" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users_Owner" EntityType="basicModel.Store.Users_Owner" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Visits" EntityType="basicModel.Store.Visits" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserInfoes" EntityType="basicModel.Store.UserInfoes" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="BusinessCategories" EntityType="basicModel.Store.BusinessCategories" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Interests" EntityType="basicModel.Store.Interests" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Cities" EntityType="basicModel.Store.Cities" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Locations" EntityType="basicModel.Store.Locations" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FK_LocationVisit" EntityType="basicModel.Store.FK_SensorUserInfo" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="InterestCoupon" EntityType="basicModel.Store.InterestCoupon" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FK_BusinessCoupon" Association="basicModel.Store.FK_BusinessCoupon">
       <End Role="Business" EntitySet="Businesses" />
@@ -24,21 +25,17 @@
       <End Role="Location" EntitySet="Sensors" />
       <End Role="Business" EntitySet="Businesses" />
     </AssociationSet>
-    <AssociationSet Name="FK_CouponOrderedCoupon" Association="basicModel.Store.FK_CouponOrderedCoupon">
-      <End Role="Coupon" EntitySet="Coupons" />
-      <End Role="OrderedCoupon" EntitySet="OrderedCoupons" />
-    </AssociationSet>
-    <AssociationSet Name="FK_LocationVisit" Association="basicModel.Store.FK_LocationVisit">
+    <AssociationSet Name="FK_FK_LocationVisit_Location" Association="basicModel.Store.FK_FK_SensorUserInfo_Location">
       <End Role="Location" EntitySet="Sensors" />
-      <End Role="Visit" EntitySet="Visits" />
+      <End Role="FK_SensorUserInfo" EntitySet="FK_LocationVisit" />
     </AssociationSet>
-    <AssociationSet Name="FK_CustomerOrderedCoupon" Association="basicModel.Store.FK_CustomerOrderedCoupon">
-      <End Role="Users_Customer" EntitySet="Users_Customer" />
-      <End Role="OrderedCoupon" EntitySet="OrderedCoupons" />
+    <AssociationSet Name="FK_FK_LocationVisit_UserInfo" Association="basicModel.Store.FK_FK_SensorUserInfo_UserInfo">
+      <End Role="UserInfo" EntitySet="UserInfoes" />
+      <End Role="FK_SensorUserInfo" EntitySet="FK_LocationVisit" />
     </AssociationSet>
     <AssociationSet Name="FK_CustomerRecommendation" Association="basicModel.Store.FK_CustomerRecommendation">
       <End Role="Users_Customer" EntitySet="Users_Customer" />
-      <End Role="Recommendation" EntitySet="Recommendations" />
+      <End Role="RecommendedCoupon" EntitySet="RecommendedCoupons" />
     </AssociationSet>
     <AssociationSet Name="FK_Admin_inherits_User" Association="basicModel.Store.FK_Admin_inherits_User">
       <End Role="User" EntitySet="Users" />
@@ -51,10 +48,6 @@
     <AssociationSet Name="FK_Owner_inherits_User" Association="basicModel.Store.FK_Owner_inherits_User">
       <End Role="User" EntitySet="Users" />
       <End Role="Users_Owner" EntitySet="Users_Owner" />
-    </AssociationSet>
-    <AssociationSet Name="FK_CustomerVisit" Association="basicModel.Store.FK_CustomerVisit">
-      <End Role="Users_Customer" EntitySet="Users_Customer" />
-      <End Role="Visit" EntitySet="Visits" />
     </AssociationSet>
     <AssociationSet Name="Users_AdminBusiness" Association="basicModel.Store.Users_AdminBusiness">
       <End Role="Users_Admin" EntitySet="Users_Admin" />
@@ -84,9 +77,25 @@
       <End Role="Business" EntitySet="Businesses" />
       <End Role="City" EntitySet="Cities" />
     </AssociationSet>
-    <AssociationSet Name="SensorLocation" Association="basicModel.Store.SensorLocation">
-      <End Role="Sensor" EntitySet="Sensors" />
+    <AssociationSet Name="LocationSensor" Association="basicModel.Store.LocationSensor">
       <End Role="Location" EntitySet="Locations" />
+      <End Role="Sensor" EntitySet="Sensors" />
+    </AssociationSet>
+    <AssociationSet Name="RecommendeCouponCoupon" Association="basicModel.Store.RecommendedCouponCoupon">
+      <End Role="RecommendedCoupon" EntitySet="RecommendedCoupons" />
+      <End Role="Coupon" EntitySet="Coupons" />
+    </AssociationSet>
+    <AssociationSet Name="Users_CustomerUserInfo" Association="basicModel.Store.Users_CustomerUserInfo">
+      <End Role="Users_Customer" EntitySet="Users_Customer" />
+      <End Role="UserInfo" EntitySet="UserInfoes" />
+    </AssociationSet>
+    <AssociationSet Name="CouponOrderedCoupon" Association="basicModel.Store.CouponOrderedCoupon">
+      <End Role="Coupon" EntitySet="Coupons" />
+      <End Role="OrderedCoupon" EntitySet="OrderedCoupons" />
+    </AssociationSet>
+    <AssociationSet Name="Users_CustomerOrderedCoupon" Association="basicModel.Store.Users_CustomerOrderedCoupon">
+      <End Role="Users_Customer" EntitySet="Users_Customer" />
+      <End Role="OrderedCoupon" EntitySet="OrderedCoupons" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Businesses">
@@ -110,10 +119,10 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="OriginalPrice" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="DiscountPrice" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="OriginalPrice" Type="float" Nullable="false" />
+    <Property Name="DiscountPrice" Type="float" Nullable="false" />
     <Property Name="ExperationDate" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="AvarageRanking" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="AvarageRanking" Type="float" Nullable="true" />
     <Property Name="MaxNum" Type="int" Nullable="false" />
     <Property Name="Business_BusinessID" Type="int" Nullable="false" />
   </EntityType>
@@ -122,7 +131,6 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Coordinates" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="OrderedCoupons">
     <Key>
@@ -133,19 +141,20 @@
     <Property Name="PurchaseDate" Type="nvarchar(max)" Nullable="false" />
     <Property Name="UseDate" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Opinion" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Rank" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Rank" Type="int" Nullable="true" />
     <Property Name="Coupon_Id" Type="int" Nullable="false" />
-    <Property Name="Customer_UserName" Type="varchar" Nullable="false" MaxLength="500" />
+    <Property Name="Users_Customer_UserName" Type="varchar" MaxLength="500" Nullable="false" />
   </EntityType>
-  <EntityType Name="Recommendations">
+  <EntityType Name="RecommendedCoupons">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Source" Type="int" Nullable="false" />
-    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Link" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Customer_UserName" Type="varchar" Nullable="false" MaxLength="500" />
+    <Property Name="Approved" Type="bit" Nullable="false" />
+    <Property Name="Coupon_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
@@ -177,14 +186,12 @@
     </Key>
     <Property Name="UserName" Type="varchar" Nullable="false" MaxLength="500" />
   </EntityType>
-  <EntityType Name="Visits">
+  <EntityType Name="UserInfoes">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Date" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="SensorId" Type="int" Nullable="false" />
-    <Property Name="CustomerVisit_Visit_UserName" Type="varchar" Nullable="false" MaxLength="500" />
+    <Property Name="Users_Customer_UserName" Type="varchar" MaxLength="500" Nullable="false" />
   </EntityType>
   <EntityType Name="BusinessCategories">
     <Key>
@@ -216,6 +223,14 @@
     <Property Name="Altitude" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Longitude" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Sensor_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FK_SensorUserInfo">
+    <Key>
+      <PropertyRef Name="Sensor_Id" />
+      <PropertyRef Name="Visits_Id" />
+    </Key>
+    <Property Name="Sensor_Id" Type="int" Nullable="false" />
+    <Property Name="Visits_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="InterestCoupon">
     <Key>
@@ -249,50 +264,14 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_CouponOrderedCoupon">
-    <End Role="Coupon" Type="basicModel.Store.Coupons" Multiplicity="1" />
-    <End Role="OrderedCoupon" Type="basicModel.Store.OrderedCoupons" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Coupon">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="OrderedCoupon">
-        <PropertyRef Name="Coupon_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_LocationVisit">
-    <End Role="Location" Type="basicModel.Store.Sensors" Multiplicity="1" />
-    <End Role="Visit" Type="basicModel.Store.Visits" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Location">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Visit">
-        <PropertyRef Name="SensorId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_CustomerOrderedCoupon">
-    <End Role="Users_Customer" Type="basicModel.Store.Users_Customer" Multiplicity="1" />
-    <End Role="OrderedCoupon" Type="basicModel.Store.OrderedCoupons" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Users_Customer">
-        <PropertyRef Name="UserName" />
-      </Principal>
-      <Dependent Role="OrderedCoupon">
-        <PropertyRef Name="Customer_UserName" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_CustomerRecommendation">
     <End Role="Users_Customer" Type="basicModel.Store.Users_Customer" Multiplicity="1" />
-    <End Role="Recommendation" Type="basicModel.Store.Recommendations" Multiplicity="*" />
+    <End Role="RecommendedCoupon" Type="basicModel.Store.RecommendedCoupons" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Users_Customer">
         <PropertyRef Name="UserName" />
       </Principal>
-      <Dependent Role="Recommendation">
+      <Dependent Role="RecommendedCoupon">
         <PropertyRef Name="Customer_UserName" />
       </Dependent>
     </ReferentialConstraint>
@@ -336,18 +315,6 @@
       </Principal>
       <Dependent Role="Users_Owner">
         <PropertyRef Name="UserName" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_CustomerVisit">
-    <End Role="Users_Customer" Type="basicModel.Store.Users_Customer" Multiplicity="1" />
-    <End Role="Visit" Type="basicModel.Store.Visits" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Users_Customer">
-        <PropertyRef Name="UserName" />
-      </Principal>
-      <Dependent Role="Visit">
-        <PropertyRef Name="CustomerVisit_Visit_UserName" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -411,15 +378,87 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="SensorLocation">
-    <End Role="Sensor" Type="basicModel.Store.Sensors" Multiplicity="1" />
+  <Association Name="LocationSensor">
     <End Role="Location" Type="basicModel.Store.Locations" Multiplicity="*" />
+    <End Role="Sensor" Type="basicModel.Store.Sensors" Multiplicity="1" />
     <ReferentialConstraint>
       <Principal Role="Sensor">
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Location">
         <PropertyRef Name="Sensor_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RecommendedCouponCoupon">
+    <End Role="RecommendedCoupon" Type="basicModel.Store.RecommendedCoupons" Multiplicity="*" />
+    <End Role="Coupon" Type="basicModel.Store.Coupons" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Coupon">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RecommendedCoupon">
+        <PropertyRef Name="Coupon_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Users_CustomerUserInfo">
+    <End Role="Users_Customer" Type="basicModel.Store.Users_Customer" Multiplicity="1" />
+    <End Role="UserInfo" Type="basicModel.Store.UserInfoes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users_Customer">
+        <PropertyRef Name="UserName" />
+      </Principal>
+      <Dependent Role="UserInfo">
+        <PropertyRef Name="Users_Customer_UserName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CouponOrderedCoupon">
+    <End Role="Coupon" Type="basicModel.Store.Coupons" Multiplicity="1" />
+    <End Role="OrderedCoupon" Type="basicModel.Store.OrderedCoupons" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Coupon">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderedCoupon">
+        <PropertyRef Name="Coupon_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Users_CustomerOrderedCoupon">
+    <End Role="Users_Customer" Type="basicModel.Store.Users_Customer" Multiplicity="1" />
+    <End Role="OrderedCoupon" Type="basicModel.Store.OrderedCoupons" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users_Customer">
+        <PropertyRef Name="UserName" />
+      </Principal>
+      <Dependent Role="OrderedCoupon">
+        <PropertyRef Name="Users_Customer_UserName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FK_SensorUserInfo_Location">
+    <End Role="Location" Type="basicModel.Store.Sensors" Multiplicity="1" />
+    <End Role="FK_SensorUserInfo" Type="basicModel.Store.FK_SensorUserInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Location">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FK_SensorUserInfo">
+        <PropertyRef Name="Sensor_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FK_SensorUserInfo_UserInfo">
+    <End Role="FK_SensorUserInfo" Type="basicModel.Store.FK_SensorUserInfo" Multiplicity="*" />
+    <End Role="UserInfo" Type="basicModel.Store.UserInfoes" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FK_SensorUserInfo">
+        <PropertyRef Name="Visits_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

@@ -140,6 +140,27 @@ namespace UnitTestProject
 
             }
         }
+        public OrderedCoupon AddOrderedCoupon()
+        {
+            OrderedCoupon oc = new OrderedCoupon();
+            oc.Coupon = TestCoupon.AddCoupon();
+            oc.Users_Customer = TestCustomer.AddCustomer();
+            using (basicEntities be = new basicEntities())
+            {
+                oc.Opinion = "not used it yet";
+                oc.PurchaseDate = DateTime.Now.ToShortDateString();
+                oc.Rank = 0;
+                oc.SerialNum = 1;
+                oc.UseDate = "";
+                oc.
+            }
+            return oc;
+        }
+
+        public void RemoveOrderedCoupon(int id)
+        {
+
+        }
         [TestCleanup]
         public void CleanUp()
         {

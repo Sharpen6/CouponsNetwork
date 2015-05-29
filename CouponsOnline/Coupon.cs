@@ -16,22 +16,22 @@ namespace CouponsOnline
     {
         public Coupon()
         {
-            this.OrderedCoupons = new HashSet<OrderedCoupon>();
             this.Interests = new HashSet<Interest>();
+            this.OrderedCoupons = new HashSet<OrderedCoupon>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public string OriginalPrice { get; set; }
-        public string DiscountPrice { get; set; }
+        public double OriginalPrice { get; set; }
+        public double DiscountPrice { get; set; }
         public string ExperationDate { get; set; }
-        public string AvarageRanking { get; set; }
+        public Nullable<double> AvarageRanking { get; set; }
         public int MaxNum { get; set; }
         public int Business_BusinessID { get; set; }
     
         public virtual Business Business { get; set; }
-        public virtual ICollection<OrderedCoupon> OrderedCoupons { get; set; }
         public virtual ICollection<Interest> Interests { get; set; }
+        public virtual ICollection<OrderedCoupon> OrderedCoupons { get; set; }
     }
 }

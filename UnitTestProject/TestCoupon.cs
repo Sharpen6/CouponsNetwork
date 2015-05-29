@@ -16,7 +16,7 @@ namespace UnitTestProject
             Coupon coupon = AddCoupon();
             using (basicEntities be = new basicEntities())
             {
-                Assert.AreEqual(be.Coupons.Find(coupon).Id, coupon);
+                Assert.AreEqual(be.Coupons.Find(coupon.Id).Id, coupon.Id);
             }
             RemoveCoupon(coupon.Id);
         }
@@ -27,9 +27,9 @@ namespace UnitTestProject
             Coupon coupon = AddCoupon();
             using (basicEntities be = new basicEntities())
             {
-                be.Coupons.Find(coupon).Description = "blablabla";
+                be.Coupons.Find(coupon.Id).Description = "blablabla";
                 be.SaveChanges();
-                Assert.AreEqual(be.Coupons.Find(coupon).Description, "blablabla");
+                Assert.AreEqual(be.Coupons.Find(coupon.Id).Description, "blablabla");
             }
             RemoveCoupon(coupon.Id);
         }
@@ -41,7 +41,7 @@ namespace UnitTestProject
             using (basicEntities be = new basicEntities())
             {
                 RemoveCoupon(coupon.Id);
-                Assert.AreEqual(be.Coupons.Find(coupon), null);
+                Assert.IsNull(be.Coupons.Find(coupon.Id));
             }
         }
 

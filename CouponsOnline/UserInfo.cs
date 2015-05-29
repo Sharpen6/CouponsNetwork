@@ -12,14 +12,16 @@ namespace CouponsOnline
     using System;
     using System.Collections.Generic;
     
-    public partial class Recommendation
+    public partial class UserInfo
     {
-        public int Id { get; set; }
-        public int Source { get; set; }
-        public string Description { get; set; }
-        public string Link { get; set; }
-        public string Customer_UserName { get; set; }
+        public UserInfo()
+        {
+            this.Sensor = new HashSet<Sensor>();
+        }
     
+        public int Id { get; set; }
+    
+        public virtual ICollection<Sensor> Sensor { get; set; }
         public virtual Users_Customer Users_Customer { get; set; }
     }
 }

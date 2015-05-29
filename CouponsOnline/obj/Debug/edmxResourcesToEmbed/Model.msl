@@ -32,7 +32,6 @@
       <EntityTypeMapping TypeName="IsTypeOf(basicModel.Sensor)">
         <MappingFragment StoreEntitySet="Sensors">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Coordinates" ColumnName="Coordinates" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -45,19 +44,17 @@
           <ScalarProperty Name="UseDate" ColumnName="UseDate" />
           <ScalarProperty Name="Opinion" ColumnName="Opinion" />
           <ScalarProperty Name="Rank" ColumnName="Rank" />
-          <ScalarProperty Name="Coupon_Id" ColumnName="Coupon_Id" />
-          <ScalarProperty Name="Customer_UserName" ColumnName="Customer_UserName" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Recommendations">
-      <EntityTypeMapping TypeName="IsTypeOf(basicModel.Recommendation)">
-        <MappingFragment StoreEntitySet="Recommendations">
+    <EntitySetMapping Name="RecommendedCoupons">
+      <EntityTypeMapping TypeName="IsTypeOf(basicModel.RecommendedCoupon)">
+        <MappingFragment StoreEntitySet="RecommendedCoupons">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Source" ColumnName="Source" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Link" ColumnName="Link" />
           <ScalarProperty Name="Customer_UserName" ColumnName="Customer_UserName" />
+          <ScalarProperty Name="Approved" ColumnName="Approved" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -95,13 +92,10 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Visits">
-      <EntityTypeMapping TypeName="IsTypeOf(basicModel.Visit)">
-        <MappingFragment StoreEntitySet="Visits">
+    <EntitySetMapping Name="UserInfoes">
+      <EntityTypeMapping TypeName="IsTypeOf(basicModel.UserInfo)">
+        <MappingFragment StoreEntitySet="UserInfoes">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Date" ColumnName="Date" />
-          <ScalarProperty Name="SensorId" ColumnName="SensorId" />
-          <ScalarProperty Name="CustomerVisit_Visit_UserName" ColumnName="CustomerVisit_Visit_UserName" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -139,6 +133,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <AssociationSetMapping Name="FK_LocationVisit" TypeName="basicModel.FK_SensorUserInfo" StoreEntitySet="FK_LocationVisit">
+      <EndProperty Name="Location">
+        <ScalarProperty Name="Id" ColumnName="Sensor_Id" />
+      </EndProperty>
+      <EndProperty Name="UserInfo">
+        <ScalarProperty Name="Id" ColumnName="Visits_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
     <AssociationSetMapping Name="Users_AdminBusiness" TypeName="basicModel.Users_AdminBusiness" StoreEntitySet="Businesses">
       <EndProperty Name="Users_Admin">
         <ScalarProperty Name="UserName" ColumnName="Users_Admin_UserName" />
@@ -171,12 +173,44 @@
         <ScalarProperty Name="BusinessID" ColumnName="BusinessID" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="SensorLocation" TypeName="basicModel.SensorLocation" StoreEntitySet="Locations">
+    <AssociationSetMapping Name="LocationSensor" TypeName="basicModel.LocationSensor" StoreEntitySet="Locations">
       <EndProperty Name="Sensor">
         <ScalarProperty Name="Id" ColumnName="Sensor_Id" />
       </EndProperty>
       <EndProperty Name="Location">
         <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="RecommendeCouponCoupon" TypeName="basicModel.RecommendedCouponCoupon" StoreEntitySet="RecommendedCoupons">
+      <EndProperty Name="Coupon">
+        <ScalarProperty Name="Id" ColumnName="Coupon_Id" />
+      </EndProperty>
+      <EndProperty Name="RecommendedCoupon">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Users_CustomerUserInfo" TypeName="basicModel.Users_CustomerUserInfo" StoreEntitySet="UserInfoes">
+      <EndProperty Name="Users_Customer">
+        <ScalarProperty Name="UserName" ColumnName="Users_Customer_UserName" />
+      </EndProperty>
+      <EndProperty Name="UserInfo">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CouponOrderedCoupon" TypeName="basicModel.CouponOrderedCoupon" StoreEntitySet="OrderedCoupons">
+      <EndProperty Name="Coupon">
+        <ScalarProperty Name="Id" ColumnName="Coupon_Id" />
+      </EndProperty>
+      <EndProperty Name="OrderedCoupon">
+        <ScalarProperty Name="SerialNum" ColumnName="SerialNum" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Users_CustomerOrderedCoupon" TypeName="basicModel.Users_CustomerOrderedCoupon" StoreEntitySet="OrderedCoupons">
+      <EndProperty Name="Users_Customer">
+        <ScalarProperty Name="UserName" ColumnName="Users_Customer_UserName" />
+      </EndProperty>
+      <EndProperty Name="OrderedCoupon">
+        <ScalarProperty Name="SerialNum" ColumnName="SerialNum" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

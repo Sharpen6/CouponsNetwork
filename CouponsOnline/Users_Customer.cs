@@ -16,16 +16,16 @@ namespace CouponsOnline
     {
         public Users_Customer()
         {
+            this.Recommendations = new HashSet<RecommendedCoupon>();
+            this.UserInfoes = new HashSet<UserInfo>();
             this.OrderedCoupons = new HashSet<OrderedCoupon>();
-            this.Recommendations = new HashSet<Recommendation>();
-            this.Visits = new HashSet<Visit>();
         }
     
         public string UserName { get; set; }
     
-        public virtual ICollection<OrderedCoupon> OrderedCoupons { get; set; }
-        public virtual ICollection<Recommendation> Recommendations { get; set; }
+        public virtual ICollection<RecommendedCoupon> Recommendations { get; set; }
         public virtual User User { get; set; }
-        public virtual ICollection<Visit> Visits { get; set; }
+        public virtual ICollection<UserInfo> UserInfoes { get; set; }
+        public virtual ICollection<OrderedCoupon> OrderedCoupons { get; set; }
     }
 }

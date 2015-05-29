@@ -10,21 +10,23 @@ namespace UnitTestProject
         [TestMethod]
         public void TestAddCustomer()
         {
+            string customer;
             using (basicEntities be = new basicEntities())
             {
-                string customer = AddCustomer();
+                customer = AddCustomer().UserName;
                 Users_Customer ad = be.Users_Customer.Find(customer);
                 Assert.AreEqual(ad.UserName, customer);
                 Assert.AreEqual(be.Users.Find(customer).UserName, customer);
-                RemoveCustomer(customer);
+                
             }
+            RemoveCustomer(customer);
         }
         [TestMethod]
         public void TestUpdateCustomer()
         {
             using (basicEntities be = new basicEntities())
             {
-                string username = AddCustomer();
+                string username = AddCustomer().UserName;
                 be.Users.Find(username).Name = "xerxses";
                 be.SaveChanges();
                 Assert.AreEqual(be.Users.Find(username).Name, "xerxses");
@@ -34,7 +36,7 @@ namespace UnitTestProject
         [TestMethod]
         public void TestRemoveCustomer()
         {
-            string customer = AddCustomer();
+            string customer = AddCustomer().UserName;
             using (basicEntities be = new basicEntities())
             {
                 RemoveCustomer(customer);
@@ -43,7 +45,7 @@ namespace UnitTestProject
             }
         }
 
-        public static string AddCustomer(string UserName = "customerUserName", string Name = "customerName", string Password = "1234", int PhoneKidumet = 1234567, int PhoneNum = 123, string Email = "temp@temp.temp")
+        public static Users_Customer AddCustomer(string UserName = "customerUserName", string Name = "customerName", string Password = "1234", int PhoneKidumet = 1234567, int PhoneNum = 123, string Email = "temp@temp.temp")
         {
             User a =TestUser.AddUser(UserName, Name, Password, PhoneKidumet, PhoneNum, Email);
             using (basicEntities be = new basicEntities())
@@ -54,7 +56,7 @@ namespace UnitTestProject
                 be.Entry(a).State = System.Data.Entity.EntityState.Unchanged; 
                 be.Users_Customer.Add(ua);
                 be.SaveChanges();
-                return ua.UserName;
+                return ua;
             }
         }
 
@@ -63,8 +65,11 @@ namespace UnitTestProject
             using (basicEntities be = new basicEntities())
             {
                 Users_Customer customerToRemove = be.Users_Customer.Find(Customer);
-                be.Users_Customer.Remove(customerToRemove);
-                be.SaveChanges();
+                if (customerToRemove == null)
+                {
+                    be.Users_Customer.Remove(customerToRemove);
+                    be.SaveChanges();
+                }
             }
             TestUser.RemoveUser(Customer);
         }

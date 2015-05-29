@@ -9,23 +9,20 @@
         <EntityTypeShape EntityType="basicModel.Coupon" Width="1.5" PointX="7.5" PointY="4.125" />
         <EntityTypeShape EntityType="basicModel.Sensor" Width="1.5" PointX="3.875" PointY="0.75" />
         <EntityTypeShape EntityType="basicModel.OrderedCoupon" Width="1.5" PointX="9.75" PointY="5.875" />
-        <EntityTypeShape EntityType="basicModel.Recommendation" Width="1.5" PointX="5.25" PointY="8.5" />
+        <EntityTypeShape EntityType="basicModel.RecommendedCoupon" Width="2.25" PointX="5.25" PointY="8.5" />
         <EntityTypeShape EntityType="basicModel.User" Width="1.5" PointX="0.75" PointY="5.875" />
         <EntityTypeShape EntityType="basicModel.Users_Admin" Width="1.5" PointX="2.5" PointY="3.75" />
         <EntityTypeShape EntityType="basicModel.Users_Customer" Width="1.5" PointX="2.75" PointY="8" />
         <EntityTypeShape EntityType="basicModel.Users_Owner" Width="1.5" PointX="3" PointY="6" />
-        <EntityTypeShape EntityType="basicModel.Visit" Width="1.5" PointX="4" PointY="11.75" />
+        <EntityTypeShape EntityType="basicModel.UserInfo" Width="1.5" PointX="3.125" PointY="10.625" />
         <AssociationConnector Association="basicModel.FK_BusinessCoupon" />
         <AssociationConnector Association="basicModel.FK_BusinessLocation" />
-        <AssociationConnector Association="basicModel.FK_CouponOrderedCoupon" />
-        <AssociationConnector Association="basicModel.FK_LocationVisit" ManuallyRouted="false" >
+        <AssociationConnector Association="basicModel.FK_SensorUserInfo" ManuallyRouted="false" >
         </AssociationConnector>
-        <AssociationConnector Association="basicModel.FK_CustomerOrderedCoupon" />
         <AssociationConnector Association="basicModel.FK_CustomerRecommendation" />
         <AssociationConnector Association="basicModel.FK_Admin_inherits_User" />
         <AssociationConnector Association="basicModel.FK_Customer_inherits_User" />
         <AssociationConnector Association="basicModel.FK_Owner_inherits_User" />
-        <AssociationConnector Association="basicModel.FK_CustomerVisit" />
         <EntityTypeShape EntityType="basicModel.BusinessCategories" Width="1.5" PointX="9.625" PointY="2.75" />
         <AssociationConnector Association="basicModel.Users_AdminBusiness" />
         <AssociationConnector Association="basicModel.BusinessUsers_Owner" />
@@ -36,7 +33,11 @@
         <EntityTypeShape EntityType="basicModel.City" Width="1.5" PointX="0.5" PointY="2.625" />
         <AssociationConnector Association="basicModel.BusinessCity" />
         <EntityTypeShape EntityType="basicModel.Location" Width="1.5" PointX="1.25" PointY="0.5" />
-        <AssociationConnector Association="basicModel.SensorLocation" />
+        <AssociationConnector Association="basicModel.LocationSensor" />
+        <AssociationConnector Association="basicModel.RecommendedCouponCoupon" />
+        <AssociationConnector Association="basicModel.Users_CustomerUserInfo" />
+        <AssociationConnector Association="basicModel.CouponOrderedCoupon" />
+        <AssociationConnector Association="basicModel.Users_CustomerOrderedCoupon" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
