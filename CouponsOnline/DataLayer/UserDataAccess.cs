@@ -9,6 +9,7 @@ namespace CouponsOnline.DataLayer
 {
     public class UserDataAccess
     {
+
         public static bool isUserPassValid(string username,string password)
         {
             using (basicEntities be = new basicEntities())
@@ -75,7 +76,6 @@ namespace CouponsOnline.DataLayer
             }
             return true;
         }
-
         internal static UserType GetAuthentication(string username)
         {
             using (basicEntities be = new basicEntities())
@@ -115,18 +115,14 @@ namespace CouponsOnline.DataLayer
                 return customer;
             }
         }
-
-       
-
-        internal static User getUser(string ownerName)
+        internal static User getUser(string userName)
         {
             using (basicEntities be = new basicEntities())
             {
-                User u = be.Users.Find(ownerName);
+                User u = be.Users.Find(userName);
                 return u;
             }
         }
-
         internal static bool changeUser(string UserName, string Name, int PhoneKidumet, int PhoneNum, string Email)
         {
             using (basicEntities be = new basicEntities())
@@ -141,7 +137,6 @@ namespace CouponsOnline.DataLayer
             }
 
         }
-
         internal static bool changeUser(string password,string UserName)
         {
             using (basicEntities be = new basicEntities())
@@ -153,9 +148,7 @@ namespace CouponsOnline.DataLayer
             }
 
         }
-
-
-        internal static bool deletPassword(string p)
+        internal static bool deletePassword(string p)
         {
             using (basicEntities be = new basicEntities())
             {
@@ -176,5 +169,6 @@ namespace CouponsOnline.DataLayer
                 return true;
             }
         }
+
     }
 }

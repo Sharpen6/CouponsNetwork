@@ -19,31 +19,44 @@ namespace CouponsOnline.PresentationLayer
 
         protected void SendButton_Click(object sender, EventArgs e)
         {
-            if (TextBoxPassword.Text != TextBoxPasswordVal.Text)
-            {
-                LabelError.Text = "Passwords doesnt match";
-                return;
-            }
-            switch (radioBtnUserType.SelectedIndex)
-            {
-                case 0:
-                    if (UserController.CreateNewCustomer(TextBoxUserName.Text, TextBoxName.Text,
-                        TextBoxPassword.Text, TextBoxPhoneNum.Text, TextBoxEmail.Text))
-                    {
-                        Response.Redirect("Login.aspx");
-                    }
-                    break;
-                case 1:
-                    if (UserController.CreateNewOwner(TextBoxUserName.Text, TextBoxName.Text,
-                        TextBoxPassword.Text, TextBoxPhoneNum.Text, TextBoxEmail.Text))
-                    {
-                        Response.Redirect("Login.aspx");
-                    }
-                    break;
-                default:
-                    break;
-            }
-            
+            List<string> err = UserController.ValidateRegisteration(TextBoxUserName.Text, TextBoxPassword.Text,
+                TextBoxPasswordVal.Text, TextBoxPhoneNum.Text, TextBoxEmail.Text, TextBoxName.Text);
+
+
+           if (err.Count>0) {
+               BLerrors.Items.Clear();
+                foreach (var item in err)
+	            {
+                    BLerrors.Items.Add(new ListItem(item));
+	            }
+           }
+           else
+           {
+               switch (radioBtnUserType.SelectedIndex)
+               {
+                   case 0:
+                       if (UserController.CreateNewCustomer(TextBoxUserName.Text, TextBoxName.Text,
+                           TextBoxPassword.Text, TextBoxPhoneNum.Text, TextBoxEmail.Text))
+                       {
+                           ClientScript.RegisterStartupScript(
+                   this.GetType(), "myalert", "alert('Your account have been created!');", true);
+                           Response.Redirect("Login.aspx");
+
+                       }
+                       break;
+                   case 1:
+                       if (UserController.CreateNewOwner(TextBoxUserName.Text, TextBoxName.Text,
+                           TextBoxPassword.Text, TextBoxPhoneNum.Text, TextBoxEmail.Text))
+                       {
+                           ClientScript.RegisterStartupScript(
+                   this.GetType(), "myalert", "alert('Your account have been created!');", true);
+                           Response.Redirect("Login.aspx");
+                       }
+                       break;
+                   default:
+                       break;
+               }
+           }     
         }
 
         protected void btnCreateAdmin_Click(object sender, EventArgs e)

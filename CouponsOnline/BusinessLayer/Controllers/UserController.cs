@@ -3,6 +3,7 @@ using CouponsOnline.PresentationLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI.WebControls;
 
@@ -10,6 +11,31 @@ namespace CouponsOnline.BusinessLayer.Controllers
 {
     public class UserController
     {
+        public static List<string> ValidateRegisteration(string username,string password,string passwordval,
+            string phone, string email,string name)
+        {
+            List<string> errors = new List<string>();
+            //username validation
+            if (username == "") errors.Add("You must enter a Username.");
+            else if (UserDataAccess.getUser(username) != null)
+                errors.Add("Username is already taken.");
+
+            //password validation
+            if (password == "" && passwordval == "") errors.Add("You must enter a password.");
+            else if (passwordval != password) errors.Add("Passwords do not match.");
+
+            //phone validation
+            Regex rxPhone = new Regex(@"^0\d([\d]{0,1})([-]{0,1})\d{7}$");
+            if (phone == "") errors.Add("You must enter a phone number.");
+            else if (!rxPhone.IsMatch(phone)) errors.Add("Enter phone number by the format: 0xx-xxxxxxx.");
+
+            //email validation
+            Regex rxEmail = new Regex(@"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$");
+            if (email == "") errors.Add("You must enter your email address.");
+            else if (!rxEmail.IsMatch(email)) errors.Add("Email address is incorrect.");
+
+            return errors;
+        }
         public static bool AuthenticateUser(string username,string password)
         {
             if (username == "" || password == "") return false;
@@ -120,7 +146,7 @@ namespace CouponsOnline.BusinessLayer.Controllers
 
         internal static bool deleteProfile(string p)
         {
-            bool ans = UserDataAccess.deletPassword(p);
+            bool ans = UserDataAccess.deletePassword(p);
             return ans;
         }
     }

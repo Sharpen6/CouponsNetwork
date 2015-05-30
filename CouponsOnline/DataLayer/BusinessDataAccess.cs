@@ -100,7 +100,7 @@ namespace CouponsOnline.DataLayer
             using (basicEntities be = new basicEntities())
             {
                 var bus = from b in be.Interests
-                          where b.Description == desription & b.BusinessCategoriesId==Category
+                          where b.Description == desription & b.BusinessCategory.Id==Category
                           select b;
                 if (bus.Count() == 0) return 0;
                 Interest Interests = bus.First();
@@ -259,7 +259,8 @@ namespace CouponsOnline.DataLayer
             {
                 Interest b = new Interest();
 
-                b.BusinessCategoriesId = Category;
+                b.BusinessCategory = be.BusinessCategories.Find(Category);
+                be.Entry(b.BusinessCategory).State = System.Data.Entity.EntityState.Unchanged;
                 b.Description = p2;
                 be.Interests.Add(b);
                 be.SaveChanges();
