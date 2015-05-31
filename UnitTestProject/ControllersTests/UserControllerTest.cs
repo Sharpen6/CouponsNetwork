@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CouponsOnline;
 using CouponsOnline.BusinessLayer.Controllers;
 using System.Collections.Generic;
+using CouponsOnline.PresentationLayer;
 
 namespace UnitTestProject.ControllersTests
 {
@@ -13,7 +14,7 @@ namespace UnitTestProject.ControllersTests
         public void ValidateRegisterationTest()
         {
             List<string> test = UserController.ValidateRegisteration("mash123mash", 
-                "123", "1234", "054-31313", "saban,gmail.com", "boom",new List<string>{"pets"});
+                "123", "1234", "054-31313", "saban,gmail.com",new List<string>{"pets"});
             int errors = 0;
             foreach (var item in test)
             {
@@ -41,5 +42,6 @@ namespace UnitTestProject.ControllersTests
             }
             Assert.AreEqual(111,errors);
         }
+
     }
 }

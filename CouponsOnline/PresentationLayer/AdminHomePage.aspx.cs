@@ -56,13 +56,15 @@ namespace CouponsOnline.PresentationLayer
 
             DropDownListOwnersAdd.Items.Clear();
             DropDownListOwnersDelete.Items.Clear();
-            string[] owners = UserController.GetAllOwners();
-            foreach (var item in owners)
+            Dictionary<User, UserType> allUsers = UserController.GetAllUsers();
+            foreach (var item in allUsers)
             {
-                DropDownListOwnersAdd.Items.Add(new ListItem(item));
-                DropDownListOwnersDelete.Items.Add(new ListItem(item));
+                if (item.Value==UserType.Owner)
+                {
+                    DropDownListOwnersAdd.Items.Add(new ListItem(item.Key.UserName));
+                    DropDownListOwnersDelete.Items.Add(new ListItem(item.Key.UserName));
+                }
             }
-
         }
 
         private void LoadCategories()
@@ -75,8 +77,12 @@ namespace CouponsOnline.PresentationLayer
         protected void BtnAddBusiness_Click(object sender, EventArgs e)
         {
             string adminUser=Request.Cookies["ActiveUserName"].Value;
-            BusinessController.CreateBusiness(adminUser, DropDownListOwnersAdd.SelectedValue, TextBoxAddress.Text,
-                TextBoxBusinessName.Text, DropDownListCategories.SelectedValue, DropDownListCities.SelectedValue);
+            if (BusinessController.CreateBusiness(adminUser, DropDownListOwnersAdd.SelectedValue, TextBoxAddress.Text,
+                TextBoxBusinessName.Text, DropDownListCategories.SelectedValue, DropDownListCities.SelectedValue))
+                Response.Write("<script>alert('Business Successfully created!')</script>");
+            else
+                Response.Write("<script>alert('Could not create business.')</script>");
+                           
             LoadBusiness();
         }
         protected void BtnAddCategory_Click(object sender, EventArgs e)
@@ -95,7 +101,7 @@ namespace CouponsOnline.PresentationLayer
         protected void DropDownListOwner_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadBusiness();
-            DropDownListBusniess_SelectedIndexChanged(null, null);
+            //DropDownListBusniess_SelectedIndexChanged(null, null);
 
         }
         private void LoadBusiness()
@@ -103,38 +109,25 @@ namespace CouponsOnline.PresentationLayer
             DropDownListBusniess.Items.Clear();
             string ownerName = DropDownListOwnersAdd.SelectedValue;
             DropDownListBusniess.Items.AddRange(BusinessController.GetAllBusnisesId(ownerName));
-            DropDownListBusniess_SelectedIndexChanged(null, null);
+            //DropDownListBusniess_SelectedIndexChanged(null, null);
         }
 
         protected void BtnBusiness_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Are you sure you want to delete this Business ?",
-      "Critical Warning",
-      MessageBoxButtons.YesNo,
-      MessageBoxIcon.Warning,
-      MessageBoxDefaultButton.Button1,
-      MessageBoxOptions.RightAlign,
-      true);
-
-            if (result == DialogResult.Yes)
-            {
-                bool ans = BusinessController.deleteBusiness( Int32.Parse(  DropDownListBusniess.SelectedItem.Value));
-                if (ans)
-                    MessageBox.Show("Busniess has been deleted");
-                else
-                    MessageBox.Show("something went wrong :(");
-
-            }
+            Business bus = BusinessController.GetBusiness(DropDownListBusniess.SelectedItem.Value);
+            if (bus.Deactivate())
+                Response.Write("<script>alert('Busniess has been deleted!')</script>");
+            else
+                Response.Write("<script>alert('Could not delete your business.')</script>");              
             LoadBusiness();
         }
 
         protected void BtnEditBusiness_Click(object sender, EventArgs e)
         {
             string adminUser = Request.Cookies["ActiveUserName"].Value;
+            int selectedBusinessID = int.Parse(DropDownListBusniess.SelectedItem.Value);
             BusinessController.EditBusniess(adminUser,Int32.Parse(DropDownListBusniess.SelectedItem.Value), TextBoxAddress1.Text,
                 TextBoxBusinessName1.Text, DropDownListCategories.SelectedValue, DropDownListCities.SelectedValue);
-
-    
         }
 
         protected void DropDownListBusniess_SelectedIndexChanged(object sender, EventArgs e)
@@ -142,7 +135,7 @@ namespace CouponsOnline.PresentationLayer
             if (DropDownListBusniess.Items.Count != 0)
             {
 
-                Business b = BusinessController.findBusinessById(DropDownListBusniess.SelectedValue);
+                Business b = BusinessController.GetBusiness(DropDownListBusniess.SelectedValue);
                 TextBoxAddress1.Text = b.Address;
                 TextBoxBusinessName1.Text = b.Name;
                 DropDownListCities1.SelectedValue = BusinessController.Getcity(b.BusinessID);

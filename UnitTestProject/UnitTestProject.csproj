@@ -72,6 +72,7 @@
     <Compile Include="BasicDBtests\TestUser.cs" />
     <Compile Include="BasicDBtests\TestUserInterests.cs" />
     <Compile Include="ControllersTests\UserControllerTest.cs" />
+    <Compile Include="DataAccessTests\UserDataAccessTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BasicDBtests\TestLocation.cs" />
     <Compile Include="BasicDBtests\TestCity.cs" />

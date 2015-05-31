@@ -17,66 +17,40 @@ namespace CouponsOnline.DataLayer
             {
                 User a = be.Users.Find(username);
                 if (a!=null) 
-                    if (a.Password==password & a.Block==false)
+                    if (a.Password==password & a.Blocked==false)
                         return true;
             }
             return false;
         }
-        public static bool AddUser(string UserName, string Name, string Password, int PhoneKidumet, int PhoneNum, string Email)
+        public static bool AddUser(string UserName, string Name, string Password, string PhoneNum, string Email)
         {
             using (basicEntities be = new basicEntities())
             {
                 //check for exsisting user with same username
-                User sameKey = be.Users.Find(UserName);
-                if (sameKey != null) return false;          
+                User newUser = be.Users.Find(UserName);
+                if (newUser != null) return false;          
 
                 User u = new User();
                 u.Name = Name;
                 u.UserName = UserName;
                 u.Password = Password;
-                u.PhoneKidomet = PhoneKidumet;
                 u.PhoneNum = PhoneNum;
                 u.Email = Email;
-                u.Block = false;
+                u.Blocked = false;
                 be.Users.Add(u);
                 be.SaveChanges();
                 return true;
             }
         }
-        public static bool AddAuthentication(string UserName,UserType type)
+        public static bool RemoveUser(string UserName)
         {
             using (basicEntities be = new basicEntities())
             {
-                User baseUser = be.Users.Find(UserName);
-                if (baseUser==null) 
-                    return false;
-                switch (type)
-                {
-                    case UserType.Customer:
-                        Users_Customer uc = new Users_Customer();
-                        uc.User = baseUser;
-                        uc.UserName = UserName;
-                        be.Users_Customer.Add(uc);                       
-                        break;
-                    case UserType.Owner:
-                        Users_Owner uo = new Users_Owner();
-                        uo.User = baseUser;
-                        uo.UserName = UserName;
-                        be.Users_Owner.Add(uo);    
-                        break;
-                    case UserType.Admin:
-                        Users_Admin ua = new Users_Admin();
-                        ua.User = baseUser;
-                        ua.UserName = UserName;
-                        be.Users_Admin.Add(ua);    
-                        break;
-                    default:
-                        break;
-                }
-                be.SaveChanges();
+                be.Users.Find(UserName).Blocked = true;
+                be.SaveChanges();   
             }
             return true;
-        }
+        }       
         public static UserType GetAuthentication(string username)
         {
             using (basicEntities be = new basicEntities())
@@ -90,7 +64,6 @@ namespace CouponsOnline.DataLayer
             }
             return UserType.Customer;
         }
-
         // Find Users in the system
         public static Users_Admin FindAdmin(string ad)
         {
@@ -124,13 +97,12 @@ namespace CouponsOnline.DataLayer
                 return u;
             }
         }
-        public static bool changeUser(string UserName, string Name, int PhoneKidumet, int PhoneNum, string Email)
+        public static bool changeUser(string UserName, string Name, string PhoneNum, string Email)
         {
             using (basicEntities be = new basicEntities())
             {
                 User u = be.Users.Find(UserName);
                 u.Name = Name;
-                u.PhoneKidomet = PhoneKidumet;
                 u.PhoneNum = PhoneNum;
                 u.Email = Email;
                 be.SaveChanges();
@@ -138,45 +110,16 @@ namespace CouponsOnline.DataLayer
             }
 
         }
-        public static bool changeUser(string password,string UserName)
-        {
-            using (basicEntities be = new basicEntities())
-            {
-                User u = be.Users.Find(UserName);
-                u.Password = password;
-                be.SaveChanges();
-                return true;
-            }
-
-        }
-        public static bool deletePassword(string p)
-        {
-            using (basicEntities be = new basicEntities())
-            {
-                User u = be.Users.Find(p);
-                 UserType t= GetAuthentication(u.UserName);
-                if (t==UserType.Owner)
-                {
-                  List<Business> Y = BusinessDataAccess.GetAllBusnisesbyId(u.UserName);
-                  foreach(Business b in Y  )
-                  {
-                      b.Block = true;
-                  }
-                }
-                u.Block = true;
-                be.SaveChanges();
-                return true;
-            }
-        }
-
-
-        internal static bool AddInterestsToUser(string UserName, List<string> interests)
+        
+        public static bool UpdateInterestsToUser(string UserName, List<string> interests)
         {
             using (basicEntities be = new basicEntities())
             {
                 foreach (var item in interests)
                 {
-                    Interest i =  be.Interests.Find(item);
+                    be.Users_Customer.Find(UserName).Interests.Clear();
+                    int interestId = int.Parse(item);
+                    Interest i = be.Interests.Find(interestId);
                     if (i == null) continue;
                     be.Entry(i).State = System.Data.Entity.EntityState.Unchanged;
                     be.Users_Customer.Find(UserName).Interests.Add(i);
@@ -185,7 +128,6 @@ namespace CouponsOnline.DataLayer
             }
             return true;
         }
-
         public static ListItem[] GetUserInterests(string UserName)
         {
             ListItem[] ans=null;
@@ -200,6 +142,21 @@ namespace CouponsOnline.DataLayer
 	            }
             }
             return ans;
+        }
+
+
+
+        //I checked that we need them
+        public static bool ChangePassword(string UserName, string password)
+        {
+            using (basicEntities be = new basicEntities())
+            {
+                User u = be.Users.Find(UserName);
+                u.Password = password;
+                be.SaveChanges();
+                return true;
+            }
+
         }
     }
 }

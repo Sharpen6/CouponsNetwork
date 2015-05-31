@@ -1,14 +1,16 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CouponsOnline;
+using CouponsOnline.PresentationLayer;
+using CouponsOnline.BusinessLayer.Controllers;
 
 namespace UnitTestProject
 {
     [TestClass]
     public class TestUser
     {
-        [TestMethod]
-        public void TestAddUser()
+       [TestMethod]
+       public void TestAddUser()
         {
             User user;
             using (basicEntities be = new basicEntities())
@@ -19,24 +21,24 @@ namespace UnitTestProject
             }
             RemoveUser(user.UserName);
         }
-        [TestMethod]
-        public void TestUpdateUser()
+       [TestMethod]
+       public void TestUpdateUser()
         {
             using (basicEntities be = new basicEntities())
             {
                 User user = AddUser();
 
                 User b = be.Users.Find(user.UserName);
-                b.PhoneNum =321;
+                b.PhoneNum ="321";
                 be.SaveChanges();
 
 
-                Assert.AreEqual(be.Users.Find(user.UserName).PhoneNum, 321);
+                Assert.AreEqual(be.Users.Find(user.UserName).PhoneNum, "321");
                 RemoveUser(user.UserName);
             }
         }
-        [TestMethod]
-        public void TestRemoveUser()
+       [TestMethod]
+       public void TestRemoveUser()
         {
             User user = AddUser();
             using (basicEntities be = new basicEntities())
@@ -45,16 +47,64 @@ namespace UnitTestProject
                 Assert.AreEqual(be.Users.Find(user.UserName), null);
             }
         }       
+
         [TestMethod]
-        public void TestAuthenticateUser()
+       public void TestChangeDetails()
+       {
+            User user = AddUser();
+            user.ChangeDetails("moshe", "123", "mal@ware.com", null);
+            User a = UserController.GetUser(user.UserName);
+            Assert.AreEqual(a.Name, "moshe");
+            Assert.AreEqual(a.PhoneNum, "123");
+            Assert.AreEqual(a.Email, "mal@ware.com");
+            TestUser.RemoveUser(user.UserName);
+       }
+
+       // extended Tests
+       [TestMethod]
+       public void TestAddAuthentication()
+       {
+           User user = AddUser();
+           user.AddAuthentication(UserType.Customer);
+           Assert.AreEqual(user.GetUserType(),UserType.Customer);
+           TestUser.RemoveUser(user.UserName);
+       }
+       [TestMethod]
+       public void TestAuthenticateUser()
         {
             User user = AddUser();
             string password = user.Password;
             Assert.IsTrue(user.AuthenticateUser(password));
             RemoveUser(user.UserName);
        }
+       [TestMethod]
+       public void DeactivateUserTest()
+       {
+           Users_Customer u = TestCustomer.AddCustomer();
+           User user = UserController.GetUser(u.UserName);
+           Assert.IsTrue(user.AuthenticateUser(user.Password));
+           user.Deactivate();
+           Assert.IsFalse(user.AuthenticateUser(user.Password));
+           TestCustomer.RemoveCustomer(u.UserName);
+       }
+       [TestMethod]
+       public void ChangePasswordTest()
+       {
+           User u = TestUser.AddUser();
+           u.ChangePassword("blabla123");
+           Assert.IsTrue(u.AuthenticateUser("blabla123"));
+           TestUser.RemoveUser(u.UserName);
+       }
+       [TestMethod]
+       public void GetUserTypeTest()
+       {
+           Users_Admin ua = TestAdmin.AddAdmin();
+           Assert.AreEqual(ua.User.GetUserType(), UserType.Admin);
+           TestAdmin.RemoveAdmin(ua.UserName);
+       }
 
-        public static void RemoveUser(string user)
+       //aux functions
+       public static void RemoveUser(string user)
         {
             using (basicEntities be = new basicEntities())
             {
@@ -66,8 +116,8 @@ namespace UnitTestProject
                 }
             }
         }
-        public static User AddUser(string UserName="UserName", string Name="userName", string Password="1234",
-            int PhoneKidumet=123, int PhoneNum=1234567, string Email="temp@temp.temp")
+       public static User AddUser(string UserName="UserName", string Name="userName", string Password="1234",
+           string PhoneNum="1234567", string Email="temp@temp.temp")
         {
             using (basicEntities be = new basicEntities())
             {
@@ -81,7 +131,6 @@ namespace UnitTestProject
                     sameKey = be.Users.Find(u.UserName);
                 }
                 u.Password = Password;
-                u.PhoneKidomet = PhoneKidumet;
                 u.PhoneNum = PhoneNum;
                 u.Email = Email;
 

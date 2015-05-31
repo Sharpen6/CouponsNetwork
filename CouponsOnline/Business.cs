@@ -24,7 +24,7 @@ namespace CouponsOnline
         public string Address { get; set; }
         public Nullable<int> Sensor_Id { get; set; }
         public int BusinessCategoriesId { get; set; }
-        public bool Block { get; set; }
+        public bool Blocked { get; set; }
     
         public virtual ICollection<Coupon> Coupons { get; set; }
         public virtual Sensor Sensor { get; set; }

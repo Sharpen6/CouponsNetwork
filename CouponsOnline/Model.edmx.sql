@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/31/2015 01:17:34
+-- Date Created: 05/31/2015 13:35:25
 -- Generated from EDMX file: C:\Users\User\Documents\GitHub\CouponsNetwork\CouponsOnline\Model.edmx
 -- --------------------------------------------------
 
@@ -142,7 +142,7 @@ CREATE TABLE [dbo].[Businesses] (
     [Address] nvarchar(max)  NOT NULL,
     [Sensor_Id] int  NULL,
     [BusinessCategoriesId] int  NOT NULL,
-    [Block] bit  NOT NULL,
+    [Blocked] bit  NOT NULL,
     [Users_Admin_UserName] varchar(500)  NOT NULL,
     [Users_Owner_UserName] varchar(500)  NOT NULL,
     [City_Id] int  NOT NULL
@@ -201,9 +201,8 @@ CREATE TABLE [dbo].[Users] (
     [Password] nvarchar(max)  NOT NULL,
     [Email] nvarchar(max)  NULL,
     [Name] nvarchar(max)  NOT NULL,
-    [PhoneKidomet] int  NULL,
-    [PhoneNum] int  NULL,
-    [Block] bit  NOT NULL
+    [PhoneNum] nvarchar(max)  NULL,
+    [Blocked] bit  NOT NULL
 );
 GO
 

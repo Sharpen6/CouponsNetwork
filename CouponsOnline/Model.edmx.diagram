@@ -34,9 +34,9 @@
         <AssociationConnector Association="basicModel.Users_CustomerOrderedCoupon" />
         <AssociationConnector Association="basicModel.Users_CustomerRecommendedCoupon" />
         <AssociationConnector Association="basicModel.SensorUsers_Customer" ManuallyRouted="true" >
-          <ConnectorPoint PointX="5.0312528125" PointY="2.7302864583333331" />
-          <ConnectorPoint PointX="5.0312528125" PointY="8.2958187618001311" />
-          <ConnectorPoint PointX="4.25" PointY="8.2958187618001311" />
+          <ConnectorPoint PointX="5.023440703125" PointY="2.7302864583333331" />
+          <ConnectorPoint PointX="5.023440703125" PointY="8.2927071904500345" />
+          <ConnectorPoint PointX="4.25" PointY="8.2927071904500345" />
         </AssociationConnector>
         <AssociationConnector Association="basicModel.SensorCoupon" />
         <AssociationConnector Association="basicModel.BusinessCategoriesInterest" />

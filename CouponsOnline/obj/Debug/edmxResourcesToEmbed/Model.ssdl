@@ -110,7 +110,7 @@
     <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Sensor_Id" Type="int" Nullable="true" />
     <Property Name="BusinessCategoriesId" Type="int" Nullable="false" />
-    <Property Name="Block" Type="bit" Nullable="false" />
+    <Property Name="Blocked" Type="bit" Nullable="false" />
     <Property Name="Users_Admin_UserName" Type="varchar" MaxLength="500" Nullable="false" />
     <Property Name="Users_Owner_UserName" Type="varchar" MaxLength="500" Nullable="false" />
     <Property Name="City_Id" Type="int" Nullable="false" />
@@ -169,9 +169,8 @@
     <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Email" Type="nvarchar(max)" Nullable="true" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="PhoneKidomet" Type="int" Nullable="true" />
-    <Property Name="PhoneNum" Type="int" Nullable="true" />
-    <Property Name="Block" Type="bit" Nullable="false" />
+    <Property Name="PhoneNum" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Blocked" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Users_Admin">
     <Key>

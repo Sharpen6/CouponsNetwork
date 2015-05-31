@@ -105,6 +105,7 @@
     <Compile Include="BusinessCategories.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="BusinessLayer\Business.cs" />
     <Compile Include="BusinessLayer\User.cs" />
     <Compile Include="BusinessLayer\Users_Admin.cs" />
     <Compile Include="BusinessLayer\Controllers\BusinessController.cs" />

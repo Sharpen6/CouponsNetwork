@@ -23,12 +23,7 @@ namespace CouponsOnline
             }
         }
 
-        private void LoadCategories()
-        {
-            DropDownListCategory.Items.Clear();
-            DropDownListCategory.Items.Add(new ListItem(""));
-            DropDownListCategory.Items.AddRange(BusinessController.GetAllCategories());
-        }
+
 
         private void SearchByCategory()
         {
@@ -63,24 +58,7 @@ namespace CouponsOnline
             GridVresults.DataSource = CouponController.GetCouponsByCity(city);
             GridVresults.DataBind();
         }
-        private void LoadInterest()
-        {
-            DropDownListInterests.Items.Clear();
-            DropDownListInterests.DataSource = 
-                BusinessController.GetAllCategoryInterests(DropDownListCategory.SelectedValue);
-            DropDownListInterests.DataBind();
-            foreach (ListItem item in DropDownListInterests.Items)
-            {
-                item.Selected = true;
-            }
-        }
 
-        private void LoadCities()
-        {
-            DropDownListCities.Items.Clear();
-            DropDownListCities.Items.Add(new ListItem(""));
-            DropDownListCities.Items.AddRange(BusinessController.GetAllCites());
-        }
         
         protected void DropDownListCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -100,12 +78,35 @@ namespace CouponsOnline
 
         protected void DropDownListCities_SelectedIndexChanged(object sender, EventArgs e)
         {
-            GridVresults.DataSource = null;
+            GridVresults.DataSource = null;           
             GridVresults.DataBind();
             
             Search();
          // DropDownListCategory.ClearSelection();
           //  DropDownListInterests.Items.Clear();
+        }
+        private void LoadInterest()
+        {
+            DropDownListInterests.Items.Clear();
+            DropDownListInterests.DataSource =
+                BusinessController.GetAllCategoryInterests(DropDownListCategory.SelectedValue);
+            DropDownListInterests.DataBind();
+            foreach (ListItem item in DropDownListInterests.Items)
+            {
+                item.Selected = true;
+            }
+        }
+        private void LoadCities()
+        {
+            DropDownListCities.Items.Clear();
+            DropDownListCities.Items.Add(new ListItem(""));
+            DropDownListCities.Items.AddRange(BusinessController.GetAllCites());
+        }
+        private void LoadCategories()
+        {
+            DropDownListCategory.Items.Clear();
+            DropDownListCategory.Items.Add(new ListItem(""));
+            DropDownListCategory.Items.AddRange(BusinessController.GetAllCategories());
         }
         
     }

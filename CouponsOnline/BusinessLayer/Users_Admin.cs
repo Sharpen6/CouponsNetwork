@@ -9,10 +9,8 @@ namespace CouponsOnline
     public partial class Users_Admin
     {
         public bool CreateBusiness(string owner, string address,
-            string name, string category, string cityName)
+            string name, string categoryID, string cityID)
         {
-            int cityID = BusinessDataAccess.FindCity(cityName);
-            int categoryID = BusinessDataAccess.FindCategory(category);
             return BusinessDataAccess.CreateBusiness(this.UserName, owner, address, name, categoryID, cityID);
         }
 

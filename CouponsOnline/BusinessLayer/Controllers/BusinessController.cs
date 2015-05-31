@@ -11,10 +11,10 @@ namespace CouponsOnline.BusinessLayer.Controllers
     { 
         
 
-        private static Interest getinterest(Business catrgory, string interestt)
+        /*private static Interest getinterest(Business catrgory, string interestt)
         {
             return CouponDataAccess.FindInterest(catrgory, interestt);
-        }
+        }*/
 
 
         public static bool CreateBusiness(string ad, string owner, string address,
@@ -24,6 +24,8 @@ namespace CouponsOnline.BusinessLayer.Controllers
             //Users_Admin admin = UserDataAccess.FindAdmin(ad);
             return admin.CreateBusiness(owner, address, name, category, cityName);
         }
+
+
         public static ListItem[] GetAllBusnisesId(string ownerName)
         {
             return BusinessDataAccess.GetAllBusnisesId(ownerName);
@@ -72,13 +74,7 @@ namespace CouponsOnline.BusinessLayer.Controllers
             return BusinessDataAccess.CreateCity(p);
         }
 
-        public static bool deleteBusiness(int p)
-        {
-           return BusinessDataAccess.DeleteBusiness(p);
-             
-        }
-
-        public static Business findBusinessById(string p)
+        public static Business GetBusiness(string p)
         {
             return BusinessDataAccess.FindBusiness( Int32.Parse(p));
         }
@@ -96,8 +92,7 @@ namespace CouponsOnline.BusinessLayer.Controllers
         public static void EditBusniess(string ad, int businessId, string address, string name, string category, string city)
         {
             Users_Admin admin = UserDataAccess.FindAdmin(ad);
-            //Users_Admin admin = UserDataAccess.FindAdmin(ad);
-             admin.EditBusiness(businessId, address, name, category, city);
+            admin.EditBusiness(businessId, address, name, category, city);
         }
 
         public static ListItem[] GetAllInterests()

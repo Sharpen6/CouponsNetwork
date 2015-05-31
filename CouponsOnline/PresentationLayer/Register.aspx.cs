@@ -25,7 +25,7 @@ namespace CouponsOnline.PresentationLayer
 
 
            List<string> err = UserController.ValidateRegisteration(TextBoxUserName.Text, TextBoxPassword.Text,
-                TextBoxPasswordVal.Text, TextBoxPhoneNum.Text, TextBoxEmail.Text, TextBoxName.Text, selectedInterests);
+                TextBoxPasswordVal.Text, TextBoxPhoneNum.Text, TextBoxEmail.Text, selectedInterests);
 
 
            if (err.Count>0) {
@@ -102,16 +102,17 @@ namespace CouponsOnline.PresentationLayer
             BusinessController.CreateCategory("Cars");
             BusinessController.CreateInterest("Pets", "dogs");
             BusinessController.CreateInterest("Pets", "cats");
-            UserController.CreateNewCustomer("Sharpy", "Sagi Bazinin", "1234", "054-3391405", "sag@gmail.com", new List<string> { "1" });
-            UserController.CreateNewOwner("itskovitch", "Sveta Itskovich", "1234", "050-5242142", "its@gmail.com");
-            UserController.CreateNewCustomer("yossi32", "Yossi Zaltsman", "1234", "057-7343412", "yos@gmail.com", new List<string> { "2" });
-            UserController.CreateNewAdmin("dorin2", "Dorin Shmaryahu", "1234", "057-3441252", "dorin@gmail.com");
+            UserController.CreateNewCustomer("sagi", "Sagi Bazinin", "123", "054-3391405", "sag@gmail.com", new List<string> { "1" });
+            UserController.CreateNewOwner("sveta", "Sveta Itskovich", "123", "050-5242142", "its@gmail.com");
+            UserController.CreateNewCustomer("yossi", "Yossi Zaltsman", "123", "057-7343412", "yos@gmail.com", new List<string> { "2" });
+            UserController.CreateNewAdmin("dorin", "Dorin Shmaryahu", "123", "057-3441252", "dorin@gmail.com");
             BusinessController.AddCity("Beer Sheva");
             BusinessController.AddCity("Tel Aviv");
             BusinessController.AddCity("Rehovot");
-            BusinessController.CreateBusiness("dorin2", "itskovitch", "Ben gurion 24", "PetSheva shop", "Pets","Beer Sheva");
-            BusinessController.CreateBusiness("dorin2", "itskovitch", "Rager 5", "Cars Inc.", "Cars", "Tel Aviv");
+            BusinessController.CreateBusiness("dorin", "sveta", "Ben gurion 24", "PetSheva shop", "Pets","Beer Sheva");
+            BusinessController.CreateBusiness("dorin", "sveta", "Rager 5", "Cars Inc.", "Cars", "Tel Aviv");
             CouponController.CreateCoupon("Cheap food for cats!", 30.4, 24.5, "PetSheva shop", "Cheap Food buy now!", "20/10/2015", 2, new List<string> { "cats" });
+            Response.Redirect("Login.aspx");
         }
 
         private void LoadInterest()

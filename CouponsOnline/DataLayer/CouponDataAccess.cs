@@ -72,7 +72,7 @@ namespace CouponsOnline.DataLayer
             using (basicEntities be = new basicEntities())
             {
                 var bus = from b in be.Coupons
-                          where b.Business.City.Name == city & b.Business.Block==false
+                          where b.Business.City.Name == city & b.Business.Blocked==false
                           select b;
                 foreach (var item in bus)
                 {
@@ -122,7 +122,7 @@ namespace CouponsOnline.DataLayer
                 {
                     foreach (var interest in item.Interests)
                     {
-                        if (interests.Contains(interest.Description) &item.Business.Block==false)
+                        if (interests.Contains(interest.Description) &item.Business.Blocked==false)
                         {
                             bus.Add(item.Id);
                             break;
@@ -236,7 +236,7 @@ namespace CouponsOnline.DataLayer
 
                     foreach (var interest in item.Interests)
                     {
-                        if (interests.Contains(interest.Description) & item.Business.City.Name == city &item.Business.Block==false)
+                        if (interests.Contains(interest.Description) & item.Business.City.Name == city &item.Business.Blocked==false)
                         {
                             bus.Add(item.Id);
                             break;

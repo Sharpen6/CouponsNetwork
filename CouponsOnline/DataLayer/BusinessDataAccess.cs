@@ -87,7 +87,7 @@ namespace CouponsOnline.DataLayer
         }
  
         public static bool CreateBusiness(string ad, string owner, string address, 
-            string name, int categoryID,int cityID)
+            string name, string categoryID,string cityID)
         {
             using (basicEntities be = new basicEntities())
             {
@@ -97,8 +97,8 @@ namespace CouponsOnline.DataLayer
                 b.Address = address;
                 b.Name = name;
                 //b.Category = c;
-                b.City = be.Cities.Find(cityID);
-                b.BusinessCategory = be.BusinessCategories.Find(categoryID);
+                b.City = be.Cities.Find(int.Parse(cityID));
+                b.BusinessCategory = be.BusinessCategories.Find(int.Parse(categoryID));
                 b.Users_Admin = be.Users_Admin.Find(ad);
                 b.Users_Owner = be.Users_Owner.Find(owner);
                 be.Businesses.Add(b);
@@ -134,7 +134,7 @@ namespace CouponsOnline.DataLayer
             using (basicEntities be = new basicEntities())
             {
                 var items = from b in be.Businesses
-                            where b.Users_Owner.UserName == businessOwner & b.Block==false
+                            where b.Users_Owner.UserName == businessOwner & b.Blocked==false
                             select b;
                 bItems = new List<Business>(items);
             }
@@ -156,7 +156,7 @@ namespace CouponsOnline.DataLayer
             using (basicEntities be = new basicEntities())
             {
                 var items = from b in be.Businesses
-                            where b.Users_Owner.UserName == businessOwner & b.Block == false
+                            where b.Users_Owner.UserName == businessOwner & b.Blocked == false
                             select b;
                 bItems = new List<Business>(items);
             
@@ -170,34 +170,19 @@ namespace CouponsOnline.DataLayer
             return ans;
         }
 
-        public static List<Business> GetAllBusnisesbyId(string businessOwner)
+        public static List<Business> GetAllBusnisesOfOwner(string businessOwner)
         {
             using (basicEntities be = new basicEntities())
             {
                 var items = from b in be.Businesses
-                            where b.Users_Owner.UserName == businessOwner & b.Block == false
+                            where b.Users_Owner.UserName == businessOwner & b.Blocked == false
                             select b;
                 foreach (Business b in items)
-                    b.Block = true;
+                    b.Blocked = true;
                 be.SaveChanges();
                 return new List<Business>(items);
             }
         }
-
-        public static bool DeleteBusiness(int businesid)
-        {
-            using (basicEntities be = new basicEntities())
-            {
-                 Business b= be.Businesses.Find(businesid);
-                    b.Block = true;
-                be.SaveChanges();
-                return true;
-
-            }
-
-
-        }
-           
 
         public static bool CreateCategory(string p)
         {
@@ -364,6 +349,16 @@ namespace CouponsOnline.DataLayer
                 ans[i++] = new ListItem(item.Description, item.Id.ToString());
             }
             return ans;
+        }
+
+        public static bool DisableBusiness(int b)
+        {
+            using (basicEntities be = new basicEntities())
+            {
+                be.Businesses.Find(b).Blocked = true;
+                be.SaveChanges();
+            }
+            return true;
         }
     }
     

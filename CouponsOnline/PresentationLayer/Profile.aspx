@@ -5,14 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-      <style type="text/css">
-        .auto-style1 {
-            width: 119px;
-        }
-    </style>
     <script src="../js/script.js"></script>
-     <link href="css/styleMain.css" rel="stylesheet" />
-       <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href="css/styleMain.css" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -32,7 +26,7 @@
     <br />
     <form id="form1" runat="server">
    
-     <div class ="login-card" runat="server" id="home" style="display: none">
+     <div id="home"  class ="mainBox" runat="server">
         <h1>Your Profile:</h1>
 
        User Name:
@@ -49,23 +43,30 @@
          
                     <asp:BulletedList ID="BLerrors" runat="server" ForeColor="Maroon" Font-Size="Small">
                     </asp:BulletedList>
-         <asp:Button ID="Button1" runat="server" class="login login-submit" Text="Change Profile" width="60%" OnClick="Button1_Click"/>
-         <asp:Button ID="Button2" runat="server" class="login login-submit" Text="Change Profile" width="60%" OnClick="Button2_Click"/>
-                
-                   
-         <asp:Button ID="delete" runat="server" class="login login-submit" Text="Delete Account" width="60%" OnClick="delete_Click"/>
+         <asp:Button ID="Button1" runat="server"  Text="Change Profile" width="60%" OnClick="Button1_Click"/>
+         <asp:Button ID="Button2" runat="server"  Text="Change Password" width="60%" OnClick="Button2_Click"/>
+         <asp:Button ID="delete" runat="server" Text="Delete Account" width="60%" OnClick="delete_Click"/>
                     
     </div>
-    <div class ="login-card" id="ResetPassword" runat="server" style="display: none">
+    <div id="ResetPassword" class ="mainBox" runat="server">
         <h1>Reset Your Password</h1>
-         Password:
+         <div>
+             <h1>
+                 Password:
+             </h1>
          <asp:TextBox ID="TextBoxPassword" runat="server" TextMode="Password" placeholder="Password"></asp:TextBox>
-        Repeat Password:
-                    <asp:TextBox ID="TextBoxPasswordVal" runat="server" TextMode="Password" placeholder="Repeat Password"></asp:TextBox>    
-              <asp:Button ID="reset" runat="server" class="login login-submit" Text="Reset Password!" width="60%" OnClick="reset_Click"/>
-              
-    </div>
+         </div>
+        <div>
+            <h1>
+                Repeat Password:
+            </h1>
+        <asp:TextBox ID="TextBoxPasswordVal" runat="server" TextMode="Password" placeholder="Repeat Password"></asp:TextBox>    
+        </div>
+        <div>
+            <asp:Button ID="reset" runat="server" Text="Reset Password" width="60%" OnClick="reset_Click"/>           
+        </div>  
 
+    </div>
     </form>
 </body>
 </html>

@@ -45,9 +45,9 @@ namespace UnitTestProject
             }
         }
 
-        public static Users_Customer AddCustomer(string UserName = "customerUserName", string Name = "customerName", string Password = "1234", int PhoneKidumet = 1234567, int PhoneNum = 123, string Email = "temp@temp.temp")
+        public static Users_Customer AddCustomer(string UserName = "customerUserName", string Name = "customerName", string Password = "1234",  string PhoneNum = "123", string Email = "temp@temp.temp")
         {
-            User a =TestUser.AddUser(UserName, Name, Password, PhoneKidumet, PhoneNum, Email);
+            User a =TestUser.AddUser(UserName, Name, Password, PhoneNum, Email);
             using (basicEntities be = new basicEntities())
             {
                 Users_Customer ua = new Users_Customer();
