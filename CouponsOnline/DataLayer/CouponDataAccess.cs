@@ -10,7 +10,9 @@ namespace CouponsOnline.DataLayer
 {
     public class CouponDataAccess
     {
-        public static bool CreateCoupon(string name, string desc, double orgprice, double discount, Business b, string datee, int maxNum, List<string> interestt)
+        public static bool CreateCoupon(string name, string desc,
+            double orgprice, double discount, Business b,
+            string datee, int maxNum, List<string> interests)
         {
             using (basicEntities be = new basicEntities())
             {
@@ -21,9 +23,11 @@ namespace CouponsOnline.DataLayer
                 cop.DiscountPrice = discount;
                 cop.Business = b;
                 //  cop.Interest = interestt;
-                foreach (string i in interestt)
+                foreach (string i in interests)
                 {
-                    Interest t = FindInterest(b, i);
+                    //Interest t = FindInterest(b, i);
+                    int interestId = int.Parse(i);
+                    Interest t = be.Interests.Find(interestId);
                     be.Entry(t).State = System.Data.Entity.EntityState.Unchanged;
                     cop.Interests.Add(t);
                 }
@@ -40,21 +44,7 @@ namespace CouponsOnline.DataLayer
                 return true;
             }
         }
-        public static Interest FindInterest(Business Category, string desription)
-        {
-            using (basicEntities be = new basicEntities())
-            {
-                var bus = from b in be.Interests
-                          where b.Description == desription & b.BusinessCategory.Id == Category.BusinessCategoriesId
-                          select b;
-                Interest Interests = bus.First();
-
-
-                return Interests;
-
-            }
-        }
-     
+        
         public static DataTable GetCouponsByCity(string city)
         {
             DataTable table = new DataTable();
@@ -72,7 +62,7 @@ namespace CouponsOnline.DataLayer
             using (basicEntities be = new basicEntities())
             {
                 var bus = from b in be.Coupons
-                          where b.Business.City.Name == city & b.Business.Blocked==false
+                          where b.Business.City.Id.ToString() == city && b.Business.Blocked==false
                           select b;
                 foreach (var item in bus)
                 {
@@ -82,7 +72,6 @@ namespace CouponsOnline.DataLayer
                     dr[2] = item.OriginalPrice;
                     dr[3] = item.DiscountPrice;
                     dr[4] = item.Business.Name;
-
                     dr[5] = item.Business.City.Name; ;
                     dr[6] = item.AvarageRanking;
                     dr[7] = item.MaxNum;
@@ -93,17 +82,14 @@ namespace CouponsOnline.DataLayer
             return table;
         }
 
-        public static DataTable GetCouponsByBusniess(string Busniesss)
+        public static DataTable GetCouponsByBusniess(int Business)
         {
             IQueryable<int> bus;
             using (basicEntities be = new basicEntities())
             {
-                int i = Int32.Parse(Busniesss);
                 bus = from b in be.Coupons
-                      where b.Business.BusinessID == i
+                      where b.Business.BusinessID == Business
                       select b.Id;
-
-
                 return GetDataTable(bus.ToList());
             }
         }
@@ -215,7 +201,6 @@ namespace CouponsOnline.DataLayer
         }
 
 
-
         public static DataTable GetCouponsByGps(double coordinateX, double coordinateY)
         {
             throw new NotImplementedException();
@@ -226,17 +211,17 @@ namespace CouponsOnline.DataLayer
             List<string> interests = new List<string>();
             foreach (var item in selectedInterests)
             {
-                interests.Add(item.Text);
+                interests.Add(item.Value);
             }
             List<int> bus = new List<int>();
             using (basicEntities be = new basicEntities())
             {
                 foreach (var item in be.Coupons)
                 {
-
+                    if (item.Business.City.Id != int.Parse(city) || item.Business.Blocked) continue;
                     foreach (var interest in item.Interests)
                     {
-                        if (interests.Contains(interest.Description) & item.Business.City.Name == city &item.Business.Blocked==false)
+                        if (interests.Contains(interest.Id.ToString()))
                         {
                             bus.Add(item.Id);
                             break;
@@ -278,7 +263,7 @@ namespace CouponsOnline.DataLayer
                         foreach (ListItem z in selected)
                         {
                             Coupon cop = be.Coupons.Find(copId);
-                            Interest t = FindInterest(cop.Business, z.Value);
+                            Interest t = DataAccess.FindInterest(cop.Business, z.Value);
                             be.Entry(t).State = System.Data.Entity.EntityState.Unchanged;
                             cop.Interests.Add(t);
                         }

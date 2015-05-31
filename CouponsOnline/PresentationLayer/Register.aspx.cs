@@ -98,27 +98,39 @@ namespace CouponsOnline.PresentationLayer
         }
         protected void btnAddInformation_Click(object sender, EventArgs e)
         {
-            BusinessController.CreateCategory("Pets");
-            BusinessController.CreateCategory("Cars");
-            BusinessController.CreateInterest("Pets", "dogs");
-            BusinessController.CreateInterest("Pets", "cats");
+            Controller.CreateCategory("Pets");
+            Controller.CreateCategory("Cars");
+            Controller.CreateInterest("Pets", "dogs");
+            Controller.CreateInterest("Pets", "cats");
             UserController.CreateNewCustomer("sagi", "Sagi Bazinin", "123", "054-3391405", "sag@gmail.com", new List<string> { "1" });
             UserController.CreateNewOwner("sveta", "Sveta Itskovich", "123", "050-5242142", "its@gmail.com");
             UserController.CreateNewCustomer("yossi", "Yossi Zaltsman", "123", "057-7343412", "yos@gmail.com", new List<string> { "2" });
             UserController.CreateNewAdmin("dorin", "Dorin Shmaryahu", "123", "057-3441252", "dorin@gmail.com");
-            BusinessController.AddCity("Beer Sheva");
-            BusinessController.AddCity("Tel Aviv");
-            BusinessController.AddCity("Rehovot");
-            BusinessController.CreateBusiness("dorin", "sveta", "Ben gurion 24", "PetSheva shop", "Pets","Beer Sheva");
-            BusinessController.CreateBusiness("dorin", "sveta", "Rager 5", "Cars Inc.", "Cars", "Tel Aviv");
-            CouponController.CreateCoupon("Cheap food for cats!", 30.4, 24.5, "PetSheva shop", "Cheap Food buy now!", "20/10/2015", 2, new List<string> { "cats" });
+            Controller.CreateCity("Beer Sheva");
+            Controller.CreateCity("Tel Aviv");
+            Controller.CreateCity("Rehovot");
+            ListItem[] cities = Controller.GetAllCites();
+            ListItem[] categories = Controller.GetAllCategories();
+            foreach (var item in cities)
+            {
+                if (item.Text=="Beer Sheva") {
+                    BusinessController.CreateBusiness("dorin", "sveta", "Ben gurion 24", "PetSheva shop", categories.First().Value, item.Value);
+                    BusinessController.CreateBusiness("dorin", "sveta", "Ben gurion 23", "Dogs For All", categories.First().Value, item.Value);
+             
+                } else if (item.Text=="Tel Aviv")
+                    BusinessController.CreateBusiness("dorin", "sveta", "Rager 5", "Cars Inc.", categories.ElementAt(1).Value, item.Value);
+            
+
+            }
+            ListItem[] interests = Controller.GetAllInterests();
+            CouponController.CreateCoupon("Cheap food for cats!", 30.4, 24.5, "PetSheva shop", "Cheap Food buy now!", "20/10/2015", 2, new List<string> { interests.First().Value});
             Response.Redirect("Login.aspx");
         }
 
         private void LoadInterest()
         {
             DropDownListInterests.Items.Clear();
-            DropDownListInterests.DataSource = BusinessController.GetAllInterests();
+            DropDownListInterests.DataSource = Controller.GetAllInterests();
             DropDownListInterests.DataTextField = "Text";
             DropDownListInterests.DataValueField = "Value";
             DropDownListInterests.DataBind();          

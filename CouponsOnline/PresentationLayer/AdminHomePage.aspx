@@ -67,6 +67,8 @@
         <asp:TextBox ID="TextBoxCat" runat="server" placeholder="Category Name"></asp:TextBox>
         <asp:Button ID="BtnAddCategory" runat="server" Text="Add Category" onclick="BtnAddCategory_Click"/>
     </div>
+    
+        
     <div id="AddCity" class="mainBox">
         <asp:TextBox ID="TextBoxCity" runat="server" placeholder="City Name"></asp:TextBox>
         <asp:Button ID="Button1" runat="server" Text="Add City" onclick="BtnAddCity_Click"/>
@@ -79,17 +81,20 @@
                 </asp:GridView>
                 <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:basicConnectionString %>" SelectCommand="SELECT [Name], [Id] FROM [Cities]"></asp:SqlDataSource>
     </div>
-           <div id="DeleteBusiness" class="mainBox">
+           
+        
+     <div id="DeleteBusiness" class="mainBox">
            <asp:DropDownList ID="DropDownListOwnersDelete" runat="server" placeholder="Pick Owner" AutoPostBack="true" OnSelectedIndexChanged="DropDownListOwner_SelectedIndexChanged"></asp:DropDownList>
            <asp:DropDownList id="DropDownListBusniess" runat="server" placeholder="Pick Busniess" autoPostBack="true" OnSelectedIndexChanged="DropDownListBusniess_SelectedIndexChanged"></asp:DropDownList>
-               <div id="editBus">
+              
+    <div id="editBus">
                      <asp:TextBox ID="TextBoxBusinessName1" runat="server" placeholder="Business Name"></asp:TextBox>
         <asp:TextBox ID="TextBoxAddress1" Width="45%" runat="server" placeholder="Address"></asp:TextBox>
         <br />Change City:<asp:DropDownList ID="DropDownListCities1" runat="server" placeholder="City"></asp:DropDownList>        
            
             <br />Change Category:<asp:DropDownList ID="DropDownListCategories1" runat="server" placeholder="Pick Category"></asp:DropDownList>
      
-               </div>
+    </div>
              <br />  <asp:Button ID="BtnBusiness" runat="server" Text="Delete Business" onclick="BtnBusiness_Click"/>
                   <asp:Button ID="BtnEditBusiness" runat="server" Text="Edit Business" onclick="BtnEditBusiness_Click"/>
     </div>

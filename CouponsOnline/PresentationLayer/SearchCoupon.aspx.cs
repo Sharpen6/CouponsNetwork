@@ -90,6 +90,8 @@ namespace CouponsOnline
             DropDownListInterests.Items.Clear();
             DropDownListInterests.DataSource =
                 BusinessController.GetAllCategoryInterests(DropDownListCategory.SelectedValue);
+            DropDownListInterests.DataTextField = "Text";
+            DropDownListInterests.DataValueField = "Value";
             DropDownListInterests.DataBind();
             foreach (ListItem item in DropDownListInterests.Items)
             {
@@ -100,13 +102,17 @@ namespace CouponsOnline
         {
             DropDownListCities.Items.Clear();
             DropDownListCities.Items.Add(new ListItem(""));
-            DropDownListCities.Items.AddRange(BusinessController.GetAllCites());
+            DropDownListCities.Items.AddRange(Controller.GetAllCites());
+            DropDownListCities.DataTextField = "Text";
+            DropDownListCities.DataValueField = "Value";
         }
         private void LoadCategories()
         {
             DropDownListCategory.Items.Clear();
             DropDownListCategory.Items.Add(new ListItem(""));
-            DropDownListCategory.Items.AddRange(BusinessController.GetAllCategories());
+            DropDownListCategory.Items.AddRange(Controller.GetAllCategories());
+            DropDownListCategory.DataTextField = "Text";
+            DropDownListCategory.DataValueField = "Value";
         }
         
     }

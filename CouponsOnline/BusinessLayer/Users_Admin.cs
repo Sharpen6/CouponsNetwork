@@ -17,9 +17,10 @@ namespace CouponsOnline
         public bool EditBusiness(int businessId, string address,
             string name, string category, string city)
         {
-            int cityID = BusinessDataAccess.FindCity(city);
-            int categoryID = BusinessDataAccess.FindCategory(category);
-            return BusinessDataAccess.EditBusiness(businessId, address, name, categoryID, cityID);
+            Business bus = BusinessDataAccess.GetBusinessByID(businessId);
+            int cityID = DataAccess.FindCity(city);
+            int categoryID = DataAccess.FindCategory(category);
+            return bus.ChangeDetails(address, name, categoryID, cityID);
         }
     }
 }

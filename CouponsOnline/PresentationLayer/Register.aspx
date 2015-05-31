@@ -23,7 +23,6 @@
                         <asp:ListItem Selected="True">Regular Account</asp:ListItem>
                         <asp:ListItem>I'm a Business owner</asp:ListItem>
                     </asp:RadioButtonList>
-                    <asp:Button ID="Button1" runat="server" class="login login-submit" Text="Register" width="100%" OnClick="SendButton_Click"/>
                     
                     
                     <asp:BulletedList ID="BLerrors" runat="server" ForeColor="Maroon" Font-Size="Small">
@@ -33,6 +32,9 @@
              <asp:checkboxlist id="DropDownListInterests" SelectMethod="" runat="server" SelectionMode="Multiple" Width="500" />
          
         <br />
+                    <asp:Button ID="Button1" runat="server" class="login login-submit" Text="Register" width="100%" OnClick="SendButton_Click"/>
+                    
+                    
         <br />
         <asp:Button ID="btnCreateAdmin" runat="server" Text="dbg: create admin (usr:admin pass:1234)" OnClick="btnCreateAdmin_Click" />
             <p>

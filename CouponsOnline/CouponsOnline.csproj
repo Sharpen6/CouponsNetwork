@@ -106,6 +106,7 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="BusinessLayer\Business.cs" />
+    <Compile Include="BusinessLayer\Controllers\Controller.cs" />
     <Compile Include="BusinessLayer\User.cs" />
     <Compile Include="BusinessLayer\Users_Admin.cs" />
     <Compile Include="BusinessLayer\Controllers\BusinessController.cs" />
@@ -121,6 +122,7 @@
     </Compile>
     <Compile Include="DataLayer\BusinessDataAccess.cs" />
     <Compile Include="DataLayer\CouponDataAccess.cs" />
+    <Compile Include="DataLayer\DataAccess.cs" />
     <Compile Include="DataLayer\UserDataAccess.cs" />
     <Compile Include="Interest.cs">
       <DependentUpon>Model.tt</DependentUpon>

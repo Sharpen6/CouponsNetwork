@@ -28,16 +28,19 @@ namespace CouponsOnline.PresentationLayer
         {
             DropDownListBusniess.Items.Clear();
             string ownerName = Request.Cookies["ActiveUserName"].Value;
-            DropDownListBusniess.Items.AddRange(BusinessController.GetAllBusnisesId(ownerName));
+            Users_Owner ou = UserController.GetOwner(ownerName);
+            DropDownListBusniess.Items.AddRange(ou.GetBusinesses());
         }
+
         public void BtnSearch_Click(object sender, EventArgs e)
         {
-            SearchByBusnies();
+            SearchByBusiness();
         }
-        public void SearchByBusnies()
+        
+        public void SearchByBusiness()
         {
-            string Busniess = DropDownListBusniess.SelectedValue;
-            GridVresults.DataSource = CouponController.GetCouponsByBusniess(Busniess);
+            Business bus = BusinessController.GetBusiness(DropDownListBusniess.SelectedValue);
+            GridVresults.DataSource = bus.GetCoupons();
             GridVresults.DataBind();
         }
 
@@ -58,7 +61,7 @@ namespace CouponsOnline.PresentationLayer
                     MessageBox.Show("can't remove coupon- already been Purchase");
                 GridVresults.DataSource = null;
                 GridVresults.DataBind();
-                SearchByBusnies();
+                SearchByBusiness();
             }
             else
             {
@@ -147,7 +150,7 @@ namespace CouponsOnline.PresentationLayer
             home.Visible = true;
            
             EditCoupon.Visible = false;
-            SearchByBusnies();
+            SearchByBusiness();
 
         }
 

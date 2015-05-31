@@ -22,17 +22,9 @@ namespace CouponsOnline.BusinessLayer.Controllers
                 desc, datee,maxNum, interestt);
         }
 
-        public static object GetCouponsByBusniess(string Busniess)
-        {
-            return CouponDataAccess.GetCouponsByBusniess(Busniess);
-        }
-
         public static DataTable FindCoupons(string city, List<ListItem> selectedInterests, double coordinateX, double coordinateY,int category)
         {
             DataTable table = new DataTable();
-            DataTable t1 = new DataTable();
-            DataTable t2 = new DataTable();
-            DataTable t3 = new DataTable();
             //without Gps 
             if (city != "" & category!=0)
             {
@@ -46,25 +38,13 @@ namespace CouponsOnline.BusinessLayer.Controllers
             else  if (coordinateX != 0 && coordinateY != 0)
                 table = CouponDataAccess.GetCouponsByGps(coordinateX, coordinateY);
 
-          /*  table = t1.Clone();
-
-            foreach (var DataRow in t2.Rows)
-            {
-                table.Rows.Add(DataRow);
-            }
-            foreach (var DataRow in t3.Rows)
-            {
-                table.Rows.Add(DataRow);
-            }*/
-
+        
             return table;
         }
         public static bool removeCoupon(string CoponId)
         {
             return CouponDataAccess.RemoveCoupon(CoponId);
         }
-
-
 
         public static bool EditCoupon(int copId, string p1, double p2, double p3, string p4, string p5, int mdp, List<ListItem> selected)
         {

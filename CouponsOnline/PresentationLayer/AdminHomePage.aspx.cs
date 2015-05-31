@@ -47,8 +47,8 @@ namespace CouponsOnline.PresentationLayer
         private void LoadCities()
         {
             DropDownListCities.Items.Clear();
-            DropDownListCities.Items.AddRange(BusinessController.GetAllCites());
-            DropDownListCities1.Items.AddRange(BusinessController.GetAllCites());
+            DropDownListCities.Items.AddRange(Controller.GetAllCites());
+            DropDownListCities1.Items.AddRange(Controller.GetAllCites());
         }
 
         private void LoadUsers()
@@ -70,8 +70,8 @@ namespace CouponsOnline.PresentationLayer
         private void LoadCategories()
         {
             DropDownListCategories.Items.Clear();
-            DropDownListCategories.Items.AddRange(BusinessController.GetAllCategories());
-            DropDownListCategories1.Items.AddRange(BusinessController.GetAllCategories());
+            DropDownListCategories.Items.AddRange(Controller.GetAllCategories());
+            DropDownListCategories1.Items.AddRange(Controller.GetAllCategories());
         }
 
         protected void BtnAddBusiness_Click(object sender, EventArgs e)
@@ -87,13 +87,13 @@ namespace CouponsOnline.PresentationLayer
         }
         protected void BtnAddCategory_Click(object sender, EventArgs e)
         {
-            BusinessController.CreateCategory(TextBoxCat.Text);          
+            Controller.CreateCategory(TextBoxCat.Text);          
             LoadCategories();
             
         }
         protected void BtnAddCity_Click(object sender, EventArgs e)
         {
-            BusinessController.AddCity(TextBoxCity.Text);          
+            Controller.CreateCity(TextBoxCity.Text);          
             LoadCities();
             
         }
@@ -108,7 +108,8 @@ namespace CouponsOnline.PresentationLayer
         {
             DropDownListBusniess.Items.Clear();
             string ownerName = DropDownListOwnersAdd.SelectedValue;
-            DropDownListBusniess.Items.AddRange(BusinessController.GetAllBusnisesId(ownerName));
+            Users_Owner ou = UserController.GetOwner(ownerName);
+            DropDownListBusniess.Items.AddRange(ou.GetBusinesses());
             //DropDownListBusniess_SelectedIndexChanged(null, null);
         }
 
@@ -138,8 +139,8 @@ namespace CouponsOnline.PresentationLayer
                 Business b = BusinessController.GetBusiness(DropDownListBusniess.SelectedValue);
                 TextBoxAddress1.Text = b.Address;
                 TextBoxBusinessName1.Text = b.Name;
-                DropDownListCities1.SelectedValue = BusinessController.Getcity(b.BusinessID);
-                DropDownListCategories1.SelectedValue = BusinessController.GetCategoty(b.BusinessID);
+                DropDownListCities1.SelectedValue = b.City.Name;
+                DropDownListCategories1.SelectedValue = b.BusinessCategory.Description;
             }
        
      

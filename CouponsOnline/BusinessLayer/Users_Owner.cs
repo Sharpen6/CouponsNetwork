@@ -14,7 +14,11 @@ namespace CouponsOnline
         {
             Business b = BusinessDataAccess.FindBusiness(selectedBusiness);
             return CouponDataAccess.CreateCoupon(name, desc, orgprice, discount, b, datee, maxNum, interestt);
+        }
 
+        public ListItem[] GetBusinesses()
+        {
+            return BusinessDataAccess.GetAllBusnisesId(UserName);
         }
     }
 }

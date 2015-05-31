@@ -104,6 +104,11 @@ namespace CouponsOnline.BusinessLayer.Controllers
             return user.AddAuthentication(UserType.Owner);
         }
 
+        public static Users_Owner GetOwner(string name)
+        {
+            return UserDataAccess.FindOwner(name);
+        }
+
         //tested
         public static User GetUser(string userName)
         {

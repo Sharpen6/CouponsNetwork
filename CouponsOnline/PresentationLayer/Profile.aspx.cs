@@ -32,7 +32,7 @@ namespace CouponsOnline.PresentationLayer
                 if (type == UserType.Customer)
                 {
                     DropDownListInterests.Items.Clear();
-                    DropDownListInterests.DataSource = BusinessController.GetAllUserInterests(u.UserName);
+                    DropDownListInterests.DataSource = u.GetInterests();
                     DropDownListInterests.DataTextField = "Text";
                     DropDownListInterests.DataValueField = "Value";
                     DropDownListInterests.DataBind();

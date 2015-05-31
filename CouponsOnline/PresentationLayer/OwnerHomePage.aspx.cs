@@ -90,8 +90,8 @@ namespace CouponsOnline.PresentationLayer
         {
             DropDownListBusniess.Items.Clear();
             string ownerName = Request.Cookies["ActiveUserName"].Value;
-            
-            DropDownListBusniess.Items.AddRange(BusinessController.GetAllBusnisesId(ownerName));
+            Users_Owner ou = UserController.GetOwner(ownerName);
+            DropDownListBusniess.Items.AddRange(ou.GetBusinesses());
             LoadCategory();
         }
 
@@ -126,7 +126,7 @@ namespace CouponsOnline.PresentationLayer
         {
             if (TextBoxInterest.Text != "")
             {
-                BusinessController.CreateInterest(DropDownListCategory.SelectedValue, TextBoxInterest.Text);
+                Controller.CreateInterest(DropDownListCategory.SelectedValue, TextBoxInterest.Text);
                 MessageBox.Show("Interest added succesfully!");
                 TextBoxInterest.Text = "";
             }
