@@ -222,5 +222,13 @@
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
+    <AssociationSetMapping Name="Users_CustomerInterest" TypeName="basicModel.Users_CustomerInterest" StoreEntitySet="Users_CustomerInterest">
+      <EndProperty Name="Users_Customer">
+        <ScalarProperty Name="UserName" ColumnName="Users_CustomerInterest_Interest_UserName" />
+      </EndProperty>
+      <EndProperty Name="Interest">
+        <ScalarProperty Name="Id" ColumnName="Interests_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping>

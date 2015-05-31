@@ -9,22 +9,23 @@
     <title></title>
 </head>
 <body>
+    <form id="form1" runat="server">
     <nav>
         <ul class="nav">
             <li>
                 <a href="#!/home" onclick="SwitchTo('home');">Home</a>
             </li>
             <li class="dropdown">
-                <a>Manage Businesses</a>
+                <a href="#!/Manage Businesses">Manage Businesses</a>
                 <ul>
                     <li>
                         <a href="DisplayBusinesses.aspx">Display All</a>
                     </li>
                     <li>
-                        <a onclick="SwitchTo('AddBusiness');">Add Business</a>
+                        <a href="#!/Add Business" onclick="SwitchTo('AddBusiness');">Add Business</a>
                     </li>
                     <li>
-                        <a onclick="SwitchTo('DeleteBusiness');">Delete Business</a>
+                        <a href="#!/Delete Business" onclick="SwitchTo('DeleteBusiness');">Delete Business</a>
                     </li>
                 </ul>
             </li>
@@ -38,6 +39,7 @@
             </li>
             <li class="dropdown">
                 <a onclick="SwitchTo('AddCity');">Add City</a>
+              
             </li>
             <li class="dropdown">
 
@@ -50,7 +52,6 @@
                 </li>
         </ul>
     </nav>
-    <form id="form1" runat="server">
     <div id="home" class="mainBox">
     <h1>welcome!</h1>
     </div>
@@ -58,7 +59,7 @@
         <asp:TextBox ID="TextBoxBusinessName" runat="server" placeholder="Business Name"></asp:TextBox>
         <asp:TextBox ID="TextBoxAddress" Width="45%" runat="server" placeholder="Address"></asp:TextBox>
             <br />Choose City:<asp:DropDownList ID="DropDownListCities" runat="server" placeholder="City"></asp:DropDownList>        
-           <br /> Choose Owner: <asp:DropDownList ID="DropDownListOwners" runat="server" placeholder="Pick Owner"></asp:DropDownList>
+           <br /> Choose Owner: <asp:DropDownList ID="DropDownListOwnersAdd" runat="server" placeholder="Pick Owner"></asp:DropDownList>
           <br />  Choose Category:<asp:DropDownList ID="DropDownListCategories" runat="server" placeholder="Pick Category"></asp:DropDownList>
           <br />  <asp:Button ID="BtnAddBusiness" runat="server" Text="Add Business" onclick="BtnAddBusiness_Click"/>
     </div>
@@ -69,9 +70,17 @@
     <div id="AddCity" class="mainBox">
         <asp:TextBox ID="TextBoxCity" runat="server" placeholder="City Name"></asp:TextBox>
         <asp:Button ID="Button1" runat="server" Text="Add City" onclick="BtnAddCity_Click"/>
+        <h1>Current Cities in DB:</h1>
+        <asp:GridView ID="GridView1" runat="server" DataSourceID="SqlDataSource1" AutoGenerateColumns="False" DataKeyNames="Id">
+                    <Columns>
+                        <asp:BoundField DataField="Id" HeaderText="Id" InsertVisible="False" ReadOnly="True" SortExpression="Id" />
+                        <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
+                    </Columns>
+                </asp:GridView>
+                <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:basicConnectionString %>" SelectCommand="SELECT [Name], [Id] FROM [Cities]"></asp:SqlDataSource>
     </div>
            <div id="DeleteBusiness" class="mainBox">
-           <asp:DropDownList ID="DropDownListOwner" runat="server" placeholder="Pick Owner" AutoPostBack="true" OnSelectedIndexChanged="DropDownListOwner_SelectedIndexChanged"></asp:DropDownList>
+           <asp:DropDownList ID="DropDownListOwnersDelete" runat="server" placeholder="Pick Owner" AutoPostBack="true" OnSelectedIndexChanged="DropDownListOwner_SelectedIndexChanged"></asp:DropDownList>
            <asp:DropDownList id="DropDownListBusniess" runat="server" placeholder="Pick Busniess" autoPostBack="true" OnSelectedIndexChanged="DropDownListBusniess_SelectedIndexChanged"></asp:DropDownList>
                <div id="editBus">
                      <asp:TextBox ID="TextBoxBusinessName1" runat="server" placeholder="Business Name"></asp:TextBox>

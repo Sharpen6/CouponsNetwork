@@ -10,7 +10,7 @@ namespace CouponsOnline.DataLayer
 {
     public class CouponDataAccess
     {
-        public static bool CreateCoupon(string name, string desc, double orgprice, double discount, Business b, string datee, int maxNum, List<ListItem> interestt)
+        public static bool CreateCoupon(string name, string desc, double orgprice, double discount, Business b, string datee, int maxNum, List<string> interestt)
         {
             using (basicEntities be = new basicEntities())
             {
@@ -21,9 +21,9 @@ namespace CouponsOnline.DataLayer
                 cop.DiscountPrice = discount;
                 cop.Business = b;
                 //  cop.Interest = interestt;
-                foreach (ListItem i in interestt)
+                foreach (string i in interestt)
                 {
-                    Interest t = FindInterest(b, i.Value);
+                    Interest t = FindInterest(b, i);
                     be.Entry(t).State = System.Data.Entity.EntityState.Unchanged;
                     cop.Interests.Add(t);
                 }
@@ -55,7 +55,7 @@ namespace CouponsOnline.DataLayer
             }
         }
      
-        internal static DataTable GetCouponsByCity(string city)
+        public static DataTable GetCouponsByCity(string city)
         {
             DataTable table = new DataTable();
 
@@ -93,7 +93,7 @@ namespace CouponsOnline.DataLayer
             return table;
         }
 
-        internal static DataTable GetCouponsByBusniess(string Busniesss)
+        public static DataTable GetCouponsByBusniess(string Busniesss)
         {
             IQueryable<int> bus;
             using (basicEntities be = new basicEntities())
@@ -108,7 +108,7 @@ namespace CouponsOnline.DataLayer
             }
         }
 
-        internal static DataTable GetCouponsByInterest(List<ListItem> selectedInterests)
+        public static DataTable GetCouponsByInterest(List<ListItem> selectedInterests)
         {
             List<string> interests = new List<string>();
             foreach (var item in selectedInterests)
@@ -134,7 +134,7 @@ namespace CouponsOnline.DataLayer
         }
 
 
-        internal static DataTable GetDataTable(List<int> items)
+        public static DataTable GetDataTable(List<int> items)
         {
             using (basicEntities be = new basicEntities())
             {
@@ -170,7 +170,7 @@ namespace CouponsOnline.DataLayer
             }
         }
 
-        internal static bool RemoveCoupon(string CoponId)
+        public static bool RemoveCoupon(string CoponId)
         {
             try
             {
@@ -216,12 +216,12 @@ namespace CouponsOnline.DataLayer
 
 
 
-        internal static DataTable GetCouponsByGps(double coordinateX, double coordinateY)
+        public static DataTable GetCouponsByGps(double coordinateX, double coordinateY)
         {
             throw new NotImplementedException();
         }
 
-        internal static DataTable GetCouponsByCityAndInterest(string city, List<ListItem> selectedInterests)
+        public static DataTable GetCouponsByCityAndInterest(string city, List<ListItem> selectedInterests)
         {
             List<string> interests = new List<string>();
             foreach (var item in selectedInterests)
@@ -247,7 +247,7 @@ namespace CouponsOnline.DataLayer
             return GetDataTable(bus);
         }
 
-        internal static bool EditCoupon(int copId, string p1, double p2, double p3, string p4, string p5, int mdp, List<ListItem> selected)
+        public static bool EditCoupon(int copId, string p1, double p2, double p3, string p4, string p5, int mdp, List<ListItem> selected)
         {
             try
             {
@@ -295,7 +295,7 @@ namespace CouponsOnline.DataLayer
             }
         }
 
-        internal static string FindCoupon(string p)
+        public static string FindCoupon(string p)
         {
             using (basicEntities be = new basicEntities())
             {
@@ -309,7 +309,7 @@ namespace CouponsOnline.DataLayer
             return null;
         }
 
-        internal static ICollection<Interest> findCopInterest(string p)
+        public static ICollection<Interest> findCopInterest(string p)
         {
           using (basicEntities be = new basicEntities())
             {

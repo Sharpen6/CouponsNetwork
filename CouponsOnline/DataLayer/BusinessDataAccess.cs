@@ -42,8 +42,36 @@ namespace CouponsOnline.DataLayer
                 return business;
             }
         }
+        public static int FindCategory(string c)
+        {
+            using (basicEntities be = new basicEntities())
+            {
+                var bus = from b in be.BusinessCategories
+                          where b.Description == c
+                          select b;
+                if (bus.Count() == 0) return 0;
+                BusinessCategories businessCat = bus.First();
 
-        public static BusinessCategories FindCategorybyId(int businessId)
+
+                return businessCat.Id;
+            }
+        }
+
+        public static int FindInterest(int Category, string desription)
+        {
+            using (basicEntities be = new basicEntities())
+            {
+                var bus = from b in be.Interests
+                          where b.Description == desription & b.BusinessCategory.Id == Category
+                          select b;
+                if (bus.Count() == 0) return 0;
+                Interest Interests = bus.First();
+
+
+                return Interests.Id;
+            }
+        }
+        public static BusinessCategories FindCategorybyBusinessId(int businessId)
         {
             using (basicEntities be = new basicEntities())
             {
@@ -57,8 +85,7 @@ namespace CouponsOnline.DataLayer
                 return business.BusinessCategory;
             }
         }
-        
-        
+ 
         public static bool CreateBusiness(string ad, string owner, string address, 
             string name, int categoryID,int cityID)
         {
@@ -80,36 +107,6 @@ namespace CouponsOnline.DataLayer
             }
         }
 
-        public static int FindCategory(string c)
-        {
-            using (basicEntities be = new basicEntities())
-            {
-                var bus = from b in be.BusinessCategories
-                          where b.Description == c
-                          select b;
-                if (bus.Count()==0) return 0;
-                BusinessCategories businessCat = bus.First();
-
-                
-                return businessCat.Id;
-            }
-        }
-   
-        public static int FindInterest(int Category, string desription)
-        {
-            using (basicEntities be = new basicEntities())
-            {
-                var bus = from b in be.Interests
-                          where b.Description == desription & b.BusinessCategory.Id==Category
-                          select b;
-                if (bus.Count() == 0) return 0;
-                Interest Interests = bus.First();
-
-
-                return Interests.Id;
-            }
-        }
-
         public static ListItem[] GetCategories()
         {
             ListItem[] ans;
@@ -124,7 +121,7 @@ namespace CouponsOnline.DataLayer
             ans = new ListItem[bItems.Count];
             foreach (var item in bItems)
             {
-                ans[i++] = new ListItem(item.Description); 
+                ans[i++] = new ListItem(item.Description,item.Id.ToString()); 
             }
             return ans;
         }
@@ -144,7 +141,7 @@ namespace CouponsOnline.DataLayer
             ans = new ListItem[bItems.Count];
             foreach (var item in bItems)
             {
-                ans[i++] = new ListItem(item.Name);
+                ans[i++] = new ListItem(item.Name,item.BusinessID.ToString());
                 ans[i-1].Value = item.BusinessID.ToString();
 
             }
@@ -166,7 +163,8 @@ namespace CouponsOnline.DataLayer
             ans = new ListItem[bItems.Count];
             foreach (var item in bItems)
             {
-                ans[i++] = new ListItem(item.BusinessCategory.Description);
+                ans[i++] = new ListItem(item.BusinessCategory.Description,
+                    item.BusinessCategory.Id.ToString());
             }
                 }
             return ans;
@@ -174,8 +172,6 @@ namespace CouponsOnline.DataLayer
 
         public static List<Business> GetAllBusnisesbyId(string businessOwner)
         {
-            
-         
             using (basicEntities be = new basicEntities())
             {
                 var items = from b in be.Businesses
@@ -186,9 +182,7 @@ namespace CouponsOnline.DataLayer
                 be.SaveChanges();
                 return new List<Business>(items);
             }
-           
-            
-            }
+        }
 
         public static bool DeleteBusiness(int businesid)
         {
@@ -205,7 +199,7 @@ namespace CouponsOnline.DataLayer
         }
            
 
-        internal static bool CreateCategory(string p)
+        public static bool CreateCategory(string p)
         {
             if (FindCategory(p)!=0) return false;
             using (basicEntities be = new basicEntities())
@@ -219,41 +213,31 @@ namespace CouponsOnline.DataLayer
 
         }
 
-        internal static int GetBusinessCategory(string Busniessid)
+        public static ListItem[] GetAllIntrestOfCategory(string Categoryid)
         {
-            using (basicEntities be = new basicEntities())
-            {
-                BusinessCategories Bu = FindCategorybyId(Int32.Parse(Busniessid));
-
-                return Bu.Id;
-                throw new NotImplementedException();
-            }
-        }
-
-        internal static ListItem[] GetCategoryIntrest(int Categoryid)
-        {
-           ListItem[] ans;
+            int catID = Int32.Parse(Categoryid);
+            ListItem[] ans;
             int i = 0;
             List<Interest> bItems;
             using (basicEntities be = new basicEntities())
             {
                 var items = from b in be.Interests
-                            where b.BusinessCategory.Id == Categoryid
+                            where b.BusinessCategory.Id == catID
                             select b;
                 bItems = new List<Interest>(items);
             }
             ans = new ListItem[bItems.Count];
             foreach (var item in bItems)
             {
-                ans[i++] = new ListItem(item.Description);
+                ans[i++] = new ListItem(item.Description,item.Id.ToString());
             }
             return ans;
         }
 
-        internal static bool CreateInterest(string p1, string p2)
+        public static bool CreateInterest(string category, string interestDesc)
         {
-            int Category = FindCategory(p1);
-            if (FindInterest(Category, p2) != 0) return false;
+            int Category = FindCategory(category);
+            if (FindInterest(Category, interestDesc) != 0) return false;
             
             using (basicEntities be = new basicEntities())
             {
@@ -261,7 +245,7 @@ namespace CouponsOnline.DataLayer
 
                 b.BusinessCategory = be.BusinessCategories.Find(Category);
                 be.Entry(b.BusinessCategory).State = System.Data.Entity.EntityState.Unchanged;
-                b.Description = p2;
+                b.Description = interestDesc;
                 be.Interests.Add(b);
                 be.SaveChanges();
                 return true;
@@ -269,7 +253,7 @@ namespace CouponsOnline.DataLayer
             
         }
 
-        internal static int FindCity(string cityName)
+        public static int FindCity(string cityName)
         {
             using (basicEntities be = new basicEntities())
             {
@@ -282,7 +266,7 @@ namespace CouponsOnline.DataLayer
             }
         }
 
-        public static ListItem[] GetCites()
+        public static ListItem[] GetAllCites()
         {
             ListItem[] ans;
             int i = 0;
@@ -296,13 +280,13 @@ namespace CouponsOnline.DataLayer
                 ans = new ListItem[cItems.Count];
                 foreach (var item in cItems)
                 {
-                    ans[i++] = new ListItem(item.Name);
+                    ans[i++] = new ListItem(item.Name,item.Id.ToString());
                 }
             }
             return ans;
         }
 
-        internal static bool CreateCity(string p)
+        public static bool CreateCity(string p)
         {
             if (FindCity(p) != 0) return false;
             using (basicEntities be = new basicEntities())
@@ -316,19 +300,7 @@ namespace CouponsOnline.DataLayer
 
         }
 
-        internal static List<string> GetAllBusinessesID()
-        {
-            List<string> bItems;
-            using (basicEntities be = new basicEntities())
-            {
-                var items = from b in be.Businesses where b.Block==false
-                            select b.Name;
-                bItems = new List<string>(items);
-            }
-            return bItems;
-        }
-
-        internal static string FindBusinessCity(int p)
+        public static string FindBusinessCity(int p)
         {
       
             using (basicEntities be = new basicEntities())
@@ -338,7 +310,7 @@ namespace CouponsOnline.DataLayer
          
         }
 
-        internal static string FindBusinessCategory(int p)
+        public static string FindBusinessCategory(int p)
         {
             using (basicEntities be = new basicEntities())
             {
@@ -346,7 +318,7 @@ namespace CouponsOnline.DataLayer
             }
         }
 
-        internal static bool EditBusiness(int businessId, string address, string name, int categoryID, int cityID)
+        public static bool EditBusiness(int businessId, string address, string name, int categoryID, int cityID)
         {
          
                 using (basicEntities be = new basicEntities())
@@ -361,7 +333,38 @@ namespace CouponsOnline.DataLayer
                 }
        
             }
-
+        
+        public static Users_Owner GetBusinessOwner(string selectedBusiness)
+        {
+            using (basicEntities be = new basicEntities())
+            {
+                var owner = from b in be.Businesses
+                           where b.Name == selectedBusiness
+                           select b.Users_Owner;
+                if (owner.Count() == 0) return null;
+                Users_Owner c = owner.First();
+                return c;
+            }
         }
+        
+        public static ListItem[] GetlAllInterests()
+        {
+            ListItem[] ans;
+            int i = 0;
+            List<Interest> bItems;
+            using (basicEntities be = new basicEntities())
+            {
+                var items = from b in be.Interests
+                            select b;
+                bItems = new List<Interest>(items);
+            }
+            ans = new ListItem[bItems.Count];
+            foreach (var item in bItems)
+            {
+                ans[i++] = new ListItem(item.Description, item.Id.ToString());
+            }
+            return ans;
+        }
+    }
     
 }

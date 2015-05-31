@@ -1,7 +1,8 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,100);
 
 body {
-  background: #305446;
+  background-color:#cccccc;
+  background-image:url("backcity.jpg");
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

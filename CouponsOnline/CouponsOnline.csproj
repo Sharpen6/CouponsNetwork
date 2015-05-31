@@ -92,8 +92,6 @@
     <Content Include="PresentationLayer\css\styleMain.css" />
     <Content Include="PresentationLayer\CustomerHomePage.aspx" />
     <Content Include="PresentationLayer\DisplayBusinesses.aspx" />
-    <Content Include="PresentationLayer\img\bg.png" />
-    <Content Include="PresentationLayer\img\home.png" />
     <Content Include="PresentationLayer\Login.aspx" />
     <Content Include="PresentationLayer\OwnerHomePage.aspx" />
     <Content Include="PresentationLayer\Register.aspx" />
@@ -107,10 +105,12 @@
     <Compile Include="BusinessCategories.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="BusinessLayer\User.cs" />
     <Compile Include="BusinessLayer\Users_Admin.cs" />
     <Compile Include="BusinessLayer\Controllers\BusinessController.cs" />
     <Compile Include="BusinessLayer\Controllers\CouponController.cs" />
     <Compile Include="BusinessLayer\Controllers\UserController.cs" />
+    <Compile Include="BusinessLayer\Users_Customer.cs" />
     <Compile Include="BusinessLayer\Users_Owner.cs" />
     <Compile Include="City.cs">
       <DependentUpon>Model.tt</DependentUpon>

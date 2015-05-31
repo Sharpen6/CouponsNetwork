@@ -12,15 +12,20 @@ namespace CouponsOnline.PresentationLayer
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+                LoadInterest();
         }
-
-        
-
         protected void SendButton_Click(object sender, EventArgs e)
         {
-            List<string> err = UserController.ValidateRegisteration(TextBoxUserName.Text, TextBoxPassword.Text,
-                TextBoxPasswordVal.Text, TextBoxPhoneNum.Text, TextBoxEmail.Text, TextBoxName.Text);
+            List<string> selectedInterests = new List<string>();
+            foreach (ListItem item in DropDownListInterests.Items)
+            {
+                if (item.Selected) selectedInterests.Add(item.Value);
+            }
+
+
+           List<string> err = UserController.ValidateRegisteration(TextBoxUserName.Text, TextBoxPassword.Text,
+                TextBoxPasswordVal.Text, TextBoxPhoneNum.Text, TextBoxEmail.Text, TextBoxName.Text, selectedInterests);
 
 
            if (err.Count>0) {
@@ -36,12 +41,17 @@ namespace CouponsOnline.PresentationLayer
                {
                    case 0:
                        if (UserController.CreateNewCustomer(TextBoxUserName.Text, TextBoxName.Text,
-                           TextBoxPassword.Text, TextBoxPhoneNum.Text, TextBoxEmail.Text))
+                           TextBoxPassword.Text, TextBoxPhoneNum.Text, TextBoxEmail.Text, selectedInterests))
                        {
                            ClientScript.RegisterStartupScript(
-                   this.GetType(), "myalert", "alert('Your account have been created!');", true);
+                   this.GetType(), "myalert", "alert('Your account has been created!');", true);
                            Response.Redirect("Login.aspx");
 
+                       }
+                       else
+                       {
+                           ClientScript.RegisterStartupScript(
+                   this.GetType(), "myalert", "alert('Could not create your account.');", true);
                        }
                        break;
                    case 1:
@@ -49,8 +59,13 @@ namespace CouponsOnline.PresentationLayer
                            TextBoxPassword.Text, TextBoxPhoneNum.Text, TextBoxEmail.Text))
                        {
                            ClientScript.RegisterStartupScript(
-                   this.GetType(), "myalert", "alert('Your account have been created!');", true);
+                   this.GetType(), "myalert", "alert('Your account has been created!');", true);
                            Response.Redirect("Login.aspx");
+                       }
+                       else
+                       {
+                           ClientScript.RegisterStartupScript(
+                   this.GetType(), "myalert", "alert('Could not create your account.');", true);
                        }
                        break;
                    default:
@@ -76,11 +91,36 @@ namespace CouponsOnline.PresentationLayer
         }
         protected void btnCreateUser_Click(object sender, EventArgs e)
         {
-            if (UserController.CreateNewCustomer("user", "sagi", "1234", "054-3134195", "sagibaz@post.bgu.ac.il"))
+            if (UserController.CreateNewCustomer("user", "sagi", "1234", "054-3134195", "sagibaz@post.bgu.ac.il",new List<string>{"1"}))
             {
                 Response.Redirect("Login.aspx");
             }
+        }
+        protected void btnAddInformation_Click(object sender, EventArgs e)
+        {
+            BusinessController.CreateCategory("Pets");
+            BusinessController.CreateCategory("Cars");
+            BusinessController.CreateInterest("Pets", "dogs");
+            BusinessController.CreateInterest("Pets", "cats");
+            UserController.CreateNewCustomer("Sharpy", "Sagi Bazinin", "1234", "054-3391405", "sag@gmail.com", new List<string> { "1" });
+            UserController.CreateNewOwner("itskovitch", "Sveta Itskovich", "1234", "050-5242142", "its@gmail.com");
+            UserController.CreateNewCustomer("yossi32", "Yossi Zaltsman", "1234", "057-7343412", "yos@gmail.com", new List<string> { "2" });
+            UserController.CreateNewAdmin("dorin2", "Dorin Shmaryahu", "1234", "057-3441252", "dorin@gmail.com");
+            BusinessController.AddCity("Beer Sheva");
+            BusinessController.AddCity("Tel Aviv");
+            BusinessController.AddCity("Rehovot");
+            BusinessController.CreateBusiness("dorin2", "itskovitch", "Ben gurion 24", "PetSheva shop", "Pets","Beer Sheva");
+            BusinessController.CreateBusiness("dorin2", "itskovitch", "Rager 5", "Cars Inc.", "Cars", "Tel Aviv");
+            CouponController.CreateCoupon("Cheap food for cats!", 30.4, 24.5, "PetSheva shop", "Cheap Food buy now!", "20/10/2015", 2, new List<string> { "cats" });
+        }
 
+        private void LoadInterest()
+        {
+            DropDownListInterests.Items.Clear();
+            DropDownListInterests.DataSource = BusinessController.GetAllInterests();
+            DropDownListInterests.DataTextField = "Text";
+            DropDownListInterests.DataValueField = "Value";
+            DropDownListInterests.DataBind();          
         }
     }
 }

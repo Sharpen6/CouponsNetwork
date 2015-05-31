@@ -16,18 +16,31 @@ namespace CouponsOnline.PresentationLayer
 
         }
 
-        protected void Button1_Click(object sender, EventArgs e)     
+        protected void btnLogin_Click(object sender, EventArgs e)     
         {
-            if (UserController.AuthenticateUser(TextBox1.Text, TextBox2.Text))
-            {
-                UserType type = UserController.GetUserType(TextBox1.Text);
-                HttpCookie activeUser = new HttpCookie("ActiveUserName", TextBox1.Text);
-                activeUser.Expires = DateTime.Now.AddDays(1);
-                Response.Cookies.Add(activeUser);
-                HttpCookie activeDiv = new HttpCookie("ActiveDiv", "home");
-                activeDiv.Expires = DateTime.Now.AddDays(1);
-                Response.Cookies.Add(activeDiv);
+            string username = TextBox1.Text;
+            string password = TextBox2.Text;
+            User user = UserController.GetUser(username);
 
+            if (user!=null && user.AuthenticateUser(password))
+            {
+                UserType type = user.GetUserType();
+
+                //Add login information for this user
+
+                HttpCookie activeUser = new HttpCookie("ActiveUserName", username);
+                HttpCookie activePassword = new HttpCookie("ActivePassword", password);
+                HttpCookie activeDiv = new HttpCookie("ActiveDiv", "home");
+                              
+                activeUser.Expires = DateTime.Now.AddDays(30);
+                activePassword.Expires = DateTime.Now.AddDays(30);
+                activeDiv.Expires = DateTime.Now.AddDays(1);
+
+                Response.Cookies.Add(activePassword);
+                Response.Cookies.Add(activeUser);
+                Response.Cookies.Add(activeDiv);
+                 
+                //
                 switch (type)
                 {
                     case UserType.Customer:
@@ -45,8 +58,8 @@ namespace CouponsOnline.PresentationLayer
             }
             else
             {
-                ClientScript.RegisterStartupScript(
-                this.GetType(), "myalert", "alert('User name/Password is wrong');", true);
+                ClientScript.RegisterStartupScript(this.GetType(), "myalert", 
+                    "alert('User name/Password is wrong');", true);
             }
         }
 

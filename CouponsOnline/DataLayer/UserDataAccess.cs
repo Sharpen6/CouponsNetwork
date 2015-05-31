@@ -4,13 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.UI.WebControls;
 
 namespace CouponsOnline.DataLayer
 {
     public class UserDataAccess
     {
 
-        public static bool isUserPassValid(string username,string password)
+        public static bool CheckCredentials(string username,string password)
         {
             using (basicEntities be = new basicEntities())
             {
@@ -76,7 +77,7 @@ namespace CouponsOnline.DataLayer
             }
             return true;
         }
-        internal static UserType GetAuthentication(string username)
+        public static UserType GetAuthentication(string username)
         {
             using (basicEntities be = new basicEntities())
             {
@@ -91,7 +92,7 @@ namespace CouponsOnline.DataLayer
         }
 
         // Find Users in the system
-        internal static Users_Admin FindAdmin(string ad)
+        public static Users_Admin FindAdmin(string ad)
         {
             using (basicEntities be = new basicEntities())
             {
@@ -99,7 +100,7 @@ namespace CouponsOnline.DataLayer
                 return admin;
             }            
         }
-        internal static Users_Owner FindOwner(string ad)
+        public static Users_Owner FindOwner(string ad)
         {
             using (basicEntities be = new basicEntities())
             {
@@ -107,7 +108,7 @@ namespace CouponsOnline.DataLayer
                 return owner;
             }
         }
-        internal static Users_Customer FindCustomer(string ad)
+        public static Users_Customer FindCustomer(string ad)
         {
             using (basicEntities be = new basicEntities())
             {
@@ -115,7 +116,7 @@ namespace CouponsOnline.DataLayer
                 return customer;
             }
         }
-        internal static User getUser(string userName)
+        public static User GetUser(string userName)
         {
             using (basicEntities be = new basicEntities())
             {
@@ -123,7 +124,7 @@ namespace CouponsOnline.DataLayer
                 return u;
             }
         }
-        internal static bool changeUser(string UserName, string Name, int PhoneKidumet, int PhoneNum, string Email)
+        public static bool changeUser(string UserName, string Name, int PhoneKidumet, int PhoneNum, string Email)
         {
             using (basicEntities be = new basicEntities())
             {
@@ -137,7 +138,7 @@ namespace CouponsOnline.DataLayer
             }
 
         }
-        internal static bool changeUser(string password,string UserName)
+        public static bool changeUser(string password,string UserName)
         {
             using (basicEntities be = new basicEntities())
             {
@@ -148,17 +149,15 @@ namespace CouponsOnline.DataLayer
             }
 
         }
-        internal static bool deletePassword(string p)
+        public static bool deletePassword(string p)
         {
             using (basicEntities be = new basicEntities())
             {
                 User u = be.Users.Find(p);
-            
-                
                  UserType t= GetAuthentication(u.UserName);
                 if (t==UserType.Owner)
                 {
-                    List<Business> Y = BusinessDataAccess.GetAllBusnisesbyId(u.UserName);
+                  List<Business> Y = BusinessDataAccess.GetAllBusnisesbyId(u.UserName);
                   foreach(Business b in Y  )
                   {
                       b.Block = true;
@@ -170,5 +169,37 @@ namespace CouponsOnline.DataLayer
             }
         }
 
+
+        internal static bool AddInterestsToUser(string UserName, List<string> interests)
+        {
+            using (basicEntities be = new basicEntities())
+            {
+                foreach (var item in interests)
+                {
+                    Interest i =  be.Interests.Find(item);
+                    if (i == null) continue;
+                    be.Entry(i).State = System.Data.Entity.EntityState.Unchanged;
+                    be.Users_Customer.Find(UserName).Interests.Add(i);
+                }
+                be.SaveChanges();    
+            }
+            return true;
+        }
+
+        public static ListItem[] GetUserInterests(string UserName)
+        {
+            ListItem[] ans=null;
+            int i = 0;
+            using (basicEntities be = new basicEntities())
+            {
+                ICollection<Interest> collection = be.Users_Customer.Find(UserName).Interests;
+                ans = new ListItem[collection.Count];
+                foreach (var item in collection)
+	            {
+                    ans[i++] = new ListItem(item.Description, item.Id.ToString());
+	            }
+            }
+            return ans;
+        }
     }
 }

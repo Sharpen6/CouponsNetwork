@@ -1,6 +1,6 @@
 ﻿var menuBar = ["home", "ManageCoupons", "ActiveCoupons", "Purchased",
     "FindCoupon", "ShowBusinesses", "CreateCoupon","AddCity","RemoveCoupon",
-    "AddBusiness", "AddCategory", "AddInterest","DeleteBusiness"];
+    "AddBusiness", "AddCategory", "AddInterest", "DeleteBusiness", "ResetPassword"];
 
 function SwitchTo(divName) {
     if (divName == 'prevDiv')

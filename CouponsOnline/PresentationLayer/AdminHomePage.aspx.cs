@@ -14,13 +14,33 @@ namespace CouponsOnline.PresentationLayer
         
         protected void Page_Load(object sender, EventArgs e)
         {
-            ScriptManager.RegisterStartupScript(this, GetType(), "SwitchTo", "SwitchTo('prevDiv')", true);
-     
-            if (!IsPostBack) {
+
+
+            if (!IsPostBack)
+            {
+                string username = Request.Cookies["ActiveUserName"].Value;
+                string password = Request.Cookies["ActivePassword"].Value;
+                User user = UserController.GetUser(username);
+                if (user != null && user.AuthenticateUser(password) &&
+                    user.GetUserType() == UserType.Admin)
+                {
+                    LoadCategories();
+                    LoadUsers();
+                    LoadCities();
+                    LoadBusiness();
+
+                    ScriptManager.RegisterStartupScript(this, GetType(),
+                        "SwitchTo", "SwitchTo('home')", true);
+                }
+                else
+                    Response.Redirect("Login.aspx");
+            }
+            else
+            {
                 LoadCategories();
-                LoadUsers();
                 LoadCities();
-                LoadBusiness();
+                ScriptManager.RegisterStartupScript(this, GetType(), "SwitchTo",
+                    "SwitchTo('prevDiv')", true);
             }
         }
 
@@ -34,12 +54,15 @@ namespace CouponsOnline.PresentationLayer
         private void LoadUsers()
         {
 
-            DropDownListOwners.Items.Clear(); 
-            DropDownListOwner.Items.Clear();
+            DropDownListOwnersAdd.Items.Clear();
+            DropDownListOwnersDelete.Items.Clear();
+            string[] owners = UserController.GetAllOwners();
+            foreach (var item in owners)
+            {
+                DropDownListOwnersAdd.Items.Add(new ListItem(item));
+                DropDownListOwnersDelete.Items.Add(new ListItem(item));
+            }
 
-            DropDownListOwners.Items.AddRange(UserController.GetAllOwners());
-           
-            DropDownListOwner.Items.AddRange(UserController.GetAllOwners());
         }
 
         private void LoadCategories()
@@ -52,7 +75,7 @@ namespace CouponsOnline.PresentationLayer
         protected void BtnAddBusiness_Click(object sender, EventArgs e)
         {
             string adminUser=Request.Cookies["ActiveUserName"].Value;
-            BusinessController.CreateBusiness(adminUser, DropDownListOwners.SelectedValue, TextBoxAddress.Text,
+            BusinessController.CreateBusiness(adminUser, DropDownListOwnersAdd.SelectedValue, TextBoxAddress.Text,
                 TextBoxBusinessName.Text, DropDownListCategories.SelectedValue, DropDownListCities.SelectedValue);
             LoadBusiness();
         }
@@ -78,7 +101,7 @@ namespace CouponsOnline.PresentationLayer
         private void LoadBusiness()
         {
             DropDownListBusniess.Items.Clear();
-            string ownerName = DropDownListOwner.SelectedValue;
+            string ownerName = DropDownListOwnersAdd.SelectedValue;
             DropDownListBusniess.Items.AddRange(BusinessController.GetAllBusnisesId(ownerName));
             DropDownListBusniess_SelectedIndexChanged(null, null);
         }

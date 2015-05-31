@@ -13,26 +13,31 @@ namespace CouponsOnline.PresentationLayer
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           // 
-
-            ScriptManager.RegisterStartupScript(this, GetType(), "SwitchTo", "SwitchTo('prevDiv')", true);
-
-
-            LoadInterest();
             if (!this.IsPostBack)
+            {                
+                string username = Request.Cookies["ActiveUserName"].Value;
+                string password = Request.Cookies["ActivePassword"].Value;
+                User user = UserController.GetUser(username);
+                if (user != null && user.AuthenticateUser(password) &&
+                    user.GetUserType() == UserType.Owner)
+                {
+                    LoadBusiness();
+                    DropDownListBusniess.SelectedIndex = 0;
+                    LoadCategory();
+                    ScriptManager.RegisterStartupScript(this, GetType(), "SwitchTo",
+                   "SwitchTo('home')", true);
+                }
+                else
+                {
+                    Response.Redirect("Login.aspx");
+                }
+            }
+            else
             {
-                LoadBusiness();
-                DropDownListBusniess.SelectedIndex = 0;
-                LoadCategory();
-                //rgvStartDate.MinimumValue = DateTime.Now.ToString("d");
-                //rgvStartDate.MaximumValue = DateTime.Now.Date.AddDays(300.0).ToString("d");
-                HttpCookie usernameCookie = Request.Cookies["ActiveUserName"];
-                string userName = usernameCookie.Value;
-                //if (Request.Cookies["ActiveUserName"] != null)
-                //    Response.Redirect("Login.aspx");
-            }            
-          //  if (BusinessController.UserHasBusiness(userName))
-             //   Response.Redirect("CreateBusiness.aspx");
+                LoadInterest();
+                ScriptManager.RegisterStartupScript(this, GetType(), "SwitchTo", 
+                    "SwitchTo('prevDiv')", true);
+            }
         }
 
         protected void BtnCreateCoupon_Click(object sender, EventArgs e)
@@ -63,10 +68,10 @@ namespace CouponsOnline.PresentationLayer
                 MessageBox.Show("Experation Date is Wrong ");
                 return;
             }
-            List<ListItem> selected = new List<ListItem>();
+            List<string> selected = new List<string>();
             foreach (ListItem item in DropDownListInterests.Items)
-                if (item.Selected) selected.Add(item);
-            CouponController.CreateCoupon(TextBoxName.Text, orgPrice, newPrice, usernameCookie.Value,
+                if (item.Selected) selected.Add(item.Value);
+            CouponController.CreateCoupon(TextBoxName.Text, orgPrice, newPrice,
                 selectedBusiness, TextBoxDesc.Text, TextBoxExp.Text, mdp, selected);
             MessageBox.Show("Coupon " + TextBoxName.Text + " added successfully!");
             TextBoxName.Text="";
@@ -101,12 +106,13 @@ namespace CouponsOnline.PresentationLayer
         {
             DropDownListInterests.Items.Clear();
             string Busniessid = DropDownListBusniess.SelectedValue;
-            if (Busniessid != "") {
+            if (Busniessid != "")
+            {
                 int Categoryid = BusinessController.FindBusinessCategory(Busniessid);
             //DropDownListInterests.Items.AddRange(BusinessController.GetAllCategoryIntrest(Categoryid));
-                DropDownListInterests.DataSource = BusinessController.GetAllCategoryIntrest(Categoryid);
+                DropDownListInterests.DataSource = BusinessController.GetAllCategoryInterests(Categoryid.ToString());
                 DropDownListInterests.DataBind();
-                }
+            }
         }
 
      
@@ -120,7 +126,7 @@ namespace CouponsOnline.PresentationLayer
         {
             if (TextBoxInterest.Text != "")
             {
-                BusinessController.createInterest(DropDownListCategory.SelectedValue, TextBoxInterest.Text);
+                BusinessController.CreateInterest(DropDownListCategory.SelectedValue, TextBoxInterest.Text);
                 MessageBox.Show("Interest added succesfully!");
                 TextBoxInterest.Text = "";
             }

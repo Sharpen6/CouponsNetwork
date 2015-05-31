@@ -17,12 +17,12 @@ namespace CouponsOnline.BusinessLayer.Controllers
         }
 
 
-        public static bool CreateBusiness(string ad, string owner, string address, 
-            string name, string c,string cityName)
+        public static bool CreateBusiness(string ad, string owner, string address,
+            string name, string category, string cityName)
         {
             Users_Admin admin = UserDataAccess.FindAdmin(ad);
             //Users_Admin admin = UserDataAccess.FindAdmin(ad);
-            return admin.CreateBusiness(owner, address, name, c, cityName);
+            return admin.CreateBusiness(owner, address, name, category, cityName);
         }
         public static ListItem[] GetAllBusnisesId(string ownerName)
         {
@@ -39,70 +39,83 @@ namespace CouponsOnline.BusinessLayer.Controllers
             return BusinessDataAccess.GetCategories();
         }
 
-        internal static bool CreateCategory(string p)
+        public static bool CreateCategory(string p)
         {
             if (p=="") return false;
             return BusinessDataAccess.CreateCategory(p);
         }
 
-        internal static int FindBusinessCategory(string Busniessid)
+        public static int FindBusinessCategory(string Busniessid)
         {
-            return BusinessDataAccess.GetBusinessCategory(Busniessid);
+            return BusinessDataAccess.FindCategorybyBusinessId(Int32.Parse(Busniessid)).Id;
         }
 
-        internal static ListItem[] GetAllCategoryIntrest(int Categoryid)
+        public static ListItem[] GetAllCategoryInterests(string Categoryid)
         {
-            return BusinessDataAccess.GetCategoryIntrest(Categoryid);
+            return BusinessDataAccess.GetAllIntrestOfCategory(Categoryid);
         }
 
-        internal static bool createInterest(string p1, string p2)
+        public static bool CreateInterest(string category, string interestDesc)
         {
-            if (p2 == "") return false;
-            return BusinessDataAccess.CreateInterest(p1,p2);
+            if (interestDesc == "") return false;
+            return BusinessDataAccess.CreateInterest(category, interestDesc);
         }
 
-        internal static ListItem[] GetAllCites()
+        public static ListItem[] GetAllCites()
         {
-            return BusinessDataAccess.GetCites();
+            return BusinessDataAccess.GetAllCites();
         }
 
-        internal static bool AddCity(string p)
+        public static bool AddCity(string p)
         {
             if (p == "") return false;
             return BusinessDataAccess.CreateCity(p);
         }
-        internal static ListItem[] GetAllInterests(string categoryName)
-        {
-            int Categoryid = BusinessDataAccess.FindCategory(categoryName);
-            return BusinessDataAccess.GetCategoryIntrest(Categoryid);
-        }
 
-        internal static bool deleteBusiness(int p)
+        public static bool deleteBusiness(int p)
         {
            return BusinessDataAccess.DeleteBusiness(p);
              
         }
 
-        internal static Business findBusinessById(string p)
+        public static Business findBusinessById(string p)
         {
             return BusinessDataAccess.FindBusiness( Int32.Parse(p));
         }
 
-        internal static string Getcity(int p)
+        public static string Getcity(int p)
         {
             return BusinessDataAccess.FindBusinessCity(p);
         }
 
-        internal static string GetCategoty(int p)
+        public static string GetCategoty(int p)
         {
             return BusinessDataAccess.FindBusinessCategory(p);
         }
 
-        internal static void EditBusniess(string ad, int businessId, string address, string name, string category, string city)
+        public static void EditBusniess(string ad, int businessId, string address, string name, string category, string city)
         {
             Users_Admin admin = UserDataAccess.FindAdmin(ad);
             //Users_Admin admin = UserDataAccess.FindAdmin(ad);
              admin.EditBusiness(businessId, address, name, category, city);
+        }
+
+        public static ListItem[] GetAllInterests()
+        {
+            return BusinessDataAccess.GetlAllInterests();
+        }
+
+        public static ListItem[] GetAllUserInterests(string p)
+        {
+            ListItem[] all = GetAllInterests();
+            ListItem[] user = UserDataAccess.GetUserInterests(p);
+
+            foreach (var item in all)
+            {
+                if (user.Contains(item))
+                    item.Selected = true;
+            }
+            return all;
         }
     }
 

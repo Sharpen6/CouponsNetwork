@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CouponsOnline.BusinessLayer.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,12 +12,25 @@ namespace CouponsOnline.PresentationLayer
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+
             if (!IsPostBack)
-                ScriptManager.RegisterStartupScript(this, GetType(), 
-                    "SwitchTo", "SwitchTo('home')", true);
+            {
+                string username = Request.Cookies["ActiveUserName"].Value;
+                string password = Request.Cookies["ActivePassword"].Value;
+                User user = UserController.GetUser(username);
+                if (user != null && user.AuthenticateUser(password) &&
+                    user.GetUserType()==UserType.Customer)
+                {
+
+                    ScriptManager.RegisterStartupScript(this, GetType(),
+                        "SwitchTo", "SwitchTo('home')", true);
+                }
+                else
+                    Response.Redirect("Login.aspx");
+            }
             else
             {
-                ScriptManager.RegisterStartupScript(this, GetType(), 
+                ScriptManager.RegisterStartupScript(this, GetType(),
                     "SwitchTo", "SwitchTo('prevDiv')", true);
             }
         }

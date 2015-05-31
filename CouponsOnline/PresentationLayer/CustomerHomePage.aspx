@@ -17,24 +17,13 @@
                     <a href="#!/home" onclick="SwitchTo('home');">Home</a>
                 </li>
                 <li class="dropdown">
-                    <a href="CustomerCoupons.aspx">Manage</a>
-                    <ul>
-                        <li>
-                            <a href="CustomerCoupons.aspx">My Coupons</a>
-                        </li>
-                        <li>
-                            <a href="CustomerDetails.aspx">My Profile</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
                     <a href="SearchCoupon.aspx">Search</a>
                     <ul>
                         <li>
                             <a href="SearchCoupon.aspx">Coupons</a>  
                         </li>
                         <li>
-                            <a href="SearchBusiness.aspx">Business</a>  
+                            <a href="DisplayBusinesses.aspx">Business</a>  
                         </li>
                     </ul>                 
                 </li>

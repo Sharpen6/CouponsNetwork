@@ -29,16 +29,21 @@
                     <asp:BulletedList ID="BLerrors" runat="server" ForeColor="Maroon" Font-Size="Small">
                     </asp:BulletedList>
                     
-                    
+                    Choose Your Interests:
+             <asp:checkboxlist id="DropDownListInterests" SelectMethod="" runat="server" SelectionMode="Multiple" Width="500" />
+         
         <br />
         <br />
         <asp:Button ID="btnCreateAdmin" runat="server" Text="dbg: create admin (usr:admin pass:1234)" OnClick="btnCreateAdmin_Click" />
-        <p>
-            <asp:Button ID="btnCreateOwner" runat="server" Text="dbg: create owner (usr:owner pass:1234)" OnClick="btnCreateOwner_Click" />
-        </p>
-        <p>
-            <asp:Button ID="btnCreateUser" runat="server" OnClick="btnCreateUser_Click" Text="dbg: create user (usr:user pass:1234)" />
-        </p>
+            <p>
+                <asp:Button ID="btnCreateOwner" runat="server" Text="dbg: create owner (usr:owner pass:1234)" OnClick="btnCreateOwner_Click" />
+            </p>
+            <p>
+                <asp:Button ID="btnCreateUser" runat="server" OnClick="btnCreateUser_Click" Text="dbg: create user (usr:user pass:1234)" />
+            </p>
+            <p>
+                <asp:Button ID="btnAddInformation" runat="server" OnClick="btnAddInformation_Click" Text="dbg: Add demonstration information" />
+            </p>
             </div>
     </form>
 </body>

@@ -66,8 +66,8 @@ namespace CouponsOnline
         private void LoadInterest()
         {
             DropDownListInterests.Items.Clear();
-
-            DropDownListInterests.DataSource = BusinessController.GetAllInterests(DropDownListCategory.SelectedValue);
+            DropDownListInterests.DataSource = 
+                BusinessController.GetAllCategoryInterests(DropDownListCategory.SelectedValue);
             DropDownListInterests.DataBind();
             foreach (ListItem item in DropDownListInterests.Items)
             {

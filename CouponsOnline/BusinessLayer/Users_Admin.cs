@@ -9,14 +9,15 @@ namespace CouponsOnline
     public partial class Users_Admin
     {
         public bool CreateBusiness(string owner, string address,
-            string name, string c, string cityName)
+            string name, string category, string cityName)
         {
             int cityID = BusinessDataAccess.FindCity(cityName);
-            int categoryID = BusinessDataAccess.FindCategory(c);
+            int categoryID = BusinessDataAccess.FindCategory(category);
             return BusinessDataAccess.CreateBusiness(this.UserName, owner, address, name, categoryID, cityID);
         }
 
-        internal bool EditBusiness(int businessId, string address, string name, string category, string city)
+        public bool EditBusiness(int businessId, string address,
+            string name, string category, string city)
         {
             int cityID = BusinessDataAccess.FindCity(city);
             int categoryID = BusinessDataAccess.FindCategory(category);

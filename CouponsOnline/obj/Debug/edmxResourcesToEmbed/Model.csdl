@@ -86,6 +86,10 @@
       <End Role="BusinessCategories" EntitySet="BusinessCategories" />
       <End Role="Interest" EntitySet="Interests" />
     </AssociationSet>
+    <AssociationSet Name="Users_CustomerInterest" Association="basicModel.Users_CustomerInterest">
+      <End Role="Users_Customer" EntitySet="Users_Customer" />
+      <End Role="Interest" EntitySet="Interests" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Business">
     <Key>
@@ -187,6 +191,7 @@
     <NavigationProperty Name="OrderedCoupons" Relationship="basicModel.Users_CustomerOrderedCoupon" FromRole="Users_Customer" ToRole="OrderedCoupon" />
     <NavigationProperty Name="RecommendedCoupons" Relationship="basicModel.Users_CustomerRecommendedCoupon" FromRole="Users_Customer" ToRole="RecommendedCoupon" />
     <NavigationProperty Name="Sensors" Relationship="basicModel.SensorUsers_Customer" FromRole="Users_Customer" ToRole="Sensor" />
+    <NavigationProperty Name="Interests" Relationship="basicModel.Users_CustomerInterest" FromRole="Users_Customer" ToRole="Interest" />
   </EntityType>
   <EntityType Name="Users_Owner">
     <Key>
@@ -363,6 +368,10 @@
   </Association>
   <Association Name="BusinessCategoriesInterest">
     <End Type="basicModel.BusinessCategories" Role="BusinessCategories" Multiplicity="1" />
+    <End Type="basicModel.Interest" Role="Interest" Multiplicity="*" />
+  </Association>
+  <Association Name="Users_CustomerInterest">
+    <End Type="basicModel.Users_Customer" Role="Users_Customer" Multiplicity="*" />
     <End Type="basicModel.Interest" Role="Interest" Multiplicity="*" />
   </Association>
 </Schema>

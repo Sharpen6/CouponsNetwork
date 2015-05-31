@@ -10,24 +10,24 @@ namespace CouponsOnline.BusinessLayer.Controllers
 {
     public class CouponController
     {
-        internal static DataTable GetCouponsByCity(string city)
+        public static DataTable GetCouponsByCity(string city)
         {
             return CouponDataAccess.GetCouponsByCity(city);
         }
-        public static bool CreateCoupon(string name, double orgprice, double discount, string user,
-            string selectedBusiness, string desc, string datee, int maxNum, List<ListItem> interestt)
+        public static bool CreateCoupon(string name, double orgprice, double discount,
+            string selectedBusiness, string desc, string datee, int maxNum, List<string> interestt)
         {
-            Users_Owner owner = UserDataAccess.FindOwner(user);
+            Users_Owner owner = BusinessDataAccess.GetBusinessOwner(selectedBusiness);
             return owner.CreateCoupon(name, orgprice, discount, selectedBusiness,
                 desc, datee,maxNum, interestt);
         }
 
-        internal static object GetCouponsByBusniess(string Busniess)
+        public static object GetCouponsByBusniess(string Busniess)
         {
             return CouponDataAccess.GetCouponsByBusniess(Busniess);
         }
 
-        internal static DataTable FindCoupons(string city, List<ListItem> selectedInterests, double coordinateX, double coordinateY,int category)
+        public static DataTable FindCoupons(string city, List<ListItem> selectedInterests, double coordinateX, double coordinateY,int category)
         {
             DataTable table = new DataTable();
             DataTable t1 = new DataTable();
@@ -59,24 +59,24 @@ namespace CouponsOnline.BusinessLayer.Controllers
 
             return table;
         }
-        internal static bool removeCoupon(string CoponId)
+        public static bool removeCoupon(string CoponId)
         {
             return CouponDataAccess.RemoveCoupon(CoponId);
         }
 
 
 
-        internal static bool EditCoupon(int copId, string p1, double p2, double p3, string p4, string p5, int mdp, List<ListItem> selected)
+        public static bool EditCoupon(int copId, string p1, double p2, double p3, string p4, string p5, int mdp, List<ListItem> selected)
         {
             return CouponDataAccess.EditCoupon( copId,  p1,  p2,  p3,  p4,  p5,  mdp, selected);
         }
 
-        internal static string FindCouponExpDate(string p)
+        public static string FindCouponExpDate(string p)
         {
             return CouponDataAccess.FindCoupon(p);
         }
 
-        internal static ICollection<Interest> FindCopInterest(string p)
+        public static ICollection<Interest> FindCopInterest(string p)
         {
             return CouponDataAccess.findCopInterest(p);
         }

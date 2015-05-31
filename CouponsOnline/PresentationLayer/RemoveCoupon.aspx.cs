@@ -94,7 +94,7 @@ namespace CouponsOnline.PresentationLayer
             {
                 int Categoryid = BusinessController.FindBusinessCategory(Busniessid);
                 //DropDownListInterests.Items.AddRange(BusinessController.GetAllCategoryIntrest(Categoryid));
-                DropDownListInterests.DataSource = BusinessController.GetAllCategoryIntrest(Categoryid);
+                DropDownListInterests.DataSource = BusinessController.GetAllCategoryInterests(Categoryid.ToString());
                 DropDownListInterests.DataBind();
             }
         }

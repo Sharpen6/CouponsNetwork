@@ -13,7 +13,7 @@ namespace UnitTestProject.ControllersTests
         public void ValidateRegisterationTest()
         {
             List<string> test = UserController.ValidateRegisteration("mash123mash", 
-                "123", "1234", "054-31313", "saban,gmail.com", "boom");
+                "123", "1234", "054-31313", "saban,gmail.com", "boom",new List<string>{"pets"});
             int errors = 0;
             foreach (var item in test)
             {
@@ -41,7 +41,5 @@ namespace UnitTestProject.ControllersTests
             }
             Assert.AreEqual(111,errors);
         }
-
-
     }
 }

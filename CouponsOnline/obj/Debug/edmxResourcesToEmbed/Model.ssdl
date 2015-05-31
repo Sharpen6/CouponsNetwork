@@ -15,6 +15,7 @@
     <EntitySet Name="Cities" EntityType="basicModel.Store.Cities" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Locations" EntityType="basicModel.Store.Locations" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="InterestCoupon" EntityType="basicModel.Store.InterestCoupon" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users_CustomerInterest" EntityType="basicModel.Store.Users_CustomerInterest" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FK_BusinessCoupon" Association="basicModel.Store.FK_BusinessCoupon">
       <End Role="Business" EntitySet="Businesses" />
       <End Role="Coupon" EntitySet="Coupons" />
@@ -90,6 +91,14 @@
     <AssociationSet Name="BusinessCategoriesInterest" Association="basicModel.Store.BusinessCategoriesInterest">
       <End Role="BusinessCategories" EntitySet="BusinessCategories" />
       <End Role="Interest" EntitySet="Interests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_CustomerInterest_Users_Customer" Association="basicModel.Store.FK_Users_CustomerInterest_Users_Customer">
+      <End Role="Users_Customer" EntitySet="Users_Customer" />
+      <End Role="Users_CustomerInterest" EntitySet="Users_CustomerInterest" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_CustomerInterest_Interest" Association="basicModel.Store.FK_Users_CustomerInterest_Interest">
+      <End Role="Interest" EntitySet="Interests" />
+      <End Role="Users_CustomerInterest" EntitySet="Users_CustomerInterest" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Businesses">
@@ -220,6 +229,14 @@
     </Key>
     <Property Name="Interests_Id" Type="int" Nullable="false" />
     <Property Name="Coupons_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users_CustomerInterest">
+    <Key>
+      <PropertyRef Name="Users_CustomerInterest_Interest_UserName" />
+      <PropertyRef Name="Interests_Id" />
+    </Key>
+    <Property Name="Users_CustomerInterest_Interest_UserName" Type="varchar" Nullable="false" MaxLength="500" />
+    <Property Name="Interests_Id" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="FK_BusinessCoupon">
     <End Role="Business" Type="basicModel.Store.Businesses" Multiplicity="1" />
@@ -452,6 +469,30 @@
       </Principal>
       <Dependent Role="InterestCoupon">
         <PropertyRef Name="Coupons_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_CustomerInterest_Users_Customer">
+    <End Role="Users_Customer" Type="basicModel.Store.Users_Customer" Multiplicity="1" />
+    <End Role="Users_CustomerInterest" Type="basicModel.Store.Users_CustomerInterest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users_Customer">
+        <PropertyRef Name="UserName" />
+      </Principal>
+      <Dependent Role="Users_CustomerInterest">
+        <PropertyRef Name="Users_CustomerInterest_Interest_UserName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_CustomerInterest_Interest">
+    <End Role="Users_CustomerInterest" Type="basicModel.Store.Users_CustomerInterest" Multiplicity="*" />
+    <End Role="Interest" Type="basicModel.Store.Interests" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Interest">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Users_CustomerInterest">
+        <PropertyRef Name="Interests_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

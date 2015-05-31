@@ -49,13 +49,13 @@ namespace CouponsOnline.PresentationLayer {
         protected global::System.Web.UI.WebControls.DropDownList DropDownListCities;
         
         /// <summary>
-        /// DropDownListOwners control.
+        /// DropDownListOwnersAdd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownListOwners;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListOwnersAdd;
         
         /// <summary>
         /// DropDownListCategories control.
@@ -112,13 +112,31 @@ namespace CouponsOnline.PresentationLayer {
         protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
-        /// DropDownListOwner control.
+        /// GridView1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownListOwner;
+        protected global::System.Web.UI.WebControls.GridView GridView1;
+        
+        /// <summary>
+        /// SqlDataSource1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
+        
+        /// <summary>
+        /// DropDownListOwnersDelete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListOwnersDelete;
         
         /// <summary>
         /// DropDownListBusniess control.

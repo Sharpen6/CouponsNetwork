@@ -39,7 +39,7 @@ namespace UnitTestProject
             }
             RemoveInterest(interest.Id);
         }
-        public Interest AddInterest()
+        public static Interest AddInterest()
         {
             BusinessCategories bc = TestCategory.AddCategory();
             Interest i = new Interest();
@@ -54,7 +54,7 @@ namespace UnitTestProject
             }
             return i;
         }
-        public void RemoveInterest(int i)
+        public static void RemoveInterest(int i)
         {
             int bcID = 0;
             using (basicEntities be = new basicEntities())

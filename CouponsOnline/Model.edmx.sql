@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/30/2015 00:19:37
+-- Date Created: 05/31/2015 01:17:34
 -- Generated from EDMX file: C:\Users\User\Documents\GitHub\CouponsNetwork\CouponsOnline\Model.edmx
 -- --------------------------------------------------
 
@@ -38,9 +38,6 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_BusinessUsers_Owner]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Businesses] DROP CONSTRAINT [FK_BusinessUsers_Owner];
 GO
-IF OBJECT_ID(N'[dbo].[FK_BusinessCategoriesInterest]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Interests] DROP CONSTRAINT [FK_BusinessCategoriesInterest];
-GO
 IF OBJECT_ID(N'[dbo].[FK_BusinessBusinessCategories]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Businesses] DROP CONSTRAINT [FK_BusinessBusinessCategories];
 GO
@@ -73,6 +70,15 @@ IF OBJECT_ID(N'[dbo].[FK_SensorUsers_Customer]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_SensorCoupon]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Sensors] DROP CONSTRAINT [FK_SensorCoupon];
+GO
+IF OBJECT_ID(N'[dbo].[FK_BusinessCategoriesInterest]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Interests] DROP CONSTRAINT [FK_BusinessCategoriesInterest];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Users_CustomerInterest_Users_Customer]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Users_CustomerInterest] DROP CONSTRAINT [FK_Users_CustomerInterest_Users_Customer];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Users_CustomerInterest_Interest]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Users_CustomerInterest] DROP CONSTRAINT [FK_Users_CustomerInterest_Interest];
 GO
 
 -- --------------------------------------------------
@@ -120,6 +126,9 @@ IF OBJECT_ID(N'[dbo].[Locations]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[InterestCoupon]', 'U') IS NOT NULL
     DROP TABLE [dbo].[InterestCoupon];
+GO
+IF OBJECT_ID(N'[dbo].[Users_CustomerInterest]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Users_CustomerInterest];
 GO
 
 -- --------------------------------------------------
@@ -254,6 +263,13 @@ CREATE TABLE [dbo].[InterestCoupon] (
 );
 GO
 
+-- Creating table 'Users_CustomerInterest'
+CREATE TABLE [dbo].[Users_CustomerInterest] (
+    [Users_CustomerInterest_Interest_UserName] varchar(500)  NOT NULL,
+    [Interests_Id] int  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -340,6 +356,12 @@ GO
 ALTER TABLE [dbo].[InterestCoupon]
 ADD CONSTRAINT [PK_InterestCoupon]
     PRIMARY KEY CLUSTERED ([Interests_Id], [Coupons_Id] ASC);
+GO
+
+-- Creating primary key on [Users_CustomerInterest_Interest_UserName], [Interests_Id] in table 'Users_CustomerInterest'
+ALTER TABLE [dbo].[Users_CustomerInterest]
+ADD CONSTRAINT [PK_Users_CustomerInterest]
+    PRIMARY KEY CLUSTERED ([Users_CustomerInterest_Interest_UserName], [Interests_Id] ASC);
 GO
 
 -- --------------------------------------------------
@@ -590,6 +612,29 @@ ADD CONSTRAINT [FK_BusinessCategoriesInterest]
 CREATE INDEX [IX_FK_BusinessCategoriesInterest]
 ON [dbo].[Interests]
     ([BusinessCategory_Id]);
+GO
+
+-- Creating foreign key on [Users_CustomerInterest_Interest_UserName] in table 'Users_CustomerInterest'
+ALTER TABLE [dbo].[Users_CustomerInterest]
+ADD CONSTRAINT [FK_Users_CustomerInterest_Users_Customer]
+    FOREIGN KEY ([Users_CustomerInterest_Interest_UserName])
+    REFERENCES [dbo].[Users_Customer]
+        ([UserName])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Interests_Id] in table 'Users_CustomerInterest'
+ALTER TABLE [dbo].[Users_CustomerInterest]
+ADD CONSTRAINT [FK_Users_CustomerInterest_Interest]
+    FOREIGN KEY ([Interests_Id])
+    REFERENCES [dbo].[Interests]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_Users_CustomerInterest_Interest'
+CREATE INDEX [IX_FK_Users_CustomerInterest_Interest]
+ON [dbo].[Users_CustomerInterest]
+    ([Interests_Id]);
 GO
 
 -- --------------------------------------------------

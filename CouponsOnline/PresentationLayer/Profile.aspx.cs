@@ -15,16 +15,29 @@ namespace CouponsOnline.PresentationLayer
         {
             if (!IsPostBack)
             {
-                string ownerName = Request.Cookies["ActiveUserName"].Value;
-                User u = UserController.GetUser(ownerName);
+                ScriptManager.RegisterStartupScript(this, GetType(), "SwitchTo",
+              "SwitchTo('home')", true);
+                string currentUser = Request.Cookies["ActiveUserName"].Value;
+                User u = UserController.GetUser(currentUser);
                 TextBoxUserName.Text = u.UserName;
                 TextBoxPassword.Text = u.Password;
                 TextBoxPasswordVal.Text = u.Password;
                 TextBoxName.Text = u.Name;
                 TextBoxPhoneNum.Text = "0"+u.PhoneKidomet.ToString() + "-" + u.PhoneNum.ToString();
                 TextBoxEmail.Text = u.Email;
-                UserType type = UserController.GetUserType(ownerName);
-                HttpCookie activeUser = new HttpCookie("ActiveUserName", ownerName);
+
+                UserType type = u.GetUserType();
+                
+                if (type == UserType.Customer)
+                {
+                    DropDownListInterests.Items.Clear();
+                    DropDownListInterests.DataSource = BusinessController.GetAllUserInterests(u.UserName);
+                    DropDownListInterests.DataBind();
+                }
+
+
+                
+                HttpCookie activeUser = new HttpCookie("ActiveUserName", currentUser);
                 activeUser.Expires = DateTime.Now.AddDays(1);
                 Response.Cookies.Add(activeUser);
                 HttpCookie activeDiv = new HttpCookie("ActiveDiv", "home");
@@ -46,43 +59,90 @@ namespace CouponsOnline.PresentationLayer
                         break;
                 }
             }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "SwitchTo",
+              "SwitchTo('prevDiv')", true);
+            }
         }
 
         //change
         protected void Button1_Click(object sender, EventArgs e)
         {
-          
-             
-                   bool ans= UserController.EditProfile(TextBoxUserName.Text, TextBoxName.Text,
-                         TextBoxPhoneNum.Text, TextBoxEmail.Text);
-                   if (ans)
-                       MessageBox.Show("Profile changed!");
-                   else
-                       MessageBox.Show("something went wrong :(");
-                 
-             
+            string currentUser = Request.Cookies["ActiveUserName"].Value;
+            User u = UserController.GetUser(currentUser);
+
+            UserType type = u.GetUserType();
+            List<string> err = null;
+            List<string> selectedInterests = new List<string>();
+
+            if (type == UserType.Customer)
+            {
+
+                foreach (ListItem item in DropDownListInterests.Items)
+                {
+                    if (item.Selected) selectedInterests.Add(item.Value);
+                }
+                err = UserController.ValidateRegisteration(TextBoxUserName.Text, TextBoxPassword.Text,
+                TextBoxPasswordVal.Text, TextBoxPhoneNum.Text,
+                TextBoxEmail.Text, TextBoxName.Text, selectedInterests);
+            }
+            else
+            {
+                err = UserController.ValidateRegisteration(TextBoxUserName.Text, TextBoxPassword.Text,
+                TextBoxPasswordVal.Text, TextBoxPhoneNum.Text,
+                TextBoxEmail.Text, TextBoxName.Text);
             }
 
+
+
+            if (err.Count > 0)
+            {
+                BLerrors.Items.Clear();
+                foreach (var item in err)
+                {
+                    BLerrors.Items.Add(new ListItem(item));
+                }
+            }
+            else
+            {
+                if (UserController.EditProfile(TextBoxUserName.Text, TextBoxName.Text,
+                          TextBoxPhoneNum.Text, TextBoxEmail.Text, selectedInterests))
+                {
+                    ClientScript.RegisterStartupScript(
+                       this.GetType(), "myalert", "alert('Your account has been edited!');", true);
+                    Response.Redirect("Login.aspx");
+                }
+                else
+                {
+                    ClientScript.RegisterStartupScript(
+                       this.GetType(), "myalert", "alert('Could not edit your account.');", true);
+                }
+            }
+        }
         protected void Button2_Click(object sender, EventArgs e)
         {
-            ResetPassword.Visible = true;
-            profileData.Visible = false;
+            ClientScript.RegisterStartupScript(
+                                   this.GetType(), "myalert", "SwitchTo('ResetPassword');", true);
         }
 
         protected void reset_Click(object sender, EventArgs e)
         {
             if (TextBoxPassword.Text != TextBoxPasswordVal.Text)
             {
-                LabelError.Text = "Passwords doesnt match";
+                ClientScript.RegisterStartupScript(
+                    this.GetType(), "myalert", "alert('Passwords doesnt match');", true);
                 return;
             }
-            bool ans = UserController.EditProfile(TextBoxPassword.Text,TextBoxUserName.Text);
-            if (ans)
-                MessageBox.Show("Password was reset");
+            if (UserController.EditProfile(TextBoxPassword.Text,TextBoxUserName.Text))
+                ClientScript.RegisterStartupScript(
+                    this.GetType(), "myalert", "alert('Your password has been changed');", true);
             else
-                MessageBox.Show("something went wrong :(");
-            ResetPassword.Visible = false;
-            profileData.Visible = true;
+                ClientScript.RegisterStartupScript(
+                    this.GetType(), "myalert", "alert('Could not change your password');", true);
+
+            ClientScript.RegisterStartupScript(
+    this.GetType(), "myalert", "SwitchTo('home');", true);
         }
 
         protected void delete_Click(object sender, EventArgs e)
