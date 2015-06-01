@@ -18,10 +18,7 @@ namespace CouponsOnline.PresentationLayer
             UserType type = u.GetUserType();
             
             if (!IsPostBack)
-            {
-                ScriptManager.RegisterStartupScript(this, GetType(), "SwitchTo",
-              "SwitchTo('home')", true);
-                
+            {                
                 TextBoxUserName.Text = u.UserName;
                 TextBoxPassword.Text = u.Password;
                 TextBoxPasswordVal.Text = u.Password;
@@ -61,10 +58,6 @@ namespace CouponsOnline.PresentationLayer
                     default:
                         break;
                 }
-            } else
-            {
-                ScriptManager.RegisterStartupScript(this, GetType(), "SwitchTo",
-                    "SwitchTo('prevDiv')", true);
             }
         }
         //change
@@ -128,11 +121,6 @@ namespace CouponsOnline.PresentationLayer
                        this.GetType(), "myalert", "alert('Could not edit your account.');", true);
                 }
             }
-        }
-        protected void Button2_Click(object sender, EventArgs e)
-        {
-            ScriptManager.RegisterStartupScript(this, GetType(), "SwitchTo",
-                    "SwitchTo('ResetPassword')", true);
         }
         protected void reset_Click(object sender, EventArgs e)
         {

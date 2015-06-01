@@ -40,10 +40,6 @@
       <End Role="Users_Owner" EntitySet="Users_Owner" />
     </AssociationSet>
     <EntitySet Name="Interests" EntityType="basicModel.Interest" />
-    <AssociationSet Name="BusinessBusinessCategories" Association="basicModel.BusinessBusinessCategories">
-      <End Role="Business" EntitySet="Businesses" />
-      <End Role="BusinessCategories" EntitySet="BusinessCategories" />
-    </AssociationSet>
     <AssociationSet Name="InterestCoupon" Association="basicModel.InterestCoupon">
       <End Role="Interest" EntitySet="Interests" />
       <End Role="Coupon" EntitySet="Coupons" />
@@ -90,6 +86,10 @@
       <End Role="Users_Customer" EntitySet="Users_Customer" />
       <End Role="Interest" EntitySet="Interests" />
     </AssociationSet>
+    <AssociationSet Name="BusinessBusinessCategories" Association="basicModel.BusinessBusinessCategories">
+      <End Role="Business" EntitySet="Businesses" />
+      <End Role="BusinessCategories" EntitySet="BusinessCategories" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Business">
     <Key>
@@ -103,10 +103,9 @@
     <NavigationProperty Name="Sensor" Relationship="basicModel.FK_BusinessLocation" FromRole="Business" ToRole="Location" />
     <NavigationProperty Name="Users_Admin" Relationship="basicModel.Users_AdminBusiness" FromRole="Business" ToRole="Users_Admin" />
     <NavigationProperty Name="Users_Owner" Relationship="basicModel.BusinessUsers_Owner" FromRole="Business" ToRole="Users_Owner" />
-    <NavigationProperty Name="BusinessCategory" Relationship="basicModel.BusinessBusinessCategories" FromRole="Business" ToRole="BusinessCategories" />
-    <Property Name="BusinessCategoriesId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="City" Relationship="basicModel.BusinessCity" FromRole="Business" ToRole="City" />
     <Property Name="Blocked" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="BusinessCategory" Relationship="basicModel.BusinessBusinessCategories" FromRole="Business" ToRole="BusinessCategories" />
   </EntityType>
   <EntityType Name="Coupon">
     <Key>
@@ -271,7 +270,6 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Description" Type="String" Nullable="false" />
-    <NavigationProperty Name="Businesses" Relationship="basicModel.BusinessBusinessCategories" FromRole="BusinessCategories" ToRole="Business" />
     <NavigationProperty Name="Interests" Relationship="basicModel.BusinessCategoriesInterest" FromRole="BusinessCategories" ToRole="Interest" />
   </EntityType>
   <Association Name="Users_AdminBusiness">
@@ -291,18 +289,6 @@
     <NavigationProperty Name="Coupons" Relationship="basicModel.InterestCoupon" FromRole="Interest" ToRole="Coupon" />
     <NavigationProperty Name="BusinessCategory" Relationship="basicModel.BusinessCategoriesInterest" FromRole="Interest" ToRole="BusinessCategories" />
   </EntityType>
-  <Association Name="BusinessBusinessCategories">
-    <End Type="basicModel.Business" Role="Business" Multiplicity="*" />
-    <End Type="basicModel.BusinessCategories" Role="BusinessCategories" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="BusinessCategories">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Business">
-        <PropertyRef Name="BusinessCategoriesId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="InterestCoupon">
     <End Type="basicModel.Interest" Role="Interest" Multiplicity="*" />
     <End Type="basicModel.Coupon" Role="Coupon" Multiplicity="*" />
@@ -372,5 +358,9 @@
   <Association Name="Users_CustomerInterest">
     <End Type="basicModel.Users_Customer" Role="Users_Customer" Multiplicity="*" />
     <End Type="basicModel.Interest" Role="Interest" Multiplicity="*" />
+  </Association>
+  <Association Name="BusinessBusinessCategories">
+    <End Type="basicModel.Business" Role="Business" Multiplicity="*" />
+    <End Type="basicModel.BusinessCategories" Role="BusinessCategories" Multiplicity="1" />
   </Association>
 </Schema>

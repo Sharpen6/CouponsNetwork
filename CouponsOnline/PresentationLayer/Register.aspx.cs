@@ -100,17 +100,18 @@ namespace CouponsOnline.PresentationLayer
         {
             Controller.CreateCategory("Pets");
             Controller.CreateCategory("Cars");
-            Controller.CreateInterest("Pets", "dogs");
-            Controller.CreateInterest("Pets", "cats");
-            UserController.CreateNewCustomer("sagi", "Sagi Bazinin", "123", "054-3391405", "sag@gmail.com", new List<string> { "1" });
+            Controller.CreateInterest(Controller.GetAllCategories().First().Value , "dogs");
+            Controller.CreateInterest(Controller.GetAllCategories().First().Value, "cats");
+            UserController.CreateNewCustomer("sagi", "Sagi Bazinin", "123", "054-3391405", "sag@gmail.com", new List<string> { Controller.GetAllInterests().ElementAt(0).Value });
             UserController.CreateNewOwner("sveta", "Sveta Itskovich", "123", "050-5242142", "its@gmail.com");
-            UserController.CreateNewCustomer("yossi", "Yossi Zaltsman", "123", "057-7343412", "yos@gmail.com", new List<string> { "2" });
+            UserController.CreateNewCustomer("yossi", "Yossi Zaltsman", "123", "057-7343412", "yos@gmail.com", new List<string> { Controller.GetAllInterests().ElementAt(1).Value });
             UserController.CreateNewAdmin("dorin", "Dorin Shmaryahu", "123", "057-3441252", "dorin@gmail.com");
             Controller.CreateCity("Beer Sheva");
             Controller.CreateCity("Tel Aviv");
             Controller.CreateCity("Rehovot");
             ListItem[] cities = Controller.GetAllCites();
             ListItem[] categories = Controller.GetAllCategories();
+            
             foreach (var item in cities)
             {
                 if (item.Text=="Beer Sheva") {
@@ -123,7 +124,8 @@ namespace CouponsOnline.PresentationLayer
 
             }
             ListItem[] interests = Controller.GetAllInterests();
-            CouponController.CreateCoupon("Cheap food for cats!", 30.4, 24.5, "PetSheva shop", "Cheap Food buy now!", "20/10/2015", 2, new List<string> { interests.First().Value});
+            Business b = BusinessController.GetBusiness(UserController.GetOwner("sveta").GetBusinesses().First().Value);
+            b.CreateCoupon("Cheap food for cats!", "30.4", "24.5","Cheap Food buy now!","20/10/2015","2", new List<string> { interests.First().Value});
             Response.Redirect("Login.aspx");
         }
 

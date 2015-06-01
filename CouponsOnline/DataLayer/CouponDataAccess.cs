@@ -11,17 +11,18 @@ namespace CouponsOnline.DataLayer
     public class CouponDataAccess
     {
         public static bool CreateCoupon(string name, string desc,
-            double orgprice, double discount, Business b,
-            string datee, int maxNum, List<string> interests)
+            string orgprice, string discount, Business b,
+            string datee, string maxNum, List<string> interests)
         {
             using (basicEntities be = new basicEntities())
             {
                 Coupon cop = new Coupon();
                 cop.Name = name;
                 cop.Description = desc;
-                cop.OriginalPrice = orgprice;
-                cop.DiscountPrice = discount;
+                cop.OriginalPrice = double.Parse(orgprice);
+                cop.DiscountPrice = double.Parse(discount);
                 cop.Business = b;
+                be.Entry(b).State = System.Data.Entity.EntityState.Unchanged;
                 //  cop.Interest = interestt;
                 foreach (string i in interests)
                 {
@@ -32,7 +33,7 @@ namespace CouponsOnline.DataLayer
                     cop.Interests.Add(t);
                 }
                 cop.ExperationDate = datee;
-                cop.MaxNum = maxNum;
+                cop.MaxNum = int.Parse(maxNum);
                 cop.AvarageRanking = 0;
                 cop.Business_BusinessID = b.BusinessID;
 
@@ -44,7 +45,7 @@ namespace CouponsOnline.DataLayer
                 return true;
             }
         }
-        
+
         public static DataTable GetCouponsByCity(string city)
         {
             DataTable table = new DataTable();
@@ -62,7 +63,7 @@ namespace CouponsOnline.DataLayer
             using (basicEntities be = new basicEntities())
             {
                 var bus = from b in be.Coupons
-                          where b.Business.City.Id.ToString() == city && b.Business.Blocked==false
+                          where b.Business.City.Id.ToString() == city && b.Business.Blocked == false
                           select b;
                 foreach (var item in bus)
                 {
@@ -108,7 +109,7 @@ namespace CouponsOnline.DataLayer
                 {
                     foreach (var interest in item.Interests)
                     {
-                        if (interests.Contains(interest.Description) &item.Business.Blocked==false)
+                        if (interests.Contains(interest.Description) & item.Business.Blocked == false)
                         {
                             bus.Add(item.Id);
                             break;
@@ -167,10 +168,6 @@ namespace CouponsOnline.DataLayer
                     if (be.Coupons.Find(coupinid) != null)
                     {
                         Coupon cop = be.Coupons.Find(coupinid);
-                        //removing course from busniess
-                        // var deletedCourses = dbStudent.Courses.Except(student.Courses, cs => cs.CourseId).ToList<Course>();
-
-                        // deletedCourses.ForEach(cs => dbStudent.Courses.Remove(cs));
                         Business x = cop.Business;
                         var bus = (from b in be.Interests
                                    where b.Coupons.Contains(cop)
@@ -250,8 +247,8 @@ namespace CouponsOnline.DataLayer
 
                         ICollection<Interest> i = cop.Interests;
                         foreach (Interest item in i)
-                        {                        
-                            item.Coupons.Remove(cop); 
+                        {
+                            item.Coupons.Remove(cop);
                         }
                         be.SaveChanges();
                     }
@@ -296,7 +293,7 @@ namespace CouponsOnline.DataLayer
 
         public static ICollection<Interest> findCopInterest(string p)
         {
-          using (basicEntities be = new basicEntities())
+            using (basicEntities be = new basicEntities())
             {
                 int id = Int32.Parse(p);
                 if (be.Coupons.Find(id) != null)
@@ -307,5 +304,14 @@ namespace CouponsOnline.DataLayer
             }
             return null;
         }
+
+        public static Coupon GetCoupon(string id)
+        {
+            using (basicEntities be = new basicEntities())
+            {
+                return be.Coupons.Find(int.Parse(id));
+            }
         }
     }
+}
+

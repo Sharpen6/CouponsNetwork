@@ -89,7 +89,7 @@ namespace CouponsOnline
         {
             DropDownListInterests.Items.Clear();
             DropDownListInterests.DataSource =
-                BusinessController.GetAllCategoryInterests(DropDownListCategory.SelectedValue);
+            Controller.GetAllCategoryInterests(DropDownListCategory.SelectedValue);
             DropDownListInterests.DataTextField = "Text";
             DropDownListInterests.DataValueField = "Value";
             DropDownListInterests.DataBind();

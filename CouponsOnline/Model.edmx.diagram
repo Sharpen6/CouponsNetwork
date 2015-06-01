@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a0148108700a4390b9eda6aa0e3a6280" Name="Diagram1" ZoomLevel="74">
+      <Diagram DiagramId="a0148108700a4390b9eda6aa0e3a6280" Name="Diagram1" ZoomLevel="97">
         <EntityTypeShape EntityType="basicModel.Business" Width="1.5" PointX="5.25" PointY="4.125" />
         <EntityTypeShape EntityType="basicModel.Coupon" Width="1.5" PointX="7.5" PointY="4.125" />
         <EntityTypeShape EntityType="basicModel.Sensor" Width="1.5" PointX="3.875" PointY="0.75" />
@@ -23,7 +23,6 @@
         <AssociationConnector Association="basicModel.Users_AdminBusiness" />
         <AssociationConnector Association="basicModel.BusinessUsers_Owner" />
         <EntityTypeShape EntityType="basicModel.Interest" Width="1.5" PointX="6.625" PointY="0.5" />
-        <AssociationConnector Association="basicModel.BusinessBusinessCategories" />
         <AssociationConnector Association="basicModel.InterestCoupon" />
         <EntityTypeShape EntityType="basicModel.City" Width="1.5" PointX="0.5" PointY="2.625" />
         <AssociationConnector Association="basicModel.BusinessCity" />
@@ -34,13 +33,14 @@
         <AssociationConnector Association="basicModel.Users_CustomerOrderedCoupon" />
         <AssociationConnector Association="basicModel.Users_CustomerRecommendedCoupon" />
         <AssociationConnector Association="basicModel.SensorUsers_Customer" ManuallyRouted="true" >
-          <ConnectorPoint PointX="5.023440703125" PointY="2.7302864583333331" />
-          <ConnectorPoint PointX="5.023440703125" PointY="8.2927071904500345" />
-          <ConnectorPoint PointX="4.25" PointY="8.2927071904500345" />
+          <ConnectorPoint PointX="5.06250125" PointY="2.7302864583333331" />
+          <ConnectorPoint PointX="5.06250125" PointY="8.3580501888020837" />
+          <ConnectorPoint PointX="4.25" PointY="8.3580501888020837" />
         </AssociationConnector>
         <AssociationConnector Association="basicModel.SensorCoupon" />
         <AssociationConnector Association="basicModel.BusinessCategoriesInterest" />
         <AssociationConnector Association="basicModel.Users_CustomerInterest" />
+        <AssociationConnector Association="basicModel.BusinessBusinessCategories" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

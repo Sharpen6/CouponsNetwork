@@ -11,7 +11,8 @@ namespace CouponsOnline.PresentationLayer
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            ScriptManager.RegisterStartupScript(this, GetType(),
+                        "SwitchTo", "SwitchTo('home')", true);
         }
     }
 }

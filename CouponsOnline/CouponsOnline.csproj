@@ -107,6 +107,7 @@
     </Compile>
     <Compile Include="BusinessLayer\Business.cs" />
     <Compile Include="BusinessLayer\Controllers\Controller.cs" />
+    <Compile Include="BusinessLayer\Coupon.cs" />
     <Compile Include="BusinessLayer\User.cs" />
     <Compile Include="BusinessLayer\Users_Admin.cs" />
     <Compile Include="BusinessLayer\Controllers\BusinessController.cs" />

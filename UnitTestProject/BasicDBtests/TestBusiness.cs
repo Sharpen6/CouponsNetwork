@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CouponsOnline;
+using CouponsOnline.BusinessLayer.Controllers;
 
 namespace UnitTestProject
 {
@@ -48,6 +49,29 @@ namespace UnitTestProject
             }
         }
 
+        [TestMethod]
+        public void TestDeactivate()
+        {
+            Business b = AddBusiness();
+            b.Deactivate();
+            Assert.IsNull(BusinessController.GetBusiness(b.BusinessID.ToString()));
+            RemoveBusinesses(b.BusinessID);
+        }
+
+        [TestMethod]
+        public void TestGetCategory()
+        {
+            Business b = AddBusiness();
+            BusinessCategories bc =  TestCategory.AddCategory();
+            City c = TestCity.AddCity();
+            TestCategory.RemoveCategory(bc.Id);
+            TestCity.RemoveCity(c.Id);  
+            b.ChangeDetails("bla", "blag", bc.Id.ToString(), c.Id.ToString());
+            Assert.AreEqual(Controller.GetCategoryDesc(b.GetCategory()), bc.Description);
+            RemoveBusinesses(b.BusinessID);
+        }
+
+
         public static Business AddBusiness(String address = "kalisher 5", string name = "addbusinesstest")
         {
             City city = TestCity.AddCity();
@@ -60,13 +84,12 @@ namespace UnitTestProject
                 b.Users_Admin = admin;
                 b.Users_Owner = owner;
                 b.Address = address;
-                b.Name = name;
-                b.BusinessCategoriesId = bc.Id;
-                b.BusinessCategory = bc;
+                b.Name = name;               
                 be.Entry(admin).State = System.Data.Entity.EntityState.Unchanged;
                 be.Entry(owner).State = System.Data.Entity.EntityState.Unchanged;
                 be.Entry(bc).State = System.Data.Entity.EntityState.Unchanged;
                 be.Entry(city).State = System.Data.Entity.EntityState.Unchanged;
+                b.BusinessCategory = bc;
                 b.City = city;
                 be.Businesses.Add(b);
                 be.SaveChanges();
@@ -84,7 +107,7 @@ namespace UnitTestProject
             {
                 
                 Business BusinessesToRemove = be.Businesses.Find(BusinessID);
-                catID = BusinessesToRemove.BusinessCategoriesId;
+                catID = BusinessesToRemove.BusinessCategory.Id;
                 cityID = BusinessesToRemove.City.Id;
                 owner = BusinessesToRemove.Users_Admin.UserName;
                 admin = BusinessesToRemove.Users_Owner.UserName;

@@ -31,15 +31,6 @@ namespace CouponsOnline.PresentationLayer {
         protected global::System.Web.UI.WebControls.DropDownList DropDownListBusniess;
         
         /// <summary>
-        /// DropDownListInterests control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList DropDownListInterests;
-        
-        /// <summary>
         /// TextBoxName control.
         /// </summary>
         /// <remarks>
@@ -94,22 +85,13 @@ namespace CouponsOnline.PresentationLayer {
         protected global::System.Web.UI.WebControls.TextBox TextBoxExp;
         
         /// <summary>
-        /// BtnCreateCoupon control.
+        /// DropDownListInterests control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnCreateCoupon;
-        
-        /// <summary>
-        /// DropDownListCategory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownListCategory;
+        protected global::System.Web.UI.WebControls.CheckBoxList DropDownListInterests;
         
         /// <summary>
         /// TextBoxInterest control.
@@ -128,5 +110,23 @@ namespace CouponsOnline.PresentationLayer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnAddInterest;
+        
+        /// <summary>
+        /// BLerrors control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.BulletedList BLerrors;
+        
+        /// <summary>
+        /// BtnCreateCoupon control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnCreateCoupon;
     }
 }

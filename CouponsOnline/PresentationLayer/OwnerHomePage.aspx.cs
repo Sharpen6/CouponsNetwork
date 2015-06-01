@@ -23,7 +23,7 @@ namespace CouponsOnline.PresentationLayer
                 {
                     LoadBusiness();
                     DropDownListBusniess.SelectedIndex = 0;
-                    LoadCategory();
+                    LoadInterest();
                     ScriptManager.RegisterStartupScript(this, GetType(), "SwitchTo",
                    "SwitchTo('home')", true);
                 }
@@ -42,80 +42,60 @@ namespace CouponsOnline.PresentationLayer
 
         protected void BtnCreateCoupon_Click(object sender, EventArgs e)
         {
-            HttpCookie usernameCookie = Request.Cookies["ActiveUserName"];
-            string selectedBusiness = DropDownListBusniess.SelectedItem.Text;
-     
-            int mdp;
-            double orgPrice;
-            double newPrice;
-            if (!int.TryParse(TextBoxMPU.Text, out mdp))
-            {
-                MessageBox.Show("Missing Values! ");
-                return;
-            }
-            if (!double.TryParse(TextBoxDisc.Text, out newPrice))
-            {
-                MessageBox.Show("Discount has to be Number ");
-                return;
-            }
-            if (!double.TryParse(TextBoxOrg.Text, out orgPrice))
-            {
-                MessageBox.Show("Price has to be Number ");
-                return;
-            }
-            if (TextBoxExp.Text=="" ||DateTime.Parse(TextBoxExp.Text) < DateTime.Now)
-            {
-                MessageBox.Show("Experation Date is Wrong ");
-                return;
-            }
+            Business bus = BusinessController.GetBusiness(DropDownListBusniess.SelectedValue);
+
             List<string> selected = new List<string>();
             foreach (ListItem item in DropDownListInterests.Items)
                 if (item.Selected) selected.Add(item.Value);
-            CouponController.CreateCoupon(TextBoxName.Text, orgPrice, newPrice,
-                selectedBusiness, TextBoxDesc.Text, TextBoxExp.Text, mdp, selected);
-            MessageBox.Show("Coupon " + TextBoxName.Text + " added successfully!");
-            TextBoxName.Text="";
-            TextBoxOrg.Text="";
-            TextBoxDisc.Text="";
-            TextBoxDesc.Text="";
-            TextBoxExp.Text="";
-            TextBoxMPU.Text = "";
-            DropDownListInterests.ClearSelection();
+
+            List<string> err = CouponController.ValidateNewCoupon(TextBoxMPU.Text, TextBoxDisc.Text,
+                TextBoxOrg.Text, TextBoxExp.Text);
 
 
+           if (err.Count>0) {
+               BLerrors.Items.Clear();
+                foreach (var item in err)
+	            {
+                    BLerrors.Items.Add(new ListItem(item));
+	            }
+           }
+           else
+           {
+               if (bus.CreateCoupon(TextBoxName.Text, TextBoxOrg.Text, TextBoxDisc.Text,
+                TextBoxDesc.Text, TextBoxExp.Text, TextBoxMPU.Text, selected))
+                    Response.Write("<script>alert('Coupon " + TextBoxName.Text + " added successfully!')</script>");
+               else
+                   Response.Write("<script>alert('Coupon " + TextBoxName.Text + " was not added.')</script>");
+               TextBoxName.Text = "";
+               TextBoxOrg.Text = "";
+               TextBoxDisc.Text = "";
+               TextBoxDesc.Text = "";
+               TextBoxExp.Text = "";
+               TextBoxMPU.Text = "";
+               DropDownListInterests.ClearSelection();
+           }
         }
-        
-    
+           
         private void LoadBusiness()
         {
             DropDownListBusniess.Items.Clear();
             string ownerName = Request.Cookies["ActiveUserName"].Value;
             Users_Owner ou = UserController.GetOwner(ownerName);
             DropDownListBusniess.Items.AddRange(ou.GetBusinesses());
-            LoadCategory();
-        }
-
-        private void LoadCategory()
-        {
-            string ownerName = Request.Cookies["ActiveUserName"].Value;
-            DropDownListCategory.Items.Clear();
-        
-            DropDownListCategory.Items.AddRange(BusinessController.GetAllBusnisesCategory(ownerName).Distinct().ToArray());
+            //LoadCategory();
         }
         private void LoadInterest()
         {
-            DropDownListInterests.Items.Clear();
-            string Busniessid = DropDownListBusniess.SelectedValue;
-            if (Busniessid != "")
+            if (DropDownListBusniess.SelectedValue != "")
             {
-                int Categoryid = BusinessController.FindBusinessCategory(Busniessid);
+                DropDownListInterests.Items.Clear();
+                Business bus =  BusinessController.GetBusiness(DropDownListBusniess.SelectedValue);
+                int Categoryid = bus.GetCategory();
             //DropDownListInterests.Items.AddRange(BusinessController.GetAllCategoryIntrest(Categoryid));
-                DropDownListInterests.DataSource = BusinessController.GetAllCategoryInterests(Categoryid.ToString());
+                DropDownListInterests.DataSource = Controller.GetAllCategoryInterests(Categoryid.ToString());
                 DropDownListInterests.DataBind();
             }
         }
-
-     
 
         protected void DropDownListBusniess_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -126,12 +106,15 @@ namespace CouponsOnline.PresentationLayer
         {
             if (TextBoxInterest.Text != "")
             {
-                Controller.CreateInterest(DropDownListCategory.SelectedValue, TextBoxInterest.Text);
-                MessageBox.Show("Interest added succesfully!");
+                Business bus = BusinessController.GetBusiness(DropDownListBusniess.SelectedItem.Value);
+                int catID = bus.GetCategory();
+                Controller.CreateInterest(catID.ToString(), TextBoxInterest.Text);
+                LoadInterest();
+                Response.Write("<script>alert('Interest added succesfully!')</script>");      
                 TextBoxInterest.Text = "";
             }
             else
-                MessageBox.Show("Fill Interest");
+                Response.Write("<script>alert('Fill Interest')</script>");
         }
     }
 }

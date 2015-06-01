@@ -49,10 +49,12 @@ namespace CouponsOnline.PresentationLayer
         {
             int index = Convert.ToInt32(e.CommandArgument);
             GridViewRow selectedRow = GridVresults.Rows[index];
+            string id = selectedRow.Cells[10].Text;
+            Coupon cop = CouponController.GetCoupon(id);
             if (e.CommandName == "RemoveCoupon")
             {
-                string id = selectedRow.Cells[10].Text;
-                bool result = CouponController.removeCoupon(id);
+                
+                bool result = cop.RemoveCoupon();
                 string Busniess = DropDownListBusniess.SelectedValue;
 
                 if (result)
@@ -65,7 +67,7 @@ namespace CouponsOnline.PresentationLayer
             }
             else
             {
-                TextBoxExp.Text = CouponController.FindCouponExpDate(selectedRow.Cells[10].Text);
+                TextBoxExp.Text = cop.FindCouponExpDate(selectedRow.Cells[10].Text);
                 EditCoupon.Visible = true;
                 home.Visible = false;
                 TextBoxName.Text = selectedRow.Cells[2].Text;
@@ -77,7 +79,7 @@ namespace CouponsOnline.PresentationLayer
                 copId.Text = selectedRow.Cells[10].Text;
                 DropDownListInterests.Items.Clear();
                 LoadInterest();
-                ICollection<Interest> t = CouponController.FindCopInterest(copId.Text);
+                ICollection<Interest> t = cop.GetInterests(copId.Text);
                 foreach (Interest item in t)
                 {
                     DropDownListInterests.Items.FindByText(item.Description).Selected = true;
@@ -91,13 +93,13 @@ namespace CouponsOnline.PresentationLayer
         
         private void LoadInterest()
         {
-            DropDownListInterests.Items.Clear();
-            string Busniessid = DropDownListBusniess.SelectedValue;
-            if (Busniessid != "")
+            if (DropDownListBusniess.SelectedValue != "")
             {
-                int Categoryid = BusinessController.FindBusinessCategory(Busniessid);
+                DropDownListInterests.Items.Clear();
+                Business bus = BusinessController.GetBusiness(DropDownListBusniess.SelectedValue);
+                int Categoryid = bus.GetCategory();
                 //DropDownListInterests.Items.AddRange(BusinessController.GetAllCategoryIntrest(Categoryid));
-                DropDownListInterests.DataSource = BusinessController.GetAllCategoryInterests(Categoryid.ToString());
+                DropDownListInterests.DataSource = Controller.GetAllCategoryInterests(Categoryid.ToString());
                 DropDownListInterests.DataBind();
             }
         }
@@ -139,7 +141,8 @@ namespace CouponsOnline.PresentationLayer
             List<ListItem> selected = new List<ListItem>();
             foreach (ListItem item in DropDownListInterests.Items)
                 if (item.Selected) selected.Add(item);
-            CouponController.EditCoupon(Int32.Parse(copId.Text), TextBoxName.Text, orgPrice, newPrice, TextBoxDesc.Text, TextBoxExp.Text, mdp, selected);
+            Coupon cop = CouponController.GetCoupon(copId.Text);
+            cop.EditCoupon(TextBoxName.Text, orgPrice, newPrice, TextBoxDesc.Text, TextBoxExp.Text, mdp, selected);
             MessageBox.Show("Coupon " + TextBoxName.Text + " Edit successfully!");
             TextBoxName.Text = "";
             TextBoxOrg.Text = "";

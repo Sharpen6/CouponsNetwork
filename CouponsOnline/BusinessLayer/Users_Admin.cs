@@ -13,14 +13,5 @@ namespace CouponsOnline
         {
             return BusinessDataAccess.CreateBusiness(this.UserName, owner, address, name, categoryID, cityID);
         }
-
-        public bool EditBusiness(int businessId, string address,
-            string name, string category, string city)
-        {
-            Business bus = BusinessDataAccess.GetBusinessByID(businessId);
-            int cityID = DataAccess.FindCity(city);
-            int categoryID = DataAccess.FindCategory(category);
-            return bus.ChangeDetails(address, name, categoryID, cityID);
-        }
     }
 }

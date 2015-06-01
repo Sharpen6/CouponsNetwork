@@ -48,7 +48,7 @@ namespace CouponsOnline.BusinessLayer.Controllers
             List<string> errors = new List<string>();
             if (selectedInterests != null && selectedInterests.Count == 0)
                 errors.Add("You must select at least one interest.");
-            else
+            else if (selectedInterests!=null)
             {
                 using (basicEntities be = new basicEntities()){
                     foreach (var item in selectedInterests)
@@ -103,18 +103,16 @@ namespace CouponsOnline.BusinessLayer.Controllers
             User user = UserDataAccess.GetUser(UserName);
             return user.AddAuthentication(UserType.Owner);
         }
-
+ 
         public static Users_Owner GetOwner(string name)
         {
             return UserDataAccess.FindOwner(name);
         }
-
         //tested
         public static User GetUser(string userName)
         {
             return UserDataAccess.GetUser(userName);
         }
-
         public static Dictionary<User, UserType> GetAllUsers()
         {
             Dictionary<User, UserType> allUsers = new Dictionary<User, UserType>();

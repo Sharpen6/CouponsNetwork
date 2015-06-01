@@ -16,14 +16,12 @@ namespace CouponsOnline
     {
         public BusinessCategories()
         {
-            this.Businesses = new HashSet<Business>();
             this.Interests = new HashSet<Interest>();
         }
     
         public int Id { get; set; }
         public string Description { get; set; }
     
-        public virtual ICollection<Business> Businesses { get; set; }
         public virtual ICollection<Interest> Interests { get; set; }
     }
 }

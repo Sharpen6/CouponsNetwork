@@ -26,7 +26,7 @@
     <br />
     <form id="form1" runat="server">
    
-     <div id="home"  class ="mainBox" runat="server">
+     <div id="home" style="display:block" class ="mainBox" runat="server">
         <h1>Your Profile:</h1>
 
        User Name:
@@ -43,13 +43,8 @@
          
                     <asp:BulletedList ID="BLerrors" runat="server" ForeColor="Maroon" Font-Size="Small">
                     </asp:BulletedList>
-         <asp:Button ID="Button1" runat="server"  Text="Change Profile" width="60%" OnClick="Button1_Click"/>
-         <asp:Button ID="Button2" runat="server"  Text="Change Password" width="60%" OnClick="Button2_Click"/>
-         <asp:Button ID="delete" runat="server" Text="Delete Account" width="60%" OnClick="delete_Click"/>
-                    
-    </div>
-    <div id="ResetPassword" class ="mainBox" runat="server">
-        <h1>Reset Your Password</h1>
+         <asp:Button ID="Button1" runat="server" Text="Change Profile" width="60%" OnClick="Button1_Click"/>
+         <h1>Reset Your Password</h1>
          <div>
              <h1>
                  Password:
@@ -65,6 +60,11 @@
         <div>
             <asp:Button ID="reset" runat="server" Text="Reset Password" width="60%" OnClick="reset_Click"/>           
         </div>  
+         <asp:Button ID="delete" runat="server" Text="Delete Account" width="60%" OnClick="delete_Click"/>
+                    
+    </div>
+    <div id="ResetPassword" class ="mainBox" runat="server">
+        
 
     </div>
     </form>

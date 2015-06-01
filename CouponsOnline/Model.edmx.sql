@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/31/2015 21:07:19
+-- Date Created: 06/02/2015 00:56:34
 -- Generated from EDMX file: C:\Users\Sagi\Documents\GitHub\CouponsNetwork\CouponsOnline\Model.edmx
 -- --------------------------------------------------
 
@@ -37,9 +37,6 @@ IF OBJECT_ID(N'[dbo].[FK_Users_AdminBusiness]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_BusinessUsers_Owner]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Businesses] DROP CONSTRAINT [FK_BusinessUsers_Owner];
-GO
-IF OBJECT_ID(N'[dbo].[FK_BusinessBusinessCategories]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Businesses] DROP CONSTRAINT [FK_BusinessBusinessCategories];
 GO
 IF OBJECT_ID(N'[dbo].[FK_InterestCoupon_Interest]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[InterestCoupon] DROP CONSTRAINT [FK_InterestCoupon_Interest];
@@ -79,6 +76,9 @@ IF OBJECT_ID(N'[dbo].[FK_Users_CustomerInterest_Users_Customer]', 'F') IS NOT NU
 GO
 IF OBJECT_ID(N'[dbo].[FK_Users_CustomerInterest_Interest]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Users_CustomerInterest] DROP CONSTRAINT [FK_Users_CustomerInterest_Interest];
+GO
+IF OBJECT_ID(N'[dbo].[FK_BusinessBusinessCategories]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Businesses] DROP CONSTRAINT [FK_BusinessBusinessCategories];
 GO
 
 -- --------------------------------------------------
@@ -141,11 +141,11 @@ CREATE TABLE [dbo].[Businesses] (
     [Name] nvarchar(max)  NOT NULL,
     [Address] nvarchar(max)  NOT NULL,
     [Sensor_Id] int  NULL,
-    [BusinessCategoriesId] int  NOT NULL,
     [Blocked] bit  NOT NULL,
     [Users_Admin_UserName] varchar(500)  NOT NULL,
     [Users_Owner_UserName] varchar(500)  NOT NULL,
-    [City_Id] int  NOT NULL
+    [City_Id] int  NOT NULL,
+    [BusinessCategory_Id] int  NOT NULL
 );
 GO
 
@@ -454,21 +454,6 @@ ON [dbo].[Businesses]
     ([Users_Owner_UserName]);
 GO
 
--- Creating foreign key on [BusinessCategoriesId] in table 'Businesses'
-ALTER TABLE [dbo].[Businesses]
-ADD CONSTRAINT [FK_BusinessBusinessCategories]
-    FOREIGN KEY ([BusinessCategoriesId])
-    REFERENCES [dbo].[BusinessCategories]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_BusinessBusinessCategories'
-CREATE INDEX [IX_FK_BusinessBusinessCategories]
-ON [dbo].[Businesses]
-    ([BusinessCategoriesId]);
-GO
-
 -- Creating foreign key on [Interests_Id] in table 'InterestCoupon'
 ALTER TABLE [dbo].[InterestCoupon]
 ADD CONSTRAINT [FK_InterestCoupon_Interest]
@@ -650,6 +635,21 @@ GO
 CREATE INDEX [IX_FK_Users_CustomerInterest_Interest]
 ON [dbo].[Users_CustomerInterest]
     ([Interests_Id]);
+GO
+
+-- Creating foreign key on [BusinessCategory_Id] in table 'Businesses'
+ALTER TABLE [dbo].[Businesses]
+ADD CONSTRAINT [FK_BusinessBusinessCategories]
+    FOREIGN KEY ([BusinessCategory_Id])
+    REFERENCES [dbo].[BusinessCategories]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_BusinessBusinessCategories'
+CREATE INDEX [IX_FK_BusinessBusinessCategories]
+ON [dbo].[Businesses]
+    ([BusinessCategory_Id]);
 GO
 
 -- --------------------------------------------------

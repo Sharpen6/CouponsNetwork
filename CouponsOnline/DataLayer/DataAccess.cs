@@ -80,9 +80,9 @@ namespace CouponsOnline.DataLayer
             }
         }
         
-        public static bool CreateInterest(string category, string interestDesc)
+        public static bool CreateInterest(string categoryID, string interestDesc)
         {
-            int Category = FindCategory(category);
+            int Category = int.Parse(categoryID);
             if (FindInterest(Category, interestDesc) != 0) return false;
 
             using (basicEntities be = new basicEntities())
@@ -104,7 +104,7 @@ namespace CouponsOnline.DataLayer
             using (basicEntities be = new basicEntities())
             {
                 var bus = from b in be.Interests
-                          where b.Description == desription & b.BusinessCategory.Id == Category.BusinessCategoriesId
+                          where b.Description == desription & b.BusinessCategory.Id == Category.BusinessCategory.Id
                           select b;
                 Interest Interests = bus.First();
 

@@ -18,7 +18,17 @@ namespace CouponsOnline.BusinessLayer.Controllers
         public static ListItem[] GetAllCategories()
         {
             return BusinessDataAccess.GetCategories();
-        } 
+        }
+        public static string GetCategoryDesc(int catID)
+        {
+            ListItem[] all = GetAllCategories();
+            foreach (var item in all)
+            {
+                if (item.Value == catID.ToString())
+                    return item.Text;
+            }
+            return "";
+        }
         #endregion
         #region city
         public static bool CreateCity(string p)
@@ -32,15 +42,19 @@ namespace CouponsOnline.BusinessLayer.Controllers
         } 
         #endregion
         #region interest
-        public static bool CreateInterest(string category, string interestDesc)
+        public static bool CreateInterest(string categoryID, string interestDesc)
         {
             if (interestDesc == "") return false;
-            return DataAccess.CreateInterest(category, interestDesc);
+            return DataAccess.CreateInterest(categoryID, interestDesc);
         }
         public static ListItem[] GetAllInterests()
         {
             return BusinessDataAccess.GetlAllInterests();
-        } 
+        }
+        public static ListItem[] GetAllCategoryInterests(string Categoryid)
+        {
+            return BusinessDataAccess.GetAllIntrestOfCategory(Categoryid);
+        }
         #endregion
     }
 }

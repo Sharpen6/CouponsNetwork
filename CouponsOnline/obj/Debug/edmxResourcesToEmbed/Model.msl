@@ -8,7 +8,6 @@
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="Sensor_Id" ColumnName="Sensor_Id" />
-          <ScalarProperty Name="BusinessCategoriesId" ColumnName="BusinessCategoriesId" />
           <ScalarProperty Name="Blocked" ColumnName="Blocked" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -227,6 +226,14 @@
       </EndProperty>
       <EndProperty Name="Interest">
         <ScalarProperty Name="Id" ColumnName="Interests_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="BusinessBusinessCategories" TypeName="basicModel.BusinessBusinessCategories" StoreEntitySet="Businesses">
+      <EndProperty Name="BusinessCategories">
+        <ScalarProperty Name="Id" ColumnName="BusinessCategory_Id" />
+      </EndProperty>
+      <EndProperty Name="Business">
+        <ScalarProperty Name="BusinessID" ColumnName="BusinessID" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

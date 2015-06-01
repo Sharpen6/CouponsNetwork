@@ -47,6 +47,7 @@ namespace CouponsOnline.PresentationLayer
         private void LoadCities()
         {
             DropDownListCities.Items.Clear();
+            DropDownListCities1.Items.Clear();
             DropDownListCities.Items.AddRange(Controller.GetAllCites());
             DropDownListCities1.Items.AddRange(Controller.GetAllCites());
         }
@@ -70,6 +71,7 @@ namespace CouponsOnline.PresentationLayer
         private void LoadCategories()
         {
             DropDownListCategories.Items.Clear();
+            DropDownListCategories1.Items.Clear();
             DropDownListCategories.Items.AddRange(Controller.GetAllCategories());
             DropDownListCategories1.Items.AddRange(Controller.GetAllCategories());
         }
@@ -125,10 +127,9 @@ namespace CouponsOnline.PresentationLayer
 
         protected void BtnEditBusiness_Click(object sender, EventArgs e)
         {
-            string adminUser = Request.Cookies["ActiveUserName"].Value;
-            int selectedBusinessID = int.Parse(DropDownListBusniess.SelectedItem.Value);
-            BusinessController.EditBusniess(adminUser,Int32.Parse(DropDownListBusniess.SelectedItem.Value), TextBoxAddress1.Text,
-                TextBoxBusinessName1.Text, DropDownListCategories.SelectedValue, DropDownListCities.SelectedValue);
+            Business bus = BusinessController.GetBusiness(DropDownListBusniess.SelectedItem.Value);
+            bus.ChangeDetails(TextBoxAddress1.Text, TextBoxBusinessName1.Text, 
+                DropDownListCategories.SelectedValue, DropDownListCities.SelectedValue);
         }
 
         protected void DropDownListBusniess_SelectedIndexChanged(object sender, EventArgs e)
@@ -139,8 +140,8 @@ namespace CouponsOnline.PresentationLayer
                 Business b = BusinessController.GetBusiness(DropDownListBusniess.SelectedValue);
                 TextBoxAddress1.Text = b.Address;
                 TextBoxBusinessName1.Text = b.Name;
-                DropDownListCities1.SelectedValue = b.City.Name;
-                DropDownListCategories1.SelectedValue = b.BusinessCategory.Description;
+                DropDownListCities1.SelectedValue = b.GetCity().ToString();
+                DropDownListCategories1.SelectedValue = b.GetCategory().ToString();
             }
        
      

@@ -14,13 +14,6 @@ namespace CouponsOnline.BusinessLayer.Controllers
         {
             return CouponDataAccess.GetCouponsByCity(city);
         }
-        public static bool CreateCoupon(string name, double orgprice, double discount,
-            string selectedBusiness, string desc, string datee, int maxNum, List<string> interestt)
-        {
-            Users_Owner owner = BusinessDataAccess.GetBusinessOwner(selectedBusiness);
-            return owner.CreateCoupon(name, orgprice, discount, selectedBusiness,
-                desc, datee,maxNum, interestt);
-        }
 
         public static DataTable FindCoupons(string city, List<ListItem> selectedInterests, double coordinateX, double coordinateY,int category)
         {
@@ -41,24 +34,36 @@ namespace CouponsOnline.BusinessLayer.Controllers
         
             return table;
         }
-        public static bool removeCoupon(string CoponId)
+        //NEW 
+        public static List<string> ValidateNewCoupon(string maxPerUser, string dicount, string original, string expiration)
         {
-            return CouponDataAccess.RemoveCoupon(CoponId);
+            List<string> errors = new List<string>();
+            int mdu;
+            double orgPrice;
+            double newPrice;
+
+            if (!int.TryParse(maxPerUser, out mdu))
+            {
+                errors.Add("Missing maximum quantity per user.");
+            }
+            if (!double.TryParse(dicount, out newPrice))
+            {
+                errors.Add("Discount has to be Number");
+            }
+            if (!double.TryParse(original, out orgPrice))
+            {
+                errors.Add("Price has to be Number");
+            }
+            if (expiration == "" || DateTime.Parse(expiration) < DateTime.Now)
+            {
+                errors.Add("Experation Date is Wrong");
+            }
+            return errors;
         }
 
-        public static bool EditCoupon(int copId, string p1, double p2, double p3, string p4, string p5, int mdp, List<ListItem> selected)
+        public static Coupon GetCoupon(string id)
         {
-            return CouponDataAccess.EditCoupon( copId,  p1,  p2,  p3,  p4,  p5,  mdp, selected);
-        }
-
-        public static string FindCouponExpDate(string p)
-        {
-            return CouponDataAccess.FindCoupon(p);
-        }
-
-        public static ICollection<Interest> FindCopInterest(string p)
-        {
-            return CouponDataAccess.findCopInterest(p);
+            return CouponDataAccess.GetCoupon(id);
         }
     }
 }
