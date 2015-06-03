@@ -29,7 +29,14 @@ namespace CouponsOnline.PresentationLayer
                 if (type == UserType.Customer)
                 {
                     DropDownListInterests.Items.Clear();
-                    DropDownListInterests.DataSource = u.GetInterests();
+                    Users_Customer uc = UserController.GetCustomer(u.UserName);
+                    ListItem[] items = new ListItem[uc.Interests.Count];
+                    int i = 0;
+                    foreach (var item in uc.Interests)
+                    {
+                        items[i++] = new ListItem(item.Description, item.Id.ToString());
+                    }
+                    DropDownListInterests.DataSource = items;
                     DropDownListInterests.DataTextField = "Text";
                     DropDownListInterests.DataValueField = "Value";
                     DropDownListInterests.DataBind();

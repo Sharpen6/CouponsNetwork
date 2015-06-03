@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CouponsOnline;
 using CouponsOnline.PresentationLayer;
 using CouponsOnline.BusinessLayer.Controllers;
+using System.Web.UI.WebControls;
 
 namespace UnitTestProject
 {
@@ -48,7 +49,7 @@ namespace UnitTestProject
             }
         }       
 
-        [TestMethod]
+       [TestMethod]
        public void TestChangeDetails()
        {
             User user = AddUser();

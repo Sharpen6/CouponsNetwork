@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.UI.WebControls;
 
 namespace CouponsOnline.DataLayer
 {
@@ -11,9 +12,12 @@ namespace CouponsOnline.DataLayer
 
         public static bool CreateCity(string p)
         {
-            if (FindCity(p) != 0) return false;
             using (basicEntities be = new basicEntities())
             {
+                foreach (var item in be.Cities)
+                {
+                    if (item.Name == p) return false;
+                }
                 City bc = new City();
                 bc.Name = p;
                 be.Cities.Add(bc);
@@ -22,18 +26,25 @@ namespace CouponsOnline.DataLayer
             }
 
         }
-        public static int FindCity(string cityName)
+        public static ListItem[] GetAllCites()
         {
+            ListItem[] ans;
+            int i = 0;
+            List<City> cItems;
             using (basicEntities be = new basicEntities())
             {
-                var city = from b in be.Cities
-                           where b.Name == cityName
-                           select b;
-                if (city.Count() == 0) return 0;
-                City c = city.First();
-                return c.Id;
+                var items = from b in be.Cities
+                            select b;
+                cItems = new List<City>(items);
+
+                ans = new ListItem[cItems.Count];
+                foreach (var item in cItems)
+                {
+                    ans[i++] = new ListItem(item.Name, item.Id.ToString());
+                }
             }
-        } 
+            return ans;
+        }
         #endregion
 
         public static bool CreateCategory(string p)

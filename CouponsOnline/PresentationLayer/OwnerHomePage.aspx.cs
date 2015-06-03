@@ -90,7 +90,7 @@ namespace CouponsOnline.PresentationLayer
             {
                 DropDownListInterests.Items.Clear();
                 Business bus =  BusinessController.GetBusiness(DropDownListBusniess.SelectedValue);
-                int Categoryid = bus.GetCategory();
+                int Categoryid = bus.BusinessCategory.Id;
             //DropDownListInterests.Items.AddRange(BusinessController.GetAllCategoryIntrest(Categoryid));
                 DropDownListInterests.DataSource = Controller.GetAllCategoryInterests(Categoryid.ToString());
                 DropDownListInterests.DataBind();
@@ -107,7 +107,7 @@ namespace CouponsOnline.PresentationLayer
             if (TextBoxInterest.Text != "")
             {
                 Business bus = BusinessController.GetBusiness(DropDownListBusniess.SelectedItem.Value);
-                int catID = bus.GetCategory();
+                int catID = bus.BusinessCategory.Id;
                 Controller.CreateInterest(catID.ToString(), TextBoxInterest.Text);
                 LoadInterest();
                 Response.Write("<script>alert('Interest added succesfully!')</script>");      

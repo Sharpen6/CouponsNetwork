@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CouponsOnline;
+using System.Web.UI.WebControls;
+using CouponsOnline.BusinessLayer.Controllers;
 namespace UnitTestProject
 {
     [TestClass]
@@ -44,7 +46,45 @@ namespace UnitTestProject
                 Assert.IsNull(be.Coupons.Find(coupon.Id));
             }
         }
+        [TestMethod]
+        public void TestDeleteCoupon()
+        {
+            Coupon coupon = AddCoupon();
+            using (basicEntities be = new basicEntities())
+            {
+                coupon.DeleteCoupon();
+                Assert.IsNull(be.Coupons.Find(coupon.Id));
+            }
+        }
+        [TestMethod]
+        public void TestFindCouponExp()
+        {
+            Coupon coupon = AddCoupon();
+            Assert.AreEqual(coupon.FindCouponExpDate(), "10/10/2009");
+            RemoveCoupon(coupon.Id);
+        }
+        [TestMethod]
+        public void TestEditCoupon()
+        {
+            Coupon coupon = AddCoupon();
+            ICollection<Interest> t = coupon.Interests;
+            List<ListItem> items = new List<ListItem>();
 
+            for (int i = 0; i < t.Count; i++)
+            {
+                Interest interest = t.ElementAt(i);
+                items.Add(new ListItem(interest.Description,interest.Id.ToString()));
+            }
+            coupon.EditCoupon("blabla", 32, 31, "test", "11/10/2009", 4, items);
+            Coupon cop =   CouponController.GetCoupon(coupon.Id.ToString());
+            Assert.AreEqual("blabla", cop.Name);
+            Assert.AreEqual(4, cop.MaxNum);
+            Assert.AreEqual(32, cop.OriginalPrice);
+            Assert.AreEqual("11/10/2009", cop.ExperationDate);
+            RemoveCoupon(cop.Id);
+        }
+      
+        
         public static Coupon AddCoupon(int id=2, string name="Flying pizza", string orgprice="100", string discount="50", string datee="10/10/2009",int maxNum=5)
         {
             Coupon cop = new Coupon();
@@ -75,6 +115,19 @@ namespace UnitTestProject
                 be.Coupons.Remove(CouponToRemove);
                 be.SaveChanges();
                 TestBusiness.RemoveBusinesses(Businessid);
+                be.SaveChanges();
+            }
+        }
+        public static void RemoveOnlyCoupon(int CouponID)
+        {
+            using (basicEntities be = new basicEntities())
+            {
+                Coupon CouponToRemove = be.Coupons.Find(CouponID);
+                be.Entry(CouponToRemove.Business).State = System.Data.Entity.EntityState.Unchanged;
+                foreach (var i in CouponToRemove.Interests) {
+                    be.Entry(i).State = System.Data.Entity.EntityState.Unchanged;
+                }
+                be.Coupons.Remove(CouponToRemove);
                 be.SaveChanges();
             }
         }

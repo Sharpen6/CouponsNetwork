@@ -13,8 +13,6 @@ namespace UnitTestProject
         {
             Users_Admin ua = TestAdmin.AddAdmin();
             Assert.IsNotNull(UserDataAccess.FindAdmin(ua.UserName));
-            Assert.IsNull(UserDataAccess.FindCustomer(ua.UserName));
-            Assert.IsNull(UserDataAccess.FindOwner(ua.UserName));
             Assert.IsNotNull(UserDataAccess.GetUser(ua.UserName));
             TestAdmin.RemoveAdmin(ua.UserName);
         }
@@ -22,8 +20,6 @@ namespace UnitTestProject
         public void FindOwnerTest()
         {
             Users_Owner ua = TestOwner.AddOwner();
-            Assert.IsNull(UserDataAccess.FindAdmin(ua.UserName));
-            Assert.IsNull(UserDataAccess.FindCustomer(ua.UserName));
             Assert.IsNotNull(UserDataAccess.FindOwner(ua.UserName));
             Assert.IsNotNull(UserDataAccess.GetUser(ua.UserName));
             TestOwner.RemoveOwner(ua.UserName);
@@ -32,9 +28,7 @@ namespace UnitTestProject
         public void FindCustomerTest()
         {
             Users_Customer ua = TestCustomer.AddCustomer();
-            Assert.IsNull(UserDataAccess.FindAdmin(ua.UserName));
             Assert.IsNotNull(UserDataAccess.FindCustomer(ua.UserName));
-            Assert.IsNull(UserDataAccess.FindOwner(ua.UserName));
             Assert.IsNotNull(UserDataAccess.GetUser(ua.UserName));
             TestCustomer.RemoveCustomer(ua.UserName);
         }

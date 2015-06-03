@@ -23,8 +23,6 @@ namespace CouponsOnline.BusinessLayer.Controllers
             return BusinessDataAccess.GetBusiness(Int32.Parse(businessID));
         }
 
-        //not approved
-       
 
       
 

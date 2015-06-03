@@ -11,11 +11,9 @@ namespace CouponsOnline
 {
     public partial class User
     {
-        public ListItem[] GetInterests()
-        {
-            return UserDataAccess.GetUserInterests(UserName);
-        }
-        public bool ChangeDetails(string name, string phone, string email ,List<string> interests=null)
+        //all tested
+        public bool ChangeDetails(string name, string phone, 
+            string email ,List<string> interests=null)
         {
             if (!UserDataAccess.UpdateInfo(UserName, name, phone, email))
                 return false;
@@ -25,8 +23,7 @@ namespace CouponsOnline
                     return false;
             }
             return true;
-        }       
-        //tested
+        }            
         public bool AddAuthentication(UserType type)
         {
             return UserDataAccess.AddAuthentication(UserName, type);

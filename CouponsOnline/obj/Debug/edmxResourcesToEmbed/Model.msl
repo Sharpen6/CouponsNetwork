@@ -130,14 +130,6 @@
         <ScalarProperty Name="BusinessID" ColumnName="BusinessID" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="BusinessUsers_Owner" TypeName="basicModel.BusinessUsers_Owner" StoreEntitySet="Businesses">
-      <EndProperty Name="Users_Owner">
-        <ScalarProperty Name="UserName" ColumnName="Users_Owner_UserName" />
-      </EndProperty>
-      <EndProperty Name="Business">
-        <ScalarProperty Name="BusinessID" ColumnName="BusinessID" />
-      </EndProperty>
-    </AssociationSetMapping>
     <AssociationSetMapping Name="InterestCoupon" TypeName="basicModel.InterestCoupon" StoreEntitySet="InterestCoupon">
       <EndProperty Name="Interest">
         <ScalarProperty Name="Id" ColumnName="Interests_Id" />
@@ -231,6 +223,14 @@
     <AssociationSetMapping Name="BusinessBusinessCategories" TypeName="basicModel.BusinessBusinessCategories" StoreEntitySet="Businesses">
       <EndProperty Name="BusinessCategories">
         <ScalarProperty Name="Id" ColumnName="BusinessCategory_Id" />
+      </EndProperty>
+      <EndProperty Name="Business">
+        <ScalarProperty Name="BusinessID" ColumnName="BusinessID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="BusinessUsers_Owner" TypeName="basicModel.BusinessUsers_Owner" StoreEntitySet="Businesses">
+      <EndProperty Name="Users_Owner">
+        <ScalarProperty Name="UserName" ColumnName="Users_Owner_UserName" />
       </EndProperty>
       <EndProperty Name="Business">
         <ScalarProperty Name="BusinessID" ColumnName="BusinessID" />

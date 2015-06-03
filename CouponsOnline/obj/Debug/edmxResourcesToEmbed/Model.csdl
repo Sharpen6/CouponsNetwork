@@ -35,10 +35,6 @@
       <End Role="Users_Admin" EntitySet="Users_Admin" />
       <End Role="Business" EntitySet="Businesses" />
     </AssociationSet>
-    <AssociationSet Name="BusinessUsers_Owner" Association="basicModel.BusinessUsers_Owner">
-      <End Role="Business" EntitySet="Businesses" />
-      <End Role="Users_Owner" EntitySet="Users_Owner" />
-    </AssociationSet>
     <EntitySet Name="Interests" EntityType="basicModel.Interest" />
     <AssociationSet Name="InterestCoupon" Association="basicModel.InterestCoupon">
       <End Role="Interest" EntitySet="Interests" />
@@ -90,6 +86,10 @@
       <End Role="Business" EntitySet="Businesses" />
       <End Role="BusinessCategories" EntitySet="BusinessCategories" />
     </AssociationSet>
+    <AssociationSet Name="BusinessUsers_Owner" Association="basicModel.BusinessUsers_Owner">
+      <End Role="Business" EntitySet="Businesses" />
+      <End Role="Users_Owner" EntitySet="Users_Owner" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Business">
     <Key>
@@ -102,10 +102,10 @@
     <NavigationProperty Name="Coupons" Relationship="basicModel.FK_BusinessCoupon" FromRole="Business" ToRole="Coupon" />
     <NavigationProperty Name="Sensor" Relationship="basicModel.FK_BusinessLocation" FromRole="Business" ToRole="Location" />
     <NavigationProperty Name="Users_Admin" Relationship="basicModel.Users_AdminBusiness" FromRole="Business" ToRole="Users_Admin" />
-    <NavigationProperty Name="Users_Owner" Relationship="basicModel.BusinessUsers_Owner" FromRole="Business" ToRole="Users_Owner" />
     <NavigationProperty Name="City" Relationship="basicModel.BusinessCity" FromRole="Business" ToRole="City" />
     <Property Name="Blocked" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="BusinessCategory" Relationship="basicModel.BusinessBusinessCategories" FromRole="Business" ToRole="BusinessCategories" />
+    <NavigationProperty Name="Users_Owner" Relationship="basicModel.BusinessUsers_Owner" FromRole="Business" ToRole="Users_Owner" />
   </EntityType>
   <EntityType Name="Coupon">
     <Key>
@@ -197,6 +197,7 @@
     </Key>
     <Property Name="UserName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="User" Relationship="basicModel.FK_Owner_inherits_User" FromRole="Users_Owner" ToRole="User" />
+    <NavigationProperty Name="Businesses" Relationship="basicModel.BusinessUsers_Owner" FromRole="Users_Owner" ToRole="Business" />
   </EntityType>
   <Association Name="FK_BusinessCoupon">
     <End Type="basicModel.Business" Role="Business" Multiplicity="1" />
@@ -275,10 +276,6 @@
   <Association Name="Users_AdminBusiness">
     <End Type="basicModel.Users_Admin" Role="Users_Admin" Multiplicity="1" />
     <End Type="basicModel.Business" Role="Business" Multiplicity="*" />
-  </Association>
-  <Association Name="BusinessUsers_Owner">
-    <End Type="basicModel.Business" Role="Business" Multiplicity="*" />
-    <End Type="basicModel.Users_Owner" Role="Users_Owner" Multiplicity="1" />
   </Association>
   <EntityType Name="Interest">
     <Key>
@@ -362,5 +359,9 @@
   <Association Name="BusinessBusinessCategories">
     <End Type="basicModel.Business" Role="Business" Multiplicity="*" />
     <End Type="basicModel.BusinessCategories" Role="BusinessCategories" Multiplicity="1" />
+  </Association>
+  <Association Name="BusinessUsers_Owner">
+    <End Type="basicModel.Business" Role="Business" Multiplicity="*" />
+    <End Type="basicModel.Users_Owner" Role="Users_Owner" Multiplicity="1" />
   </Association>
 </Schema>

@@ -40,10 +40,6 @@
       <End Role="Users_Admin" EntitySet="Users_Admin" />
       <End Role="Business" EntitySet="Businesses" />
     </AssociationSet>
-    <AssociationSet Name="BusinessUsers_Owner" Association="basicModel.Store.BusinessUsers_Owner">
-      <End Role="Business" EntitySet="Businesses" />
-      <End Role="Users_Owner" EntitySet="Users_Owner" />
-    </AssociationSet>
     <AssociationSet Name="FK_InterestCoupon_Interest" Association="basicModel.Store.FK_InterestCoupon_Interest">
       <End Role="Interest" EntitySet="Interests" />
       <End Role="InterestCoupon" EntitySet="InterestCoupon" />
@@ -100,6 +96,10 @@
       <End Role="Business" EntitySet="Businesses" />
       <End Role="BusinessCategories" EntitySet="BusinessCategories" />
     </AssociationSet>
+    <AssociationSet Name="BusinessUsers_Owner" Association="basicModel.Store.BusinessUsers_Owner">
+      <End Role="Business" EntitySet="Businesses" />
+      <End Role="Users_Owner" EntitySet="Users_Owner" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Businesses">
     <Key>
@@ -111,9 +111,9 @@
     <Property Name="Sensor_Id" Type="int" Nullable="true" />
     <Property Name="Blocked" Type="bit" Nullable="false" />
     <Property Name="Users_Admin_UserName" Type="varchar" MaxLength="500" Nullable="false" />
-    <Property Name="Users_Owner_UserName" Type="varchar" MaxLength="500" Nullable="false" />
     <Property Name="City_Id" Type="int" Nullable="false" />
     <Property Name="BusinessCategory_Id" Type="int" Nullable="false" />
+    <Property Name="Users_Owner_UserName" Type="varchar" MaxLength="500" Nullable="false" />
   </EntityType>
   <EntityType Name="Coupons">
     <Key>
@@ -315,18 +315,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="BusinessUsers_Owner">
-    <End Role="Business" Type="basicModel.Store.Businesses" Multiplicity="*" />
-    <End Role="Users_Owner" Type="basicModel.Store.Users_Owner" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Users_Owner">
-        <PropertyRef Name="UserName" />
-      </Principal>
-      <Dependent Role="Business">
-        <PropertyRef Name="Users_Owner_UserName" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="BusinessCity">
     <End Role="Business" Type="basicModel.Store.Businesses" Multiplicity="*" />
     <End Role="City" Type="basicModel.Store.Cities" Multiplicity="1" />
@@ -444,6 +432,18 @@
       </Principal>
       <Dependent Role="Business">
         <PropertyRef Name="BusinessCategory_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BusinessUsers_Owner">
+    <End Role="Business" Type="basicModel.Store.Businesses" Multiplicity="*" />
+    <End Role="Users_Owner" Type="basicModel.Store.Users_Owner" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Users_Owner">
+        <PropertyRef Name="UserName" />
+      </Principal>
+      <Dependent Role="Business">
+        <PropertyRef Name="Users_Owner_UserName" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

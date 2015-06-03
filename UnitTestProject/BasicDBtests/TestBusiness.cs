@@ -2,6 +2,10 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CouponsOnline;
 using CouponsOnline.BusinessLayer.Controllers;
+using System.Collections.Generic;
+using System.Data;
+using System.Web;
+using System.Web.UI.WebControls;
 
 namespace UnitTestProject
 {
@@ -57,20 +61,68 @@ namespace UnitTestProject
             Assert.IsNull(BusinessController.GetBusiness(b.BusinessID.ToString()));
             RemoveBusinesses(b.BusinessID);
         }
-
         [TestMethod]
-        public void TestGetCategory()
+        public void TestCreateCoupon()
         {
+            Random r = new Random();
             Business b = AddBusiness();
-            BusinessCategories bc =  TestCategory.AddCategory();
-            City c = TestCity.AddCity();
-            TestCategory.RemoveCategory(bc.Id);
-            TestCity.RemoveCity(c.Id);  
-            b.ChangeDetails("bla", "blag", bc.Id.ToString(), c.Id.ToString());
-            Assert.AreEqual(Controller.GetCategoryDesc(b.GetCategory()), bc.Description);
+            Interest interest = TestInterest.AddInterest();
+            List<string> inte = new List<string>() { interest.Id.ToString() };
+            List<ListItem> inteLi = new List<ListItem>();
+            inteLi.Add(new ListItem(interest.Description, interest.Id.ToString()));
+
+            for (int i = 0; i < 10; i++)
+			{
+                int p = r.Next(50);
+                int d = p - r.Next(30);
+                
+			    b.CreateCoupon("coupon"+i,p.ToString(),d.ToString(),"testCop","21/12/89",r.Next(10).ToString(),inte);
+			}
+            DataTable dt = CouponController.FindCoupons(b.City.Id.ToString(), inteLi, 0, 0);
+            foreach (DataRow item in dt.Rows)
+            {
+                
+                TestCoupon.RemoveOnlyCoupon(int.Parse(item[8].ToString()));
+            }
             RemoveBusinesses(b.BusinessID);
         }
+        [TestMethod]
+        public void TestChangeDetail()
+        {
+            Business b = AddBusiness();
+            BusinessCategories bc = TestCategory.AddCategory();
+            City c = TestCity.AddCity();
+            TestCategory.RemoveCategory(bc.Id);
+            TestCity.RemoveCity(c.Id);
+            b.ChangeDetails("bla", "blag", bc.Id.ToString(), c.Id.ToString());
+            b = BusinessController.GetBusiness(b.BusinessID.ToString());
+            Assert.AreEqual(b.Address,"bla");
+            RemoveBusinesses(b.BusinessID);
+        }
+        [TestMethod]
+        public void TestGetCoupons()
+        {
+            Random r = new Random();
+            Business b = AddBusiness();
+            Interest interest = TestInterest.AddInterest();
+            List<string> inte = new List<string>() { interest.Id.ToString() };
+            List<ListItem> inteLi = new List<ListItem>();
+            inteLi.Add(new ListItem(interest.Description, interest.Id.ToString()));
 
+            for (int i = 0; i < 10; i++)
+            {
+                int p = r.Next(50);
+                int d = p - r.Next(30);
+
+                b.CreateCoupon("coupon" + i, p.ToString(), d.ToString(), "testCop", "21/12/89", r.Next(10).ToString(), inte);
+            }
+            DataTable dt = b.GetCoupons();
+            foreach (DataRow item in dt.Rows)
+            {
+                TestCoupon.RemoveOnlyCoupon(int.Parse(item[8].ToString()));
+            }
+            RemoveBusinesses(b.BusinessID);
+        }
 
         public static Business AddBusiness(String address = "kalisher 5", string name = "addbusinesstest")
         {
@@ -105,7 +157,6 @@ namespace UnitTestProject
             string owner;
             using (basicEntities be = new basicEntities())
             {
-                
                 Business BusinessesToRemove = be.Businesses.Find(BusinessID);
                 catID = BusinessesToRemove.BusinessCategory.Id;
                 cityID = BusinessesToRemove.City.Id;

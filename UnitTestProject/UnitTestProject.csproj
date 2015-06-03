@@ -43,6 +43,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.XML" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -71,6 +74,9 @@
     <Compile Include="BasicDBtests\TestSensor.cs" />
     <Compile Include="BasicDBtests\TestUser.cs" />
     <Compile Include="BasicDBtests\TestUserInterests.cs" />
+    <Compile Include="ControllersTests\BusinessControllerTest.cs" />
+    <Compile Include="ControllersTests\CouponControllerTest.cs" />
+    <Compile Include="ControllersTests\ControllerTest.cs" />
     <Compile Include="ControllersTests\UserControllerTest.cs" />
     <Compile Include="DataAccessTests\UserDataAccessTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

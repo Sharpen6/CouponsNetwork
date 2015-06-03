@@ -17,7 +17,7 @@
                     <a href="#!/home" onclick="SwitchTo('home');">Home</a>
                 </li>
                     <li class="dropdown">
-                        <a>Manage Coupons</a>
+                        <a href="#!/manage">Manage Coupons</a>
                         <ul>
                             <li>
 

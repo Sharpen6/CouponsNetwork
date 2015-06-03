@@ -15,11 +15,12 @@ namespace CouponsOnline.BusinessLayer.Controllers
             return CouponDataAccess.GetCouponsByCity(city);
         }
 
-        public static DataTable FindCoupons(string city, List<ListItem> selectedInterests, double coordinateX, double coordinateY,int category)
+        public static DataTable FindCoupons(string city, List<ListItem> selectedInterests,
+            double coordinateX, double coordinateY)
         {
             DataTable table = new DataTable();
             //without Gps 
-            if (city != "" & category!=0)
+            if (city != "" && selectedInterests!=null)
             {
                 table = CouponDataAccess.GetCouponsByCityAndInterest(city, selectedInterests);
             }

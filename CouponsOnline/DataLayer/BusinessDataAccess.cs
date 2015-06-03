@@ -20,11 +20,13 @@ namespace CouponsOnline.DataLayer
                 //b.Owner_UserName = owner;
                 b.Address = address;
                 b.Name = name;
+                
                 //b.Category = c;
                 b.City = be.Cities.Find(Int32.Parse(cityID));
                 b.BusinessCategory = be.BusinessCategories.Find(int.Parse(categoryID));
                 b.Users_Admin = be.Users_Admin.Find(ad);
                 b.Users_Owner = be.Users_Owner.Find(owner);
+                be.Users_Owner.Find(owner).Businesses.Add(b);
                 be.Businesses.Add(b);
                 be.SaveChanges();
                 return true;
@@ -52,6 +54,11 @@ namespace CouponsOnline.DataLayer
             using (basicEntities be = new basicEntities())
             {
                 Business b = be.Businesses.Find(businessID);
+                be.Entry(b).Reference(p => p.BusinessCategory).Load();
+                be.Entry(b).Reference(p => p.Users_Admin).Load();
+                be.Entry(b).Reference(p => p.Users_Owner).Load();
+                be.Entry(b).Collection(p => p.Coupons).Load();
+                be.Entry(b).Reference(p => p.City).Load();
                 if (!b.Blocked)
                     return b;
                 else 
@@ -185,25 +192,7 @@ namespace CouponsOnline.DataLayer
 
        
         
-        public static ListItem[] GetAllCites()
-        {
-            ListItem[] ans;
-            int i = 0;
-            List<City> cItems;
-            using (basicEntities be = new basicEntities())
-            {
-                var items = from b in be.Cities
-                            select b;
-                cItems = new List<City>(items);
-
-                ans = new ListItem[cItems.Count];
-                foreach (var item in cItems)
-                {
-                    ans[i++] = new ListItem(item.Name,item.Id.ToString());
-                }
-            }
-            return ans;
-        }
+        
 
        
         public static bool EditBusiness(int businessId, string address, string name, string categoryID, string cityID)

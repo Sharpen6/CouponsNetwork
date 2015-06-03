@@ -28,23 +28,25 @@ namespace CouponsOnline.DataLayer
         {
             using (basicEntities be = new basicEntities())
             {
-                Users_Admin admin = be.Users_Admin.Find(ad);
+                Users_Admin admin = be.Users_Admin.Find(ad);              
                 return admin;
             }            
         }
-        public static Users_Owner FindOwner(string ad)
+        public static Users_Owner FindOwner(string ow)
         {
             using (basicEntities be = new basicEntities())
             {
-                Users_Owner owner = be.Users_Owner.Find(ad);
+                Users_Owner owner = be.Users_Owner.Find(ow);
+                be.Entry(owner).Collection(p => p.Businesses).Load();               
                 return owner;
             }
         }
-        public static Users_Customer FindCustomer(string ad)
+        public static Users_Customer FindCustomer(string cus)
         {
             using (basicEntities be = new basicEntities())
             {
-                Users_Customer customer = be.Users_Customer.Find(ad);
+                Users_Customer customer = be.Users_Customer.Find(cus);  
+                be.Entry(customer).Collection(p => p.Interests).Load();
                 return customer;
             }
         }

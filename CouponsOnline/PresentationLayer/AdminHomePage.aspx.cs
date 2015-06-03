@@ -140,8 +140,8 @@ namespace CouponsOnline.PresentationLayer
                 Business b = BusinessController.GetBusiness(DropDownListBusniess.SelectedValue);
                 TextBoxAddress1.Text = b.Address;
                 TextBoxBusinessName1.Text = b.Name;
-                DropDownListCities1.SelectedValue = b.GetCity().ToString();
-                DropDownListCategories1.SelectedValue = b.GetCategory().ToString();
+                DropDownListCities1.SelectedValue = b.City.Id.ToString();
+                DropDownListCategories1.SelectedValue = b.BusinessCategory.Id.ToString();
             }
        
      

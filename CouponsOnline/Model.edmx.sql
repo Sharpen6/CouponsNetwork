@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/02/2015 00:56:34
+-- Date Created: 06/03/2015 20:41:32
 -- Generated from EDMX file: C:\Users\Sagi\Documents\GitHub\CouponsNetwork\CouponsOnline\Model.edmx
 -- --------------------------------------------------
 
@@ -143,9 +143,9 @@ CREATE TABLE [dbo].[Businesses] (
     [Sensor_Id] int  NULL,
     [Blocked] bit  NOT NULL,
     [Users_Admin_UserName] varchar(500)  NOT NULL,
-    [Users_Owner_UserName] varchar(500)  NOT NULL,
     [City_Id] int  NOT NULL,
-    [BusinessCategory_Id] int  NOT NULL
+    [BusinessCategory_Id] int  NOT NULL,
+    [Users_Owner_UserName] varchar(500)  NOT NULL
 );
 GO
 
@@ -439,21 +439,6 @@ ON [dbo].[Businesses]
     ([Users_Admin_UserName]);
 GO
 
--- Creating foreign key on [Users_Owner_UserName] in table 'Businesses'
-ALTER TABLE [dbo].[Businesses]
-ADD CONSTRAINT [FK_BusinessUsers_Owner]
-    FOREIGN KEY ([Users_Owner_UserName])
-    REFERENCES [dbo].[Users_Owner]
-        ([UserName])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_BusinessUsers_Owner'
-CREATE INDEX [IX_FK_BusinessUsers_Owner]
-ON [dbo].[Businesses]
-    ([Users_Owner_UserName]);
-GO
-
 -- Creating foreign key on [Interests_Id] in table 'InterestCoupon'
 ALTER TABLE [dbo].[InterestCoupon]
 ADD CONSTRAINT [FK_InterestCoupon_Interest]
@@ -650,6 +635,21 @@ GO
 CREATE INDEX [IX_FK_BusinessBusinessCategories]
 ON [dbo].[Businesses]
     ([BusinessCategory_Id]);
+GO
+
+-- Creating foreign key on [Users_Owner_UserName] in table 'Businesses'
+ALTER TABLE [dbo].[Businesses]
+ADD CONSTRAINT [FK_BusinessUsers_Owner]
+    FOREIGN KEY ([Users_Owner_UserName])
+    REFERENCES [dbo].[Users_Owner]
+        ([UserName])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_BusinessUsers_Owner'
+CREATE INDEX [IX_FK_BusinessUsers_Owner]
+ON [dbo].[Businesses]
+    ([Users_Owner_UserName]);
 GO
 
 -- --------------------------------------------------

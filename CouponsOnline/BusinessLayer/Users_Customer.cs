@@ -9,9 +9,5 @@ namespace CouponsOnline
 {
     public partial class Users_Customer
     {
-        public ListItem[] GetInterests()
-        {
-            return UserDataAccess.GetUserInterests(UserName);
-        }
     }
 }

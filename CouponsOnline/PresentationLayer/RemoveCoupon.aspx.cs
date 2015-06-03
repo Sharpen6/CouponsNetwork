@@ -54,7 +54,7 @@ namespace CouponsOnline.PresentationLayer
             if (e.CommandName == "RemoveCoupon")
             {
                 
-                bool result = cop.RemoveCoupon();
+                bool result = cop.DeleteCoupon();
                 string Busniess = DropDownListBusniess.SelectedValue;
 
                 if (result)
@@ -67,7 +67,7 @@ namespace CouponsOnline.PresentationLayer
             }
             else
             {
-                TextBoxExp.Text = cop.FindCouponExpDate(selectedRow.Cells[10].Text);
+                TextBoxExp.Text = cop.FindCouponExpDate();
                 EditCoupon.Visible = true;
                 home.Visible = false;
                 TextBoxName.Text = selectedRow.Cells[2].Text;
@@ -79,12 +79,10 @@ namespace CouponsOnline.PresentationLayer
                 copId.Text = selectedRow.Cells[10].Text;
                 DropDownListInterests.Items.Clear();
                 LoadInterest();
-                ICollection<Interest> t = cop.GetInterests(copId.Text);
+                ICollection<Interest> t = cop.Interests;
                 foreach (Interest item in t)
                 {
                     DropDownListInterests.Items.FindByText(item.Description).Selected = true;
-
-
                 }
 
 
@@ -97,7 +95,7 @@ namespace CouponsOnline.PresentationLayer
             {
                 DropDownListInterests.Items.Clear();
                 Business bus = BusinessController.GetBusiness(DropDownListBusniess.SelectedValue);
-                int Categoryid = bus.GetCategory();
+                int Categoryid = bus.BusinessCategory.Id;
                 //DropDownListInterests.Items.AddRange(BusinessController.GetAllCategoryIntrest(Categoryid));
                 DropDownListInterests.DataSource = Controller.GetAllCategoryInterests(Categoryid.ToString());
                 DropDownListInterests.DataBind();

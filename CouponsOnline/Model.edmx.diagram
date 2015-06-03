@@ -13,7 +13,7 @@
         <EntityTypeShape EntityType="basicModel.User" Width="1.5" PointX="0.75" PointY="5.875" />
         <EntityTypeShape EntityType="basicModel.Users_Admin" Width="1.5" PointX="2.5" PointY="3.75" />
         <EntityTypeShape EntityType="basicModel.Users_Customer" Width="1.5" PointX="2.75" PointY="8" />
-        <EntityTypeShape EntityType="basicModel.Users_Owner" Width="1.5" PointX="3" PointY="6" />
+        <EntityTypeShape EntityType="basicModel.Users_Owner" Width="1.5" PointX="2.75" PointY="6" />
         <AssociationConnector Association="basicModel.FK_BusinessCoupon" />
         <AssociationConnector Association="basicModel.FK_BusinessLocation" />
         <AssociationConnector Association="basicModel.FK_Admin_inherits_User" />
@@ -21,7 +21,6 @@
         <AssociationConnector Association="basicModel.FK_Owner_inherits_User" />
         <EntityTypeShape EntityType="basicModel.BusinessCategories" Width="1.5" PointX="9.625" PointY="2.75" />
         <AssociationConnector Association="basicModel.Users_AdminBusiness" />
-        <AssociationConnector Association="basicModel.BusinessUsers_Owner" />
         <EntityTypeShape EntityType="basicModel.Interest" Width="1.5" PointX="6.625" PointY="0.5" />
         <AssociationConnector Association="basicModel.InterestCoupon" />
         <EntityTypeShape EntityType="basicModel.City" Width="1.5" PointX="0.5" PointY="2.625" />
@@ -33,14 +32,15 @@
         <AssociationConnector Association="basicModel.Users_CustomerOrderedCoupon" />
         <AssociationConnector Association="basicModel.Users_CustomerRecommendedCoupon" />
         <AssociationConnector Association="basicModel.SensorUsers_Customer" ManuallyRouted="true" >
-          <ConnectorPoint PointX="5.06250125" PointY="2.7302864583333331" />
-          <ConnectorPoint PointX="5.06250125" PointY="8.3580501888020837" />
+          <ConnectorPoint PointX="5.00000125" PointY="2.7302864583333331" />
+          <ConnectorPoint PointX="5.00000125" PointY="8.3580501888020837" />
           <ConnectorPoint PointX="4.25" PointY="8.3580501888020837" />
         </AssociationConnector>
         <AssociationConnector Association="basicModel.SensorCoupon" />
         <AssociationConnector Association="basicModel.BusinessCategoriesInterest" />
         <AssociationConnector Association="basicModel.Users_CustomerInterest" />
         <AssociationConnector Association="basicModel.BusinessBusinessCategories" />
+        <AssociationConnector Association="basicModel.BusinessUsers_Owner" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

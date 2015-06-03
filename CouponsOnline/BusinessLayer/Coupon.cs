@@ -9,23 +9,18 @@ namespace CouponsOnline
 {
     public partial class Coupon
     {
-        public bool EditCoupon(string p1, double p2, double p3, string p4, string p5, int mdp, List<ListItem> selected)
+        //all tested
+        public bool EditCoupon(string name, double org, double disc, string desc, string exp, int mdp, List<ListItem> selected)
         {
-            return CouponDataAccess.EditCoupon(Id, p1, p2, p3, p4, p5, mdp, selected);
+            return CouponDataAccess.EditCoupon(Id, name, org, disc, desc, exp, mdp, selected);
         }
-        public bool RemoveCoupon()
+        public bool DeleteCoupon()
         {
             return CouponDataAccess.RemoveCoupon(Id.ToString());
         }
-        public string FindCouponExpDate(string p)
+        public string FindCouponExpDate()
         {
-            return CouponDataAccess.FindCoupon(p);
+            return CouponDataAccess.FindCoupon(Id.ToString());
         }
-        public ICollection<Interest> GetInterests(string p)
-        {
-            return CouponDataAccess.findCopInterest(p);
-        }
-
-
     }
 }

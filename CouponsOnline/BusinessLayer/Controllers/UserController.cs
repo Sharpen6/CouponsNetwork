@@ -130,5 +130,10 @@ namespace CouponsOnline.BusinessLayer.Controllers
             }
             return allUsers;
         }
+
+        internal static Users_Customer GetCustomer(string p)
+        {
+            return UserDataAccess.FindCustomer(p);
+        }
     }
 }

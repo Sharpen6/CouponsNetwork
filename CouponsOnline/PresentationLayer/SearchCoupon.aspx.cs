@@ -45,7 +45,7 @@ namespace CouponsOnline
             foreach (ListItem item in DropDownListInterests.Items)
                 if (item.Selected) selectedInterests.Add(item);
             // this function applies all the fields togather
-            GridVresults.DataSource = CouponController.FindCoupons(city, selectedInterests, coordinateX, coordinateY, DropDownListCategory.SelectedIndex);
+            GridVresults.DataSource = CouponController.FindCoupons(city, selectedInterests, coordinateX, coordinateY);
             GridVresults.DataBind();
         }
         private void SearchByCords()

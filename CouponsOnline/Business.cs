@@ -28,8 +28,8 @@ namespace CouponsOnline
         public virtual ICollection<Coupon> Coupons { get; set; }
         public virtual Sensor Sensor { get; set; }
         public virtual Users_Admin Users_Admin { get; set; }
-        public virtual Users_Owner Users_Owner { get; set; }
         public virtual City City { get; set; }
         public virtual BusinessCategories BusinessCategory { get; set; }
+        public virtual Users_Owner Users_Owner { get; set; }
     }
 }

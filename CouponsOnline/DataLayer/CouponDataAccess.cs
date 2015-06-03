@@ -197,7 +197,6 @@ namespace CouponsOnline.DataLayer
             }
         }
 
-
         public static DataTable GetCouponsByGps(double coordinateX, double coordinateY)
         {
             throw new NotImplementedException();
@@ -229,7 +228,7 @@ namespace CouponsOnline.DataLayer
             return GetDataTable(bus);
         }
 
-        public static bool EditCoupon(int copId, string p1, double p2, double p3, string p4, string p5, int mdp, List<ListItem> selected)
+        public static bool EditCoupon(int copId, string name, double org, double disc, string desc, string exp, int mdp, List<ListItem> selected)
         {
             try
             {
@@ -238,11 +237,11 @@ namespace CouponsOnline.DataLayer
                     if (be.Coupons.Find(copId) != null)
                     {
                         Coupon cop = be.Coupons.Find(copId);
-                        cop.Name = p1;
-                        cop.OriginalPrice = p2;
-                        cop.DiscountPrice = p3;
-                        cop.Description = p4;
-                        cop.ExperationDate = p5;
+                        cop.Name = name;
+                        cop.OriginalPrice = org;
+                        cop.DiscountPrice = disc;
+                        cop.Description = desc;
+                        cop.ExperationDate = exp;
                         cop.MaxNum = mdp;
 
                         ICollection<Interest> i = cop.Interests;
