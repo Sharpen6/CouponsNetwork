@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CouponsOnline;
-using CouponsOnline.BusinessLayer.Controllers;
+using CouponsOnline.BusinessLayer.Presenters;
 using System.Collections.Generic;
-using CouponsOnline.PresentationLayer;
+using CouponsOnline.View;
 
 namespace UnitTestProject.ControllersTests
 {

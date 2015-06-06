@@ -1,4 +1,4 @@
-﻿using CouponsOnline.BusinessLayer.Controllers;
+﻿using CouponsOnline.BusinessLayer.Presenters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace CouponsOnline.PresentationLayer
+namespace CouponsOnline.View
 {
     public partial class Register : System.Web.UI.Page
     {

@@ -7,19 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CouponsOnline.PresentationLayer {
+namespace CouponsOnline.View {
     
     
-    public partial class Profile {
-        
-        /// <summary>
-        /// homeLink control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor homeLink;
+    public partial class Register {
         
         /// <summary>
         /// form1 control.
@@ -31,15 +22,6 @@ namespace CouponsOnline.PresentationLayer {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// home control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl home;
-        
-        /// <summary>
         /// TextBoxUserName control.
         /// </summary>
         /// <remarks>
@@ -47,6 +29,24 @@ namespace CouponsOnline.PresentationLayer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBoxUserName;
+        
+        /// <summary>
+        /// TextBoxPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxPassword;
+        
+        /// <summary>
+        /// TextBoxPasswordVal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxPasswordVal;
         
         /// <summary>
         /// TextBoxName control.
@@ -76,13 +76,13 @@ namespace CouponsOnline.PresentationLayer {
         protected global::System.Web.UI.WebControls.TextBox TextBoxEmail;
         
         /// <summary>
-        /// DropDownListInterests control.
+        /// radioBtnUserType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList DropDownListInterests;
+        protected global::System.Web.UI.WebControls.RadioButtonList radioBtnUserType;
         
         /// <summary>
         /// BLerrors control.
@@ -94,6 +94,15 @@ namespace CouponsOnline.PresentationLayer {
         protected global::System.Web.UI.WebControls.BulletedList BLerrors;
         
         /// <summary>
+        /// DropDownListInterests control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList DropDownListInterests;
+        
+        /// <summary>
         /// Button1 control.
         /// </summary>
         /// <remarks>
@@ -103,48 +112,39 @@ namespace CouponsOnline.PresentationLayer {
         protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
-        /// TextBoxPassword control.
+        /// btnCreateAdmin control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxPassword;
+        protected global::System.Web.UI.WebControls.Button btnCreateAdmin;
         
         /// <summary>
-        /// TextBoxPasswordVal control.
+        /// btnCreateOwner control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxPasswordVal;
+        protected global::System.Web.UI.WebControls.Button btnCreateOwner;
         
         /// <summary>
-        /// reset control.
+        /// btnCreateUser control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button reset;
+        protected global::System.Web.UI.WebControls.Button btnCreateUser;
         
         /// <summary>
-        /// delete control.
+        /// btnAddInformation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button delete;
-        
-        /// <summary>
-        /// ResetPassword control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ResetPassword;
+        protected global::System.Web.UI.WebControls.Button btnAddInformation;
     }
 }

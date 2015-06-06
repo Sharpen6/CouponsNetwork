@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AdminHomePage.aspx.cs" Inherits="CouponsOnline.PresentationLayer.AdminHomePage" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AdminHomePage.aspx.cs" Inherits="CouponsOnline.View.AdminHomePage" %>
 
 <!DOCTYPE html>
 

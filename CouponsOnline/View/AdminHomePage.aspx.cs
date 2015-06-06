@@ -1,4 +1,4 @@
-﻿using CouponsOnline.BusinessLayer.Controllers;
+﻿using CouponsOnline.BusinessLayer.Presenters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
 
-namespace CouponsOnline.PresentationLayer
+namespace CouponsOnline.View
 {
     public partial class AdminHomePage : System.Web.UI.Page
     {

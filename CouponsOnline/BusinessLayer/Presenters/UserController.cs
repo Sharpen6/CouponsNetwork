@@ -1,5 +1,5 @@
 ﻿using CouponsOnline.DataLayer;
-using CouponsOnline.PresentationLayer;
+using CouponsOnline.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI.WebControls;
 
-namespace CouponsOnline.BusinessLayer.Controllers
+namespace CouponsOnline.BusinessLayer.Presenters
 {
     public class UserController
     {

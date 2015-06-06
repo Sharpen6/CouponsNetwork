@@ -85,17 +85,17 @@
   <ItemGroup>
     <Content Include="js\script.js" />
     <Content Include="Model.edmx.sql" />
-    <Content Include="PresentationLayer\Profile.aspx" />
-    <Content Include="PresentationLayer\RemoveCoupon.aspx" />
-    <Content Include="PresentationLayer\AdminHomePage.aspx" />
-    <Content Include="PresentationLayer\css\style.css" />
-    <Content Include="PresentationLayer\css\styleMain.css" />
-    <Content Include="PresentationLayer\CustomerHomePage.aspx" />
-    <Content Include="PresentationLayer\DisplayBusinesses.aspx" />
-    <Content Include="PresentationLayer\Login.aspx" />
-    <Content Include="PresentationLayer\OwnerHomePage.aspx" />
-    <Content Include="PresentationLayer\Register.aspx" />
-    <Content Include="PresentationLayer\SearchCoupon.aspx" />
+    <Content Include="View\Profile.aspx" />
+    <Content Include="View\RemoveCoupon.aspx" />
+    <Content Include="View\AdminHomePage.aspx" />
+    <Content Include="View\css\style.css" />
+    <Content Include="View\css\styleMain.css" />
+    <Content Include="View\CustomerHomePage.aspx" />
+    <Content Include="View\DisplayBusinesses.aspx" />
+    <Content Include="View\Login.aspx" />
+    <Content Include="View\OwnerHomePage.aspx" />
+    <Content Include="View\Register.aspx" />
+    <Content Include="View\SearchCoupon.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -106,13 +106,13 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="BusinessLayer\Business.cs" />
-    <Compile Include="BusinessLayer\Controllers\Controller.cs" />
+    <Compile Include="BusinessLayer\Presenters\Controller.cs" />
     <Compile Include="BusinessLayer\Coupon.cs" />
     <Compile Include="BusinessLayer\User.cs" />
     <Compile Include="BusinessLayer\Users_Admin.cs" />
-    <Compile Include="BusinessLayer\Controllers\BusinessController.cs" />
-    <Compile Include="BusinessLayer\Controllers\CouponController.cs" />
-    <Compile Include="BusinessLayer\Controllers\UserController.cs" />
+    <Compile Include="BusinessLayer\Presenters\BusinessController.cs" />
+    <Compile Include="BusinessLayer\Presenters\CouponController.cs" />
+    <Compile Include="BusinessLayer\Presenters\UserController.cs" />
     <Compile Include="BusinessLayer\Users_Customer.cs" />
     <Compile Include="BusinessLayer\Users_Owner.cs" />
     <Compile Include="City.cs">
@@ -149,68 +149,68 @@
     <Compile Include="OrderedCoupon.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="PresentationLayer\Profile.aspx.cs">
+    <Compile Include="View\Profile.aspx.cs">
       <DependentUpon>Profile.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="PresentationLayer\Profile.aspx.designer.cs">
+    <Compile Include="View\Profile.aspx.designer.cs">
       <DependentUpon>Profile.aspx</DependentUpon>
     </Compile>
-    <Compile Include="PresentationLayer\RemoveCoupon.aspx.cs">
+    <Compile Include="View\RemoveCoupon.aspx.cs">
       <DependentUpon>RemoveCoupon.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="PresentationLayer\RemoveCoupon.aspx.designer.cs">
+    <Compile Include="View\RemoveCoupon.aspx.designer.cs">
       <DependentUpon>RemoveCoupon.aspx</DependentUpon>
     </Compile>
-    <Compile Include="PresentationLayer\AdminHomePage.aspx.cs">
+    <Compile Include="View\AdminHomePage.aspx.cs">
       <DependentUpon>AdminHomePage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="PresentationLayer\AdminHomePage.aspx.designer.cs">
+    <Compile Include="View\AdminHomePage.aspx.designer.cs">
       <DependentUpon>AdminHomePage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="PresentationLayer\CustomerHomePage.aspx.cs">
+    <Compile Include="View\CustomerHomePage.aspx.cs">
       <DependentUpon>CustomerHomePage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="PresentationLayer\CustomerHomePage.aspx.designer.cs">
+    <Compile Include="View\CustomerHomePage.aspx.designer.cs">
       <DependentUpon>CustomerHomePage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="PresentationLayer\DisplayBusinesses.aspx.cs">
+    <Compile Include="View\DisplayBusinesses.aspx.cs">
       <DependentUpon>DisplayBusinesses.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="PresentationLayer\DisplayBusinesses.aspx.designer.cs">
+    <Compile Include="View\DisplayBusinesses.aspx.designer.cs">
       <DependentUpon>DisplayBusinesses.aspx</DependentUpon>
     </Compile>
-    <Compile Include="PresentationLayer\Login.aspx.cs">
+    <Compile Include="View\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="PresentationLayer\Login.aspx.designer.cs">
+    <Compile Include="View\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
-    <Compile Include="PresentationLayer\OwnerHomePage.aspx.cs">
+    <Compile Include="View\OwnerHomePage.aspx.cs">
       <DependentUpon>OwnerHomePage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="PresentationLayer\OwnerHomePage.aspx.designer.cs">
+    <Compile Include="View\OwnerHomePage.aspx.designer.cs">
       <DependentUpon>OwnerHomePage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="PresentationLayer\Register.aspx.cs">
+    <Compile Include="View\Register.aspx.cs">
       <DependentUpon>Register.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="PresentationLayer\Register.aspx.designer.cs">
+    <Compile Include="View\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
     <Compile Include="BusinessLayer\UserType.cs" />
-    <Compile Include="PresentationLayer\SearchCoupon.aspx.cs">
+    <Compile Include="View\SearchCoupon.aspx.cs">
       <DependentUpon>SearchCoupon.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="PresentationLayer\SearchCoupon.aspx.designer.cs">
+    <Compile Include="View\SearchCoupon.aspx.designer.cs">
       <DependentUpon>SearchCoupon.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

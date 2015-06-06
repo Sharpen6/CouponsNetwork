@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/03/2015 20:41:32
--- Generated from EDMX file: C:\Users\Sagi\Documents\GitHub\CouponsNetwork\CouponsOnline\Model.edmx
+-- Date Created: 06/06/2015 14:00:23
+-- Generated from EDMX file: C:\Users\User\Documents\GitHub\CouponsNetwork\CouponsOnline\Model.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -34,9 +34,6 @@ IF OBJECT_ID(N'[dbo].[FK_Owner_inherits_User]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_Users_AdminBusiness]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Businesses] DROP CONSTRAINT [FK_Users_AdminBusiness];
-GO
-IF OBJECT_ID(N'[dbo].[FK_BusinessUsers_Owner]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Businesses] DROP CONSTRAINT [FK_BusinessUsers_Owner];
 GO
 IF OBJECT_ID(N'[dbo].[FK_InterestCoupon_Interest]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[InterestCoupon] DROP CONSTRAINT [FK_InterestCoupon_Interest];
@@ -79,6 +76,9 @@ IF OBJECT_ID(N'[dbo].[FK_Users_CustomerInterest_Interest]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_BusinessBusinessCategories]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Businesses] DROP CONSTRAINT [FK_BusinessBusinessCategories];
+GO
+IF OBJECT_ID(N'[dbo].[FK_BusinessUsers_Owner]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Businesses] DROP CONSTRAINT [FK_BusinessUsers_Owner];
 GO
 
 -- --------------------------------------------------
@@ -374,7 +374,6 @@ ADD CONSTRAINT [FK_BusinessCoupon]
     REFERENCES [dbo].[Businesses]
         ([BusinessID])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_BusinessCoupon'
 CREATE INDEX [IX_FK_BusinessCoupon]
@@ -389,7 +388,6 @@ ADD CONSTRAINT [FK_BusinessLocation]
     REFERENCES [dbo].[Sensors]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_BusinessLocation'
 CREATE INDEX [IX_FK_BusinessLocation]
@@ -431,7 +429,6 @@ ADD CONSTRAINT [FK_Users_AdminBusiness]
     REFERENCES [dbo].[Users_Admin]
         ([UserName])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_Users_AdminBusiness'
 CREATE INDEX [IX_FK_Users_AdminBusiness]
@@ -455,7 +452,6 @@ ADD CONSTRAINT [FK_InterestCoupon_Coupon]
     REFERENCES [dbo].[Coupons]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_InterestCoupon_Coupon'
 CREATE INDEX [IX_FK_InterestCoupon_Coupon]
@@ -470,7 +466,6 @@ ADD CONSTRAINT [FK_BusinessCity]
     REFERENCES [dbo].[Cities]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_BusinessCity'
 CREATE INDEX [IX_FK_BusinessCity]
@@ -485,7 +480,6 @@ ADD CONSTRAINT [FK_LocationSensor]
     REFERENCES [dbo].[Sensors]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_LocationSensor'
 CREATE INDEX [IX_FK_LocationSensor]
@@ -500,7 +494,6 @@ ADD CONSTRAINT [FK_RecommendedCouponCoupon]
     REFERENCES [dbo].[Coupons]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_RecommendedCouponCoupon'
 CREATE INDEX [IX_FK_RecommendedCouponCoupon]
@@ -515,7 +508,6 @@ ADD CONSTRAINT [FK_CouponOrderedCoupon]
     REFERENCES [dbo].[Coupons]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_CouponOrderedCoupon'
 CREATE INDEX [IX_FK_CouponOrderedCoupon]
@@ -530,7 +522,6 @@ ADD CONSTRAINT [FK_Users_CustomerOrderedCoupon]
     REFERENCES [dbo].[Users_Customer]
         ([UserName])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_Users_CustomerOrderedCoupon'
 CREATE INDEX [IX_FK_Users_CustomerOrderedCoupon]
@@ -545,7 +536,6 @@ ADD CONSTRAINT [FK_Users_CustomerRecommendedCoupon]
     REFERENCES [dbo].[Users_Customer]
         ([UserName])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_Users_CustomerRecommendedCoupon'
 CREATE INDEX [IX_FK_Users_CustomerRecommendedCoupon]
@@ -560,7 +550,6 @@ ADD CONSTRAINT [FK_SensorUsers_Customer]
     REFERENCES [dbo].[Users_Customer]
         ([UserName])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_SensorUsers_Customer'
 CREATE INDEX [IX_FK_SensorUsers_Customer]
@@ -575,7 +564,6 @@ ADD CONSTRAINT [FK_SensorCoupon]
     REFERENCES [dbo].[Coupons]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_SensorCoupon'
 CREATE INDEX [IX_FK_SensorCoupon]
@@ -590,7 +578,6 @@ ADD CONSTRAINT [FK_BusinessCategoriesInterest]
     REFERENCES [dbo].[BusinessCategories]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_BusinessCategoriesInterest'
 CREATE INDEX [IX_FK_BusinessCategoriesInterest]
@@ -614,7 +601,6 @@ ADD CONSTRAINT [FK_Users_CustomerInterest_Interest]
     REFERENCES [dbo].[Interests]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_Users_CustomerInterest_Interest'
 CREATE INDEX [IX_FK_Users_CustomerInterest_Interest]
@@ -629,7 +615,6 @@ ADD CONSTRAINT [FK_BusinessBusinessCategories]
     REFERENCES [dbo].[BusinessCategories]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_BusinessBusinessCategories'
 CREATE INDEX [IX_FK_BusinessBusinessCategories]
@@ -644,7 +629,6 @@ ADD CONSTRAINT [FK_BusinessUsers_Owner]
     REFERENCES [dbo].[Users_Owner]
         ([UserName])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_BusinessUsers_Owner'
 CREATE INDEX [IX_FK_BusinessUsers_Owner]

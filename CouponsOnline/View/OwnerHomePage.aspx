@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="OwnerHomePage.aspx.cs" Inherits="CouponsOnline.PresentationLayer.OwnerHomePage" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="OwnerHomePage.aspx.cs" Inherits="CouponsOnline.View.OwnerHomePage" %>
 
 <!DOCTYPE html>
 

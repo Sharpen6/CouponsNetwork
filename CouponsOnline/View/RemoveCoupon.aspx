@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="RemoveCoupon.aspx.cs" Inherits="CouponsOnline.PresentationLayer.AddCoupon" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="RemoveCoupon.aspx.cs" Inherits="CouponsOnline.View.AddCoupon" %>
 
 
 <!DOCTYPE html>

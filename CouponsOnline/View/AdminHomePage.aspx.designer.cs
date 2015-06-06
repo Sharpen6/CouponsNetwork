@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CouponsOnline.PresentationLayer {
+namespace CouponsOnline.View {
     
     
     public partial class AdminHomePage {

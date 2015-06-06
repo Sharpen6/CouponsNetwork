@@ -1,4 +1,4 @@
-﻿using CouponsOnline.BusinessLayer.Controllers;
+﻿using CouponsOnline.BusinessLayer.Presenters;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -8,7 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
 
-namespace CouponsOnline.PresentationLayer
+namespace CouponsOnline.View
 {
     public partial class AddCoupon : System.Web.UI.Page
     {
@@ -67,7 +67,7 @@ namespace CouponsOnline.PresentationLayer
             }
             else
             {
-                TextBoxExp.Text = cop.FindCouponExpDate();
+                TextBoxExp.Text = cop.ExperationDate;
                 EditCoupon.Visible = true;
                 home.Visible = false;
                 TextBoxName.Text = selectedRow.Cells[2].Text;

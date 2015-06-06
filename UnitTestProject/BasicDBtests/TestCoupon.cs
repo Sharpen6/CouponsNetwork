@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CouponsOnline;
 using System.Web.UI.WebControls;
-using CouponsOnline.BusinessLayer.Controllers;
+using CouponsOnline.BusinessLayer.Presenters;
 namespace UnitTestProject
 {
     [TestClass]
@@ -55,13 +55,6 @@ namespace UnitTestProject
                 coupon.DeleteCoupon();
                 Assert.IsNull(be.Coupons.Find(coupon.Id));
             }
-        }
-        [TestMethod]
-        public void TestFindCouponExp()
-        {
-            Coupon coupon = AddCoupon();
-            Assert.AreEqual(coupon.FindCouponExpDate(), "10/10/2009");
-            RemoveCoupon(coupon.Id);
         }
         [TestMethod]
         public void TestEditCoupon()

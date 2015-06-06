@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace CouponsOnline.PresentationLayer
+namespace CouponsOnline.View
 {
     public partial class DisplayBusinesses : System.Web.UI.Page
     {

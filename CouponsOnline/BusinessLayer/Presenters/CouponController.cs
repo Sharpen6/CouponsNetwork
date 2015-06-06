@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web.UI.WebControls;
 
 
-namespace CouponsOnline.BusinessLayer.Controllers
+namespace CouponsOnline.BusinessLayer.Presenters
 {
     public class CouponController
     {
