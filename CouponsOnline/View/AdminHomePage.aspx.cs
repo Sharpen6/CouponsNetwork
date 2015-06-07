@@ -49,6 +49,10 @@ namespace CouponsOnline.View
         {
             DropDownListCities.Items.Clear();
             DropDownListCities1.Items.Clear();
+            DropDownListCities.DataTextField = "Text";
+            DropDownListCities.DataValueField = "Value";
+            DropDownListCities1.DataTextField = "Text";
+            DropDownListCities1.DataValueField = "Value";
             DropDownListCities.DataSource = Controller.GetAllCites();
             DropDownListCities.DataBind();
             DropDownListCities1.DataSource = Controller.GetAllCites();
@@ -116,12 +120,15 @@ namespace CouponsOnline.View
             DropDownListBusniess.Items.Clear();
             string ownerName = DropDownListOwnersAdd.SelectedValue;
             Users_Owner ou = UserController.GetOwner(ownerName);
-            DropDownListBusniess.Items.AddRange(ou.GetBusinesses());
+            DropDownListBusniess.DataTextField = "Text";
+            DropDownListBusniess.DataValueField = "Value";
+            DropDownListBusniess.DataSource= ou.GetBusinesses();
+            DropDownListBusniess.DataBind();
             //DropDownListBusniess_SelectedIndexChanged(null, null);
         }
         private void LoadAllBusiness()
         {
-            DropDownListBusniess.Items.Clear();
+            DropDownListAllBusinesses.Items.Clear();
             foreach (ListItem ownerName in DropDownListOwnersAdd.Items)
             {
                 Users_Owner ou = UserController.GetOwner(ownerName.Value);

@@ -64,6 +64,11 @@ namespace UnitTestProject
         {
             using (basicEntities be = new basicEntities())
             {
+                foreach (var item in be.Businesses)
+                {
+                    if (item.City.Id == id)
+                        return;
+                }
                 City c = be.Cities.Find(id);
                 if (c != null)
                 {

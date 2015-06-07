@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace CouponsOnline.DataLayer
 {
+    // all tested
     public class BusinessDataAccess
     {
         public static bool CreateBusiness(string ad, string owner, string address,
@@ -16,12 +17,8 @@ namespace CouponsOnline.DataLayer
             using (basicEntities be = new basicEntities())
             {
                 Business b = new Business();
-                //b.Admin_UserName = ad;
-                //b.Owner_UserName = owner;
                 b.Address = address;
                 b.Name = name;
-                
-                //b.Category = c;
                 b.City = be.Cities.Find(Int32.Parse(cityID));
                 b.BusinessCategory = be.BusinessCategories.Find(int.Parse(categoryID));
                 b.Users_Admin = be.Users_Admin.Find(ad);
@@ -78,16 +75,16 @@ namespace CouponsOnline.DataLayer
             return ans;
         }
 
-        public static List<Business> GetAllBusnisesOfOwner(string businessOwner)
+        public static List<Business> GetAllBusinssesOfOwner(string businessOwner)
         {
             using (basicEntities be = new basicEntities())
             {
                 var items = from b in be.Businesses
-                            where b.Users_Owner.UserName == businessOwner & b.Blocked == false
+                            where b.Users_Owner.UserName == businessOwner && b.Blocked == false
                             select b;
-                foreach (Business b in items)
-                    b.Blocked = true;
-                be.SaveChanges();
+                //foreach (Business b in items)
+                //    b.Blocked = true;
+                //be.SaveChanges();
                 return new List<Business>(items);
             }
         }

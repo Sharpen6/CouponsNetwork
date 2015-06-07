@@ -160,8 +160,14 @@ namespace UnitTestProject
                 Business BusinessesToRemove = be.Businesses.Find(BusinessID);
                 catID = BusinessesToRemove.BusinessCategory.Id;
                 cityID = BusinessesToRemove.City.Id;
-                owner = BusinessesToRemove.Users_Admin.UserName;
-                admin = BusinessesToRemove.Users_Owner.UserName;
+                admin = BusinessesToRemove.Users_Admin.UserName;
+                owner = BusinessesToRemove.Users_Owner.UserName;
+
+                be.Entry(be.Cities.Find(cityID)).State = System.Data.Entity.EntityState.Unchanged;
+                be.Entry(be.BusinessCategories.Find(catID)).State = System.Data.Entity.EntityState.Unchanged;
+                be.Entry(be.Users_Admin.Find(admin)).State = System.Data.Entity.EntityState.Unchanged;
+                be.Entry(be.Users_Owner.Find(owner)).State = System.Data.Entity.EntityState.Unchanged;
+                
                 be.Businesses.Remove(BusinessesToRemove);
                 be.SaveChanges();
             }

@@ -109,6 +109,11 @@ namespace UnitTestProject
         {
             using (basicEntities be = new basicEntities())
             {
+                foreach (var item in be.Businesses)
+                {
+                    if (item.Users_Admin.UserName == user)
+                        return;
+                }
                 User userToRemove = be.Users.Find(user);
                 if (userToRemove != null)
                 {
