@@ -33,19 +33,6 @@ namespace CouponsOnline.DataLayer
             }
         }
 
-        /*
-        public static Business FindBusiness(string businessName)
-        {
-            using (basicEntities be = new basicEntities())
-            {
-                var bus = from b in be.Businesses
-                          where b.Name == businessName
-                          select b;
-                Business business = bus.First();
-                return business;
-            }
-        }
-        */
         public static Business GetBusiness(int businessID)
         {
             using (basicEntities be = new basicEntities())
@@ -71,19 +58,7 @@ namespace CouponsOnline.DataLayer
             }
             return true;
         }
-        /*
-        public static BusinessCategories GetBusinessCategory(int businessId)
-        {
-            using (basicEntities be = new basicEntities())
-            {
-                var bus = from b in be.Businesses
-                          where b.BusinessID == businessId
-                          select b;
-                Business business = bus.First();
-                return business.BusinessCategory;
-            }
-        }*/
-        
+
         public static ListItem[] GetCategories()
         {
             ListItem[] ans;
@@ -103,50 +78,6 @@ namespace CouponsOnline.DataLayer
             return ans;
         }
 
-        public static ListItem[] GetAllBusnisesId(string businessOwner)
-        {
-            ListItem[] ans;
-            int i = 0;
-            List<Business> bItems;
-            using (basicEntities be = new basicEntities())
-            {
-                var items = from b in be.Businesses
-                            where b.Users_Owner.UserName == businessOwner & b.Blocked==false
-                            select b;
-                bItems = new List<Business>(items);
-            }
-            ans = new ListItem[bItems.Count];
-            foreach (var item in bItems)
-            {
-                ans[i++] = new ListItem(item.Name,item.BusinessID.ToString());
-                ans[i-1].Value = item.BusinessID.ToString();
-
-            }
-            return ans;
-        }
-        /*
-        public static ListItem[] GetAllBusnisesCategory(string businessOwner)
-        {
-            ListItem[] ans;
-            int i = 0;
-            List<Business> bItems;
-            using (basicEntities be = new basicEntities())
-            {
-                var items = from b in be.Businesses
-                            where b.Users_Owner.UserName == businessOwner & b.Blocked == false
-                            select b;
-                bItems = new List<Business>(items);
-            
-            ans = new ListItem[bItems.Count];
-            foreach (var item in bItems)
-            {
-                ans[i++] = new ListItem(item.BusinessCategory.Description,
-                    item.BusinessCategory.Id.ToString());
-            }
-                }
-            return ans;
-        }
-        */
         public static List<Business> GetAllBusnisesOfOwner(string businessOwner)
         {
             using (basicEntities be = new basicEntities())
@@ -195,20 +126,7 @@ namespace CouponsOnline.DataLayer
                 return true;
             }
         }
-        /*
-        public static Users_Owner GetBusinessOwner(string selectedBusiness)
-        {
-            using (basicEntities be = new basicEntities())
-            {
-                var owner = from b in be.Businesses
-                           where b.Name == selectedBusiness
-                           select b.Users_Owner;
-                if (owner.Count() == 0) return null;
-                Users_Owner c = owner.First();
-                return c;
-            }
-        }*/
-        
+
         public static ListItem[] GetlAllInterests()
         {
             ListItem[] ans;
@@ -227,18 +145,7 @@ namespace CouponsOnline.DataLayer
             }
             return ans;
         }
-        /*
-        internal static int GetBusinessCity(int businessId)
-        {
-            using (basicEntities be = new basicEntities())
-            {
-                var bus = from b in be.Businesses
-                          where b.BusinessID == businessId
-                          select b;
-                Business business = bus.First();
-                return business.City.Id;
-            }
-        }*/
+
     }
     
 }

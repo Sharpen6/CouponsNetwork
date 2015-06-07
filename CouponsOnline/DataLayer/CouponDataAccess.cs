@@ -46,82 +46,7 @@ namespace CouponsOnline.DataLayer
             }
         }
 
-        public static DataTable GetCouponsByCity(string city)
-        {
-            DataTable table = new DataTable();
-
-            table.Columns.Add("Name", typeof(string));
-            table.Columns.Add("Description", typeof(string));
-            table.Columns.Add("Original Price", typeof(double));
-            table.Columns.Add("New Price", typeof(double));
-            table.Columns.Add("Business", typeof(string));
-            table.Columns.Add("Location", typeof(string));
-            table.Columns.Add("Rating", typeof(double));
-            table.Columns.Add("MaxNum", typeof(int));
-            table.Columns.Add("CoupinId", typeof(string));
-
-            using (basicEntities be = new basicEntities())
-            {
-                var bus = from b in be.Coupons
-                          where b.Business.City.Id.ToString() == city && b.Business.Blocked == false
-                          select b;
-                foreach (var item in bus)
-                {
-                    DataRow dr = table.NewRow();
-                    dr[0] = item.Name;
-                    dr[1] = item.Description;
-                    dr[2] = item.OriginalPrice;
-                    dr[3] = item.DiscountPrice;
-                    dr[4] = item.Business.Name;
-                    dr[5] = item.Business.City.Name; ;
-                    dr[6] = item.AvarageRanking;
-                    dr[7] = item.MaxNum;
-                    dr[8] = item.Id;
-                    table.Rows.Add(dr);
-                }
-            }
-            return table;
-        }
-
-        public static DataTable GetCouponsByBusniess(int Business)
-        {
-            IQueryable<int> bus;
-            using (basicEntities be = new basicEntities())
-            {
-                bus = from b in be.Coupons
-                      where b.Business.BusinessID == Business
-                      select b.Id;
-                return GetDataTable(bus.ToList());
-            }
-        }
-
-        public static DataTable GetCouponsByInterest(List<ListItem> selectedInterests)
-        {
-            List<string> interests = new List<string>();
-            foreach (var item in selectedInterests)
-            {
-                interests.Add(item.Text);
-            }
-            List<int> bus = new List<int>();
-            using (basicEntities be = new basicEntities())
-            {
-                foreach (var item in be.Coupons)
-                {
-                    foreach (var interest in item.Interests)
-                    {
-                        if (interests.Contains(interest.Description) & item.Business.Blocked == false)
-                        {
-                            bus.Add(item.Id);
-                            break;
-                        }
-                    }
-                }
-            }
-            return GetDataTable(bus);
-        }
-
-
-        public static DataTable GetDataTable(List<int> items)
+        public static DataTable GetAllCoupons(List<int> items)
         {
             using (basicEntities be = new basicEntities())
             {
@@ -196,38 +121,6 @@ namespace CouponsOnline.DataLayer
                 return false;
             }
         }
-
-        public static DataTable GetCouponsByGps(double coordinateX, double coordinateY)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static DataTable GetCouponsByCityAndInterest(string city, List<ListItem> selectedInterests)
-        {
-            List<string> interests = new List<string>();
-            foreach (var item in selectedInterests)
-            {
-                interests.Add(item.Value);
-            }
-            List<int> bus = new List<int>();
-            using (basicEntities be = new basicEntities())
-            {
-                foreach (var item in be.Coupons)
-                {
-                    if (item.Business.City.Id != int.Parse(city) || item.Business.Blocked) continue;
-                    foreach (var interest in item.Interests)
-                    {
-                        if (interests.Contains(interest.Id.ToString()))
-                        {
-                            bus.Add(item.Id);
-                            break;
-                        }
-                    }
-                }
-            }
-            return GetDataTable(bus);
-        }
-
         public static bool EditCoupon(int copId, string name, double org, double disc, string desc, string exp, int mdp, List<ListItem> selected)
         {
             try
@@ -259,7 +152,7 @@ namespace CouponsOnline.DataLayer
                         foreach (ListItem z in selected)
                         {
                             Coupon cop = be.Coupons.Find(copId);
-                            Interest t = DataAccess.FindInterest(cop.Business, z.Value);
+                            Interest t = be.Interests.Find(int.Parse(z.Value));
                             be.Entry(t).State = System.Data.Entity.EntityState.Unchanged;
                             cop.Interests.Add(t);
                         }
@@ -275,35 +168,8 @@ namespace CouponsOnline.DataLayer
                 return false;
             }
         }
-        /*
-        public static string FindCoupon(string p)
-        {
-            using (basicEntities be = new basicEntities())
-            {
-                int id = Int32.Parse(p);
-                if (be.Coupons.Find(id) != null)
-                {
-                    Coupon cop = be.Coupons.Find(id);
-                    return cop.ExperationDate;
-                }
-            }
-            return null;
-        }*/
-/*
-        public static ICollection<Interest> findCopInterest(string p)
-        {
-            using (basicEntities be = new basicEntities())
-            {
-                int id = Int32.Parse(p);
-                if (be.Coupons.Find(id) != null)
-                {
-                    Coupon cop = be.Coupons.Find(id);
-                    return cop.Interests;
-                }
-            }
-            return null;
-        }
-        */
+        
+        
         public static Coupon GetCoupon(string id)
         {
             using (basicEntities be = new basicEntities())
@@ -313,6 +179,107 @@ namespace CouponsOnline.DataLayer
                 return cop;
             }
         }
+        public static DataTable GetCouponsByGps(double coordinateX, double coordinateY)
+        {
+            throw new NotImplementedException();
+        }
+        public static DataTable GetCouponsByCityAndInterest(string city, List<ListItem> selectedInterests)
+        {
+            List<string> interests = new List<string>();
+            foreach (var item in selectedInterests)
+            {
+                interests.Add(item.Value);
+            }
+            List<int> bus = new List<int>();
+            using (basicEntities be = new basicEntities())
+            {
+                foreach (var item in be.Coupons)
+                {
+                    if (item.Business.City.Id != int.Parse(city) || item.Business.Blocked) continue;
+                    foreach (var interest in item.Interests)
+                    {
+                        if (interests.Contains(interest.Id.ToString()))
+                        {
+                            bus.Add(item.Id);
+                            break;
+                        }
+                    }
+                }
+            }
+            return GetAllCoupons(bus);
+        }
+        public static DataTable GetCouponsByCity(string city)
+        {
+            DataTable table = new DataTable();
+
+            table.Columns.Add("Name", typeof(string));
+            table.Columns.Add("Description", typeof(string));
+            table.Columns.Add("Original Price", typeof(double));
+            table.Columns.Add("New Price", typeof(double));
+            table.Columns.Add("Business", typeof(string));
+            table.Columns.Add("Location", typeof(string));
+            table.Columns.Add("Rating", typeof(double));
+            table.Columns.Add("MaxNum", typeof(int));
+            table.Columns.Add("CoupinId", typeof(string));
+
+            using (basicEntities be = new basicEntities())
+            {
+                var bus = from b in be.Coupons
+                          where b.Business.City.Id.ToString() == city && b.Business.Blocked == false
+                          select b;
+                foreach (var item in bus)
+                {
+                    DataRow dr = table.NewRow();
+                    dr[0] = item.Name;
+                    dr[1] = item.Description;
+                    dr[2] = item.OriginalPrice;
+                    dr[3] = item.DiscountPrice;
+                    dr[4] = item.Business.Name;
+                    dr[5] = item.Business.City.Name; ;
+                    dr[6] = item.AvarageRanking;
+                    dr[7] = item.MaxNum;
+                    dr[8] = item.Id;
+                    table.Rows.Add(dr);
+                }
+            }
+            return table;
+        }
+        public static DataTable GetCouponsByBusniess(int Business)
+        {
+            IQueryable<int> bus;
+            using (basicEntities be = new basicEntities())
+            {
+                bus = from b in be.Coupons
+                      where b.Business.BusinessID == Business
+                      select b.Id;
+                return GetAllCoupons(bus.ToList());
+            }
+        }
+        public static DataTable GetCouponsByInterest(List<ListItem> selectedInterests)
+        {
+            List<string> interests = new List<string>();
+            foreach (var item in selectedInterests)
+            {
+                interests.Add(item.Text);
+            }
+            List<int> bus = new List<int>();
+            using (basicEntities be = new basicEntities())
+            {
+                foreach (var item in be.Coupons)
+                {
+                    foreach (var interest in item.Interests)
+                    {
+                        if (interests.Contains(interest.Id.ToString()) & item.Business.Blocked == false)
+                        {
+                            bus.Add(item.Id);
+                            break;
+                        }
+                    }
+                }
+            }
+            return GetAllCoupons(bus);
+        }
+
     }
 }
 

@@ -66,7 +66,7 @@ namespace UnitTestProject
             using (basicEntities be = new basicEntities())
             {
                 Users_Customer customerToRemove = be.Users_Customer.Find(Customer);
-                if (customerToRemove == null)
+                if (customerToRemove != null)
                 {
                     be.Users_Customer.Remove(customerToRemove);
                     be.SaveChanges();

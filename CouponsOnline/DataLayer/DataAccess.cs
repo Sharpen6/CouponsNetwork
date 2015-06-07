@@ -8,8 +8,7 @@ namespace CouponsOnline.DataLayer
 {
     public class DataAccess
     {
-        #region City Management
-
+        //all tested
         public static bool CreateCity(string p)
         {
             using (basicEntities be = new basicEntities())
@@ -45,8 +44,6 @@ namespace CouponsOnline.DataLayer
             }
             return ans;
         }
-        #endregion
-
         public static bool CreateCategory(string p)
         {
             if (FindCategory(p) != 0) return false;
@@ -73,58 +70,22 @@ namespace CouponsOnline.DataLayer
 
                 return businessCat.Id;
             }
-        }
-
-
-        public static int FindInterest(int Category, string desription)
-        {
-            using (basicEntities be = new basicEntities())
-            {
-                var bus = from b in be.Interests
-                          where b.Description == desription & b.BusinessCategory.Id == Category
-                          select b;
-                if (bus.Count() == 0) return 0;
-                Interest Interests = bus.First();
-
-
-                return Interests.Id;
-            }
-        }
-        
+        }        
         public static bool CreateInterest(string categoryID, string interestDesc)
-        {
-            int Category = int.Parse(categoryID);
-            if (FindInterest(Category, interestDesc) != 0) return false;
-
-            using (basicEntities be = new basicEntities())
+        {            using (basicEntities be = new basicEntities())
             {
-                Interest b = new Interest();
-
+                int Category = int.Parse(categoryID);
+                BusinessCategories bc = be.BusinessCategories.Find(Category);
+                if (bc == null) return false; 
+                 Interest b = new Interest();
                 b.BusinessCategory = be.BusinessCategories.Find(Category);
+                
                 be.Entry(b.BusinessCategory).State = System.Data.Entity.EntityState.Unchanged;
                 b.Description = interestDesc;
                 be.Interests.Add(b);
                 be.SaveChanges();
                 return true;
             }
-
         }
-
-        public static Interest FindInterest(Business Category, string desription)
-        {
-            using (basicEntities be = new basicEntities())
-            {
-                var bus = from b in be.Interests
-                          where b.Description == desription & b.BusinessCategory.Id == Category.BusinessCategory.Id
-                          select b;
-                Interest Interests = bus.First();
-
-
-                return Interests;
-
-            }
-        }
-     
-
     }
 }

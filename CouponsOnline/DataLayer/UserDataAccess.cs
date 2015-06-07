@@ -10,6 +10,7 @@ namespace CouponsOnline.DataLayer
 {
     public class UserDataAccess
     {
+        // all tested
         public static UserType GetAuthentication(string username)
         {
             using (basicEntities be = new basicEntities())
@@ -23,7 +24,6 @@ namespace CouponsOnline.DataLayer
             }
             return UserType.Customer;
         }
-        // Find Users in the system
         public static Users_Admin FindAdmin(string ad)
         {
             using (basicEntities be = new basicEntities())
@@ -90,23 +90,7 @@ namespace CouponsOnline.DataLayer
             }
             return true;
         }
-        /*public static ListItem[] GetUserInterests(string UserName)
-        {
-            ListItem[] ans=null;
-            int i = 0;
-            using (basicEntities be = new basicEntities())
-            {
-                ICollection<Interest> collection = be.Users_Customer.Find(UserName).Interests;
-                ans = new ListItem[collection.Count];
-                foreach (var item in collection)
-	            {
-                    ans[i++] = new ListItem(item.Description, item.Id.ToString());
-	            }
-            }
-            return ans;
-        }
-        */
-        //I checked that we need them
+      
         public static bool ChangePassword(string UserName, string password)
         {
             using (basicEntities be = new basicEntities())

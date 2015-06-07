@@ -44,7 +44,8 @@ namespace CouponsOnline
                 List<Business> businesses = BusinessDataAccess.GetAllBusnisesOfOwner(UserName);
                 foreach (Business bus in businesses)
                 {
-                    bus.Deactivate();
+                    if (bus.Users_Owner.UserName == UserName)
+                        bus.Deactivate();
                 }
             }
             return UserDataAccess.RemoveUser(UserName);

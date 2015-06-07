@@ -11,7 +11,15 @@ namespace CouponsOnline
     {
         public ListItem[] GetBusinesses()
         {
-            return BusinessDataAccess.GetAllBusnisesId(UserName);
+            List<Business> bus = BusinessDataAccess.GetAllBusnisesOfOwner(UserName);
+            ListItem[] ans = new ListItem[bus.Count];
+            int i = 0;
+            foreach (var item in bus)
+            {
+                ans[i].Text = item.Name;
+                ans[i].Value = item.BusinessID.ToString();
+            }
+            return ans;
         }
     }
 }

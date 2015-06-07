@@ -78,6 +78,9 @@
     <Compile Include="ControllersTests\CouponControllerTest.cs" />
     <Compile Include="ControllersTests\ControllerTest.cs" />
     <Compile Include="ControllersTests\UserControllerTest.cs" />
+    <Compile Include="DataAccessTests\DataAccessTests.cs" />
+    <Compile Include="DataAccessTests\CouponDataAccessTests.cs" />
+    <Compile Include="DataAccessTests\BusinessesDataAccessTests.cs" />
     <Compile Include="DataAccessTests\UserDataAccessTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BasicDBtests\TestLocation.cs" />

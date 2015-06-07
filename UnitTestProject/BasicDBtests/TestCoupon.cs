@@ -86,7 +86,7 @@ namespace UnitTestProject
             cop.Name = name;
             cop.OriginalPrice = 1; //
             cop.DiscountPrice = 2; //
-            
+            cop.AvarageRanking = 0;
             cop.Business = b;
             cop.ExperationDate = datee;
             cop.MaxNum = maxNum;
