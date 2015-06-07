@@ -18,7 +18,8 @@ namespace CouponsOnline.View
             UserType type = u.GetUserType();
             
             if (!IsPostBack)
-            {                
+            {
+                LabelInterets.Visible = true;
                 TextBoxUserName.Text = u.UserName;
                 TextBoxPassword.Text = u.Password;
                 TextBoxPasswordVal.Text = u.Password;
@@ -29,20 +30,22 @@ namespace CouponsOnline.View
                 if (type == UserType.Customer)
                 {
                     DropDownListInterests.Items.Clear();
-                    Users_Customer uc = UserController.GetCustomer(u.UserName);
-                    ListItem[] items = new ListItem[uc.Interests.Count];
-                    int i = 0;
-                    foreach (var item in uc.Interests)
-                    {
-                        items[i++] = new ListItem(item.Description, item.Id.ToString());
-                    }
-                    DropDownListInterests.DataSource = items;
                     DropDownListInterests.DataTextField = "Text";
                     DropDownListInterests.DataValueField = "Value";
+                    Users_Customer uc = UserController.GetCustomer(u.UserName); 
+                    ListItem[] allItems = Controller.GetAllInterests();
+                    DropDownListInterests.DataSource = allItems;
                     DropDownListInterests.DataBind();
+                    var takenItems = from interest in uc.Interests
+                                     select interest.Id;
+                    foreach (int item in takenItems)
+                    {
+                        DropDownListInterests.Items.FindByValue(item.ToString()).Selected = true;
+                    }
+                } else
+                {
+                    LabelInterets.Visible = false;
                 }
-
-
 
                 HttpCookie activeUser = new HttpCookie("ActiveUserName", currentUser);
                 activeUser.Expires = DateTime.Now.AddDays(1);

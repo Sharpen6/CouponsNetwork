@@ -28,7 +28,8 @@ namespace CouponsOnline.View
                     LoadUsers();
                     LoadCities();
                     LoadBusiness();
-
+                    LoadAllBusiness();
+                    LoadInterest();
                     ScriptManager.RegisterStartupScript(this, GetType(),
                         "SwitchTo", "SwitchTo('home')", true);
                 }
@@ -48,8 +49,12 @@ namespace CouponsOnline.View
         {
             DropDownListCities.Items.Clear();
             DropDownListCities1.Items.Clear();
-            DropDownListCities.Items.AddRange(Controller.GetAllCites());
-            DropDownListCities1.Items.AddRange(Controller.GetAllCites());
+            DropDownListCities.DataSource = Controller.GetAllCites();
+            DropDownListCities.DataBind();
+            DropDownListCities1.DataSource = Controller.GetAllCites();
+            DropDownListCities1.DataBind();
+            //DropDownListCities.Items.AddRange(Controller.GetAllCites());
+            //DropDownListCities1.Items.AddRange(Controller.GetAllCites());
         }
 
         private void LoadUsers()
@@ -114,7 +119,17 @@ namespace CouponsOnline.View
             DropDownListBusniess.Items.AddRange(ou.GetBusinesses());
             //DropDownListBusniess_SelectedIndexChanged(null, null);
         }
-
+        private void LoadAllBusiness()
+        {
+            DropDownListBusniess.Items.Clear();
+            foreach (ListItem ownerName in DropDownListOwnersAdd.Items)
+            {
+                Users_Owner ou = UserController.GetOwner(ownerName.Value);
+                DropDownListAllBusinesses.Items.AddRange(ou.GetBusinesses());
+            }
+            
+            //DropDownListBusniess_SelectedIndexChanged(null, null);
+        }
         protected void BtnBusiness_Click(object sender, EventArgs e)
         {
             Business bus = BusinessController.GetBusiness(DropDownListBusniess.SelectedItem.Value);
@@ -146,6 +161,77 @@ namespace CouponsOnline.View
        
      
         }
+        protected void DropDownListBusniessCreateCoupon_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadInterest();
+        }
+        protected void BtnAddInterest_Click1(object sender, EventArgs e)
+        {
+            if (TextBoxInterest.Text != "")
+            {
+                Business bus = BusinessController.GetBusiness(DropDownListAllBusinesses.SelectedItem.Value);
+                int catID = bus.BusinessCategory.Id;
+                Controller.CreateInterest(catID.ToString(), TextBoxInterest.Text);
+                LoadInterest();
+                Response.Write("<script>alert('Interest added succesfully!')</script>");
+                TextBoxInterest.Text = "";
+            }
+            else
+                Response.Write("<script>alert('Fill Interest')</script>");
+        
+        }
+
+        private void LoadInterest()
+        {
+            if (DropDownListAllBusinesses.SelectedValue != "")
+            {
+                DropDownListInterests.Items.Clear();
+                Business bus = BusinessController.GetBusiness(DropDownListAllBusinesses.SelectedValue);
+                int Categoryid = bus.BusinessCategory.Id;
+                //DropDownListInterests.Items.AddRange(BusinessController.GetAllCategoryIntrest(Categoryid));
+                DropDownListInterests.DataTextField = "Text";
+                DropDownListInterests.DataValueField = "Value";
+                DropDownListInterests.DataSource = Controller.GetAllCategoryInterests(Categoryid.ToString());
+                DropDownListInterests.DataBind();
+            }
+        }
+        protected void BtnCreateCoupon_Click(object sender, EventArgs e)
+        {
+            Business bus = BusinessController.GetBusiness(DropDownListAllBusinesses.SelectedValue);
+
+            List<string> selected = new List<string>();
+            foreach (ListItem item in DropDownListInterests.Items)
+                if (item.Selected) selected.Add(item.Value);
+
+            List<string> err = CouponController.ValidateNewCoupon(TextBoxMPU.Text, TextBoxDisc.Text,
+                TextBoxOrg.Text, TextBoxExp.Text, selected);
+
+
+            if (err.Count > 0)
+            {
+                BLerrors.Items.Clear();
+                foreach (var item in err)
+                {
+                    BLerrors.Items.Add(new ListItem(item));
+                }
+            }
+            else
+            {
+                if (bus.CreateCoupon(TextBoxName.Text, TextBoxOrg.Text, TextBoxDisc.Text,
+                 TextBoxDesc.Text, TextBoxExp.Text, TextBoxMPU.Text, selected))
+                    Response.Write("<script>alert('Coupon " + TextBoxName.Text + " added successfully!')</script>");
+                else
+                    Response.Write("<script>alert('Coupon " + TextBoxName.Text + " was not added.')</script>");
+                TextBoxName.Text = "";
+                TextBoxOrg.Text = "";
+                TextBoxDisc.Text = "";
+                TextBoxDesc.Text = "";
+                TextBoxExp.Text = "";
+                TextBoxMPU.Text = "";
+                DropDownListInterests.ClearSelection();
+            }
+        }
+        
 
     }
 }

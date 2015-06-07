@@ -275,7 +275,7 @@ namespace CouponsOnline.DataLayer
                 return false;
             }
         }
-
+        /*
         public static string FindCoupon(string p)
         {
             using (basicEntities be = new basicEntities())
@@ -288,8 +288,8 @@ namespace CouponsOnline.DataLayer
                 }
             }
             return null;
-        }
-
+        }*/
+/*
         public static ICollection<Interest> findCopInterest(string p)
         {
             using (basicEntities be = new basicEntities())
@@ -303,12 +303,14 @@ namespace CouponsOnline.DataLayer
             }
             return null;
         }
-
+        */
         public static Coupon GetCoupon(string id)
         {
             using (basicEntities be = new basicEntities())
             {
-                return be.Coupons.Find(int.Parse(id));
+                Coupon cop = be.Coupons.Find(int.Parse(id));
+                be.Entry(cop).Collection(p => p.Interests).Load();
+                return cop;
             }
         }
     }

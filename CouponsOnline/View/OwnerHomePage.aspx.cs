@@ -49,7 +49,7 @@ namespace CouponsOnline.View
                 if (item.Selected) selected.Add(item.Value);
 
             List<string> err = CouponController.ValidateNewCoupon(TextBoxMPU.Text, TextBoxDisc.Text,
-                TextBoxOrg.Text, TextBoxExp.Text);
+                TextBoxOrg.Text, TextBoxExp.Text, selected);
 
 
            if (err.Count>0) {
@@ -92,6 +92,8 @@ namespace CouponsOnline.View
                 Business bus =  BusinessController.GetBusiness(DropDownListBusniess.SelectedValue);
                 int Categoryid = bus.BusinessCategory.Id;
             //DropDownListInterests.Items.AddRange(BusinessController.GetAllCategoryIntrest(Categoryid));
+                DropDownListInterests.DataTextField = "Text";
+                DropDownListInterests.DataValueField = "Value";
                 DropDownListInterests.DataSource = Controller.GetAllCategoryInterests(Categoryid.ToString());
                 DropDownListInterests.DataBind();
             }

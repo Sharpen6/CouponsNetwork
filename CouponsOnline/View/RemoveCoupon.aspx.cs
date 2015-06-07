@@ -67,6 +67,8 @@ namespace CouponsOnline.View
             }
             else
             {
+
+
                 TextBoxExp.Text = cop.ExperationDate;
                 EditCoupon.Visible = true;
                 home.Visible = false;
@@ -97,6 +99,8 @@ namespace CouponsOnline.View
                 Business bus = BusinessController.GetBusiness(DropDownListBusniess.SelectedValue);
                 int Categoryid = bus.BusinessCategory.Id;
                 //DropDownListInterests.Items.AddRange(BusinessController.GetAllCategoryIntrest(Categoryid));
+                DropDownListInterests.DataTextField = "Text";
+                DropDownListInterests.DataValueField = "Value";
                 DropDownListInterests.DataSource = Controller.GetAllCategoryInterests(Categoryid.ToString());
                 DropDownListInterests.DataBind();
             }
@@ -112,36 +116,31 @@ namespace CouponsOnline.View
         {
             HttpCookie usernameCookie = Request.Cookies["ActiveUserName"];
             string selectedBusiness = DropDownListBusniess.SelectedItem.Text;
-
-            int mdp;
-            double orgPrice;
-            double newPrice;
-            if (!int.TryParse(TextBoxMPU.Text, out mdp))
-            {
-                MessageBox.Show("Missing Values! ");
-                return;
-            }
-            if (!double.TryParse(TextBoxDisc.Text, out newPrice))
-            {
-                MessageBox.Show("Discount has to be Number ");
-                return;
-            }
-            if (!double.TryParse(TextBoxOrg.Text, out orgPrice))
-            {
-                MessageBox.Show("Price has to be Number ");
-                return;
-            }
-            if (TextBoxExp.Text=="" || DateTime.Parse(TextBoxExp.Text) < DateTime.Now)
-            {
-                MessageBox.Show("Experation Date is Wrong ");
-                return;
-            }
-            List<ListItem> selected = new List<ListItem>();
+            List<ListItem> selectedItems = new List<ListItem>();
+            List<string> selected = new List<string>();
             foreach (ListItem item in DropDownListInterests.Items)
-                if (item.Selected) selected.Add(item);
+            {
+                if (item.Selected) selected.Add(item.Value);
+                if (item.Selected) selectedItems.Add(item);
+            }
+
+            List<string> errors = (CouponController.ValidateNewCoupon(TextBoxMPU.Text, TextBoxDisc.Text, TextBoxOrg.Text, TextBoxExp.Text, selected));
+            if (errors.Count > 0)
+            {
+                BLerrors.Items.Clear();
+                foreach (var item in errors)
+                {
+                    BLerrors.Items.Add(item);
+                }
+                return;
+            }
+            int mdp = int.Parse(TextBoxMPU.Text);
+            double newPrice = double.Parse(TextBoxDisc.Text);
+            double orgPrice = double.Parse(TextBoxOrg.Text);
+            
             Coupon cop = CouponController.GetCoupon(copId.Text);
-            cop.EditCoupon(TextBoxName.Text, orgPrice, newPrice, TextBoxDesc.Text, TextBoxExp.Text, mdp, selected);
-            MessageBox.Show("Coupon " + TextBoxName.Text + " Edit successfully!");
+            cop.EditCoupon(TextBoxName.Text, orgPrice, newPrice, TextBoxDesc.Text, TextBoxExp.Text, mdp, selectedItems);
+            Response.Write("<script>alert('Coupon " + TextBoxName.Text + " Edit successfully!'</script>");
             TextBoxName.Text = "";
             TextBoxOrg.Text = "";
             TextBoxDisc.Text = "";

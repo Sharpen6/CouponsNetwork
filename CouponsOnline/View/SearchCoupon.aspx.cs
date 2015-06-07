@@ -88,10 +88,11 @@ namespace CouponsOnline
         private void LoadInterest()
         {
             DropDownListInterests.Items.Clear();
-            DropDownListInterests.DataSource =
-            Controller.GetAllCategoryInterests(DropDownListCategory.SelectedValue);
             DropDownListInterests.DataTextField = "Text";
             DropDownListInterests.DataValueField = "Value";
+            DropDownListInterests.DataSource =
+            Controller.GetAllCategoryInterests(DropDownListCategory.SelectedValue);
+
             DropDownListInterests.DataBind();
             foreach (ListItem item in DropDownListInterests.Items)
             {
@@ -102,9 +103,10 @@ namespace CouponsOnline
         {
             DropDownListCities.Items.Clear();
             DropDownListCities.Items.Add(new ListItem(""));
-            DropDownListCities.Items.AddRange(Controller.GetAllCites());
             DropDownListCities.DataTextField = "Text";
             DropDownListCities.DataValueField = "Value";
+            DropDownListCities.Items.AddRange(Controller.GetAllCites());
+
         }
         private void LoadCategories()
         {

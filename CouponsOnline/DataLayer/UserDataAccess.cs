@@ -75,20 +75,22 @@ namespace CouponsOnline.DataLayer
         {
             using (basicEntities be = new basicEntities())
             {
+                be.Users_Customer.Find(UserName).Interests.Clear();
                 foreach (var item in interests)
                 {
-                    be.Users_Customer.Find(UserName).Interests.Clear();
+                    
                     int interestId = int.Parse(item);
                     Interest i = be.Interests.Find(interestId);
-                    if (i == null) continue;
-                    be.Entry(i).State = System.Data.Entity.EntityState.Unchanged;
+                    if (i == null) continue;                   
+                    //be.Entry(i).State = System.Data.Entity.EntityState.Unchanged;
                     be.Users_Customer.Find(UserName).Interests.Add(i);
+                    be.SaveChanges();
                 }
-                be.SaveChanges();    
+                 
             }
             return true;
         }
-        public static ListItem[] GetUserInterests(string UserName)
+        /*public static ListItem[] GetUserInterests(string UserName)
         {
             ListItem[] ans=null;
             int i = 0;
@@ -103,7 +105,7 @@ namespace CouponsOnline.DataLayer
             }
             return ans;
         }
-
+        */
         //I checked that we need them
         public static bool ChangePassword(string UserName, string password)
         {

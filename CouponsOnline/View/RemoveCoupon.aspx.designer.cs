@@ -139,6 +139,15 @@ namespace CouponsOnline.View {
         protected global::System.Web.UI.WebControls.TextBox TextBoxExp;
         
         /// <summary>
+        /// Checkboxlist1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList Checkboxlist1;
+        
+        /// <summary>
         /// BtnEditCoupon control.
         /// </summary>
         /// <remarks>
@@ -146,6 +155,15 @@ namespace CouponsOnline.View {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnEditCoupon;
+        
+        /// <summary>
+        /// BLerrors control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.BulletedList BLerrors;
         
         /// <summary>
         /// copId control.

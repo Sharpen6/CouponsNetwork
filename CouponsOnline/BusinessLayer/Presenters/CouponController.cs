@@ -36,29 +36,26 @@ namespace CouponsOnline.BusinessLayer.Presenters
             return table;
         }
         //NEW 
-        public static List<string> ValidateNewCoupon(string maxPerUser, string dicount, string original, string expiration)
+        public static List<string> ValidateNewCoupon(string maxPerUser, string dicount, string original, string expiration,List<string> interests)
         {
             List<string> errors = new List<string>();
             int mdu;
             double orgPrice;
             double newPrice;
-
+            if (!(interests.Count > 0))
+                errors.Add("Coupon must have at least one interest");
             if (!int.TryParse(maxPerUser, out mdu))
-            {
                 errors.Add("Missing maximum quantity per user.");
-            }
             if (!double.TryParse(dicount, out newPrice))
-            {
                 errors.Add("Discount has to be Number");
-            }
             if (!double.TryParse(original, out orgPrice))
-            {
                 errors.Add("Price has to be Number");
-            }
             if (expiration == "" || DateTime.Parse(expiration) < DateTime.Now)
-            {
                 errors.Add("Experation Date is Wrong");
-            }
+            if (newPrice > orgPrice)
+                errors.Add("New price must be lower then the original price!");
+            if (mdu < 1)
+                errors.Add("Quantity per user must be greater then zero.");
             return errors;
         }
 

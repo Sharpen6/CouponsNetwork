@@ -100,9 +100,12 @@ namespace CouponsOnline.View
         {
             Controller.CreateCategory("Pets");
             Controller.CreateCategory("Cars");
-            Controller.CreateInterest(Controller.GetAllCategories().First().Value , "dogs");
-            Controller.CreateInterest(Controller.GetAllCategories().First().Value, "cats");
-            UserController.CreateNewCustomer("sagi", "Sagi Bazinin", "123", "054-3391405", "sag@gmail.com", new List<string> { Controller.GetAllInterests().ElementAt(0).Value });
+            Controller.CreateCategory("Food");
+
+            Controller.CreateInterest(Controller.GetAllCategories().First().Value , "Dogs");
+            Controller.CreateInterest(Controller.GetAllCategories().First().Value, "Cats");
+            Controller.CreateInterest(Controller.GetAllCategories().ElementAt(2).Value, "Pizza");
+            UserController.CreateNewCustomer("sagi", "Sagi Bazinin", "123", "054-3391405", "sag@gmail.com", new List<string> { Controller.GetAllInterests().ElementAt(0).Value, Controller.GetAllInterests().ElementAt(1).Value });
             UserController.CreateNewOwner("sveta", "Sveta Itskovich", "123", "050-5242142", "its@gmail.com");
             UserController.CreateNewCustomer("yossi", "Yossi Zaltsman", "123", "057-7343412", "yos@gmail.com", new List<string> { Controller.GetAllInterests().ElementAt(1).Value });
             UserController.CreateNewAdmin("dorin", "Dorin Shmaryahu", "123", "057-3441252", "dorin@gmail.com");
@@ -117,15 +120,22 @@ namespace CouponsOnline.View
                 if (item.Text=="Beer Sheva") {
                     BusinessController.CreateBusiness("dorin", "sveta", "Ben gurion 24", "PetSheva shop", categories.First().Value, item.Value);
                     BusinessController.CreateBusiness("dorin", "sveta", "Ben gurion 23", "Dogs For All", categories.First().Value, item.Value);
-             
-                } else if (item.Text=="Tel Aviv")
+
+                }
+                else if (item.Text == "Tel Aviv")
+                {
                     BusinessController.CreateBusiness("dorin", "sveta", "Rager 5", "Cars Inc.", categories.ElementAt(1).Value, item.Value);
+                    BusinessController.CreateBusiness("dorin", "sveta", "bialik", "Cofix", categories.ElementAt(2).Value, item.Value);
+                }
             
 
             }
             ListItem[] interests = Controller.GetAllInterests();
             Business b = BusinessController.GetBusiness(UserController.GetOwner("sveta").GetBusinesses().First().Value);
             b.CreateCoupon("Cheap food for cats!", "30.4", "24.5","Cheap Food buy now!","20/10/2015","2", new List<string> { interests.First().Value});
+            b = BusinessController.GetBusiness(UserController.GetOwner("sveta").GetBusinesses().ElementAt(3).Value);
+            b.CreateCoupon("Cofix Coupon", "7.4", "5", "all for 5 nis!", "15/10/2015", "100", new List<string> { interests.ElementAt(2).Value });
+            
             Response.Redirect("Login.aspx");
         }
 

@@ -83,8 +83,10 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Default.aspx" />
     <Content Include="js\script.js" />
     <Content Include="Model.edmx.sql" />
+    <Content Include="View\css\backcity.jpg" />
     <Content Include="View\Profile.aspx" />
     <Content Include="View\RemoveCoupon.aspx" />
     <Content Include="View\AdminHomePage.aspx" />
@@ -125,6 +127,13 @@
     <Compile Include="DataLayer\CouponDataAccess.cs" />
     <Compile Include="DataLayer\DataAccess.cs" />
     <Compile Include="DataLayer\UserDataAccess.cs" />
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Interest.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -258,6 +267,8 @@
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
+    <None Include="Properties\PublishProfiles\coponline - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\coponline - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\coponline.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -75,7 +75,14 @@
         <asp:TextBox ID="TextBoxExp" runat="server" TextMode="Date" placeholder="Last Parchase Date"></asp:TextBox>
         <%--<asp:RangeValidator ID="rgvStartDate" runat="server" ErrorMessage="Expiration date must be greater than today"
                 text="*" ValidationGroup="AddEvent" ControlToValidate="TextBoxExp" Type="Date"></asp:RangeValidator>
-        --%><asp:Button ID="BtnEditCoupon" runat="server" Text="Edit Coupon!"  OnClick="BtnEditCoupon_Click" />
+        --%>
+         <h1>Choose Your Coupon interests: </h1>
+             <asp:checkboxlist id="Checkboxlist1" SelectMethod="" runat="server" SelectionMode="Multiple" Width="500" >
+         </asp:checkboxlist>
+        <asp:Button ID="BtnEditCoupon" runat="server" Text="Edit Coupon!"  OnClick="BtnEditCoupon_Click" />
+                <br />                            
+        <asp:BulletedList ID="BLerrors" runat="server" ForeColor="Maroon" Font-Size="Small">
+        </asp:BulletedList>
         <asp:Label runat="server" ID="copId" Visible="false"></asp:Label>
     </div>
     </form>

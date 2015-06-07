@@ -17,10 +17,10 @@ namespace CouponsOnline
         public bool DeleteCoupon()
         {
             return CouponDataAccess.RemoveCoupon(Id.ToString());
-        }
+        }/*
         public string FindCouponExpDate()
         {
             return CouponDataAccess.FindCoupon(Id.ToString());
-        }
+        }*/
     }
 }

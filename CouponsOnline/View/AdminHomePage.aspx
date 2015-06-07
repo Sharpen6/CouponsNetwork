@@ -4,12 +4,11 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    <title></title>
     <link href="css/styleMain.css" rel="stylesheet" />
     <script src="../js/script.js"></script>
-    <title></title>
 </head>
 <body>
-    <form id="form1" runat="server">
     <nav>
         <ul class="nav">
             <li>
@@ -42,6 +41,10 @@
               
             </li>
             <li class="dropdown">
+                <a onclick="SwitchTo('CreateCoupon');">Add Coupon</a>
+              
+            </li>
+            <li class="dropdown">
 
             </li>
             <li class="lastTab">
@@ -52,6 +55,7 @@
                 </li>
         </ul>
     </nav>
+    <form id="form1" runat="server">
     <div id="home" class="mainBox">
     <h1>welcome!</h1>
     </div>
@@ -97,6 +101,35 @@
     </div>
              <br />  <asp:Button ID="BtnBusiness" runat="server" Text="Delete Business" onclick="BtnBusiness_Click"/>
                   <asp:Button ID="BtnEditBusiness" runat="server" Text="Edit Business" onclick="BtnEditBusiness_Click"/>
+    </div>
+        <div id="CreateCoupon" class="mainBox">
+        
+      
+
+        
+        <h1>Create New Coupon</h1>
+        <h1>Choose Busniess: </h1>
+         <asp:DropDownList id="DropDownListAllBusinesses" runat="server"  AutoPostBack="true" OnSelectedIndexChanged="DropDownListBusniessCreateCoupon_SelectedIndexChanged"></asp:DropDownList>
+        
+        <asp:TextBox ID="TextBoxName" runat="server" placeholder="Name"></asp:TextBox>
+        <asp:TextBox ID="TextBoxDesc" runat="server" placeholder="Description"></asp:TextBox>
+        <asp:TextBox ID="TextBoxOrg" runat="server"  placeholder="Original Price"></asp:TextBox>
+        <asp:TextBox ID="TextBoxDisc" runat="server" placeholder="New Price"></asp:TextBox>
+        <asp:TextBox ID="TextBoxMPU" runat="server" TextMode="Number" placeholder="Maximum Per User"></asp:TextBox>       
+        <asp:TextBox ID="TextBoxExp" runat="server" TextMode="Date" placeholder="Last Parchase Date"></asp:TextBox>
+        <br />
+         <h1>Choose Coupon interests: </h1>
+             <asp:checkboxlist id="DropDownListInterests" SelectMethod="" runat="server" SelectionMode="Multiple" Width="500" >
+         </asp:checkboxlist>
+        <h1>Add New Interest:</h1>
+        <asp:TextBox ID="TextBoxInterest" runat="server" placeholder="Interest Name"></asp:TextBox>
+        <asp:Button ID="BtnAddInterest" runat="server" Text="Add Interest" onclick="BtnAddInterest_Click1"/>
+        <br />                            
+        <asp:BulletedList ID="BLerrors" runat="server" ForeColor="Maroon" Font-Size="Small">
+        </asp:BulletedList>
+        <br />
+        <asp:Button ID="BtnCreateCoupon" runat="server" Text="Add Coupon" OnClick="BtnCreateCoupon_Click" />
+        
     </div>
     </form>
 </body>
