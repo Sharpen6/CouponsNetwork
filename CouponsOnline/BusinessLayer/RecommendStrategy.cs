@@ -6,7 +6,7 @@ using System.Web;
 
 namespace CouponsOnline.BusinessLayer
 {
-    interface RecommendStrategy
+    public interface RecommendStrategy
     {
         DataTable Recommend();
     }

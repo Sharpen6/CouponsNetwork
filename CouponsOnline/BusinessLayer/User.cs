@@ -41,7 +41,7 @@ namespace CouponsOnline
             UserType t = GetUserType();
             if (t == UserType.Owner)
             {
-                List<Business> businesses = BusinessDataAccess.GetAllBusnisesOfOwner(UserName);
+                List<Business> businesses = BusinessDataAccess.GetAllBusinssesOfOwner(UserName);
                 foreach (Business bus in businesses)
                 {
                     if (bus.Users_Owner.UserName == UserName)

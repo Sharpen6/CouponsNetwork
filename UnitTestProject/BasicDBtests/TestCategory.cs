@@ -46,6 +46,11 @@ namespace UnitTestProject
         {
             using (basicEntities be = new basicEntities())
             {
+                foreach (var item in be.Businesses)
+                {
+                    if (item.BusinessCategory.Id == id)
+                        return;
+                }
                 BusinessCategories bc = be.BusinessCategories.Find(id);
                 be.BusinessCategories.Remove(bc);
                 be.SaveChanges();

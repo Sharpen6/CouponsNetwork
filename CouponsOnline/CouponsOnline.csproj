@@ -111,6 +111,7 @@
     <Compile Include="BusinessLayer\Business.cs" />
     <Compile Include="BusinessLayer\Presenters\Controller.cs" />
     <Compile Include="BusinessLayer\Coupon.cs" />
+    <Compile Include="BusinessLayer\RecommendationType.cs" />
     <Compile Include="BusinessLayer\RecommendByBoth.cs" />
     <Compile Include="BusinessLayer\RecommendByCategory.cs" />
     <Compile Include="BusinessLayer\RecommendByLocation.cs" />

@@ -10,6 +10,7 @@ namespace CouponsOnline.BusinessLayer.Presenters
 {
     public class CouponController
     {
+        public static RecommendStrategy RecStrat;
         public static DataTable GetCouponsByCity(string city)
         {
             return CouponDataAccess.GetCouponsByCity(city);
@@ -62,6 +63,29 @@ namespace CouponsOnline.BusinessLayer.Presenters
         public static Coupon GetCoupon(string id)
         {
             return CouponDataAccess.GetCoupon(id);
+        }
+
+        internal static void SetRecommendationType(RecType recType)
+        {
+            switch (recType)
+            {
+                case RecType.Location:
+                    RecStrat = new RecommendByLocation();
+                    break;
+                case RecType.Category:
+                    RecStrat = new RecommendByCategory();
+                    break;
+                case RecType.Both:
+                    RecStrat = new RecommendByBoth();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        internal static DataTable RecommendCoupons()
+        {
+            return RecStrat.Recommend();
         }
     }
 }

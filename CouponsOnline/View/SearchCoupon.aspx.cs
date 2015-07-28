@@ -62,6 +62,7 @@ namespace CouponsOnline
         
         protected void DropDownListCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (DropDownListCategory.SelectedValue == "") return;
             LoadInterest();
             Search();
         }
@@ -86,7 +87,7 @@ namespace CouponsOnline
           //  DropDownListInterests.Items.Clear();
         }
         private void LoadInterest()
-        {
+        {           
             DropDownListInterests.Items.Clear();
             DropDownListInterests.DataTextField = "Text";
             DropDownListInterests.DataValueField = "Value";

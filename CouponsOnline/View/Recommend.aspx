@@ -24,10 +24,10 @@
     <form id="form1" runat="server">
     <div id="home" class="mainBox large" style="display:block">
         <div>
-            <h1>Recommend:</h1>
-            <asp:RadioButton ID="RadioButton1" Text="By Location" runat="server" GroupName="type" OnCheckedChanged="RadioButton1_CheckedChanged"/><br />
-            <asp:RadioButton ID="RadioButton2" Text="By Category" runat="server" GroupName="type" OnCheckedChanged="RadioButton1_CheckedChanged"/><br />
-            <asp:RadioButton ID="RadioButton3" Text="By Both" runat="server" GroupName="type" OnCheckedChanged="RadioButton1_CheckedChanged"/><br />
+            <h1>Recommend:</h1>           
+            <asp:RadioButton ID="RadioButton1" Text="By Location" runat="server"  AutoPostBack="true" GroupName="type" OnCheckedChanged="RadioButton1_CheckedChanged"/><br />
+            <asp:RadioButton ID="RadioButton2" Text="By Category" runat="server" AutoPostBack="true" GroupName="type" OnCheckedChanged="RadioButton2_CheckedChanged"/><br />
+            <asp:RadioButton ID="RadioButton3" Text="By Both" runat="server" AutoPostBack="true" GroupName="type" OnCheckedChanged="RadioButton3_CheckedChanged"/><br />
         </div>
         <div>
             <h1>Results:</h1>

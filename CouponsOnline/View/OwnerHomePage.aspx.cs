@@ -34,7 +34,7 @@ namespace CouponsOnline.View
             }
             else
             {
-                LoadInterest();
+                //LoadInterest();
                 ScriptManager.RegisterStartupScript(this, GetType(), "SwitchTo", 
                     "SwitchTo('prevDiv')", true);
             }

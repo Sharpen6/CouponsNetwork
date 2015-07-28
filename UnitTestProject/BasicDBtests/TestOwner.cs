@@ -1,6 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CouponsOnline;
+using CouponsOnline.BusinessLayer.Presenters;
+using CouponsOnline.DataLayer;
+using System.Web.UI.WebControls;
 
 namespace UnitTestProject
 {
@@ -45,6 +48,18 @@ namespace UnitTestProject
                 Assert.AreEqual(be.Users.Find(username), null);
             }
         }
+        [TestMethod]
+        public void GetBusinessesTest()
+        {
+            Business b = TestBusiness.AddBusiness();
+            int startcount = b.Users_Owner.GetBusinesses().Length;
+            b.Users_Admin.CreateBusiness(b.Users_Owner.UserName, "", "", b.BusinessCategory.Id.ToString(), b.City.Id.ToString());
+            int endcount = b.Users_Owner.GetBusinesses().Length;
+            ListItem[] bus = b.Users_Owner.GetBusinesses();
+            Assert.AreEqual(endcount - 1, startcount);
+            TestBusiness.RemoveBusinesses(b.BusinessID);
+            TestBusiness.RemoveBusinesses(int.Parse(bus[1].Value));
+        }
 
         public static Users_Owner AddOwner(string UserName = "ownerUserName", string Name = "ownerName", string Password = "1234", string PhoneNum = "123", string Email = "temp@temp.temp")
         {
@@ -65,6 +80,10 @@ namespace UnitTestProject
         {          
             using (basicEntities be = new basicEntities())
             {
+                foreach (var item in be.Businesses)
+                {
+                    if (item.Users_Owner.UserName == owner) return;
+                }
                 Users_Owner userToRemove = be.Users_Owner.Find(owner);
                 if (userToRemove != null)
                 {
