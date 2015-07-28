@@ -17,6 +17,9 @@
                     <a href="#!/home" onclick="SwitchTo('home');">Home</a>
                 </li>
                 <li class="dropdown">
+                    <a href="Recommend.aspx">Recommendations</a>
+                </li>
+                <li class="dropdown">
                     <a href="SearchCoupon.aspx">Search</a>
                     <ul>
                         <li>

@@ -88,6 +88,7 @@
     <Content Include="Model.edmx.sql" />
     <Content Include="View\css\backcity.jpg" />
     <Content Include="View\Profile.aspx" />
+    <Content Include="View\Recommend.aspx" />
     <Content Include="View\RemoveCoupon.aspx" />
     <Content Include="View\AdminHomePage.aspx" />
     <Content Include="View\css\style.css" />
@@ -110,6 +111,10 @@
     <Compile Include="BusinessLayer\Business.cs" />
     <Compile Include="BusinessLayer\Presenters\Controller.cs" />
     <Compile Include="BusinessLayer\Coupon.cs" />
+    <Compile Include="BusinessLayer\RecommendByBoth.cs" />
+    <Compile Include="BusinessLayer\RecommendByCategory.cs" />
+    <Compile Include="BusinessLayer\RecommendByLocation.cs" />
+    <Compile Include="BusinessLayer\RecommendStrategy.cs" />
     <Compile Include="BusinessLayer\User.cs" />
     <Compile Include="BusinessLayer\Users_Admin.cs" />
     <Compile Include="BusinessLayer\Presenters\BusinessController.cs" />
@@ -164,6 +169,13 @@
     </Compile>
     <Compile Include="View\Profile.aspx.designer.cs">
       <DependentUpon>Profile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\Recommend.aspx.cs">
+      <DependentUpon>Recommend.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\Recommend.aspx.designer.cs">
+      <DependentUpon>Recommend.aspx</DependentUpon>
     </Compile>
     <Compile Include="View\RemoveCoupon.aspx.cs">
       <DependentUpon>RemoveCoupon.aspx</DependentUpon>
