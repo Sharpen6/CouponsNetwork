@@ -8,6 +8,6 @@ namespace CouponsOnline.BusinessLayer
 {
     public interface RecommendStrategy
     {
-        DataTable Recommend();
+        DataTable Recommend(string[] args);
     }
 }

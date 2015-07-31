@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.aspx" />
+    <Content Include="js\Locations.js" />
     <Content Include="js\script.js" />
     <Content Include="Model.edmx.sql" />
     <Content Include="View\css\backcity.jpg" />
@@ -163,6 +164,11 @@
     </Compile>
     <Compile Include="OrderedCoupon.cs">
       <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="View\Profile.aspx.cs">
       <DependentUpon>Profile.aspx</DependentUpon>
@@ -280,7 +286,9 @@
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
+    <None Include="Properties\PublishProfiles\coponline - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\coponline - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\coponline - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\coponline - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\coponline.pubxml" />
     <None Include="Web.Debug.config">
@@ -293,7 +301,12 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

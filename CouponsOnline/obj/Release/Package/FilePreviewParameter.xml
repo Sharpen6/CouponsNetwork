@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="coponline" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\User\\Documents\\GitHub\\CouponsNetwork\\CouponsOnline\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\Users\\User\\Documents\\GitHub\\CouponsNetwork\\CouponsOnline\\obj\\Release\\Package\\PackageTmp$" />
+  </parameter>
+  <parameter name="CouponsOnline.basicEntities-Web.config Connection String" description="" value="Data Source=paiwz6jrsa.database.windows.net;Initial Catalog=coponline_db;Persist Security Info=True;User ID=sagibaz;Password=Coupon123" tags="" />
+</parameters>

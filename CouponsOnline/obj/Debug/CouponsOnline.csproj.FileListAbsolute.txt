@@ -60,5 +60,7 @@ C:\Users\User\Documents\GitHub\CouponsNetwork\CouponsOnline\bin\System.Web.Http.
 C:\Users\User\Documents\GitHub\CouponsNetwork\CouponsOnline\bin\System.Web.Http.WebHost.xml
 C:\Users\User\Documents\GitHub\CouponsNetwork\CouponsOnline\obj\Debug\CouponsOnline.dll
 C:\Users\User\Documents\GitHub\CouponsNetwork\CouponsOnline\obj\Debug\CouponsOnline.pdb
-C:\Users\User\Documents\GitHub\CouponsNetwork\CouponsOnline\obj\Debug\CouponsOnline.csprojResolveAssemblyReference.cache
 C:\Users\Sagi\Documents\GitHub\CouponsNetwork\CouponsOnline\obj\Debug\CouponsOnline.csprojResolveAssemblyReference.cache
+C:\Users\User\Documents\GitHub\CouponsNetwork\CouponsOnline\obj\Debug\CouponsOnline.csprojResolveAssemblyReference.cache
+C:\Users\User\Documents\GitHub\CouponsNetwork\CouponsOnline\obj\Debug\CouponsOnline.Properties.Resources.resources
+C:\Users\User\Documents\GitHub\CouponsNetwork\CouponsOnline\obj\Debug\CouponsOnline.csproj.GenerateResource.Cache

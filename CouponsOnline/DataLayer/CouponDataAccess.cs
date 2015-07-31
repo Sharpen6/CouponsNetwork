@@ -185,6 +185,7 @@ namespace CouponsOnline.DataLayer
         }
         public static DataTable GetCouponsByCityAndInterest(string city, List<ListItem> selectedInterests)
         {
+            int cityNum =int.Parse(city);
             List<string> interests = new List<string>();
             foreach (var item in selectedInterests)
             {
@@ -195,7 +196,7 @@ namespace CouponsOnline.DataLayer
             {
                 foreach (var item in be.Coupons)
                 {
-                    if (item.Business.City.Id != int.Parse(city) || item.Business.Blocked) continue;
+                    if (item.Business.City.Id != cityNum) continue;
                     foreach (var interest in item.Interests)
                     {
                         if (interests.Contains(interest.Id.ToString()))

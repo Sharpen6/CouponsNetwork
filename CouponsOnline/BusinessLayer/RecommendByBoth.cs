@@ -8,7 +8,7 @@ namespace CouponsOnline.BusinessLayer
 {
     public class RecommendByBoth : RecommendStrategy
     {
-        public DataTable Recommend()
+        public DataTable Recommend(string[] args)
         {
             return null;
         }

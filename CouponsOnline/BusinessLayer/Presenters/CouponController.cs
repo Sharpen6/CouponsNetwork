@@ -83,9 +83,9 @@ namespace CouponsOnline.BusinessLayer.Presenters
             }
         }
 
-        internal static DataTable RecommendCoupons()
+        internal static DataTable RecommendCoupons(string[] args)
         {
-            return RecStrat.Recommend();
+            return RecStrat.Recommend(args);
         }
     }
 }
