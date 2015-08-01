@@ -18,7 +18,6 @@ namespace CouponsOnline
         {
             this.Interests = new HashSet<Interest>();
             this.OrderedCoupons = new HashSet<OrderedCoupon>();
-            this.Sensors = new HashSet<Sensor>();
         }
     
         public int Id { get; set; }
@@ -34,6 +33,5 @@ namespace CouponsOnline
         public virtual Business Business { get; set; }
         public virtual ICollection<Interest> Interests { get; set; }
         public virtual ICollection<OrderedCoupon> OrderedCoupons { get; set; }
-        public virtual ICollection<Sensor> Sensors { get; set; }
     }
 }

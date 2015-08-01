@@ -110,13 +110,16 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="BusinessLayer\Business.cs" />
+    <Compile Include="BusinessLayer\Factory\SensorFactory.cs" />
+    <Compile Include="BusinessLayer\Factory\SensorType.cs" />
+    <Compile Include="BusinessLayer\GeoLocator.cs" />
     <Compile Include="BusinessLayer\Presenters\Controller.cs" />
     <Compile Include="BusinessLayer\Coupon.cs" />
-    <Compile Include="BusinessLayer\RecommendationType.cs" />
-    <Compile Include="BusinessLayer\RecommendByBoth.cs" />
-    <Compile Include="BusinessLayer\RecommendByCategory.cs" />
-    <Compile Include="BusinessLayer\RecommendByLocation.cs" />
-    <Compile Include="BusinessLayer\RecommendStrategy.cs" />
+    <Compile Include="BusinessLayer\Strategy\RecommendationType.cs" />
+    <Compile Include="BusinessLayer\Strategy\RecommendByBoth.cs" />
+    <Compile Include="BusinessLayer\Strategy\RecommendByCategory.cs" />
+    <Compile Include="BusinessLayer\Strategy\RecommendByLocation.cs" />
+    <Compile Include="BusinessLayer\Strategy\RecommendStrategy.cs" />
     <Compile Include="BusinessLayer\User.cs" />
     <Compile Include="BusinessLayer\Users_Admin.cs" />
     <Compile Include="BusinessLayer\Presenters\BusinessController.cs" />
@@ -169,6 +172,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Time.cs">
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="View\Profile.aspx.cs">
       <DependentUpon>Profile.aspx</DependentUpon>
@@ -306,6 +312,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

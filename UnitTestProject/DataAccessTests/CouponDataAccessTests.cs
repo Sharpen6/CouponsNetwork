@@ -136,8 +136,8 @@ namespace UnitTestProject.DataAccessTests
             Interest i = TestInterest.AddInterest();
             List<string> items = new List<string>();
             items.Add(i.Id.ToString());
-            List<ListItem> interests = new List<ListItem>();
-            interests.Add(new ListItem(i.Id.ToString()));
+            List<string> interests = new List<string>();
+            interests.Add(i.Id.ToString());
             CouponDataAccess.CreateCoupon("copTest", "copTest", "3", "2", b, "01/01/2014", "4", items);
             DataTable dt = CouponDataAccess.GetCouponsByInterest(interests);
             Assert.AreNotEqual(dt.Rows.Count, 0);

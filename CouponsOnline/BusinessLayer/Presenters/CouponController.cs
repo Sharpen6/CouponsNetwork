@@ -28,9 +28,17 @@ namespace CouponsOnline.BusinessLayer.Presenters
             else
             if (city != "")
                 table = CouponDataAccess.GetCouponsByCity(city);
-            else  if (selectedInterests.Count != 0)
-                table = CouponDataAccess.GetCouponsByInterest(selectedInterests);
-            else  if (coordinateX != 0 && coordinateY != 0)
+            else if (selectedInterests.Count != 0)
+            {
+                List<string> interests = new List<string>();
+                foreach (var item in selectedInterests)
+                {
+                    interests.Add(item.Text);
+                }
+                table = CouponDataAccess.GetCouponsByInterest(interests);
+
+            }
+            else if (coordinateX != 0 && coordinateY != 0)
                 table = CouponDataAccess.GetCouponsByGps(coordinateX, coordinateY);
 
         

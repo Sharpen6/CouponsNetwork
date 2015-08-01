@@ -18,7 +18,6 @@ namespace CouponsOnline
         {
             this.OrderedCoupons = new HashSet<OrderedCoupon>();
             this.RecommendedCoupons = new HashSet<RecommendedCoupon>();
-            this.Sensors = new HashSet<Sensor>();
             this.Interests = new HashSet<Interest>();
         }
     
@@ -27,7 +26,6 @@ namespace CouponsOnline
         public virtual User User { get; set; }
         public virtual ICollection<OrderedCoupon> OrderedCoupons { get; set; }
         public virtual ICollection<RecommendedCoupon> RecommendedCoupons { get; set; }
-        public virtual ICollection<Sensor> Sensors { get; set; }
         public virtual ICollection<Interest> Interests { get; set; }
     }
 }

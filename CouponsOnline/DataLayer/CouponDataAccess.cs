@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CouponsOnline.BusinessLayer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -71,8 +72,7 @@ namespace CouponsOnline.DataLayer
                     dr[2] = item.OriginalPrice;
                     dr[3] = item.DiscountPrice;
                     dr[4] = item.Business.Name;
-
-                    dr[5] = item.Business.City.Name; ;
+                    dr[5] = item.Business.City.Name;
                     dr[6] = item.AvarageRanking;
                     dr[7] = item.MaxNum;
                     dr[8] = item.Id;
@@ -181,7 +181,40 @@ namespace CouponsOnline.DataLayer
         }
         public static DataTable GetCouponsByGps(double coordinateX, double coordinateY)
         {
-            throw new NotImplementedException();
+            DataTable table = new DataTable();
+            table.Columns.Add("How Far? (Km)");
+            table.Columns.Add("Name", typeof(string));
+            table.Columns.Add("Description", typeof(string));
+            table.Columns.Add("Original Price", typeof(double));
+            table.Columns.Add("New Price", typeof(double));
+            table.Columns.Add("Location", typeof(string));
+            table.Columns.Add("Rating", typeof(double));
+
+            using (basicEntities be = new basicEntities())
+            {
+                foreach (var item in be.Coupons)
+                {
+                    if (item.Business.Sensor_Id != null)
+                    {
+                        Location loc = be.Locations.Find(item.Business.Sensor_Id);
+                        string lon = loc.Longitude;
+                        string lat = loc.Latitude;
+                        double lon2 = double.Parse(lon);
+                        double lat2 = double.Parse(lat);
+                        DataRow dr = table.NewRow();
+                        dr[0] = GeoLocator.DistanceTo(coordinateX, coordinateY, lon2, lat2).ToString("0.## km");
+                        dr[1] = item.Name;
+                        dr[2] = item.Description;
+                        dr[3] = item.OriginalPrice;
+                        dr[4] = item.DiscountPrice;
+                        dr[5] = item.Business.City.Name;
+                        dr[6] = item.AvarageRanking;
+                       
+                        table.Rows.Add(dr);
+                    }
+                }
+            }
+            return table;
         }
         public static DataTable GetCouponsByCityAndInterest(string city, List<ListItem> selectedInterests)
         {
@@ -256,13 +289,8 @@ namespace CouponsOnline.DataLayer
                 return GetAllCoupons(bus.ToList());
             }
         }
-        public static DataTable GetCouponsByInterest(List<ListItem> selectedInterests)
+        public static DataTable GetCouponsByInterest(List<string> interests)
         {
-            List<string> interests = new List<string>();
-            foreach (var item in selectedInterests)
-            {
-                interests.Add(item.Text);
-            }
             List<int> bus = new List<int>();
             using (basicEntities be = new basicEntities())
             {

@@ -14,16 +14,6 @@ namespace CouponsOnline
     
     public partial class Sensor
     {
-        public Sensor()
-        {
-            this.Businesses = new HashSet<Business>();
-        }
-    
         public int Id { get; set; }
-    
-        public virtual ICollection<Business> Businesses { get; set; }
-        public virtual Location Location { get; set; }
-        public virtual Users_Customer Users_Customer { get; set; }
-        public virtual Coupon Coupon { get; set; }
     }
 }

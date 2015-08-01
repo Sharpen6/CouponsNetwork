@@ -41,9 +41,9 @@ namespace UnitTestProject
             using (basicEntities be = new basicEntities())
             {              
                 be.Locations.Find(loc.Id).Longitude = "31.4";
-                be.Locations.Find(loc.Id).Altitude = "56.9";
+                be.Locations.Find(loc.Id).Latitude = "56.9";
                 be.SaveChanges();
-                Assert.AreEqual(be.Locations.Find(loc.Id).Altitude, "56.9");
+                Assert.AreEqual(be.Locations.Find(loc.Id).Latitude, "56.9");
                 Assert.AreEqual(be.Locations.Find(loc.Id).Longitude, "31.4");
             }
             RemoveLocation(loc.Id);
@@ -51,15 +51,12 @@ namespace UnitTestProject
         public static Location AddLocation()
         {
             Location loc;
-            Sensor s = TestSensor.AddSensor();
             using (basicEntities be = new basicEntities())
             {
-                loc = new Location();
-                loc.Sensor = s;
-                be.Entry(s).State = System.Data.Entity.EntityState.Unchanged;
+                loc = new Location();              
                 loc.Id = 4;
                 loc.Longitude = "30.4";
-                loc.Altitude = "50.9";
+                loc.Latitude = "50.9";
                 be.Locations.Add(loc);
                 be.SaveChanges();
             }
@@ -73,13 +70,11 @@ namespace UnitTestProject
                 Location s = be.Locations.Find(id);               
                 if (s != null)
                 {
-                    sensorID = s.Sensor.Id;
                     be.Locations.Remove(s);
                     be.SaveChanges();
                     
                 }
             }
-            TestSensor.RemoveSensor(sensorID);
         }
     }
 }

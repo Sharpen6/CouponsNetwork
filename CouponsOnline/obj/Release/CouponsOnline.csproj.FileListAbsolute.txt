@@ -34,3 +34,5 @@ C:\Users\User\Documents\GitHub\CouponsNetwork\CouponsOnline\bin\System.Web.Http.
 C:\Users\User\Documents\GitHub\CouponsNetwork\CouponsOnline\obj\Release\CouponsOnline.csprojResolveAssemblyReference.cache
 C:\Users\User\Documents\GitHub\CouponsNetwork\CouponsOnline\obj\Release\CouponsOnline.dll
 C:\Users\User\Documents\GitHub\CouponsNetwork\CouponsOnline\obj\Release\CouponsOnline.pdb
+C:\Users\User\Documents\GitHub\CouponsNetwork\CouponsOnline\obj\Release\CouponsOnline.Properties.Resources.resources
+C:\Users\User\Documents\GitHub\CouponsNetwork\CouponsOnline\obj\Release\CouponsOnline.csproj.GenerateResource.Cache

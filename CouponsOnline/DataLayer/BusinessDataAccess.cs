@@ -1,9 +1,11 @@
 ﻿using CouponsOnline.BusinessLayer;
+using CouponsOnline.BusinessLayer.Factory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
+using System.Xml;
  
 
 namespace CouponsOnline.DataLayer
@@ -14,6 +16,12 @@ namespace CouponsOnline.DataLayer
         public static bool CreateBusiness(string ad, string owner, string address,
             string name, string categoryID, string cityID)
         {
+
+            XmlDocument xDoc = new XmlDocument();
+            xDoc.Load("http://maps.googleapis.com/maps/api/geocode/xml?address=" + address);
+            var lat = xDoc.SelectSingleNode("/GeocodeResponse/result/geometry/location/lat").InnerText;
+            var longitude = xDoc.SelectSingleNode("/GeocodeResponse/result/geometry/location/lng").InnerText;
+
             using (basicEntities be = new basicEntities())
             {
                 Business b = new Business();
@@ -23,6 +31,8 @@ namespace CouponsOnline.DataLayer
                 b.BusinessCategory = be.BusinessCategories.Find(int.Parse(categoryID));
                 b.Users_Admin = be.Users_Admin.Find(ad);
                 b.Users_Owner = be.Users_Owner.Find(owner);
+                string[] args = { longitude, lat };
+                b.Sensor_Id = be.Sensors.Find(SensorFactory.GetSensor(SensorType.Location, args)).Id;
                 be.Users_Owner.Find(owner).Businesses.Add(b);
                 be.Businesses.Add(b);
                 be.SaveChanges();

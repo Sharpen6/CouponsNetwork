@@ -38,8 +38,8 @@ namespace CouponsOnline.View
             }
             else
             {
-                LoadCategories();
-                LoadCities();
+                //LoadCategories();
+                //LoadCities();
                 ScriptManager.RegisterStartupScript(this, GetType(), "SwitchTo",
                     "SwitchTo('prevDiv')", true);
             }
@@ -88,7 +88,8 @@ namespace CouponsOnline.View
         protected void BtnAddBusiness_Click(object sender, EventArgs e)
         {
             string adminUser=Request.Cookies["ActiveUserName"].Value;
-            if (BusinessController.CreateBusiness(adminUser, DropDownListOwnersAdd.SelectedValue, TextBoxAddress.Text,
+            string fullAddress = TextBoxAddress.Text + " " + DropDownListCities.SelectedItem;
+                if (BusinessController.CreateBusiness(adminUser, DropDownListOwnersAdd.SelectedValue, fullAddress,
                 TextBoxBusinessName.Text, DropDownListCategories.SelectedValue, DropDownListCities.SelectedValue))
                 Response.Write("<script>alert('Business Successfully created!')</script>");
             else

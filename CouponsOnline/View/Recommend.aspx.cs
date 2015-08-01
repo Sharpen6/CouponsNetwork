@@ -46,9 +46,10 @@ namespace CouponsOnline.View
                 latitude = 0;
 
             string[] args = new string[3];
-            args[0] = longtitude.ToString();
-            args[1] = latitude.ToString();
-            args[2] = Request.Cookies["ActiveUserName"].Value;
+            args[0] = Request.Cookies["ActiveUserName"].Value;
+            args[1] = longtitude.ToString();
+            args[2] = latitude.ToString();
+            
 
            GridVresults.DataSource = CouponController.RecommendCoupons(args);
            GridVresults.DataBind();

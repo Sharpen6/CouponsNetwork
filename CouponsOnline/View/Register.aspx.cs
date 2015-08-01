@@ -118,14 +118,14 @@ namespace CouponsOnline.View
             foreach (var item in cities)
             {
                 if (item.Text=="Beer Sheva") {
-                    BusinessController.CreateBusiness("dorin", "sveta", "Ben gurion 24", "PetSheva shop", categories.First().Value, item.Value);
-                    BusinessController.CreateBusiness("dorin", "sveta", "Ben gurion 23", "Dogs For All", categories.First().Value, item.Value);
+                    BusinessController.CreateBusiness("dorin", "sveta", "Ben gurion 24 Beer sheva", "PetSheva shop", categories.First().Value, item.Value);
+                    BusinessController.CreateBusiness("dorin", "sveta", "Ben gurion 23 Beer sheva", "Dogs For All", categories.First().Value, item.Value);
 
                 }
                 else if (item.Text == "Tel Aviv")
                 {
-                    BusinessController.CreateBusiness("dorin", "sveta", "Rager 5", "Cars Inc.", categories.ElementAt(1).Value, item.Value);
-                    BusinessController.CreateBusiness("dorin", "sveta", "bialik", "Cofix", categories.ElementAt(2).Value, item.Value);
+                    BusinessController.CreateBusiness("dorin", "sveta", "Rager 5 Tel Aviv", "Cars Inc.", categories.ElementAt(1).Value, item.Value);
+                    BusinessController.CreateBusiness("dorin", "sveta", "bialik 4 Tel Aviv", "Cofix", categories.ElementAt(2).Value, item.Value);
                 }
             
 

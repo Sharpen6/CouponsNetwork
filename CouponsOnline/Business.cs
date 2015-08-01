@@ -26,7 +26,6 @@ namespace CouponsOnline
         public bool Blocked { get; set; }
     
         public virtual ICollection<Coupon> Coupons { get; set; }
-        public virtual Sensor Sensor { get; set; }
         public virtual Users_Admin Users_Admin { get; set; }
         public virtual City City { get; set; }
         public virtual BusinessCategories BusinessCategory { get; set; }

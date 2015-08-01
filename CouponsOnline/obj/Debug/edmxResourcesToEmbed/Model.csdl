@@ -14,10 +14,6 @@
       <End Role="Business" EntitySet="Businesses" />
       <End Role="Coupon" EntitySet="Coupons" />
     </AssociationSet>
-    <AssociationSet Name="FK_BusinessLocation" Association="basicModel.FK_BusinessLocation">
-      <End Role="Location" EntitySet="Sensors" />
-      <End Role="Business" EntitySet="Businesses" />
-    </AssociationSet>
     <AssociationSet Name="FK_Admin_inherits_User" Association="basicModel.FK_Admin_inherits_User">
       <End Role="User" EntitySet="Users" />
       <End Role="Users_Admin" EntitySet="Users_Admin" />
@@ -46,10 +42,6 @@
       <End Role="City" EntitySet="Cities" />
     </AssociationSet>
     <EntitySet Name="Locations" EntityType="basicModel.Location" />
-    <AssociationSet Name="LocationSensor" Association="basicModel.LocationSensor">
-      <End Role="Location" EntitySet="Locations" />
-      <End Role="Sensor" EntitySet="Sensors" />
-    </AssociationSet>
     <AssociationSet Name="RecommendeCouponCoupon" Association="basicModel.RecommendedCouponCoupon">
       <End Role="RecommendedCoupon" EntitySet="RecommendedCoupons" />
       <End Role="Coupon" EntitySet="Coupons" />
@@ -65,14 +57,6 @@
     <AssociationSet Name="Users_CustomerRecommendedCoupon" Association="basicModel.Users_CustomerRecommendedCoupon">
       <End Role="Users_Customer" EntitySet="Users_Customer" />
       <End Role="RecommendedCoupon" EntitySet="RecommendedCoupons" />
-    </AssociationSet>
-    <AssociationSet Name="SensorUsers_Customer" Association="basicModel.SensorUsers_Customer">
-      <End Role="Sensor" EntitySet="Sensors" />
-      <End Role="Users_Customer" EntitySet="Users_Customer" />
-    </AssociationSet>
-    <AssociationSet Name="SensorCoupon" Association="basicModel.SensorCoupon">
-      <End Role="Sensor" EntitySet="Sensors" />
-      <End Role="Coupon" EntitySet="Coupons" />
     </AssociationSet>
     <AssociationSet Name="BusinessCategoriesInterest" Association="basicModel.BusinessCategoriesInterest">
       <End Role="BusinessCategories" EntitySet="BusinessCategories" />
@@ -90,6 +74,19 @@
       <End Role="Business" EntitySet="Businesses" />
       <End Role="Users_Owner" EntitySet="Users_Owner" />
     </AssociationSet>
+    <AssociationSet Name="SensorBusiness" Association="basicModel.SensorBusiness">
+      <End Role="Sensor" EntitySet="Sensors" />
+      <End Role="Business" EntitySet="Businesses" />
+    </AssociationSet>
+    <AssociationSet Name="LocationSensor" Association="basicModel.LocationSensor">
+      <End Role="Location" EntitySet="Locations" />
+      <End Role="Sensor" EntitySet="Sensors" />
+    </AssociationSet>
+    <EntitySet Name="Times" EntityType="basicModel.Time" />
+    <AssociationSet Name="TimeSensor" Association="basicModel.TimeSensor">
+      <End Role="Time" EntitySet="Times" />
+      <End Role="Sensor" EntitySet="Sensors" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Business">
     <Key>
@@ -100,7 +97,6 @@
     <Property Name="Address" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Sensor_Id" Type="Int32" />
     <NavigationProperty Name="Coupons" Relationship="basicModel.FK_BusinessCoupon" FromRole="Business" ToRole="Coupon" />
-    <NavigationProperty Name="Sensor" Relationship="basicModel.FK_BusinessLocation" FromRole="Business" ToRole="Location" />
     <NavigationProperty Name="Users_Admin" Relationship="basicModel.Users_AdminBusiness" FromRole="Business" ToRole="Users_Admin" />
     <NavigationProperty Name="City" Relationship="basicModel.BusinessCity" FromRole="Business" ToRole="City" />
     <Property Name="Blocked" Type="Boolean" Nullable="false" />
@@ -123,17 +119,12 @@
     <NavigationProperty Name="Business" Relationship="basicModel.FK_BusinessCoupon" FromRole="Coupon" ToRole="Business" />
     <NavigationProperty Name="Interests" Relationship="basicModel.InterestCoupon" FromRole="Coupon" ToRole="Interest" />
     <NavigationProperty Name="OrderedCoupons" Relationship="basicModel.CouponOrderedCoupon" FromRole="Coupon" ToRole="OrderedCoupon" />
-    <NavigationProperty Name="Sensors" Relationship="basicModel.SensorCoupon" FromRole="Coupon" ToRole="Sensor" />
   </EntityType>
-  <EntityType Name="Sensor">
+  <EntityType Name="Sensor" Abstract="false">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <NavigationProperty Name="Businesses" Relationship="basicModel.FK_BusinessLocation" FromRole="Location" ToRole="Business" />
-    <NavigationProperty Name="Location" Relationship="basicModel.LocationSensor" FromRole="Sensor" ToRole="Location" />
-    <NavigationProperty Name="Users_Customer" Relationship="basicModel.SensorUsers_Customer" FromRole="Sensor" ToRole="Users_Customer" />
-    <NavigationProperty Name="Coupon" Relationship="basicModel.SensorCoupon" FromRole="Sensor" ToRole="Coupon" />
   </EntityType>
   <EntityType Name="OrderedCoupon">
     <Key>
@@ -188,7 +179,6 @@
     <NavigationProperty Name="User" Relationship="basicModel.FK_Customer_inherits_User" FromRole="Users_Customer" ToRole="User" />
     <NavigationProperty Name="OrderedCoupons" Relationship="basicModel.Users_CustomerOrderedCoupon" FromRole="Users_Customer" ToRole="OrderedCoupon" />
     <NavigationProperty Name="RecommendedCoupons" Relationship="basicModel.Users_CustomerRecommendedCoupon" FromRole="Users_Customer" ToRole="RecommendedCoupon" />
-    <NavigationProperty Name="Sensors" Relationship="basicModel.SensorUsers_Customer" FromRole="Users_Customer" ToRole="Sensor" />
     <NavigationProperty Name="Interests" Relationship="basicModel.Users_CustomerInterest" FromRole="Users_Customer" ToRole="Interest" />
   </EntityType>
   <EntityType Name="Users_Owner">
@@ -208,18 +198,6 @@
       </Principal>
       <Dependent Role="Coupon">
         <PropertyRef Name="Business_BusinessID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_BusinessLocation">
-    <End Type="basicModel.Sensor" Role="Location" Multiplicity="0..1" />
-    <End Type="basicModel.Business" Role="Business" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Location">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Business">
-        <PropertyRef Name="Sensor_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -305,15 +283,11 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Altitude" Type="String" Nullable="false" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="None" />
+    <Property Name="Latitude" Type="String" Nullable="false" />
     <Property Name="Longitude" Type="String" Nullable="false" />
     <NavigationProperty Name="Sensor" Relationship="basicModel.LocationSensor" FromRole="Location" ToRole="Sensor" />
   </EntityType>
-  <Association Name="LocationSensor">
-    <End Type="basicModel.Location" Role="Location" Multiplicity="0..1" />
-    <End Type="basicModel.Sensor" Role="Sensor" Multiplicity="1" />
-  </Association>
   <Association Name="RecommendedCouponCoupon">
     <End Type="basicModel.RecommendedCoupon" Role="RecommendedCoupon" Multiplicity="0..1" />
     <End Type="basicModel.Coupon" Role="Coupon" Multiplicity="1" />
@@ -340,14 +314,6 @@
     <Member Name="Facebook" />
     <Member Name="GooglePlus" />
   </EnumType>
-  <Association Name="SensorUsers_Customer">
-    <End Type="basicModel.Sensor" Role="Sensor" Multiplicity="*" />
-    <End Type="basicModel.Users_Customer" Role="Users_Customer" Multiplicity="0..1" />
-  </Association>
-  <Association Name="SensorCoupon">
-    <End Type="basicModel.Sensor" Role="Sensor" Multiplicity="*" />
-    <End Type="basicModel.Coupon" Role="Coupon" Multiplicity="0..1" />
-  </Association>
   <Association Name="BusinessCategoriesInterest">
     <End Type="basicModel.BusinessCategories" Role="BusinessCategories" Multiplicity="1" />
     <End Type="basicModel.Interest" Role="Interest" Multiplicity="*" />
@@ -363,5 +329,25 @@
   <Association Name="BusinessUsers_Owner">
     <End Type="basicModel.Business" Role="Business" Multiplicity="*" />
     <End Type="basicModel.Users_Owner" Role="Users_Owner" Multiplicity="1" />
+  </Association>
+  <Association Name="SensorBusiness">
+    <End Type="basicModel.Sensor" Role="Sensor" Multiplicity="0..1" />
+    <End Type="basicModel.Business" Role="Business" Multiplicity="0..1" />
+  </Association>
+  <Association Name="LocationSensor">
+    <End Type="basicModel.Location" Role="Location" Multiplicity="0..1" />
+    <End Type="basicModel.Sensor" Role="Sensor" Multiplicity="1" />
+  </Association>
+  <EntityType Name="Time">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+    <NavigationProperty Name="Sensor" Relationship="basicModel.TimeSensor" FromRole="Time" ToRole="Sensor" />
+    <Property Name="Value" Type="String" Nullable="false" />
+  </EntityType>
+  <Association Name="TimeSensor">
+    <End Type="basicModel.Time" Role="Time" Multiplicity="0..1" />
+    <End Type="basicModel.Sensor" Role="Sensor" Multiplicity="1" />
   </Association>
 </Schema>

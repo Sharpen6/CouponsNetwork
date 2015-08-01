@@ -12,11 +12,10 @@ namespace CouponsOnline
     using System;
     using System.Collections.Generic;
     
-    public partial class Location
+    public partial class Time
     {
         public int Id { get; set; }
-        public string Latitude { get; set; }
-        public string Longitude { get; set; }
+        public string Value { get; set; }
     
         public virtual Sensor Sensor { get; set; }
     }
