@@ -45,11 +45,12 @@ namespace CouponsOnline.View
             if (!double.TryParse(valLat, out latitude))
                 latitude = 0;
 
-            string[] args = new string[3];
+            string[] args = new string[4];
             args[0] = Request.Cookies["ActiveUserName"].Value;
             args[1] = longtitude.ToString();
             args[2] = latitude.ToString();
-            
+            if (TextBox1.Text == "") TextBox1.Text = "0";
+            args[3] = TextBox1.Text;
 
            GridVresults.DataSource = CouponController.RecommendCoupons(args);
            GridVresults.DataBind();
@@ -57,16 +58,19 @@ namespace CouponsOnline.View
         protected void RadioButton1_CheckedChanged(object sender, EventArgs e)
         {
             CouponController.SetRecommendationType(RecType.Location);
+            TextBox1.Visible = false;
         }
 
         protected void RadioButton2_CheckedChanged(object sender, EventArgs e)
         {
             CouponController.SetRecommendationType(RecType.Category);
+            TextBox1.Visible = false;
         }
 
         protected void RadioButton3_CheckedChanged(object sender, EventArgs e)
         {
             CouponController.SetRecommendationType(RecType.Both);
+            TextBox1.Visible = true;
         }
     }
 }

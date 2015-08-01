@@ -18,6 +18,9 @@ namespace CouponsOnline.BusinessLayer
                 interests.Add(i.Id.ToString());
             }
             DataTable table = CouponDataAccess.GetCouponsByInterest(interests);
+            table.Columns.Remove("Business");
+            table.Columns.Remove("CoupinId");
+            table.Columns.Remove("MaxNum");
             return table;
         }
     }

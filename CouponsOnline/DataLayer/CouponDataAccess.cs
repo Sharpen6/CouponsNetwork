@@ -189,6 +189,7 @@ namespace CouponsOnline.DataLayer
             table.Columns.Add("New Price", typeof(double));
             table.Columns.Add("Location", typeof(string));
             table.Columns.Add("Rating", typeof(double));
+            table.Columns.Add("CoupinId", typeof(string));
 
             using (basicEntities be = new basicEntities())
             {
@@ -209,6 +210,7 @@ namespace CouponsOnline.DataLayer
                         dr[4] = item.DiscountPrice;
                         dr[5] = item.Business.City.Name;
                         dr[6] = item.AvarageRanking;
+                        dr[7] = item.Id;
                        
                         table.Rows.Add(dr);
                     }

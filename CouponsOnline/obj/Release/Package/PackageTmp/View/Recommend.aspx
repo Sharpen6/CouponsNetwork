@@ -28,7 +28,11 @@
             <h1>Recommend:</h1>           
             <asp:RadioButton ID="RadioButton1" Text="By Location" runat="server"  AutoPostBack="true" GroupName="type" OnCheckedChanged="RadioButton1_CheckedChanged"/><br />
             <asp:RadioButton ID="RadioButton2" Text="By Your Preferences" runat="server" AutoPostBack="true" GroupName="type" OnCheckedChanged="RadioButton2_CheckedChanged"/><br />
-            <asp:RadioButton ID="RadioButton3" Text="By Both" runat="server" AutoPostBack="true" GroupName="type" OnCheckedChanged="RadioButton3_CheckedChanged"/><br />
+            <asp:RadioButton ID="RadioButton3" Text="By Both" runat="server" AutoPostBack="true" GroupName="type" OnCheckedChanged="RadioButton3_CheckedChanged"/>
+        </div>
+        <div>
+            Max distance? (km)<br />
+            <asp:TextBox ID="TextBox1" runat="server" Enabled="False">10</asp:TextBox>
         </div>
 
         <asp:HiddenField ID="hidden1" runat="server" />
