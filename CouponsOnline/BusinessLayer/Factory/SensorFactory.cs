@@ -14,8 +14,10 @@ namespace CouponsOnline.BusinessLayer.Factory
                 case SensorType.Location:
                     return CreateLocationSensor(args);
                 case SensorType.Time:
+                    CreateLocationSensor(args);
                     break;
                 case SensorType.Temperature:
+                    CreateTimeSensor(args);
                     break;
                 default:
                     break;
@@ -55,6 +57,10 @@ namespace CouponsOnline.BusinessLayer.Factory
                 be.SaveChanges();
             }
             return s.Id;
+        }
+        private static int CreateTemperatureSensor(string[] args)
+        {
+            throw new NotImplementedException();
         }
     }
 }

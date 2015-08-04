@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 08/01/2015 17:12:05
+-- Date Created: 08/02/2015 00:30:27
 -- Generated from EDMX file: C:\Users\User\Documents\GitHub\CouponsNetwork\CouponsOnline\Model.edmx
 -- --------------------------------------------------
 
@@ -74,6 +74,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_LocationSensor]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Locations] DROP CONSTRAINT [FK_LocationSensor];
 GO
+IF OBJECT_ID(N'[dbo].[FK_TimeSensor]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Times] DROP CONSTRAINT [FK_TimeSensor];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -117,6 +120,9 @@ IF OBJECT_ID(N'[dbo].[Cities]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[Locations]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Locations];
+GO
+IF OBJECT_ID(N'[dbo].[Times]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Times];
 GO
 IF OBJECT_ID(N'[dbo].[InterestCoupon]', 'U') IS NOT NULL
     DROP TABLE [dbo].[InterestCoupon];
