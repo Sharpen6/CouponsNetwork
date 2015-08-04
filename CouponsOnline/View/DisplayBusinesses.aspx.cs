@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CouponsOnline.BusinessLayer.Presenters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,6 +14,8 @@ namespace CouponsOnline.View
         {
             ScriptManager.RegisterStartupScript(this, GetType(),
                         "SwitchTo", "SwitchTo('home')", true);
+            GridView1.DataSource = BusinessController.GetAllBusinesses();
+            GridView1.DataBind();
         }
     }
 }

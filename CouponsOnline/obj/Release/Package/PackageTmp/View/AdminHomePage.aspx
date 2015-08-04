@@ -9,10 +9,11 @@
     <script src="../js/script.js"></script>
 </head>
 <body>
+    <header>
     <nav>
         <ul class="nav">
             <li>
-                <a href="#!/home" onclick="SwitchTo('home');">Home</a>
+                <a href="#!/home" onclick="SwitchTo('home');">Homellll</a>
             </li>
             <li class="dropdown">
                 <a href="#!/Manage Businesses">Manage Businesses</a>
@@ -55,6 +56,7 @@
                 </li>
         </ul>
     </nav>
+    </header>
     <form id="form1" runat="server">
     <div id="home" class="mainBox">
     <h1>welcome!</h1>
@@ -77,18 +79,12 @@
         <asp:TextBox ID="TextBoxCity" runat="server" placeholder="City Name"></asp:TextBox>
         <asp:Button ID="Button1" runat="server" Text="Add City" onclick="BtnAddCity_Click"/>
         <h1>Current Cities in DB:</h1>
-        <asp:GridView ID="GridView1" runat="server" DataSourceID="SqlDataSource1" AutoGenerateColumns="False" DataKeyNames="Id">
-                    <Columns>
-                        <asp:BoundField DataField="Id" HeaderText="Id" InsertVisible="False" ReadOnly="True" SortExpression="Id" />
-                        <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
-                    </Columns>
-                </asp:GridView>
-                <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:basicConnectionString %>" SelectCommand="SELECT [Name], [Id] FROM [Cities]"></asp:SqlDataSource>
+        <asp:GridView ID="GridView1" runat="server"></asp:GridView>
     </div>
            
         
      <div id="DeleteBusiness" class="mainBox">
-           <asp:DropDownList ID="DropDownListOwnersDelete" runat="server" placeholder="Pick Owner" AutoPostBack="true" OnSelectedIndexChanged="DropDownListOwner_SelectedIndexChanged"></asp:DropDownList>
+          <<asp:DropDownList ID="DropDownListOwnersDelete" runat="server" placeholder="Pick Owner" AutoPostBack="true" OnSelectedIndexChanged="DropDownListOwner_SelectedIndexChanged"></asp:DropDownList>
            <asp:DropDownList id="DropDownListBusniess" runat="server" placeholder="Pick Busniess" autoPostBack="true" OnSelectedIndexChanged="DropDownListBusniess_SelectedIndexChanged"></asp:DropDownList>
               
     <div id="editBus">
@@ -99,7 +95,7 @@
             <br />Change Category:<asp:DropDownList ID="DropDownListCategories1" runat="server" placeholder="Pick Category"></asp:DropDownList>
      
     </div>
-             <br />  <asp:Button ID="BtnBusiness" runat="server" Text="Delete Business" onclick="BtnBusiness_Click"/>
+            <br />  <asp:Button ID="BtnBusiness" runat="server" Text="Delete Business" onclick="BtnBusiness_Click"/>
                   <asp:Button ID="BtnEditBusiness" runat="server" Text="Edit Business" onclick="BtnEditBusiness_Click"/>
     </div>
         <div id="CreateCoupon" class="mainBox">

@@ -7,25 +7,23 @@ namespace CouponsOnline.BusinessLayer.Factory
 {
     public class SensorFactory
     {
-        public static int GetSensor(SensorType type, string[] args)
+        public static Sensor GetSensor(SensorType type, string[] args)
         {
             switch (type)
             {
                 case SensorType.Location:
                     return CreateLocationSensor(args);
                 case SensorType.Time:
-                    CreateLocationSensor(args);
-                    break;
+                    return CreateLocationSensor(args);
                 case SensorType.Temperature:
-                    CreateTimeSensor(args);
-                    break;
+                    return CreateTimeSensor(args);
                 default:
                     break;
             }
-            return 0;
+            return null;
         }
 
-        private static int CreateLocationSensor(string[] args)
+        private static Sensor CreateLocationSensor(string[] args)
         {
             Sensor s = new Sensor();
             Location loc = new Location();
@@ -40,9 +38,9 @@ namespace CouponsOnline.BusinessLayer.Factory
                 be.Locations.Add(loc);
                 be.SaveChanges();
             }
-            return s.Id;
+            return s;
         }
-        private static int CreateTimeSensor(string[] args)
+        private static Sensor CreateTimeSensor(string[] args)
         {
             Sensor s = new Sensor();
             Time time = new Time();
@@ -56,9 +54,9 @@ namespace CouponsOnline.BusinessLayer.Factory
                 be.Times.Add(time);
                 be.SaveChanges();
             }
-            return s.Id;
+            return s;
         }
-        private static int CreateTemperatureSensor(string[] args)
+        private static Sensor CreateTemperatureSensor(string[] args)
         {
             throw new NotImplementedException();
         }

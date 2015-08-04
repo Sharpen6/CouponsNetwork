@@ -5,7 +5,6 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Windows.Forms;
 
 namespace CouponsOnline.View
 {
@@ -14,8 +13,6 @@ namespace CouponsOnline.View
         
         protected void Page_Load(object sender, EventArgs e)
         {
-
-
             if (!IsPostBack)
             {
                 string username = Request.Cookies["ActiveUserName"].Value;
@@ -57,6 +54,8 @@ namespace CouponsOnline.View
             DropDownListCities.DataBind();
             DropDownListCities1.DataSource = Controller.GetAllCites();
             DropDownListCities1.DataBind();
+            GridView1.DataSource = Controller.GetAllCites();
+            GridView1.DataBind();
             //DropDownListCities.Items.AddRange(Controller.GetAllCites());
             //DropDownListCities1.Items.AddRange(Controller.GetAllCites());
         }

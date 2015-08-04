@@ -87,6 +87,7 @@
     <Content Include="js\Locations.js" />
     <Content Include="js\script.js" />
     <Content Include="Model.edmx.sql" />
+    <Content Include="View\AdminPanel.aspx" />
     <Content Include="View\css\backcity.jpg" />
     <Content Include="View\Profile.aspx" />
     <Content Include="View\Recommend.aspx" />
@@ -100,7 +101,9 @@
     <Content Include="View\OwnerHomePage.aspx" />
     <Content Include="View\Register.aspx" />
     <Content Include="View\SearchCoupon.aspx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business.cs">
@@ -175,6 +178,13 @@
     </Compile>
     <Compile Include="Time.cs">
       <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdminPanel.aspx.cs">
+      <DependentUpon>AdminPanel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\AdminPanel.aspx.designer.cs">
+      <DependentUpon>AdminPanel.aspx</DependentUpon>
     </Compile>
     <Compile Include="View\Profile.aspx.cs">
       <DependentUpon>Profile.aspx</DependentUpon>

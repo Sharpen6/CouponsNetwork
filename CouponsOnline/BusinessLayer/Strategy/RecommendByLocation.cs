@@ -14,7 +14,10 @@ namespace CouponsOnline.BusinessLayer
             double lon = double.Parse(args[1]);
             double lat = double.Parse(args[2]);
             DataTable table = CouponDataAccess.GetCouponsByGps(lon, lat);
-            return table;
+            DataView dv = table.DefaultView;
+            dv.Sort = "[How Far?]";
+            DataTable sortedDT = dv.ToTable();
+            return sortedDT;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using CouponsOnline.DataLayer;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
@@ -24,9 +25,14 @@ namespace CouponsOnline.BusinessLayer.Presenters
         }
 
 
-      
 
-           
+
+
+
+        internal static DataTable GetAllBusinesses()
+        {
+            return BusinessDataAccess.GetAllBusinesses();
+        }
     }
 
 }

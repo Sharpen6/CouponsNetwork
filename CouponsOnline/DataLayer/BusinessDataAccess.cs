@@ -2,6 +2,8 @@
 using CouponsOnline.BusinessLayer.Factory;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
@@ -32,7 +34,7 @@ namespace CouponsOnline.DataLayer
                 b.Users_Admin = be.Users_Admin.Find(ad);
                 b.Users_Owner = be.Users_Owner.Find(owner);
                 string[] args = { longitude, lat };
-                b.Sensor_Id = be.Sensors.Find(SensorFactory.GetSensor(SensorType.Location, args)).Id;
+                b.Sensor_Id = SensorFactory.GetSensor(SensorType.Location, args).Id;
                 be.Users_Owner.Find(owner).Businesses.Add(b);
                 be.Businesses.Add(b);
                 be.SaveChanges();
@@ -153,6 +155,23 @@ namespace CouponsOnline.DataLayer
             return ans;
         }
 
+
+        internal static System.Data.DataTable GetAllBusinesses()
+        {
+            string sqlcmd = "SELECT Businesses.BusinessID AS [Business ID], Businesses.Name AS [Business name], Businesses.Address, Cities.Name AS City, Businesses.Blocked AS [Is Blocked], BusinessCategories.Description AS Category, Users_Admin.UserName AS Creator, Users_Owner.UserName AS Owner FROM Businesses INNER JOIN Users_Admin ON Businesses.Users_Admin_UserName = Users_Admin.UserName INNER JOIN Users_Owner ON Businesses.Users_Owner_UserName = Users_Owner.UserName INNER JOIN BusinessCategories ON Businesses.BusinessCategory_id = BusinessCategories.Id INNER JOIN Cities ON Businesses.City_Id = Cities.Id ORDER BY [Business ID]";
+            basicEntities be = new basicEntities();
+            using (SqlConnection con = new SqlConnection(be.Database.Connection.ConnectionString))
+            {
+                con.Open();
+                using (SqlDataAdapter da = new SqlDataAdapter(sqlcmd, con))
+                    {
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    return dt;
+                    }
+            }
+         
+        }
     }
     
 }

@@ -182,7 +182,7 @@ namespace CouponsOnline.DataLayer
         public static DataTable GetCouponsByGps(double coordinateX, double coordinateY)
         {
             DataTable table = new DataTable();
-            table.Columns.Add("How Far? (Km)");
+            table.Columns.Add("How Far?", typeof(double));
             table.Columns.Add("Name", typeof(string));
             table.Columns.Add("Description", typeof(string));
             table.Columns.Add("Original Price", typeof(double));
@@ -203,7 +203,7 @@ namespace CouponsOnline.DataLayer
                         double lon2 = double.Parse(lon);
                         double lat2 = double.Parse(lat);
                         DataRow dr = table.NewRow();
-                        dr[0] = GeoLocator.DistanceTo(coordinateX, coordinateY, lon2, lat2).ToString("0.## km");
+                        dr[0] = GeoLocator.DistanceTo(coordinateX, coordinateY, lon2, lat2).ToString("0.##");
                         dr[1] = item.Name;
                         dr[2] = item.Description;
                         dr[3] = item.OriginalPrice;
